@@ -283,7 +283,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
         },
         body: JSON.stringify({
           model: 'claude-sonnet-4-6',
-          max_tokens: 1500,
+          max_tokens: 4096,
           messages: [{ role: 'user', content: prompt }],
         }),
       });
@@ -295,8 +295,9 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
 
       const data = await response.json();
       const text = data.content?.[0]?.text || '';
-      const cleaned = text.replace(/```json|```/g, '').trim();
-      const parsed = JSON.parse(cleaned);
+      const match = text.match(/\{[\s\S]*\}/);
+      if (!match) throw new Error('Odpověď neobsahuje JSON');
+      const parsed = JSON.parse(match[0]);
       setAnalysis(parsed);
       setStep(3);
     } catch (e) {
