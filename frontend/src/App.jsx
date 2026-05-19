@@ -521,7 +521,7 @@ function DatasetCard({ d, selected, onToggle }) {
         <>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, margin: '14px 0 8px' }}>
             <span style={{ fontSize: 28, fontWeight: 700, color: trendColor }} className="num serif">
-              {d.delta > 0 ? '+' : ''}{d.delta}\u202F%
+              {d.delta > 0 ? '+' : ''}{d.delta}{'\u202F%'}
             </span>
             <span style={{ fontSize: 12, color: '#666' }}>{d.data[0].year}–{last.year}</span>
           </div>
@@ -569,7 +569,7 @@ function ComparisonBars({ rows }) {
               <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: `${width}%`, background: color }}/>
             </div>
             <span className="num" style={{ textAlign: 'right', fontWeight: r.isUs ? 700 : 400 }}>
-              {typeof r.value === 'number' && r.value % 1 !== 0 ? r.value.toFixed(1) : r.value}\u202F%
+              {typeof r.value === 'number' && r.value % 1 !== 0 ? r.value.toFixed(1) : r.value}{'\u202F%'}
             </span>
           </div>
         );
