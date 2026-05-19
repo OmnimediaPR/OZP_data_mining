@@ -18,7 +18,7 @@ const INTL_DATASETS = [
     id: 'eu_cvd_share',
     label: 'Podíl KVO na všech úmrtích — EU srovnání',
     human_name: 'Podíl srdečních a cévních úmrtí (EU srovnání)',
-    description: 'Kolik procent všech úmrtí způsobí KVO — pozice ČR v rámci EU.',
+    description: 'Kolik procent všech úmrtí způsobí kardiovaskulární onemocnění — pozice ČR v rámci EU.',
     code: 'hlth_cd_aro',
     source: 'Eurostat', source_type: 'international', updated: '7/2025', coverage: '2022',
     trend: 'comparison', delta: null, peakYear: null,
@@ -55,7 +55,7 @@ const INTL_DATASETS = [
       { country: 'ČR (MedPed 2016)', value: 17.4, hi: true, isUs: true },
       { country: 'V. Británie (NHS)', value: 8 },
     ],
-    trend_context: 'Procento odhadované FH populace, která je už diagnostikovaná. POZOR: roky se mírně liší (ČR 2016, NL/UK 2023), srovnatelnost spíše orientační.'
+    trend_context: 'Procento odhadované populace s dědičně vysokým cholesterolem, která je už diagnostikovaná. POZOR: roky se mírně liší (ČR 2016, NL/UK 2023), srovnatelnost spíše orientační.'
   },
 ];
 
@@ -464,6 +464,8 @@ function DatasetCard({ d, selected, onToggle }) {
   const trendColor = d.trend === 'up' ? '#1F6F47' : d.trend === 'down' ? '#9A2A1F' : '#7A6F2A';
   const trendWord = d.trend === 'up' ? 'Růst' : d.trend === 'down' ? 'Pokles' : 'Změna';
   const fmtNum = (n) => n.toLocaleString('cs-CZ');
+  const title = d.human_name || d.label;
+  const showTechLabel = d.label && d.human_name && d.human_name !== d.label;
 
   return (
     <div onClick={onToggle} style={{
@@ -477,7 +479,7 @@ function DatasetCard({ d, selected, onToggle }) {
           fontSize: 9, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase',
           padding: '2px 6px',
           background: isInternational ? '#1F4E8C' : '#444', color: '#FFFFFF',
-        }}>{isInternational ? 'EU/OECD' : 'NKIS'}</span>
+        }}>{isInternational ? 'EU/OECD' : 'Česká data'}</span>
         <div style={{
           width: 22, height: 22, border: '1.5px solid #1A1A1A',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -487,15 +489,15 @@ function DatasetCard({ d, selected, onToggle }) {
         </div>
       </div>
 
-      {/* 2. Velký lidský název */}
-      {d.human_name && (
+      {/* 2. Velký lidský název (s fallbackem na label, pokud human_name chybí) */}
+      {title && (
         <div className="serif" style={{ fontSize: 22, fontWeight: 700, lineHeight: 1.2, marginBottom: 2 }}>
-          {d.human_name}
+          {title}
         </div>
       )}
 
-      {/* 3. Technický název v závorce, šedě */}
-      {d.label && (
+      {/* 3. Technický název v závorce — jen pokud se liší od lidského */}
+      {showTechLabel && (
         <div style={{ fontSize: 12, color: '#888', marginBottom: 10 }}>
           ({d.label})
         </div>
@@ -562,11 +564,12 @@ function DatasetCard({ d, selected, onToggle }) {
         </div>
       )}
 
-      {/* 8. Zdroj / kód / aktualizováno */}
+      {/* 8. Data / kód / aktualizováno */}
       <div style={{ fontSize: 10, color: '#888', marginTop: 12, lineHeight: 1.4 }}>
-        Zdroj: {d.source}
-        {d.code && ` · ${isInternational ? 'kód' : 'kód MKN-10'}: ${d.code}`}
-        {d.updated && ` · aktualizováno ${d.updated}`}
+        {isInternational
+          ? <>Data: {d.source}{d.code && ` · ${d.code}`}{d.updated && ` · aktualizováno ${d.updated}`}</>
+          : <>Data: ÚZIS ČR{d.code && ` · diagnostický kód ${d.code}`}{d.updated && ` · aktualizováno ${d.updated}`}</>
+        }
       </div>
     </div>
   );

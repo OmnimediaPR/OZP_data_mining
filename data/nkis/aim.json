@@ -1,7 +1,7 @@
 {
   "id": "aim",
   "label": "Akutní infarkt myokardu",
-  "human_name": "Srdeční infarkt",
+  "human_name": "Akutní infarkt myokardu",
   "description": "Akutní ucpání věnčité tepny — život ohrožující stav.",
   "code": "I21-I22",
   "source": "NRHZS / NKIS",

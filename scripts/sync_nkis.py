@@ -30,7 +30,7 @@ OUT_DIR = Path(__file__).parent.parent / "data" / "nkis"
 DATASETS = {
     "aim": {
         "label": "Akutní infarkt myokardu",
-        "human_name": "Srdeční infarkt",
+        "human_name": "Akutní infarkt myokardu",
         "description": "Akutní ucpání věnčité tepny — život ohrožující stav.",
         "code": "I21-I22",
         "url": "https://datanzis.uzis.gov.cz/data/OIS-01-NKIS/OIS-01-14/Otevrena-data-OIS-01-14-akutni-infarkt-myokardu.csv",
@@ -41,18 +41,18 @@ DATASETS = {
     },
     "cmp": {
         "label": "Cévní mozková příhoda",
-        "human_name": "Mozková mrtvice",
+        "human_name": "Cévní mozková příhoda",
         "description": "Akutní porucha krevního zásobení mozku.",
         "code": "I60-I64",
         "url": "https://datanzis.uzis.gov.cz/data/OIS-01-NKIS/OIS-01-15/Otevrena-data-OIS-01-15-cevni-mozkova-prihoda.csv",
         "metric": "incidence_rocni",
         "metric_label": "Roční incidence v ČR",
-        "relevant_for": ["prevence mrtvice", "hypertenze", "fibrilace síní", "neurologie"],
-        "trend_context": "Pokles podobný jako u AIM — díky stroke center síti od 2011.",
+        "relevant_for": ["prevence cévních mozkových příhod", "vysoký krevní tlak", "fibrilace síní", "neurologie"],
+        "trend_context": "Pokles podobný jako u akutního infarktu myokardu — díky síti specializovaných center pro léčbu cévních mozkových příhod od roku 2011.",
     },
     "hyp": {
         "label": "Hypertenze (léčená)",
-        "human_name": "Vysoký krevní tlak",
+        "human_name": "Vysoký krevní tlak (hypertenze)",
         "description": "Chronicky zvýšený krevní tlak — hlavní rizikový faktor srdečních a mozkových příhod.",
         "code": "I10",
         "url": None,  # TODO: doplnit z NZIP 1663
@@ -64,7 +64,7 @@ DATASETS = {
     "hf": {
         "label": "Srdeční selhání",
         "human_name": "Srdeční selhání",
-        "description": "Stav, kdy srdce nedokáže dostatečně pumpovat krev — často chronický důsledek infarktu nebo hypertenze.",
+        "description": "Stav, kdy srdce nedokáže dostatečně pumpovat krev — často chronický důsledek prodělaného infarktu nebo dlouhodobého vysokého tlaku.",
         "code": "I50",
         "url": None,  # TODO: doplnit z NZIP 1664
         "metric": "prevalence_historie",
@@ -74,14 +74,14 @@ DATASETS = {
     },
     "kvo": {
         "label": "Zátěž KVO v populaci ČR",
-        "human_name": "Kardiovaskulární onemocnění (souhrnně)",
-        "description": "Souhrn všech KVO diagnóz — pohled na celkovou zátěž populace.",
+        "human_name": "Kardiovaskulární onemocnění (souhrn)",
+        "description": "Souhrn všech srdečních a cévních diagnóz — pohled na celkovou zátěž populace.",
         "code": "I00-I99",
         "url": None,  # TODO: doplnit z NZIP 1666
         "metric": "prevalence_historie",
-        "metric_label": "Pacienti s KVO v ČR",
-        "relevant_for": ["celkový kontext", "trend KVO v ČR", "prevence"],
-        "trend_context": "Souhrnný ukazatel zátěže — zahrnuje incidenci i prevalenci napříč všemi I-diagnózami.",
+        "metric_label": "Pacienti s kardiovaskulárním onemocněním v ČR",
+        "relevant_for": ["celkový kontext", "trend kardiovaskulárních onemocnění v ČR", "prevence"],
+        "trend_context": "Souhrnný pohled na zátěž populace — zahrnuje nové i existující případy napříč všemi srdečními a cévními onemocněními.",
     },
 }
 
