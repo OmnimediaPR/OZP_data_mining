@@ -21,6 +21,7 @@ const INTL_DATASETS = [
     description: 'Kolik procent všech úmrtí způsobí kardiovaskulární onemocnění — pozice ČR v rámci EU.',
     code: 'hlth_cd_aro',
     source: 'Eurostat', source_type: 'international', updated: '7/2025', coverage: '2022',
+    source_url: 'https://ec.europa.eu/eurostat/databrowser/view/hlth_cd_aro/default/table',
     trend: 'comparison', delta: null, peakYear: null,
     relevant_for: ['mezinárodní kontext', 'celkový pohled'],
     data: [
@@ -44,6 +45,7 @@ const INTL_DATASETS = [
     description: 'Procento osob s dědičnou hypercholesterolemií, které jsou v zemi diagnostikovány.',
     code: 'MedPed / NL FH',
     source: 'Vrablík et al. / PLOS GPH', source_type: 'international', updated: '2016 / 2023', coverage: 'různé roky',
+    source_url: null,
     trend: 'comparison', delta: null, peakYear: null,
     relevant_for: ['genetika', 'cholesterol', 'prevence u mladých', 'mezinárodní srovnání'],
     data: [
@@ -242,12 +244,12 @@ export default function App() {
 
       const nationalSummary = nationalDs.map(d => {
         const first = d.data[0], last = d.data[d.data.length - 1];
-        return `- ${d.label} (MKN ${d.code}): ${first.value.toLocaleString('cs-CZ')} v ${first.year} → ${last.value.toLocaleString('cs-CZ')} v ${last.year} (Δ ${d.delta > 0 ? '+' : ''}${d.delta} %). Trend: ${d.trend === 'up' ? 'rostoucí' : d.trend === 'down' ? 'klesající' : 'plateau'}, peak ${d.peakYear}. Kontext: ${d.trend_context || ''}`;
+        return `- [id: ${d.id}] ${d.label} (MKN ${d.code}): ${first.value.toLocaleString('cs-CZ')} v ${first.year} → ${last.value.toLocaleString('cs-CZ')} v ${last.year} (Δ ${d.delta > 0 ? '+' : ''}${d.delta} %). Trend: ${d.trend === 'up' ? 'rostoucí' : d.trend === 'down' ? 'klesající' : 'plateau'}, peak ${d.peakYear}. Kontext: ${d.trend_context || ''}`;
       }).join('\n');
 
       const intlSummary = intlDs.map(d => {
         const comp = d.comparison ? d.comparison.map(c => `${c.country}: ${c.value}${typeof c.value === 'number' && Math.abs(c.value) < 200 ? ' %' : ''}`).join('; ') : '';
-        return `- ${d.label} (zdroj: ${d.source} ${d.code}, ${d.coverage}): ${comp}. Pozn. ke srovnatelnosti: ${d.trend_context || ''}`;
+        return `- [id: ${d.id}] ${d.label} (zdroj: ${d.source} ${d.code}, ${d.coverage}): ${comp}. Pozn. ke srovnatelnosti: ${d.trend_context || ''}`;
       }).join('\n');
 
       const prompt = `Jsi datový analytik pro českou PR agenturu. NEPÍŠEŠ tiskové zprávy. Tvoje práce je z dat vytáhnout zjištění a doporučit úhly — PR manažer si text napíše sám.
@@ -264,9 +266,14 @@ ${intlSummary}
 DŮLEŽITÉ: vždy zmiň rok dat a metodiku. Pokud roky nesedí, uveď orientačnost. NEPOUŽÍVEJ OECD ukazatel "30denní mortalita po AIM" — není srovnatelný (Stolpe et al. 2023).
 ` : ''}
 
+PRAVIDLO PRO ZKRATKY V ANALÝZE:
+- Při prvním použití termínu, který má v češtině/angličtině zkratku (např. AIM, KVO, FH, ICHS, CMP, NRHZS), napiš plný název a zkratku v závorce: "akutní infarkt myokardu (AIM)". V dalších použitích už používej jen zkratku.
+- U mezinárodních termínů totéž: "Eurostat hlth_cd_aro" první výskyt, pak jen "Eurostat".
+- Cíl: text musí být srozumitelný pro PR pracovníka, ne kardiologa.
+
 Vrať POUZE platný JSON, žádné markdown, žádný úvod:
 {
-  "key_findings": [{"number": "+70 %", "label": "...", "explanation": "...", "dataset": "..."}],
+  "key_findings": [{"number": "+70 %", "label": "...", "explanation": "...", "dataset": "id datasetu (např. 'aim', 'cmp', 'eu_cvd_share') — ne lidský název"}],
   "meta_pattern": "1–2 věty",
   "angles": [{"label": "...", "observation": "1–2 věty pozorování, ne kopie", "key_data": ["..."], "risk": "..."}],
   "cannot_claim": [{"claim": "...", "why": "..."}]
@@ -407,7 +414,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
               </button>
             </div>
           ) : (
-            <AnalysisView analysis={analysis} onRerun={() => { setAnalysis(null); runAnalysis(); }} />
+            <AnalysisView analysis={analysis} datasets={selectedDatasets} onRerun={() => { setAnalysis(null); runAnalysis(); }} />
           )}
         </section>
       </div>
@@ -566,12 +573,26 @@ function DatasetCard({ d, selected, onToggle }) {
         </div>
       )}
 
-      {/* 8. Data / kód / aktualizováno */}
+      {/* 8. Data / kód / aktualizováno — kód je klikatelný link na source_url */}
       <div style={{ fontSize: 10, color: '#888', marginTop: 12, lineHeight: 1.4 }}>
-        {isInternational
-          ? <>Data: {d.source}{d.code && ` · ${d.code}`}{d.updated && ` · aktualizováno ${d.updated}`}</>
-          : <>Data: ÚZIS ČR{d.code && ` · diagnostický kód ${d.code}`}{d.updated && ` · aktualizováno ${d.updated}`}</>
-        }
+        {isInternational ? 'Data: ' : 'Data: ÚZIS ČR'}
+        {isInternational && d.source}
+        {d.code && (
+          <>
+            {' · '}
+            {!isInternational && 'diagnostický kód '}
+            {d.source_url ? (
+              <a
+                href={d.source_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                style={{ color: '#1F4E8C', textDecoration: 'underline' }}
+              >{d.code}</a>
+            ) : d.code}
+          </>
+        )}
+        {d.updated && ` · aktualizováno ${d.updated}`}
       </div>
     </div>
   );
@@ -600,7 +621,16 @@ function ComparisonBars({ rows }) {
   );
 }
 
-function AnalysisView({ analysis, onRerun }) {
+// Najde dataset podle id v seznamu — prompt instruuje AI vracet id v poli `dataset`,
+// fallback na human_name/label pro robustnost, kdyby AI instrukci nedodržela.
+function findDatasetById(idOrName, datasets) {
+  if (!idOrName || !datasets) return null;
+  return datasets.find(d =>
+    d.id === idOrName || d.human_name === idOrName || d.label === idOrName
+  ) || null;
+}
+
+function AnalysisView({ analysis, datasets, onRerun }) {
   return (
     <div style={{ marginTop: 16 }}>
       {analysis.meta_pattern && (
@@ -616,15 +646,26 @@ function AnalysisView({ analysis, onRerun }) {
 
       <h3 className="serif" style={{ fontSize: 20, marginBottom: 12 }}>Klíčová zjištění</h3>
       <div style={{ display: 'grid', gap: 8, marginBottom: 24 }}>
-        {analysis.key_findings?.map((f, i) => (
-          <div key={i} style={{ display: 'grid', gridTemplateColumns: '100px 1fr', gap: 12, padding: 12, background: '#FFFFFF', border: '1px solid #DDD8C8' }}>
-            <div className="num serif" style={{ fontSize: 24, fontWeight: 700, color: '#C9302C' }}>{f.number}</div>
-            <div>
-              <div style={{ fontWeight: 600, marginBottom: 2 }}>{f.label}</div>
-              <div style={{ fontSize: 13, color: '#555' }}>{f.explanation}</div>
+        {analysis.key_findings?.map((f, i) => {
+          const ds = findDatasetById(f.dataset, datasets);
+          const dsName = ds ? (ds.human_name || ds.label) : null;
+          return (
+            <div key={i} style={{ display: 'grid', gridTemplateColumns: '100px 1fr', gap: 12, padding: 12, background: '#FFFFFF', border: '1px solid #DDD8C8' }}>
+              <div className="num serif" style={{ fontSize: 24, fontWeight: 700, color: '#C9302C' }}>{f.number}</div>
+              <div>
+                <div style={{ fontWeight: 600, marginBottom: 2 }}>{f.label}</div>
+                <div style={{ fontSize: 13, color: '#555' }}>{f.explanation}</div>
+                {dsName && (
+                  <div style={{ fontSize: 11, color: '#888', marginTop: 6 }}>
+                    Zdroj: {ds.source_url ? (
+                      <a href={ds.source_url} target="_blank" rel="noopener noreferrer" style={{ color: '#1F4E8C' }}>{dsName}</a>
+                    ) : dsName}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <h3 className="serif" style={{ fontSize: 20, marginBottom: 12 }}>Doporučené úhly</h3>

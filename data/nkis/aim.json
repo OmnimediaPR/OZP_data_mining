@@ -62,5 +62,6 @@
       "value": 14398
     }
   ],
-  "source_url": "https://datanzis.uzis.gov.cz/data/OIS-01-NKIS/OIS-01-14/Otevrena-data-OIS-01-14-akutni-infarkt-myokardu.csv"
+  "data_url": "https://datanzis.uzis.gov.cz/data/OIS-01-NKIS/OIS-01-14/Otevrena-data-OIS-01-14-akutni-infarkt-myokardu.csv",
+  "source_url": "https://www.nzip.cz/data/2704-akutni-infarkt-myokardu-otevrena-data"
 }

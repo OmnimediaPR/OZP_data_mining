@@ -34,6 +34,7 @@ DATASETS = {
         "description": "Akutní ucpání věnčité tepny — život ohrožující stav.",
         "code": "I21-I22",
         "url": "https://datanzis.uzis.gov.cz/data/OIS-01-NKIS/OIS-01-14/Otevrena-data-OIS-01-14-akutni-infarkt-myokardu.csv",
+        "source_url": "https://www.nzip.cz/data/2704-akutni-infarkt-myokardu-otevrena-data",
         "metric": "incidence_rocni",
         "metric_label": "Roční incidence v ČR",
         "relevant_for": ["kardiovaskulární prevence", "cholesterol", "kouření", "životní styl"],
@@ -45,6 +46,7 @@ DATASETS = {
         "description": "Akutní porucha krevního zásobení mozku.",
         "code": "I60-I64",
         "url": "https://datanzis.uzis.gov.cz/data/OIS-01-NKIS/OIS-01-15/Otevrena-data-OIS-01-15-cevni-mozkova-prihoda.csv",
+        "source_url": "https://www.nzip.cz/data/2705-cevni-mozkova-prihoda-otevrena-data",
         "metric": "incidence_rocni",
         "metric_label": "Roční incidence v ČR",
         "relevant_for": ["prevence cévních mozkových příhod", "vysoký krevní tlak", "fibrilace síní", "neurologie"],
@@ -56,6 +58,7 @@ DATASETS = {
         "description": "Chronicky zvýšený krevní tlak — hlavní rizikový faktor srdečních a mozkových příhod.",
         "code": "I10",
         "url": None,  # TODO: doplnit z NZIP 1663
+        "source_url": "https://www.nzip.cz/data/1663-hypertenze-otevrena-data",
         "metric": "prevalence_historie",
         "metric_label": "Léčení pacienti v ČR",
         "relevant_for": ["prevence", "životní styl", "cholesterol", "stárnutí populace"],
@@ -67,6 +70,7 @@ DATASETS = {
         "description": "Stav, kdy srdce nedokáže dostatečně pumpovat krev — často chronický důsledek prodělaného infarktu nebo dlouhodobého vysokého tlaku.",
         "code": "I50",
         "url": None,  # TODO: doplnit z NZIP 1664
+        "source_url": "https://www.nzip.cz/data/1664-srdecni-selhani-epidemiologie-otevrena-data",
         "metric": "prevalence_historie",
         "metric_label": "Léčení pacienti v ČR",
         "relevant_for": ["chronická onemocnění", "stárnutí populace", "kvalita života"],
@@ -78,6 +82,7 @@ DATASETS = {
         "description": "Souhrn všech srdečních a cévních diagnóz — pohled na celkovou zátěž populace.",
         "code": "I00-I99",
         "url": None,  # TODO: doplnit z NZIP 1666
+        "source_url": "https://www.nzip.cz/data/1666-kardiovaskularni-onemocneni-zatez-ceska-republika-otevrena-data",
         "metric": "prevalence_historie",
         "metric_label": "Pacienti s kardiovaskulárním onemocněním v ČR",
         "relevant_for": ["celkový kontext", "trend kardiovaskulárních onemocnění v ČR", "prevence"],
@@ -240,7 +245,8 @@ def sync_one(dataset_id: str, cfg: dict) -> str:
         "delta": meta["delta"],
         "peakYear": meta["peakYear"],
         "data": series,
-        "source_url": cfg["url"],
+        "data_url": cfg["url"],
+        "source_url": cfg["source_url"],
     }
 
     out_path = OUT_DIR / f"{dataset_id}.json"

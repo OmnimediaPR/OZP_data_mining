@@ -62,5 +62,6 @@
       "value": 24443
     }
   ],
-  "source_url": "https://datanzis.uzis.gov.cz/data/OIS-01-NKIS/OIS-01-15/Otevrena-data-OIS-01-15-cevni-mozkova-prihoda.csv"
+  "data_url": "https://datanzis.uzis.gov.cz/data/OIS-01-NKIS/OIS-01-15/Otevrena-data-OIS-01-15-cevni-mozkova-prihoda.csv",
+  "source_url": "https://www.nzip.cz/data/2705-cevni-mozkova-prihoda-otevrena-data"
 }
