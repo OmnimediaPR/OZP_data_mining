@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { LineChart, Line, ResponsiveContainer, ReferenceDot } from 'recharts';
-import { ChevronRight, Check, Loader2, Sparkles, Key, X } from 'lucide-react';
+import { ChevronRight, Check, Loader2, Sparkles, Key, X, Download } from 'lucide-react';
+import {
+  Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
+  HeadingLevel, AlignmentType, ShadingType, BorderStyle, WidthType,
+} from 'docx';
+import { saveAs } from 'file-saver';
 
 // ============================================================
 // KONSTANTY
@@ -86,6 +91,31 @@ function setStoredKey(key) {
       localStorage.removeItem(API_KEY_STORAGE);
     }
   } catch (e) {}
+}
+
+// ============================================================
+// HELPERY PRO EXPORT DOCX
+// ============================================================
+
+function slug(s) {
+  return (s || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 60);
+}
+
+function formatDateISO(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+function formatDateCS(d) {
+  return `${d.getDate()}. ${d.getMonth() + 1}. ${d.getFullYear()}`;
 }
 
 // ============================================================
@@ -316,6 +346,209 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
     }
   };
 
+  const exportToDocx = async () => {
+    // Pomocníci pro stručný zápis
+    const border = { style: BorderStyle.SINGLE, size: 4, color: 'C0C0C0' };
+    const tableBorders = { top: border, bottom: border, left: border, right: border, insideHorizontal: border, insideVertical: border };
+    const t = (text, opts = {}) => new TextRun({
+      text: String(text ?? ''),
+      bold: opts.bold,
+      italics: opts.italic,
+      size: opts.size,
+      color: opts.color,
+    });
+    const p = (runs, opts = {}) => new Paragraph({
+      children: Array.isArray(runs) ? runs : [runs],
+      spacing: opts.spacing,
+      alignment: opts.alignment,
+      shading: opts.shading,
+      bullet: opts.bullet,
+      heading: opts.heading,
+    });
+    const cell = (children, opts = {}) => new TableCell({
+      children: Array.isArray(children) ? children : [children],
+      width: opts.width,
+      shading: opts.shading,
+    });
+
+    const lightBlue = { type: ShadingType.SOLID, color: 'auto', fill: 'EFF4F8' };
+    const dark = { type: ShadingType.SOLID, color: 'auto', fill: '1A1A1A' };
+
+    const children = [];
+
+    // 1. Hlavička
+    children.push(p(
+      t(`DATOVÝ PODKLAD • Klient: ${client.full} • Téma: ${topic} • ${formatDateCS(new Date())}`, { size: 16, color: '666666' }),
+      { spacing: { after: 200 } }
+    ));
+
+    // 2. Titul
+    children.push(p(t(topic, { bold: true, size: 36 }), {
+      heading: HeadingLevel.HEADING_1,
+      spacing: { after: 300 },
+    }));
+
+    // 3. V čem data spočívají — světle modré pozadí
+    children.push(p(t('V čem data spočívají', { bold: true, size: 22 }), { spacing: { before: 200, after: 100 } }));
+    const sources = [...new Set(selectedDatasets.map(d => d.source).filter(Boolean))];
+    const allYears = selectedDatasets.flatMap(d => (d.data || []).map(x => x.year)).filter(Number.isFinite);
+    const yearRange = allYears.length ? `${Math.min(...allYears)}–${Math.max(...allYears)}` : '—';
+    const datasetSummary = selectedDatasets.map(d => d.human_name || d.label).join(', ');
+    children.push(p([t('Zdroj: ', { bold: true }), t(sources.join(', ') || '—')], { shading: lightBlue, spacing: { before: 80, after: 80 } }));
+    children.push(p([t('Co data obsahují: ', { bold: true }), t(datasetSummary)], { shading: lightBlue, spacing: { after: 80 } }));
+    children.push(p([t('Časové pokrytí: ', { bold: true }), t(yearRange)], { shading: lightBlue, spacing: { after: 200 } }));
+
+    // 4. Co data dohromady říkají — tmavé pozadí, italika, bílý text
+    if (analysis.meta_pattern) {
+      children.push(p(t('Co data dohromady říkají', { bold: true, size: 22 }), { spacing: { before: 300, after: 100 } }));
+      children.push(p(
+        t(analysis.meta_pattern, { italic: true, color: 'FFFFFF', size: 22 }),
+        { shading: dark, spacing: { before: 100, after: 200 } }
+      ));
+    }
+
+    // 5. Mezinárodní kontext — jen pokud máme intl datasety
+    const intlDs = selectedDatasets.filter(d => d.source_type === 'international');
+    if (intlDs.length > 0) {
+      children.push(p(t('Mezinárodní kontext', { bold: true, size: 22 }), { spacing: { before: 300, after: 100 } }));
+      const intlHeader = new TableRow({
+        children: [
+          cell(p(t('Metrika', { bold: true }))),
+          cell(p(t('Číslo a srovnání', { bold: true }))),
+          cell(p(t('Co to říká o ČR', { bold: true }))),
+        ],
+      });
+      const intlRows = intlDs.map(d => {
+        const comp = (d.comparison || []).slice(0, 4)
+          .map(c => `${c.country}: ${c.value}${typeof c.value === 'number' && Math.abs(c.value) < 200 ? ' %' : ''}`)
+          .join('; ');
+        return new TableRow({
+          children: [
+            cell(p(t(d.human_name || d.label))),
+            cell(p(t(comp))),
+            cell(p(t(d.trend_context || ''))),
+          ],
+        });
+      });
+      children.push(new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        borders: tableBorders,
+        rows: [intlHeader, ...intlRows],
+      }));
+    }
+
+    // 6. Klíčová zjištění
+    if (analysis.key_findings?.length) {
+      children.push(p(t('Klíčová zjištění', { bold: true, size: 22 }), { spacing: { before: 300, after: 100 } }));
+      const kfHeader = new TableRow({
+        children: [
+          cell(p(t('Δ', { bold: true }), { alignment: AlignmentType.CENTER }), { width: { size: 15, type: WidthType.PERCENTAGE } }),
+          cell(p(t('Co', { bold: true })), { width: { size: 50, type: WidthType.PERCENTAGE } }),
+          cell(p(t('Proč relevantní pro téma', { bold: true })), { width: { size: 35, type: WidthType.PERCENTAGE } }),
+        ],
+      });
+      const kfRows = analysis.key_findings.map(f => {
+        const ds = findDatasetById(f.dataset, selectedDatasets);
+        const coParas = [
+          p([
+            t(f.label || '', { bold: true }),
+            ...(ds?.code ? [t(' ('), t(ds.code), t(')')] : []),
+          ]),
+        ];
+        if (ds) {
+          coParas.push(p([
+            t(ds.human_name || ds.label, { bold: true }),
+            t(' — '),
+            t(ds.description || ''),
+          ]));
+          if (ds.metric_label && ds.data?.length) {
+            const fv = ds.data[0]?.value, lv = ds.data[ds.data.length - 1]?.value;
+            const fy = ds.data[0]?.year, ly = ds.data[ds.data.length - 1]?.year;
+            coParas.push(p(t(
+              `${ds.metric_label}: ${fv?.toLocaleString('cs-CZ')} → ${lv?.toLocaleString('cs-CZ')} (období ${fy}–${ly})`,
+              { italic: true, color: '888888', size: 16 }
+            )));
+          }
+        }
+        return new TableRow({
+          children: [
+            cell(p(t(f.number || '', { bold: true, color: 'C9302C', size: 32 }), { alignment: AlignmentType.CENTER })),
+            cell(coParas),
+            cell(p(t(f.explanation || ''))),
+          ],
+        });
+      });
+      children.push(new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        borders: tableBorders,
+        rows: [kfHeader, ...kfRows],
+      }));
+    }
+
+    // 7. Doporučené úhly
+    if (analysis.angles?.length) {
+      children.push(p(t('Doporučené úhly', { bold: true, size: 22 }), { spacing: { before: 300, after: 80 } }));
+      children.push(p(t('Pozorování, ne hotové věty. Text tiskovky napiš sám.', { italic: true, color: '666666' }), { spacing: { after: 100 } }));
+      const angHeader = new TableRow({
+        children: [
+          cell(p(t('', { bold: true })), { width: { size: 8, type: WidthType.PERCENTAGE } }),
+          cell(p(t('Úhel', { bold: true })), { width: { size: 25, type: WidthType.PERCENTAGE } }),
+          cell(p(t('Pozorování', { bold: true })), { width: { size: 45, type: WidthType.PERCENTAGE } }),
+          cell(p(t('Riziko v tezi', { bold: true })), { width: { size: 22, type: WidthType.PERCENTAGE } }),
+        ],
+      });
+      const angRows = analysis.angles.map((a, i) => new TableRow({
+        children: [
+          cell(p(t(String.fromCharCode(65 + i), { bold: true, size: 22 }), { alignment: AlignmentType.CENTER })),
+          cell(p(t(a.label || '', { bold: true }))),
+          cell(p(t(a.observation || ''))),
+          cell(p(t(a.risk || ''))),
+        ],
+      }));
+      children.push(new Table({
+        width: { size: 100, type: WidthType.PERCENTAGE },
+        borders: tableBorders,
+        rows: [angHeader, ...angRows],
+      }));
+    }
+
+    // 8. Co data NEPODPORUJÍ — červený nadpis, bullet list
+    if (analysis.cannot_claim?.length) {
+      children.push(p(t('Co data NEPODPORUJÍ', { bold: true, color: 'C9302C', size: 22 }), { spacing: { before: 300, after: 100 } }));
+      analysis.cannot_claim.forEach(c => {
+        children.push(p(
+          [t('„'), t(c.claim || '', { italic: true }), t(`" — ${c.why || ''}`)],
+          { bullet: { level: 0 }, spacing: { after: 60 } }
+        ));
+      });
+    }
+
+    // 9. Zdroje + citační formule
+    children.push(p(t('Zdroje', { bold: true, size: 22 }), { spacing: { before: 300, after: 100 } }));
+    selectedDatasets.forEach(d => {
+      const parts = [t(`${d.label} (${d.code}) — ${d.source}`)];
+      if (d.source_url) {
+        parts.push(t(' · Zdroj dat: '));
+        parts.push(t(d.source_url, { color: '1F4E8C' }));
+      }
+      children.push(p(parts, { spacing: { after: 40 } }));
+    });
+    children.push(p(
+      t('Citační formule: „…podle dat ÚZIS ČR / Eurostat (rok vždy uvést) …"', { italic: true, color: '666666' }),
+      { spacing: { before: 120 } }
+    ));
+
+    // Sestavení dokumentu — Arial 9pt základ
+    const doc = new Document({
+      styles: { default: { document: { run: { font: 'Arial', size: 18 } } } },
+      sections: [{ children }],
+    });
+
+    const blob = await Packer.toBlob(doc);
+    const filename = `Brief_${client.id}_${slug(topic)}_${formatDateISO(new Date())}.docx`;
+    saveAs(blob, filename);
+  };
+
   if (loadingData) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -414,7 +647,22 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
               </button>
             </div>
           ) : (
-            <AnalysisView analysis={analysis} datasets={selectedDatasets} onRerun={() => { setAnalysis(null); runAnalysis(); }} />
+            <>
+              <AnalysisView analysis={analysis} datasets={selectedDatasets} onRerun={() => { setAnalysis(null); runAnalysis(); }} />
+              <div style={{ marginTop: 16 }}>
+                <button
+                  onClick={exportToDocx}
+                  style={{
+                    background: '#1F4E8C', color: '#FAFAF7', padding: '10px 20px',
+                    border: 'none', fontSize: 14, fontWeight: 600, cursor: 'pointer',
+                    display: 'inline-flex', alignItems: 'center', gap: 8,
+                  }}
+                >
+                  <Download size={16} />
+                  Stáhnout .docx onepager
+                </button>
+              </div>
+            </>
           )}
         </section>
       </div>
