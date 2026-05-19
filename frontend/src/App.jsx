@@ -15,10 +15,14 @@ const CLIENTS = [
 // Národní (NKIS) se načítají z /data/nkis/*.json soubory generované GitHub Actions.
 const INTL_DATASETS = [
   {
-    id: 'eu_cvd_share', label: 'Podíl KVO na všech úmrtích — EU srovnání', code: 'hlth_cd_aro',
+    id: 'eu_cvd_share',
+    label: 'Podíl KVO na všech úmrtích — EU srovnání',
+    human_name: 'Podíl srdečních a cévních úmrtí (EU srovnání)',
+    description: 'Kolik procent všech úmrtí způsobí KVO — pozice ČR v rámci EU.',
+    code: 'hlth_cd_aro',
     source: 'Eurostat', source_type: 'international', updated: '7/2025', coverage: '2022',
     trend: 'comparison', delta: null, peakYear: null,
-    tags: ['mezinárodní', 'mortalita', 'srovnání'],
+    relevant_for: ['mezinárodní kontext', 'celkový pohled'],
     data: [
       { year: 2018, value: 35.4 }, { year: 2019, value: 34.8 }, { year: 2020, value: 33.5 },
       { year: 2021, value: 32.1 }, { year: 2022, value: 32.7 },
@@ -31,13 +35,17 @@ const INTL_DATASETS = [
       { country: 'Nizozemsko', value: 24 },
       { country: 'Francie', value: 20.5 },
     ],
-    narrative: 'EU 27 průměr 32,7 % všech úmrtí; ČR ve středovýchodní zóně vysokého rizika. Srovnatelná metodika napříč státy (Eurostat hlth_cd_aro), stejný rok.'
+    trend_context: 'EU 27 průměr 32,7 % všech úmrtí; ČR ve středovýchodní zóně vysokého rizika. Srovnatelná metodika napříč státy (Eurostat hlth_cd_aro), stejný rok.'
   },
   {
-    id: 'fh_detection', label: 'Detekce FH — mezinárodní srovnání programů', code: 'MedPed / NL FH',
+    id: 'fh_detection',
+    label: 'Detekce FH — mezinárodní srovnání programů',
+    human_name: 'Dědičně vysoký cholesterol — diagnostika',
+    description: 'Procento osob s dědičnou hypercholesterolemií, které jsou v zemi diagnostikovány.',
+    code: 'MedPed / NL FH',
     source: 'Vrablík et al. / PLOS GPH', source_type: 'international', updated: '2016 / 2023', coverage: 'různé roky',
     trend: 'comparison', delta: null, peakYear: null,
-    tags: ['mezinárodní', 'genetika', 'FH', 'cholesterol'],
+    relevant_for: ['genetika', 'cholesterol', 'prevence u mladých', 'mezinárodní srovnání'],
     data: [
       { year: 2010, value: 8 }, { year: 2013, value: 12 }, { year: 2016, value: 17.4 },
     ],
@@ -47,39 +55,9 @@ const INTL_DATASETS = [
       { country: 'ČR (MedPed 2016)', value: 17.4, hi: true, isUs: true },
       { country: 'V. Británie (NHS)', value: 8 },
     ],
-    narrative: 'Procento odhadované FH populace, která je už diagnostikovaná. POZOR: roky se mírně liší (ČR 2016, NL/UK 2023), srovnatelnost spíše orientační.'
+    trend_context: 'Procento odhadované FH populace, která je už diagnostikovaná. POZOR: roky se mírně liší (ČR 2016, NL/UK 2023), srovnatelnost spíše orientační.'
   },
 ];
-
-const NATIONAL_NARRATIVES = {
-  aim: 'Pokles odráží 23 katetrizačních center, statiny v primární prevenci, klesající kouření.',
-  fs: 'Růst souvisí s demografií + lepší diagnostikou EKG. Hlavní rizikový faktor pro CMP.',
-  hf: 'Chronický důsledek prodělaných infarktů a hypertenze. Strmý růst je „daň za úspěch" akutní péče.',
-  i35: 'Aortální stenóza — ateroskleróza chlopně. Spojení s cholesterolem stejné jako u ICHS.',
-  i71: 'Výduť aorty — strukturální komplikace aterosklerózy. Část růstu = lepší UZ screening.',
-  cmp: 'Pokles podobný jako u AIM — díky stroke center síti od 2011.',
-  hyp: 'Cca 20 % populace ČR léčeno; u osob 65+ až 60 % populace.',
-};
-
-const NATIONAL_TAGS = {
-  aim: ['ICHS', 'akutní', 'cholesterol'],
-  fs: ['arytmie', 'mrtvice'],
-  hf: ['chronické', 'cholesterol'],
-  i35: ['chlopeň', 'ateroskleróza'],
-  i71: ['aorta', 'ateroskleróza'],
-  cmp: ['mrtvice', 'akutní'],
-  hyp: ['prevence', 'cholesterol'],
-};
-
-const NATIONAL_LABELS = {
-  aim: 'Akutní infarkt myokardu',
-  fs: 'Fibrilace síní',
-  hf: 'Srdeční selhání',
-  i35: 'Aortální chlopeň',
-  i71: 'Výduť aorty',
-  cmp: 'Cévní mozková příhoda',
-  hyp: 'Hypertenze (léčená)',
-};
 
 // Base URL pro načítání dat — v produkci jde o relativní cestu k /public/data/.
 const DATA_BASE = import.meta.env.BASE_URL + 'data/';
@@ -204,28 +182,24 @@ export default function App() {
   const [step, setStep] = useState(1);
   const [nationalDatasets, setNationalDatasets] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
-  const [selectedIds, setSelectedIds] = useState(['fs', 'hf', 'i35', 'eu_cvd_share', 'fh_detection']);
+  const [selectedIds, setSelectedIds] = useState(['aim', 'cmp', 'eu_cvd_share', 'fh_detection']);
   const [analysis, setAnalysis] = useState(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState(null);
 
   // Načti národní datasety ze static JSON souborů (generované GitHub Actions).
+  // JSON už nese všechna pole včetně human_name, description, relevant_for, trend_context —
+  // viz sync_nkis.py. Frontend nepřidává nic, jen prochází fetch.
   useEffect(() => {
     async function loadData() {
-      const ids = ['aim', 'fs', 'hf', 'i35', 'i71', 'cmp', 'hyp'];
+      const ids = ['aim', 'cmp', 'hyp', 'hf', 'kvo'];
       const loaded = [];
 
       for (const id of ids) {
         try {
           const response = await fetch(`${DATA_BASE}nkis/${id}.json`);
           if (response.ok) {
-            const ds = await response.json();
-            loaded.push({
-              ...ds,
-              narrative: NATIONAL_NARRATIVES[id] || '',
-              tags: NATIONAL_TAGS[id] || [],
-              label: ds.label || NATIONAL_LABELS[id],
-            });
+            loaded.push(await response.json());
           }
         } catch (e) {
           console.warn(`Nelze načíst dataset ${id}:`, e);
@@ -267,12 +241,12 @@ export default function App() {
 
       const nationalSummary = nationalDs.map(d => {
         const first = d.data[0], last = d.data[d.data.length - 1];
-        return `- ${d.label} (MKN ${d.code}): ${first.value.toLocaleString('cs-CZ')} v ${first.year} → ${last.value.toLocaleString('cs-CZ')} v ${last.year} (Δ ${d.delta > 0 ? '+' : ''}${d.delta} %). Trend: ${d.trend === 'up' ? 'rostoucí' : d.trend === 'down' ? 'klesající' : 'plateau'}, peak ${d.peakYear}. Kontext: ${d.narrative}`;
+        return `- ${d.label} (MKN ${d.code}): ${first.value.toLocaleString('cs-CZ')} v ${first.year} → ${last.value.toLocaleString('cs-CZ')} v ${last.year} (Δ ${d.delta > 0 ? '+' : ''}${d.delta} %). Trend: ${d.trend === 'up' ? 'rostoucí' : d.trend === 'down' ? 'klesající' : 'plateau'}, peak ${d.peakYear}. Kontext: ${d.trend_context || ''}`;
       }).join('\n');
 
       const intlSummary = intlDs.map(d => {
         const comp = d.comparison ? d.comparison.map(c => `${c.country}: ${c.value}${typeof c.value === 'number' && Math.abs(c.value) < 200 ? ' %' : ''}`).join('; ') : '';
-        return `- ${d.label} (zdroj: ${d.source} ${d.code}, ${d.coverage}): ${comp}. Pozn. ke srovnatelnosti: ${d.narrative}`;
+        return `- ${d.label} (zdroj: ${d.source} ${d.code}, ${d.coverage}): ${comp}. Pozn. ke srovnatelnosti: ${d.trend_context || ''}`;
       }).join('\n');
 
       const prompt = `Jsi datový analytik pro českou PR agenturu. NEPÍŠEŠ tiskové zprávy. Tvoje práce je z dat vytáhnout zjištění a doporučit úhly — PR manažer si text napíše sám.
@@ -485,8 +459,11 @@ function SectionHeader({ number, title, subtitle }) {
 function DatasetCard({ d, selected, onToggle }) {
   const isInternational = d.source_type === 'international';
   const peakVal = d.peakYear ? d.data.find(x => x.year === d.peakYear)?.value : null;
-  const last = d.data[d.data.length - 1];
+  const first = d.data?.[0];
+  const last = d.data?.[d.data.length - 1];
   const trendColor = d.trend === 'up' ? '#1F6F47' : d.trend === 'down' ? '#9A2A1F' : '#7A6F2A';
+  const trendWord = d.trend === 'up' ? 'Růst' : d.trend === 'down' ? 'Pokles' : 'Změna';
+  const fmtNum = (n) => n.toLocaleString('cs-CZ');
 
   return (
     <div onClick={onToggle} style={{
@@ -494,37 +471,56 @@ function DatasetCard({ d, selected, onToggle }) {
       padding: 20, cursor: 'pointer', position: 'relative',
       boxShadow: selected ? '4px 4px 0 #1A1A1A' : 'none',
     }}>
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 8 }}>
-        <div style={{ flex: 1 }}>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
-            <span style={{
-              fontSize: 9, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase',
-              padding: '2px 6px',
-              background: isInternational ? '#1F4E8C' : '#444', color: '#FFFFFF',
-            }}>{isInternational ? 'EU/OECD' : 'NKIS'}</span>
-            <span style={{ fontSize: 11, color: '#888' }}>
-              {d.code} • {d.source} • {d.updated}
-            </span>
-          </div>
-          <div className="serif" style={{ fontSize: 17, fontWeight: 600, lineHeight: 1.2 }}>{d.label}</div>
-        </div>
+      {/* 1. Badge + checkbox */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 12 }}>
+        <span style={{
+          fontSize: 9, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase',
+          padding: '2px 6px',
+          background: isInternational ? '#1F4E8C' : '#444', color: '#FFFFFF',
+        }}>{isInternational ? 'EU/OECD' : 'NKIS'}</span>
         <div style={{
           width: 22, height: 22, border: '1.5px solid #1A1A1A',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: selected ? '#1A1A1A' : 'transparent', flexShrink: 0, marginLeft: 12,
+          background: selected ? '#1A1A1A' : 'transparent', flexShrink: 0,
         }}>
           {selected && <Check size={14} color="#FAFAF7" />}
         </div>
       </div>
 
-      {!isInternational && (
+      {/* 2. Velký lidský název */}
+      {d.human_name && (
+        <div className="serif" style={{ fontSize: 22, fontWeight: 700, lineHeight: 1.2, marginBottom: 2 }}>
+          {d.human_name}
+        </div>
+      )}
+
+      {/* 3. Technický název v závorce, šedě */}
+      {d.label && (
+        <div style={{ fontSize: 12, color: '#888', marginBottom: 10 }}>
+          ({d.label})
+        </div>
+      )}
+
+      {/* 4. Description */}
+      {d.description && (
+        <div style={{ fontSize: 14, color: '#333', lineHeight: 1.45, marginBottom: 14 }}>
+          {d.description}
+        </div>
+      )}
+
+      {/* 5. Pro národní: metric line + delta line + graf */}
+      {!isInternational && first && last && (
         <>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, margin: '14px 0 8px' }}>
-            <span style={{ fontSize: 28, fontWeight: 700, color: trendColor }} className="num serif">
-              {d.delta > 0 ? '+' : ''}{d.delta}{'\u202F%'}
-            </span>
-            <span style={{ fontSize: 12, color: '#666' }}>{d.data[0].year}–{last.year}</span>
-          </div>
+          {d.metric_label && (
+            <div style={{ fontSize: 13, color: '#1A1A1A', marginBottom: 4 }}>
+              {d.metric_label}: <strong className="num">{fmtNum(first.value)} → {fmtNum(last.value)}</strong> případů
+            </div>
+          )}
+          {typeof d.delta === 'number' && (
+            <div style={{ fontSize: 13, color: trendColor, fontWeight: 600, marginBottom: 8 }}>
+              {trendWord} {d.delta > 0 ? '+' : ''}{d.delta}{'\u202F%'}{d.coverage ? `, období ${d.coverage}` : ''}
+            </div>
+          )}
           <div style={{ height: 60, margin: '8px -4px' }}>
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={d.data} margin={{ top: 4, right: 8, left: 8, bottom: 0 }}>
@@ -536,8 +532,9 @@ function DatasetCard({ d, selected, onToggle }) {
         </>
       )}
 
+      {/* 6. Pro mezinárodní: comparison bar chart */}
       {isInternational && d.comparison && (
-        <div style={{ margin: '14px 0 8px' }}>
+        <div style={{ margin: '4px 0 8px' }}>
           <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#888', marginBottom: 8 }}>
             Srovnání zemí ({d.coverage})
           </div>
@@ -545,11 +542,31 @@ function DatasetCard({ d, selected, onToggle }) {
         </div>
       )}
 
-      <div style={{
-        background: isInternational ? '#EFF4F8' : '#F2F0EA', padding: '8px 10px',
-        fontSize: 12, color: '#333', lineHeight: 1.45, marginTop: 6,
-      }}>
-        {d.narrative}
+      {/* 7. Šedý box "Užitečné pro:" */}
+      {d.relevant_for && d.relevant_for.length > 0 && (
+        <div style={{
+          background: isInternational ? '#EFF4F8' : '#F2F0EA',
+          padding: '10px 12px', marginTop: 12,
+        }}>
+          <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#666', marginBottom: 6 }}>
+            Užitečné pro:
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+            {d.relevant_for.map((t, i) => (
+              <span key={i} style={{
+                fontSize: 11, padding: '2px 8px', background: '#FFFFFF',
+                border: '1px solid #DDD8C8', color: '#333',
+              }}>{t}</span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 8. Zdroj / kód / aktualizováno */}
+      <div style={{ fontSize: 10, color: '#888', marginTop: 12, lineHeight: 1.4 }}>
+        Zdroj: {d.source}
+        {d.code && ` · ${isInternational ? 'kód' : 'kód MKN-10'}: ${d.code}`}
+        {d.updated && ` · aktualizováno ${d.updated}`}
       </div>
     </div>
   );

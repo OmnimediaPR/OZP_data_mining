@@ -1,10 +1,20 @@
 {
   "id": "cmp",
   "label": "Cévní mozková příhoda",
+  "human_name": "Mozková mrtvice",
+  "description": "Akutní porucha krevního zásobení mozku.",
   "code": "I60-I64",
   "source": "NRHZS / NKIS",
   "source_type": "national",
   "metric": "incidence_rocni",
+  "metric_label": "Roční incidence v ČR",
+  "relevant_for": [
+    "prevence mrtvice",
+    "hypertenze",
+    "fibrilace síní",
+    "neurologie"
+  ],
+  "trend_context": "Pokles podobný jako u AIM — díky stroke center síti od 2011.",
   "updated": "2026-05-19",
   "coverage": "2015–2024",
   "trend": "down",
