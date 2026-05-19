@@ -235,6 +235,7 @@ export default function App() {
     setAnalyzing(true);
     setError(null);
 
+    let text = '';
     try {
       const nationalDs = selectedDatasets.filter(d => d.source_type !== 'international');
       const intlDs = selectedDatasets.filter(d => d.source_type === 'international');
@@ -283,7 +284,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
         },
         body: JSON.stringify({
           model: 'claude-sonnet-4-6',
-          max_tokens: 4096,
+          max_tokens: 8192,
           messages: [{ role: 'user', content: prompt }],
         }),
       });
@@ -294,15 +295,15 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
       }
 
       const data = await response.json();
-      const text = data.content?.[0]?.text || '';
+      text = data.content?.[0]?.text || '';
       const match = text.match(/\{[\s\S]*\}/);
       if (!match) throw new Error('Odpověď neobsahuje JSON');
       const parsed = JSON.parse(match[0]);
       setAnalysis(parsed);
       setStep(3);
     } catch (e) {
-      console.error(e);
-      setError(e.message);
+      console.error('Raw response length:', text?.length, 'last 200:', text?.substring((text?.length || 0) - 200));
+      setError(`${e.message} | Délka: ${text?.length || 0} | Konec: "${text?.substring((text?.length || 0) - 100)}"`);
     } finally {
       setAnalyzing(false);
     }
