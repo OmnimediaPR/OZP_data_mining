@@ -1,0 +1,56 @@
+{
+  "id": "cmp",
+  "label": "Cévní mozková příhoda",
+  "code": "I60-I64",
+  "source": "NRHZS / NKIS",
+  "source_type": "national",
+  "metric": "incidence_rocni",
+  "updated": "2026-05-19",
+  "coverage": "2015–2024",
+  "trend": "down",
+  "delta": -20,
+  "peakYear": 2015,
+  "data": [
+    {
+      "year": 2015,
+      "value": 30533
+    },
+    {
+      "year": 2016,
+      "value": 29332
+    },
+    {
+      "year": 2017,
+      "value": 28561
+    },
+    {
+      "year": 2018,
+      "value": 27907
+    },
+    {
+      "year": 2019,
+      "value": 26843
+    },
+    {
+      "year": 2020,
+      "value": 25774
+    },
+    {
+      "year": 2021,
+      "value": 25107
+    },
+    {
+      "year": 2022,
+      "value": 25302
+    },
+    {
+      "year": 2023,
+      "value": 24852
+    },
+    {
+      "year": 2024,
+      "value": 24443
+    }
+  ],
+  "source_url": "https://datanzis.uzis.gov.cz/data/OIS-01-NKIS/OIS-01-15/Otevrena-data-OIS-01-15-cevni-mozkova-prihoda.csv"
+}
