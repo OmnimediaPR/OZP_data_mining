@@ -1,0 +1,98 @@
+{
+  "id": "plice_mortalita_kraje_2022",
+  "label": "Rakovina plic — úmrtnost podle krajů 2022",
+  "human_name": "Úmrtnost na rakovinu plic — krajový pohled",
+  "description": "Počet úmrtí na rakovinu plic v roce 2022 podle krajů. Regionální rozdíly silně odrážejí historické vzorce kouření, profesionální expozici a kvalitu ovzduší.",
+  "code": "C34",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "regional_snapshot",
+  "metric": "mortalita_2022",
+  "metric_label": "Roční počet úmrtí (2022)",
+  "relevant_for": [
+    "onkologie",
+    "kouření",
+    "regionální nerovnosti",
+    "kvalita ovzduší"
+  ],
+  "trend_context": "U rakoviny plic jsou krajové rozdíly výraznější než u jiných onkologických diagnóz — odrážejí těžební a průmyslovou historii některých regionů (severní Morava, severozápadní Čechy) a místní kvalitu ovzduší.",
+  "updated": "2026-05-20",
+  "data": [
+    {
+      "kraj_kod": "CZ010",
+      "kraj_nazev": "Hlavní město Praha",
+      "value": 553
+    },
+    {
+      "kraj_kod": "CZ020",
+      "kraj_nazev": "Středočeský",
+      "value": 616
+    },
+    {
+      "kraj_kod": "CZ031",
+      "kraj_nazev": "Jihočeský",
+      "value": 305
+    },
+    {
+      "kraj_kod": "CZ032",
+      "kraj_nazev": "Plzeňský",
+      "value": 295
+    },
+    {
+      "kraj_kod": "CZ041",
+      "kraj_nazev": "Karlovarský",
+      "value": 186
+    },
+    {
+      "kraj_kod": "CZ042",
+      "kraj_nazev": "Ústecký",
+      "value": 567
+    },
+    {
+      "kraj_kod": "CZ051",
+      "kraj_nazev": "Liberecký",
+      "value": 274
+    },
+    {
+      "kraj_kod": "CZ052",
+      "kraj_nazev": "Královéhradecký",
+      "value": 230
+    },
+    {
+      "kraj_kod": "CZ053",
+      "kraj_nazev": "Pardubický",
+      "value": 229
+    },
+    {
+      "kraj_kod": "CZ063",
+      "kraj_nazev": "Vysočina",
+      "value": 214
+    },
+    {
+      "kraj_kod": "CZ064",
+      "kraj_nazev": "Jihomoravský",
+      "value": 498
+    },
+    {
+      "kraj_kod": "CZ071",
+      "kraj_nazev": "Olomoucký",
+      "value": 251
+    },
+    {
+      "kraj_kod": "CZ072",
+      "kraj_nazev": "Zlínský",
+      "value": 184
+    },
+    {
+      "kraj_kod": "CZ080",
+      "kraj_nazev": "Moravskoslezský",
+      "value": 555
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data",
+  "coverage": "2022",
+  "snapshot_year": 2022,
+  "trend": "snapshot",
+  "delta": 0,
+  "peakRegion": "Středočeský"
+}

@@ -1,0 +1,98 @@
+{
+  "id": "melanom_mortalita_kraje_2022",
+  "label": "Zhoubný melanom kůže — úmrtnost podle krajů 2022",
+  "human_name": "Úmrtnost na zhoubný melanom kůže — krajový pohled",
+  "description": "Počet úmrtí na zhoubný melanom kůže v roce 2022 podle krajů. Regionální rozdíly odrážejí velikost populace a dostupnost preventivních kožních prohlídek.",
+  "code": "C43",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "regional_snapshot",
+  "metric": "mortalita_2022",
+  "metric_label": "Roční počet úmrtí (2022)",
+  "relevant_for": [
+    "onkologie",
+    "kůže",
+    "regionální nerovnosti",
+    "imunoterapie"
+  ],
+  "trend_context": "Krajové rozdíly v úmrtnosti odrážejí dostupnost kožních lékařů, osvětu o nebezpečí ultrafialového záření a dostupnost moderní léčby (imunoterapie, cílené léky).",
+  "updated": "2026-05-20",
+  "data": [
+    {
+      "kraj_kod": "CZ010",
+      "kraj_nazev": "Hlavní město Praha",
+      "value": 58
+    },
+    {
+      "kraj_kod": "CZ020",
+      "kraj_nazev": "Středočeský",
+      "value": 51
+    },
+    {
+      "kraj_kod": "CZ031",
+      "kraj_nazev": "Jihočeský",
+      "value": 31
+    },
+    {
+      "kraj_kod": "CZ032",
+      "kraj_nazev": "Plzeňský",
+      "value": 23
+    },
+    {
+      "kraj_kod": "CZ041",
+      "kraj_nazev": "Karlovarský",
+      "value": 13
+    },
+    {
+      "kraj_kod": "CZ042",
+      "kraj_nazev": "Ústecký",
+      "value": 24
+    },
+    {
+      "kraj_kod": "CZ051",
+      "kraj_nazev": "Liberecký",
+      "value": 18
+    },
+    {
+      "kraj_kod": "CZ052",
+      "kraj_nazev": "Královéhradecký",
+      "value": 25
+    },
+    {
+      "kraj_kod": "CZ053",
+      "kraj_nazev": "Pardubický",
+      "value": 21
+    },
+    {
+      "kraj_kod": "CZ063",
+      "kraj_nazev": "Vysočina",
+      "value": 18
+    },
+    {
+      "kraj_kod": "CZ064",
+      "kraj_nazev": "Jihomoravský",
+      "value": 64
+    },
+    {
+      "kraj_kod": "CZ071",
+      "kraj_nazev": "Olomoucký",
+      "value": 21
+    },
+    {
+      "kraj_kod": "CZ072",
+      "kraj_nazev": "Zlínský",
+      "value": 29
+    },
+    {
+      "kraj_kod": "CZ080",
+      "kraj_nazev": "Moravskoslezský",
+      "value": 50
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data",
+  "coverage": "2022",
+  "snapshot_year": 2022,
+  "trend": "snapshot",
+  "delta": 0,
+  "peakRegion": "Jihomoravský"
+}
