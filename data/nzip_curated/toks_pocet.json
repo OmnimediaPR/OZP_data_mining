@@ -1,0 +1,86 @@
+{
+  "id": "toks_pocet",
+  "label": "Test na skryté krvácení do stolice — počet provedených",
+  "human_name": "Počet provedených testů na skryté krvácení",
+  "description": "Roční počet testů na skryté krvácení do stolice provedených v rámci screeningu rakoviny tlustého střeva. Primární screeningový nástroj — pozitivní výsledek vyžaduje navazující kolonoskopii.",
+  "code": "screening C18–C20",
+  "source": "Informační systém screeningu karcinomu tlustého střeva a konečníku (ÚZIS)",
+  "source_type": "national",
+  "metric": "vysetreni_rocni",
+  "metric_label": "Roční počet testů",
+  "relevant_for": [
+    "screening tlustého střeva",
+    "prevence",
+    "primární péče"
+  ],
+  "trend_context": "Vývoj odráží aktivní zvaní pojišťovnami a dostupnost testu (provádí praktický lékař nebo gynekolog). Drtivá většina screeningu rakoviny tlustého střeva začíná tímto testem.",
+  "updated": "2026-05-20",
+  "coverage": "2010–2024",
+  "trend": "up",
+  "delta": 28,
+  "peakYear": 2014,
+  "data": [
+    {
+      "year": 2010,
+      "value": 512471
+    },
+    {
+      "year": 2011,
+      "value": 518070
+    },
+    {
+      "year": 2012,
+      "value": 545697
+    },
+    {
+      "year": 2013,
+      "value": 566957
+    },
+    {
+      "year": 2014,
+      "value": 736692
+    },
+    {
+      "year": 2015,
+      "value": 663944
+    },
+    {
+      "year": 2016,
+      "value": 658289
+    },
+    {
+      "year": 2017,
+      "value": 639254
+    },
+    {
+      "year": 2018,
+      "value": 650585
+    },
+    {
+      "year": 2019,
+      "value": 640309
+    },
+    {
+      "year": 2020,
+      "value": 530835
+    },
+    {
+      "year": 2021,
+      "value": 605540
+    },
+    {
+      "year": 2022,
+      "value": 629536
+    },
+    {
+      "year": 2023,
+      "value": 688999
+    },
+    {
+      "year": 2024,
+      "value": 702557
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/395/Otevrena-data-PPS-02-03-kolorektum-toks-pocet.csv",
+  "source_url": "https://www.nzip.cz/data/2091-kolorektum-toks-pocet-otevrena-data"
+}

@@ -199,7 +199,16 @@
     { "id": "cdz_pacienti", "label": "Centra duševního zdraví — pacienti", "code": "psychiatrická péče", "tags": ["duševní zdraví", "komunitní psychiatrie"] },
     { "id": "umrti_doma_ocekavatelne", "label": "Očekávatelná úmrtí — místo úmrtí", "code": "paliativní péče", "tags": ["paliativní péče", "hospice", "kvalita umírání"] },
     { "id": "dialyza_nefrolog_pokryti", "label": "Chronická dialýza — podíl s předchozím vyšetřením nefrologem", "code": "nefrologie", "tags": ["prevence", "močový systém", "chronická onemocnění"] },
-    { "id": "toks_pozitivni_podil", "label": "Test na skryté krvácení do stolice — podíl pozitivních", "code": "screening C18–C20", "tags": ["screening tlustého střeva", "prevence"] }
+    { "id": "toks_pozitivni_podil", "label": "Test na skryté krvácení do stolice — podíl pozitivních", "code": "screening C18–C20", "tags": ["screening tlustého střeva", "prevence"] },
+    { "id": "sluch_screening_pokryti", "label": "Screening sluchu — pokrytí novorozenců", "code": "screening sluchu", "tags": ["dětské zdraví", "prevence", "ORL"] },
+    { "id": "cervix_cytologie_pocet", "label": "Cervikovaginální cytologie — počet provedených", "code": "screening C53", "tags": ["screening", "ženské zdraví", "prevence"] },
+    { "id": "cervix_cytologie_abnormalni_podil", "label": "Cervikální cytologie — podíl abnormálních výsledků", "code": "screening C53", "tags": ["screening", "ženské zdraví", "lidský papilomavirus"] },
+    { "id": "kolonoskopie_screening_pocet", "label": "Screeningové kolonoskopie — počet provedených", "code": "screening C18–C20", "tags": ["screening tlustého střeva", "prevence"] },
+    { "id": "toks_pocet", "label": "Test na skryté krvácení do stolice — počet provedených", "code": "screening C18–C20", "tags": ["screening tlustého střeva", "prevence", "primární péče"] },
+    { "id": "mamografie_pocet", "label": "Screeningové mamografie — počet provedených", "code": "screening C50", "tags": ["screening", "ženské zdraví", "prevence"] },
+    { "id": "mamografie_doplnujici_podil", "label": "Mamografie — podíl žen s doplňujícím vyšetřením", "code": "screening C50", "tags": ["screening", "ženské zdraví", "kvalita screeningu"] },
+    { "id": "mamografie_uz_podil", "label": "Mamografie — podíl žen s doplňujícím ultrazvukem", "code": "screening C50", "tags": ["screening", "ženské zdraví", "kvalita screeningu"] },
+    { "id": "paliativni_trajektorie_optimalni", "label": "Paliativní péče — podíl optimálních trajektorií", "code": "paliativní péče", "tags": ["paliativní péče", "kvalita umírání", "hospice"] }
   ],
   "international": [
     {

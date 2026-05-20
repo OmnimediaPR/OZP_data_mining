@@ -1,0 +1,86 @@
+{
+  "id": "cervix_cytologie_pocet",
+  "label": "Cervikovaginální cytologie — počet provedených",
+  "human_name": "Počet provedených cervikovaginálních cytologií",
+  "description": "Roční počet provedených cytologických vyšetření hrdla děložního v rámci screeningu rakoviny děložního čípku. Primární screeningový nástroj.",
+  "code": "screening C53",
+  "source": "Informační systém screeningu karcinomu hrdla děložního (ÚZIS)",
+  "source_type": "national",
+  "metric": "vysetreni_rocni",
+  "metric_label": "Roční počet vyšetření",
+  "relevant_for": [
+    "screening",
+    "ženské zdraví",
+    "prevence"
+  ],
+  "trend_context": "Vývoj odráží aktivní zvaní pojišťovnami a osvětu o významu preventivních gynekologických prohlídek.",
+  "updated": "2026-05-20",
+  "coverage": "2010–2024",
+  "trend": "plateau",
+  "delta": 10,
+  "peakYear": 2024,
+  "data": [
+    {
+      "year": 2010,
+      "value": 2005672
+    },
+    {
+      "year": 2011,
+      "value": 2039406
+    },
+    {
+      "year": 2012,
+      "value": 2072467
+    },
+    {
+      "year": 2013,
+      "value": 2114173
+    },
+    {
+      "year": 2014,
+      "value": 2102627
+    },
+    {
+      "year": 2015,
+      "value": 2126711
+    },
+    {
+      "year": 2016,
+      "value": 2132928
+    },
+    {
+      "year": 2017,
+      "value": 2131431
+    },
+    {
+      "year": 2018,
+      "value": 2133431
+    },
+    {
+      "year": 2019,
+      "value": 2180577
+    },
+    {
+      "year": 2020,
+      "value": 2031822
+    },
+    {
+      "year": 2021,
+      "value": 2141348
+    },
+    {
+      "year": 2022,
+      "value": 2178729
+    },
+    {
+      "year": 2023,
+      "value": 2254431
+    },
+    {
+      "year": 2024,
+      "value": 2281627
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/400/Otevrena-data-PPS-03-03-cervix-cytologie-pocet.csv",
+  "source_url": "https://www.nzip.cz/data/2095-cervix-cytologie-pocet-otevrena-data"
+}

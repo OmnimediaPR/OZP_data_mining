@@ -1,0 +1,87 @@
+{
+  "id": "cervix_cytologie_abnormalni_podil",
+  "label": "Cervikální cytologie — podíl abnormálních výsledků",
+  "human_name": "Podíl abnormálních cytologií čípku",
+  "description": "Procento žen s abnormálním výsledkem cytologického vyšetření hrdla děložního. Stabilní podíl ukazuje zdravou statistiku screeningu — výrazné výkyvy by indikovaly problém.",
+  "code": "screening C53",
+  "source": "Informační systém screeningu karcinomu hrdla děložního (ÚZIS)",
+  "source_type": "national",
+  "metric": "abnormalni_pct",
+  "metric_label": "Podíl abnormálních (%)",
+  "relevant_for": [
+    "screening",
+    "ženské zdraví",
+    "prevence",
+    "lidský papilomavirus"
+  ],
+  "trend_context": "Stabilita podílu abnormálních cytologií indikuje konzistentní kvalitu screeningu. Postupný pokles po zavedení očkování proti lidskému papilomaviru je očekávaný dlouhodobý efekt.",
+  "updated": "2026-05-20",
+  "coverage": "2010–2024",
+  "trend": "plateau",
+  "delta": -1.7,
+  "peakYear": 2011,
+  "data": [
+    {
+      "year": 2010,
+      "value": 4.7
+    },
+    {
+      "year": 2011,
+      "value": 4.8
+    },
+    {
+      "year": 2012,
+      "value": 4.5
+    },
+    {
+      "year": 2013,
+      "value": 4.4
+    },
+    {
+      "year": 2014,
+      "value": 4.3
+    },
+    {
+      "year": 2015,
+      "value": 4.1
+    },
+    {
+      "year": 2016,
+      "value": 3.6
+    },
+    {
+      "year": 2017,
+      "value": 3.1
+    },
+    {
+      "year": 2018,
+      "value": 3.2
+    },
+    {
+      "year": 2019,
+      "value": 3.3
+    },
+    {
+      "year": 2020,
+      "value": 3.3
+    },
+    {
+      "year": 2021,
+      "value": 3.2
+    },
+    {
+      "year": 2022,
+      "value": 3.2
+    },
+    {
+      "year": 2023,
+      "value": 2.9
+    },
+    {
+      "year": 2024,
+      "value": 2.9
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/399/Otevrena-data-PPS-03-02-cervix-cytologie-podil-abnormalnich.csv",
+  "source_url": "https://www.nzip.cz/data/2094-cervix-cytologie-podil-abnormalnich-otevrena-data"
+}

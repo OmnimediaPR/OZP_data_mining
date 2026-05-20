@@ -1,0 +1,86 @@
+{
+  "id": "kolonoskopie_screening_pocet",
+  "label": "Screeningové kolonoskopie — počet provedených",
+  "human_name": "Počet provedených screeningových kolonoskopií",
+  "description": "Roční počet kolonoskopií provedených v rámci screeningu rakoviny tlustého střeva — buď jako primární vyšetření, nebo navazující po pozitivním testu na skryté krvácení.",
+  "code": "screening C18–C20",
+  "source": "Informační systém screeningu karcinomu tlustého střeva a konečníku (ÚZIS)",
+  "source_type": "national",
+  "metric": "vysetreni_rocni",
+  "metric_label": "Roční počet kolonoskopií",
+  "relevant_for": [
+    "screening tlustého střeva",
+    "prevence",
+    "gastroenterologie"
+  ],
+  "trend_context": "Vývoj odráží rozšíření primární screeningové kolonoskopie (od 2009) a aktivní zvaní pojišťovnami. Dostupnost kolonoskopických center se mezi kraji liší.",
+  "updated": "2026-05-20",
+  "coverage": "2010–2024",
+  "trend": "up",
+  "delta": 422,
+  "peakYear": 2024,
+  "data": [
+    {
+      "year": 2010,
+      "value": 3842
+    },
+    {
+      "year": 2011,
+      "value": 4218
+    },
+    {
+      "year": 2012,
+      "value": 4198
+    },
+    {
+      "year": 2013,
+      "value": 4907
+    },
+    {
+      "year": 2014,
+      "value": 9123
+    },
+    {
+      "year": 2015,
+      "value": 12899
+    },
+    {
+      "year": 2016,
+      "value": 12300
+    },
+    {
+      "year": 2017,
+      "value": 11506
+    },
+    {
+      "year": 2018,
+      "value": 12056
+    },
+    {
+      "year": 2019,
+      "value": 12474
+    },
+    {
+      "year": 2020,
+      "value": 10982
+    },
+    {
+      "year": 2021,
+      "value": 13347
+    },
+    {
+      "year": 2022,
+      "value": 17107
+    },
+    {
+      "year": 2023,
+      "value": 20266
+    },
+    {
+      "year": 2024,
+      "value": 26674
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/397/Otevrena-data-PPS-02-04-kolorektum-screeningove-kolonoskopie-pocet.csv",
+  "source_url": "https://www.nzip.cz/data/2092-kolorektum-screeningove-kolonoskopie-pocet-otevrena-data"
+}

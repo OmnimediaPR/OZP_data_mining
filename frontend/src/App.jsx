@@ -589,6 +589,15 @@ export default function App() {
         { id: 'umrti_doma_ocekavatelne', folder: 'nzip_curated' },
         { id: 'dialyza_nefrolog_pokryti', folder: 'nzip_curated' },
         { id: 'toks_pozitivni_podil', folder: 'nzip_curated' },
+        { id: 'sluch_screening_pokryti', folder: 'nzip_curated' },
+        { id: 'cervix_cytologie_pocet', folder: 'nzip_curated' },
+        { id: 'cervix_cytologie_abnormalni_podil', folder: 'nzip_curated' },
+        { id: 'kolonoskopie_screening_pocet', folder: 'nzip_curated' },
+        { id: 'toks_pocet', folder: 'nzip_curated' },
+        { id: 'mamografie_pocet', folder: 'nzip_curated' },
+        { id: 'mamografie_doplnujici_podil', folder: 'nzip_curated' },
+        { id: 'mamografie_uz_podil', folder: 'nzip_curated' },
+        { id: 'paliativni_trajektorie_optimalni', folder: 'nzip_curated' },
       ];
       const loaded = [];
 

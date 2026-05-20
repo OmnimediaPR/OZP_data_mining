@@ -1,0 +1,47 @@
+{
+  "id": "sluch_screening_pokryti",
+  "label": "Screening sluchu — pokrytí novorozenců",
+  "human_name": "Pokrytí novorozenců screeningem sluchu",
+  "description": "Procento dětí, které absolvovaly preventivní screening sluchu do věku 5 let. Včasné odhalení vady sluchu umožňuje včasnou intervenci (sluchadla, kochleární implantát) a normální vývoj řeči.",
+  "code": "screening sluchu",
+  "source": "Informační systém screeningu sluchu u novorozenců (ÚZIS)",
+  "source_type": "national",
+  "metric": "pokryti_pct",
+  "metric_label": "Pokrytí populace (%)",
+  "relevant_for": [
+    "dětské zdraví",
+    "prevence",
+    "ORL",
+    "vývoj řeči"
+  ],
+  "trend_context": "Včasný záchyt vady sluchu zásadně mění vývoj dítěte — bez intervence dochází k opoždění řeči. Klíčový pediatrický screeningový program.",
+  "updated": "2026-05-20",
+  "coverage": "2020–2024",
+  "trend": "up",
+  "delta": 9.0,
+  "peakYear": 2024,
+  "data": [
+    {
+      "year": 2020,
+      "value": 15.5
+    },
+    {
+      "year": 2021,
+      "value": 19.4
+    },
+    {
+      "year": 2022,
+      "value": 22.4
+    },
+    {
+      "year": 2023,
+      "value": 23.6
+    },
+    {
+      "year": 2024,
+      "value": 24.5
+    }
+  ],
+  "data_url": "https://datanzis.uzis.gov.cz/data/PPS-06-SLUCH/PPS-06-02/Otevrena-data-PPS-06-02-sluch-screening-pokryti-populace.csv",
+  "source_url": "https://www.nzip.cz/data/2619-sluch-screening-5-let-pokryti-populace-otevrena-data"
+}
