@@ -1152,13 +1152,16 @@ function DatasetCard({ d, selected, onToggle }) {
         </div>
       )}
 
-      {/* 5a. Pro regional snapshot: bar chart per kraj */}
+      {/* 5a. Pro regional snapshot: geo mapa + bar chart per kraj */}
       {isRegional && d.data?.length > 0 && (
         <div style={{ margin: '4px 0 8px' }}>
           <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#888', marginBottom: 8 }}>
             {d.metric_label || `Kraje (${d.snapshot_year})`}
           </div>
-          <RegionalBars data={d.data} peakRegion={d.peakRegion} />
+          <RegionalMap data={d.data} peakRegion={d.peakRegion} />
+          <div style={{ marginTop: 8 }}>
+            <RegionalBars data={d.data} peakRegion={d.peakRegion} />
+          </div>
         </div>
       )}
 
@@ -1237,6 +1240,75 @@ function DatasetCard({ d, selected, onToggle }) {
         )}
         {d.updated && ` · aktualizováno ${d.updated}`}
       </div>
+    </div>
+  );
+}
+
+// Geografické pozice 14 NUTS-3 krajů ČR v 4×6 gridu (orientační rozložení mapy).
+const KRAJ_GRID = {
+  "CZ041": [0, 0],  // Karlovarský    (severozápad)
+  "CZ042": [0, 1],  // Ústecký
+  "CZ051": [0, 2],  // Liberecký
+  "CZ052": [0, 3],  // Královéhradecký
+  "CZ032": [1, 0],  // Plzeňský
+  "CZ010": [1, 1],  // Praha
+  "CZ020": [1, 2],  // Středočeský
+  "CZ053": [1, 3],  // Pardubický
+  "CZ080": [1, 5],  // Moravskoslezský (severovýchod)
+  "CZ031": [2, 1],  // Jihočeský
+  "CZ063": [2, 2],  // Vysočina
+  "CZ071": [2, 4],  // Olomoucký
+  "CZ072": [2, 5],  // Zlínský
+  "CZ064": [3, 3],  // Jihomoravský    (jih)
+};
+
+function RegionalMap({ data, peakRegion }) {
+  // Zjednodušená geografická "mapa" ČR jako grid — pro PR brief stačí
+  // orientační rozložení, ne přesné geografické tvary.
+  const maxVal = Math.max(...data.map(r => r.value));
+  return (
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(6, 1fr)',
+      gridTemplateRows: 'repeat(4, 56px)',
+      gap: 3,
+      marginBottom: 4,
+    }}>
+      {data.map(r => {
+        const pos = KRAJ_GRID[r.kraj_kod];
+        if (!pos) return null;
+        const [row, col] = pos;
+        const intensity = maxVal > 0 ? r.value / maxVal : 0;
+        const isPeak = r.kraj_nazev === peakRegion;
+        const bgColor = isPeak
+          ? '#C9302C'
+          : `rgba(31, 78, 140, ${0.15 + intensity * 0.75})`;
+        return (
+          <div
+            key={r.kraj_kod}
+            title={`${r.kraj_nazev}: ${r.value.toLocaleString('cs-CZ')}`}
+            style={{
+              gridRow: row + 1,
+              gridColumn: col + 1,
+              background: bgColor,
+              color: '#FFFFFF',
+              padding: '4px 6px',
+              fontSize: 9,
+              lineHeight: 1.15,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}
+          >
+            <div style={{ fontWeight: 600, opacity: 0.95 }}>
+              {r.kraj_nazev.length > 10 ? r.kraj_nazev.slice(0, 9) + '.' : r.kraj_nazev}
+            </div>
+            <div className="num" style={{ fontSize: 11, fontWeight: 700, textAlign: 'right' }}>
+              {r.value.toLocaleString('cs-CZ')}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
