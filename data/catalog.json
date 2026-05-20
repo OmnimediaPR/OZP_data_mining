@@ -18,7 +18,7 @@
     { "id": "slinivka_incidence", "label": "Rakovina slinivky břišní — incidence", "code": "C25", "tags": ["onkologie", "trávicí systém"] },
     { "id": "mozek_incidence", "label": "Zhoubný nádor mozku — incidence", "code": "C71", "tags": ["onkologie", "neurologie"] },
     { "id": "leukemie_incidence", "label": "Leukémie — incidence", "code": "C91–C95", "tags": ["onkologie", "hematologie", "dětská onkologie"] },
-    { "id": "lymfomy_incidence", "label": "Lymfomy — incidence", "code": "C81–C85", "tags": ["onkologie", "hematologie", "imunita"] },
+    { "id": "lymfomy_incidence", "label": "Lymfomy — incidence (souhrn)", "code": "C81–C86", "tags": ["onkologie", "hematologie", "imunita"] },
     { "id": "ledvina_incidence", "label": "Rakovina ledviny — incidence", "code": "C64", "tags": ["onkologie", "močový systém", "kouření"] },
     { "id": "mocovy_mechyr_incidence", "label": "Rakovina močového měchýře — incidence", "code": "C67", "tags": ["onkologie", "močový systém", "kouření"] },
     { "id": "stitna_zlaza_incidence", "label": "Rakovina štítné žlázy — incidence", "code": "C73", "tags": ["onkologie", "hormonální systém", "ženské zdraví"] },
@@ -34,7 +34,10 @@
     { "id": "stitna_zlaza_dospeli_incidence", "label": "Rakovina štítné žlázy u dospělých — incidence", "code": "C73", "tags": ["onkologie", "hormonální systém", "ženské zdraví"] },
     { "id": "myelom_incidence", "label": "Mnohočetný myelom — incidence", "code": "C90", "tags": ["onkologie", "hematologie", "stárnutí populace"] },
     { "id": "hrtan_incidence", "label": "Rakovina hrtanu — incidence", "code": "C32", "tags": ["onkologie", "kouření", "alkohol"] },
-    { "id": "kuze_nemelanomove_incidence", "label": "Kožní rakoviny mimo melanom — incidence", "code": "C44", "tags": ["onkologie", "kůže", "ultrafialové záření"] }
+    { "id": "kuze_nemelanomove_incidence", "label": "Kožní rakoviny mimo melanom — incidence", "code": "C44", "tags": ["onkologie", "kůže", "ultrafialové záření"] },
+    { "id": "hodgkin_lymfom_incidence", "label": "Hodgkinův lymfom — incidence", "code": "C81", "tags": ["onkologie", "hematologie", "mladší pacienti"] },
+    { "id": "lymfomy_b_bunecne_incidence", "label": "B-buněčné non-Hodgkinovy lymfomy — incidence", "code": "C82, C83, C85", "tags": ["onkologie", "hematologie", "imunita"] },
+    { "id": "lymfomy_t_bunecne_incidence", "label": "T-buněčné a NK-buněčné lymfomy — incidence", "code": "C84, C86", "tags": ["onkologie", "hematologie", "vzácná onemocnění"] }
   ],
   "international": [
     {

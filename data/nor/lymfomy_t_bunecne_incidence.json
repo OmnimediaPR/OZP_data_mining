@@ -1,9 +1,9 @@
 {
-  "id": "lymfomy_incidence",
-  "label": "Lymfomy — incidence (souhrn)",
-  "human_name": "Lymfomy (souhrn)",
-  "description": "Souhrn zhoubných onemocnění mízní (lymfatické) tkáně. Zahrnuje Hodgkinův lymfom (mladší pacienti, výborně léčitelný) a všechny typy non-Hodgkinových lymfomů (B-buněčné, T-buněčné i NK-buněčné).",
-  "code": "C81–C86",
+  "id": "lymfomy_t_bunecne_incidence",
+  "label": "T-buněčné a NK-buněčné lymfomy — incidence",
+  "human_name": "T-buněčné a NK-buněčné lymfomy",
+  "description": "Vzácnější skupina non-Hodgkinových lymfomů, které vznikají z T-lymfocytů nebo NK-buněk (jiný typ bílých krvinek než B-lymfocyty). Zahrnuje periferní T-buněčné lymfomy a kožní T-buněčné lymfomy.",
+  "code": "C84, C86",
   "source": "Národní onkologický registr (ÚZIS)",
   "source_type": "national",
   "metric": "incidence_rocni",
@@ -12,198 +12,198 @@
     "onkologie",
     "hematologie",
     "imunita",
-    "mladší pacienti"
+    "vzácná onemocnění"
   ],
-  "trend_context": "Vývoj odráží stárnutí populace, lepší záchyt díky zobrazovacím metodám a změny v klasifikaci. Hodgkinův lymfom přitom patří k onkologicky nejlépe léčitelným nádorům — většinu pacientů se daří úplně vyléčit.",
+  "trend_context": "Patří mezi vzácnější hematologické nádory — počty se v Česku počítají v desítkách případů ročně. Léčba je oproti B-buněčným lymfomům obtížnější a obvykle vyžaduje specializovanou hematoonkologickou péči.",
   "updated": "2026-05-20",
   "coverage": "1977–2022",
   "trend": "up",
-  "delta": 185,
-  "peakYear": 2019,
+  "delta": 396,
+  "peakYear": 2018,
   "data": [
     {
       "year": 1977,
-      "value": 804
+      "value": 28
     },
     {
       "year": 1978,
-      "value": 877
+      "value": 43
     },
     {
       "year": 1979,
-      "value": 859
+      "value": 11
     },
     {
       "year": 1980,
-      "value": 905
+      "value": 27
     },
     {
       "year": 1981,
-      "value": 936
+      "value": 19
     },
     {
       "year": 1982,
-      "value": 952
+      "value": 22
     },
     {
       "year": 1983,
-      "value": 909
+      "value": 19
     },
     {
       "year": 1984,
-      "value": 953
+      "value": 23
     },
     {
       "year": 1985,
-      "value": 1013
+      "value": 25
     },
     {
       "year": 1986,
-      "value": 1004
+      "value": 27
     },
     {
       "year": 1987,
-      "value": 1054
+      "value": 20
     },
     {
       "year": 1988,
-      "value": 977
+      "value": 24
     },
     {
       "year": 1989,
-      "value": 1137
+      "value": 20
     },
     {
       "year": 1990,
-      "value": 1089
+      "value": 24
     },
     {
       "year": 1991,
-      "value": 1123
+      "value": 25
     },
     {
       "year": 1992,
-      "value": 1076
+      "value": 27
     },
     {
       "year": 1993,
-      "value": 1222
+      "value": 30
     },
     {
       "year": 1994,
-      "value": 1165
+      "value": 42
     },
     {
       "year": 1995,
-      "value": 1230
+      "value": 54
     },
     {
       "year": 1996,
-      "value": 1288
+      "value": 55
     },
     {
       "year": 1997,
-      "value": 1309
+      "value": 78
     },
     {
       "year": 1998,
-      "value": 1323
+      "value": 100
     },
     {
       "year": 1999,
-      "value": 1399
+      "value": 84
     },
     {
       "year": 2000,
-      "value": 1372
+      "value": 77
     },
     {
       "year": 2001,
-      "value": 1416
+      "value": 78
     },
     {
       "year": 2002,
-      "value": 1356
+      "value": 84
     },
     {
       "year": 2003,
-      "value": 1430
+      "value": 69
     },
     {
       "year": 2004,
-      "value": 1474
+      "value": 79
     },
     {
       "year": 2005,
-      "value": 1504
+      "value": 87
     },
     {
       "year": 2006,
-      "value": 1480
+      "value": 108
     },
     {
       "year": 2007,
-      "value": 1526
+      "value": 119
     },
     {
       "year": 2008,
-      "value": 1534
+      "value": 98
     },
     {
       "year": 2009,
-      "value": 1643
+      "value": 141
     },
     {
       "year": 2010,
-      "value": 1673
+      "value": 101
     },
     {
       "year": 2011,
-      "value": 1723
+      "value": 139
     },
     {
       "year": 2012,
-      "value": 1691
+      "value": 106
     },
     {
       "year": 2013,
-      "value": 1803
+      "value": 139
     },
     {
       "year": 2014,
-      "value": 1863
+      "value": 133
     },
     {
       "year": 2015,
-      "value": 1874
+      "value": 120
     },
     {
       "year": 2016,
-      "value": 1869
+      "value": 139
     },
     {
       "year": 2017,
-      "value": 1891
+      "value": 137
     },
     {
       "year": 2018,
-      "value": 2024
+      "value": 154
     },
     {
       "year": 2019,
-      "value": 2370
+      "value": 140
     },
     {
       "year": 2020,
-      "value": 2194
+      "value": 125
     },
     {
       "year": 2021,
-      "value": 2166
+      "value": 128
     },
     {
       "year": 2022,
-      "value": 2292
+      "value": 139
     }
   ],
   "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",

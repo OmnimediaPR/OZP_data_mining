@@ -257,6 +257,9 @@ export default function App() {
         { id: 'myelom_incidence', folder: 'nor' },
         { id: 'hrtan_incidence', folder: 'nor' },
         { id: 'kuze_nemelanomove_incidence', folder: 'nor' },
+        { id: 'hodgkin_lymfom_incidence', folder: 'nor' },
+        { id: 'lymfomy_b_bunecne_incidence', folder: 'nor' },
+        { id: 'lymfomy_t_bunecne_incidence', folder: 'nor' },
       ];
       const loaded = [];
 
