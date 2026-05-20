@@ -216,6 +216,56 @@ const INTL_DATASETS = [
     trend_context: 'ČR se v úmrtnosti na cévní mozkové příhody dostala blízko EU průměru. Klíčem byla síť specializovaných center pro léčbu cévních mozkových příhod (od 2011) a moderní léčba (mechanická trombektomie). Pozn.: čísla jsou orientační, přesné hodnoty viz Eurostat hlth_cd_asdr2.'
   },
   {
+    id: 'oecd_health_spending_gdp',
+    label: 'Výdaje na zdravotnictví — podíl HDP — OECD srovnání',
+    human_name: 'Výdaje na zdravotnictví jako podíl hrubého domácího produktu (OECD srovnání)',
+    description: 'Procento hrubého domácího produktu (HDP), které země vydává na zdravotní péči. Klíčový makro-ekonomický ukazatel financování zdravotnictví — vyšší podíl nemusí znamenat lepší péči (viz USA), ale ukazuje politické priority.',
+    code: 'OECD Health Statistics (2024)',
+    source: 'OECD Health at a Glance', source_type: 'international', updated: '2024 (data 2022)', coverage: '2022',
+    source_url: 'https://www.oecd.org/en/publications/health-at-a-glance-2024_7a7afb35-en.html',
+    trend: 'comparison', delta: null, peakYear: null,
+    relevant_for: ['mezinárodní kontext', 'financování zdravotnictví', 'veřejné zdraví', 'politika'],
+    data: [
+      { year: 2018, value: 7.6 }, { year: 2019, value: 7.8 }, { year: 2020, value: 9.0 },
+      { year: 2021, value: 9.1 }, { year: 2022, value: 8.8 },
+    ],
+    comparison: [
+      { country: 'USA', value: 16.6, hi: true },
+      { country: 'Německo', value: 12.7 },
+      { country: 'Francie', value: 12.1 },
+      { country: 'Švédsko', value: 10.7 },
+      { country: 'OECD průměr', value: 9.2 },
+      { country: 'ČR', value: 8.8, hi: true, isUs: true },
+      { country: 'Polsko', value: 6.7, hi: true },
+    ],
+    trend_context: 'ČR vydává na zdravotnictví zhruba 9 % HDP — pod OECD průměrem, ale výrazně víc než středovýchodní Evropa (Polsko, Maďarsko). USA je outlier (drahé soukromé pojištění), Skandinávie a Německo jsou nahoře díky veřejnému zdravotnímu systému. Pozn.: čísla jsou orientační, přesné hodnoty viz OECD Health Statistics.'
+  },
+  {
+    id: 'oecd_health_spending_per_capita',
+    label: 'Výdaje na zdravotnictví na obyvatele — OECD srovnání',
+    human_name: 'Výdaje na zdravotnictví na obyvatele (USD podle parity kupní síly)',
+    description: 'Roční výdaje na zdravotnictví na obyvatele v amerických dolarech přepočtených podle parity kupní síly (PPP). Lépe vyjadřuje skutečnou úroveň investice než pouhý kurz dolaru.',
+    code: 'OECD Health Statistics (2024)',
+    source: 'OECD Health at a Glance', source_type: 'international', updated: '2024 (data 2022)', coverage: '2022',
+    source_url: 'https://www.oecd.org/en/publications/health-at-a-glance-2024_7a7afb35-en.html',
+    trend: 'comparison', delta: null, peakYear: null,
+    relevant_for: ['mezinárodní kontext', 'financování zdravotnictví', 'kvalita péče'],
+    data: [
+      { year: 2018, value: 2900 }, { year: 2019, value: 3050 }, { year: 2020, value: 3400 },
+      { year: 2021, value: 3700 }, { year: 2022, value: 3800 },
+    ],
+    comparison: [
+      { country: 'USA', value: 12550, hi: true },
+      { country: 'Německo', value: 8000 },
+      { country: 'Nizozemsko', value: 6700 },
+      { country: 'Francie', value: 5600 },
+      { country: 'OECD průměr', value: 5000 },
+      { country: 'ČR', value: 3800, hi: true, isUs: true },
+      { country: 'Polsko', value: 2900, hi: true },
+    ],
+    trend_context: 'V přepočtu na obyvatele ČR vydává cca 3800 USD ročně — zhruba 75 % OECD průměru. Postupně se zvyšuje, ale za hlavními evropskými ekonomikami zaostává. Při porovnání pamatujte, že nižší výdaje v ČR nutně neznamenají horší péči — mnohé služby jsou levnější (mzdy zdravotníků, léky). Pozn.: data 2022, USD PPP.'
+  },
+  {
     id: 'fh_detection',
     label: 'Detekce FH — mezinárodní srovnání programů',
     human_name: 'Dědičně vysoký cholesterol — diagnostika',

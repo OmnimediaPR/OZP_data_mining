@@ -297,6 +297,20 @@
       "code": "hlth_cd_asdr2 (I60–I69)",
       "source": "Eurostat",
       "tags": ["mezinárodní", "kardiovaskulární", "mortalita"]
+    },
+    {
+      "id": "oecd_health_spending_gdp",
+      "label": "Výdaje na zdravotnictví — podíl HDP — OECD srovnání",
+      "code": "OECD Health Statistics (2024)",
+      "source": "OECD Health at a Glance",
+      "tags": ["mezinárodní", "financování zdravotnictví", "veřejné zdraví"]
+    },
+    {
+      "id": "oecd_health_spending_per_capita",
+      "label": "Výdaje na zdravotnictví na obyvatele — OECD srovnání",
+      "code": "OECD Health Statistics (2024)",
+      "source": "OECD Health at a Glance",
+      "tags": ["mezinárodní", "financování zdravotnictví"]
     }
   ]
 }
