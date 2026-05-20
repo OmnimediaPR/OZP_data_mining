@@ -268,6 +268,12 @@ export default function App() {
         { id: 'plice_starsi_incidence', folder: 'nor' },
         { id: 'melanom_mladi_incidence', folder: 'nor' },
         { id: 'melanom_starsi_incidence', folder: 'nor' },
+        { id: 'varlata_mladi_incidence', folder: 'nor' },
+        { id: 'varlata_starsi_incidence', folder: 'nor' },
+        { id: 'leukemie_deti_incidence', folder: 'nor' },
+        { id: 'leukemie_dospeli_incidence', folder: 'nor' },
+        { id: 'kolorektum_velmi_mladi_incidence', folder: 'nor' },
+        { id: 'kolorektum_stredni_incidence', folder: 'nor' },
       ];
       const loaded = [];
 

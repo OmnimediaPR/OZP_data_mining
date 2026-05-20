@@ -1,0 +1,211 @@
+{
+  "id": "leukemie_dospeli_incidence",
+  "label": "Leukémie u dospělých — incidence",
+  "human_name": "Leukémie u dospělých (20+ let)",
+  "description": "Souhrn leukémií u dospělých od 20 let. U dospělých převažují jiné typy než u dětí — nejčastější je chronická lymfocytární leukémie a akutní myeloidní leukémie. Po šedesátce výskyt strmě roste.",
+  "code": "C91–C95",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "incidence_rocni",
+  "metric_label": "Roční počet nově diagnostikovaných případů (20+ let)",
+  "relevant_for": [
+    "onkologie",
+    "hematologie",
+    "stárnutí populace",
+    "transplantace kostní dřeně"
+  ],
+  "trend_context": "U dospělých převažují chronická lymfocytární leukémie a akutní myeloidní leukémie. Vývoj odráží stárnutí populace a lepší záchyt díky krevním testům. Léčba se v posledních dvou desetiletích výrazně rozšířila o cílené léky.",
+  "updated": "2026-05-20",
+  "coverage": "1977–2022",
+  "trend": "up",
+  "delta": 105,
+  "peakYear": 2019,
+  "data": [
+    {
+      "year": 1977,
+      "value": 678
+    },
+    {
+      "year": 1978,
+      "value": 738
+    },
+    {
+      "year": 1979,
+      "value": 770
+    },
+    {
+      "year": 1980,
+      "value": 679
+    },
+    {
+      "year": 1981,
+      "value": 785
+    },
+    {
+      "year": 1982,
+      "value": 834
+    },
+    {
+      "year": 1983,
+      "value": 825
+    },
+    {
+      "year": 1984,
+      "value": 819
+    },
+    {
+      "year": 1985,
+      "value": 772
+    },
+    {
+      "year": 1986,
+      "value": 792
+    },
+    {
+      "year": 1987,
+      "value": 912
+    },
+    {
+      "year": 1988,
+      "value": 893
+    },
+    {
+      "year": 1989,
+      "value": 990
+    },
+    {
+      "year": 1990,
+      "value": 930
+    },
+    {
+      "year": 1991,
+      "value": 994
+    },
+    {
+      "year": 1992,
+      "value": 950
+    },
+    {
+      "year": 1993,
+      "value": 889
+    },
+    {
+      "year": 1994,
+      "value": 1031
+    },
+    {
+      "year": 1995,
+      "value": 1069
+    },
+    {
+      "year": 1996,
+      "value": 1091
+    },
+    {
+      "year": 1997,
+      "value": 1068
+    },
+    {
+      "year": 1998,
+      "value": 1154
+    },
+    {
+      "year": 1999,
+      "value": 1142
+    },
+    {
+      "year": 2000,
+      "value": 1105
+    },
+    {
+      "year": 2001,
+      "value": 1116
+    },
+    {
+      "year": 2002,
+      "value": 1173
+    },
+    {
+      "year": 2003,
+      "value": 1216
+    },
+    {
+      "year": 2004,
+      "value": 1222
+    },
+    {
+      "year": 2005,
+      "value": 1209
+    },
+    {
+      "year": 2006,
+      "value": 1234
+    },
+    {
+      "year": 2007,
+      "value": 1262
+    },
+    {
+      "year": 2008,
+      "value": 1323
+    },
+    {
+      "year": 2009,
+      "value": 1280
+    },
+    {
+      "year": 2010,
+      "value": 1395
+    },
+    {
+      "year": 2011,
+      "value": 1354
+    },
+    {
+      "year": 2012,
+      "value": 1348
+    },
+    {
+      "year": 2013,
+      "value": 1395
+    },
+    {
+      "year": 2014,
+      "value": 1382
+    },
+    {
+      "year": 2015,
+      "value": 1462
+    },
+    {
+      "year": 2016,
+      "value": 1339
+    },
+    {
+      "year": 2017,
+      "value": 1389
+    },
+    {
+      "year": 2018,
+      "value": 1289
+    },
+    {
+      "year": 2019,
+      "value": 1594
+    },
+    {
+      "year": 2020,
+      "value": 1344
+    },
+    {
+      "year": 2021,
+      "value": 1275
+    },
+    {
+      "year": 2022,
+      "value": 1390
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data"
+}

@@ -45,7 +45,13 @@
     { "id": "plice_mladi_incidence", "label": "Rakovina plic u mladších dospělých — incidence", "code": "C34", "tags": ["onkologie", "kouření", "early-onset"] },
     { "id": "plice_starsi_incidence", "label": "Rakovina plic u starších dospělých — incidence", "code": "C34", "tags": ["onkologie", "kouření", "starší pacienti"] },
     { "id": "melanom_mladi_incidence", "label": "Zhoubný melanom kůže u mladších dospělých — incidence", "code": "C43", "tags": ["onkologie", "kůže", "solária"] },
-    { "id": "melanom_starsi_incidence", "label": "Zhoubný melanom kůže u starších dospělých — incidence", "code": "C43", "tags": ["onkologie", "kůže", "stárnutí populace"] }
+    { "id": "melanom_starsi_incidence", "label": "Zhoubný melanom kůže u starších dospělých — incidence", "code": "C43", "tags": ["onkologie", "kůže", "stárnutí populace"] },
+    { "id": "varlata_mladi_incidence", "label": "Rakovina varlat u mladších mužů — incidence", "code": "C62", "tags": ["onkologie", "mužské zdraví", "mladší pacienti"] },
+    { "id": "varlata_starsi_incidence", "label": "Rakovina varlat u starších mužů — incidence", "code": "C62", "tags": ["onkologie", "mužské zdraví", "starší pacienti"] },
+    { "id": "leukemie_deti_incidence", "label": "Leukémie u dětí a dospívajících — incidence", "code": "C91–C95", "tags": ["onkologie", "dětská onkologie", "akutní lymfoblastická leukémie"] },
+    { "id": "leukemie_dospeli_incidence", "label": "Leukémie u dospělých — incidence", "code": "C91–C95", "tags": ["onkologie", "hematologie", "stárnutí populace"] },
+    { "id": "kolorektum_velmi_mladi_incidence", "label": "Rakovina tlustého střeva a konečníku u velmi mladých dospělých — incidence", "code": "C18–C20", "tags": ["onkologie", "early-onset", "mladší pacienti"] },
+    { "id": "kolorektum_stredni_incidence", "label": "Rakovina tlustého střeva a konečníku ve středním věku — incidence", "code": "C18–C20", "tags": ["onkologie", "screening tlustého střeva", "early-onset"] }
   ],
   "international": [
     {

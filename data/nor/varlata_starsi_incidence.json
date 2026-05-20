@@ -1,0 +1,210 @@
+{
+  "id": "varlata_starsi_incidence",
+  "label": "Rakovina varlat u starších mužů — incidence",
+  "human_name": "Rakovina varlat u starších mužů (40+ let)",
+  "description": "Zhoubný nádor varlat u mužů 40 a více let. Po čtyřicítce výskyt klesá, ale i v této věkové skupině zůstává jedním z prognosticky nejlépe léčitelných nádorů. U starších pacientů se častěji vyskytují vzácnější histologické subtypy.",
+  "code": "C62",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "incidence_rocni",
+  "metric_label": "Roční počet nově diagnostikovaných případů (40+ let)",
+  "relevant_for": [
+    "onkologie",
+    "mužské zdraví",
+    "starší pacienti"
+  ],
+  "trend_context": "Po čtyřicítce výskyt rakoviny varlat klesá — typický věk diagnózy leží v mladších dospělých letech. Vývoj odráží lepší záchyt a změny v klasifikaci.",
+  "updated": "2026-05-20",
+  "coverage": "1977–2022",
+  "trend": "up",
+  "delta": 546,
+  "peakYear": 2019,
+  "data": [
+    {
+      "year": 1977,
+      "value": 37
+    },
+    {
+      "year": 1978,
+      "value": 31
+    },
+    {
+      "year": 1979,
+      "value": 43
+    },
+    {
+      "year": 1980,
+      "value": 47
+    },
+    {
+      "year": 1981,
+      "value": 37
+    },
+    {
+      "year": 1982,
+      "value": 58
+    },
+    {
+      "year": 1983,
+      "value": 50
+    },
+    {
+      "year": 1984,
+      "value": 37
+    },
+    {
+      "year": 1985,
+      "value": 41
+    },
+    {
+      "year": 1986,
+      "value": 53
+    },
+    {
+      "year": 1987,
+      "value": 44
+    },
+    {
+      "year": 1988,
+      "value": 54
+    },
+    {
+      "year": 1989,
+      "value": 57
+    },
+    {
+      "year": 1990,
+      "value": 72
+    },
+    {
+      "year": 1991,
+      "value": 82
+    },
+    {
+      "year": 1992,
+      "value": 94
+    },
+    {
+      "year": 1993,
+      "value": 98
+    },
+    {
+      "year": 1994,
+      "value": 91
+    },
+    {
+      "year": 1995,
+      "value": 93
+    },
+    {
+      "year": 1996,
+      "value": 105
+    },
+    {
+      "year": 1997,
+      "value": 136
+    },
+    {
+      "year": 1998,
+      "value": 107
+    },
+    {
+      "year": 1999,
+      "value": 111
+    },
+    {
+      "year": 2000,
+      "value": 114
+    },
+    {
+      "year": 2001,
+      "value": 133
+    },
+    {
+      "year": 2002,
+      "value": 125
+    },
+    {
+      "year": 2003,
+      "value": 161
+    },
+    {
+      "year": 2004,
+      "value": 137
+    },
+    {
+      "year": 2005,
+      "value": 154
+    },
+    {
+      "year": 2006,
+      "value": 132
+    },
+    {
+      "year": 2007,
+      "value": 162
+    },
+    {
+      "year": 2008,
+      "value": 166
+    },
+    {
+      "year": 2009,
+      "value": 170
+    },
+    {
+      "year": 2010,
+      "value": 158
+    },
+    {
+      "year": 2011,
+      "value": 168
+    },
+    {
+      "year": 2012,
+      "value": 165
+    },
+    {
+      "year": 2013,
+      "value": 153
+    },
+    {
+      "year": 2014,
+      "value": 186
+    },
+    {
+      "year": 2015,
+      "value": 214
+    },
+    {
+      "year": 2016,
+      "value": 200
+    },
+    {
+      "year": 2017,
+      "value": 209
+    },
+    {
+      "year": 2018,
+      "value": 210
+    },
+    {
+      "year": 2019,
+      "value": 246
+    },
+    {
+      "year": 2020,
+      "value": 220
+    },
+    {
+      "year": 2021,
+      "value": 218
+    },
+    {
+      "year": 2022,
+      "value": 239
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data"
+}
