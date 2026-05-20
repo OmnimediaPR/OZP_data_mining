@@ -1,0 +1,123 @@
+{
+  "id": "prsa_mladi_preziti_5y",
+  "label": "Rakovina prsu u mladších žen — 5leté přežití",
+  "human_name": "5leté přežití u rakoviny prsu u mladších žen (do 49 let)",
+  "description": "Procento žen mladších 50 let, které žijí 5 a více let po diagnóze rakoviny prsu. U mladších pacientek jsou nádory často agresivnější, ale moderní léčba (cílená terapie podle subtypu) pomáhá vyrovnat prognózu.",
+  "code": "C50",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "preziti_5_let",
+  "metric_label": "5leté přežití (% pacientek do 49 let)",
+  "relevant_for": [
+    "onkologie",
+    "ženské zdraví",
+    "early-onset",
+    "kvalita léčby"
+  ],
+  "trend_context": "U mladších žen je prognóza historicky méně příznivá než u starších. Pokrok v moderní léčbě (cílená terapie, hormonální léčba podle subtypu) postupně vyrovnává rozdíly.",
+  "updated": "2026-05-20",
+  "data": [
+    {
+      "year": 1994,
+      "value": 75.8
+    },
+    {
+      "year": 1995,
+      "value": 77.2
+    },
+    {
+      "year": 1996,
+      "value": 75.8
+    },
+    {
+      "year": 1997,
+      "value": 77.9
+    },
+    {
+      "year": 1998,
+      "value": 78.4
+    },
+    {
+      "year": 1999,
+      "value": 80.9
+    },
+    {
+      "year": 2000,
+      "value": 81.5
+    },
+    {
+      "year": 2001,
+      "value": 84.1
+    },
+    {
+      "year": 2002,
+      "value": 82.9
+    },
+    {
+      "year": 2003,
+      "value": 85.6
+    },
+    {
+      "year": 2004,
+      "value": 85.7
+    },
+    {
+      "year": 2005,
+      "value": 87.2
+    },
+    {
+      "year": 2006,
+      "value": 84.9
+    },
+    {
+      "year": 2007,
+      "value": 86.5
+    },
+    {
+      "year": 2008,
+      "value": 89.0
+    },
+    {
+      "year": 2009,
+      "value": 86.6
+    },
+    {
+      "year": 2010,
+      "value": 88.1
+    },
+    {
+      "year": 2011,
+      "value": 88.1
+    },
+    {
+      "year": 2012,
+      "value": 89.5
+    },
+    {
+      "year": 2013,
+      "value": 89.7
+    },
+    {
+      "year": 2014,
+      "value": 89.3
+    },
+    {
+      "year": 2015,
+      "value": 89.6
+    },
+    {
+      "year": 2016,
+      "value": 88.3
+    },
+    {
+      "year": 2017,
+      "value": 89.3
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+  "coverage": "1994–2017",
+  "trend": "up",
+  "delta": 12.8,
+  "peakYear": 2013
+}

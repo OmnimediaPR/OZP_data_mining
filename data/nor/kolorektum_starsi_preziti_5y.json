@@ -1,0 +1,123 @@
+{
+  "id": "kolorektum_starsi_preziti_5y",
+  "label": "Rakovina tlustého střeva a konečníku u starších dospělých — 5leté přežití",
+  "human_name": "5leté přežití u rakoviny tlustého střeva a konečníku u starších dospělých (50+ let)",
+  "description": "Procento pacientů 50 a více let, kteří žijí 5 a více let po diagnóze rakoviny tlustého střeva a konečníku. Hlavní cílová skupina českého screeningu.",
+  "code": "C18–C20",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "preziti_5_let",
+  "metric_label": "5leté přežití (% pacientů 50+ let)",
+  "relevant_for": [
+    "onkologie",
+    "screening tlustého střeva",
+    "starší pacienti",
+    "kvalita léčby"
+  ],
+  "trend_context": "Hlavní cílová skupina českého screeningu rakoviny tlustého střeva. Časný záchyt přes test na skryté krvácení nebo kolonoskopii umožňuje šetrnější léčbu a lepší prognózu.",
+  "updated": "2026-05-20",
+  "data": [
+    {
+      "year": 1994,
+      "value": 26.4
+    },
+    {
+      "year": 1995,
+      "value": 26.8
+    },
+    {
+      "year": 1996,
+      "value": 27.6
+    },
+    {
+      "year": 1997,
+      "value": 29.1
+    },
+    {
+      "year": 1998,
+      "value": 30.7
+    },
+    {
+      "year": 1999,
+      "value": 31.3
+    },
+    {
+      "year": 2000,
+      "value": 33.3
+    },
+    {
+      "year": 2001,
+      "value": 35.3
+    },
+    {
+      "year": 2002,
+      "value": 35.5
+    },
+    {
+      "year": 2003,
+      "value": 36.2
+    },
+    {
+      "year": 2004,
+      "value": 37.2
+    },
+    {
+      "year": 2005,
+      "value": 38.2
+    },
+    {
+      "year": 2006,
+      "value": 38.0
+    },
+    {
+      "year": 2007,
+      "value": 38.4
+    },
+    {
+      "year": 2008,
+      "value": 41.2
+    },
+    {
+      "year": 2009,
+      "value": 41.0
+    },
+    {
+      "year": 2010,
+      "value": 42.7
+    },
+    {
+      "year": 2011,
+      "value": 44.9
+    },
+    {
+      "year": 2012,
+      "value": 44.6
+    },
+    {
+      "year": 2013,
+      "value": 46.8
+    },
+    {
+      "year": 2014,
+      "value": 47.5
+    },
+    {
+      "year": 2015,
+      "value": 47.2
+    },
+    {
+      "year": 2016,
+      "value": 45.9
+    },
+    {
+      "year": 2017,
+      "value": 43.7
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+  "coverage": "1994–2017",
+  "trend": "up",
+  "delta": 18.7,
+  "peakYear": 2014
+}
