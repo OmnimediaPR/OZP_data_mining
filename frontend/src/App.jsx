@@ -253,6 +253,10 @@ export default function App() {
         { id: 'ustni_dutina_incidence', folder: 'nor' },
         { id: 'stitna_zlaza_deti_incidence', folder: 'nor' },
         { id: 'vzacne_nadory_incidence', folder: 'nor' },
+        { id: 'stitna_zlaza_dospeli_incidence', folder: 'nor' },
+        { id: 'myelom_incidence', folder: 'nor' },
+        { id: 'hrtan_incidence', folder: 'nor' },
+        { id: 'kuze_nemelanomove_incidence', folder: 'nor' },
       ];
       const loaded = [];
 

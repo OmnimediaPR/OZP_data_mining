@@ -1,0 +1,211 @@
+{
+  "id": "hrtan_incidence",
+  "label": "Rakovina hrtanu — incidence",
+  "human_name": "Rakovina hrtanu",
+  "description": "Zhoubný nádor hrtanu — orgánu, kde sedí hlasivky. Drtivou většinu případů způsobuje kouření, riziko dál zvyšuje konzumace alkoholu.",
+  "code": "C32",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "incidence_rocni",
+  "metric_label": "Roční počet nově diagnostikovaných případů",
+  "relevant_for": [
+    "onkologie",
+    "kouření",
+    "alkohol",
+    "hlasivky"
+  ],
+  "trend_context": "Vývoj odráží dlouhodobé vzorce kouření a konzumace alkoholu. Drtivou většinu pacientů tvoří muži — u žen je výskyt řádově nižší.",
+  "updated": "2026-05-20",
+  "coverage": "1977–2022",
+  "trend": "plateau",
+  "delta": -5,
+  "peakYear": 1996,
+  "data": [
+    {
+      "year": 1977,
+      "value": 472
+    },
+    {
+      "year": 1978,
+      "value": 458
+    },
+    {
+      "year": 1979,
+      "value": 462
+    },
+    {
+      "year": 1980,
+      "value": 506
+    },
+    {
+      "year": 1981,
+      "value": 470
+    },
+    {
+      "year": 1982,
+      "value": 516
+    },
+    {
+      "year": 1983,
+      "value": 444
+    },
+    {
+      "year": 1984,
+      "value": 502
+    },
+    {
+      "year": 1985,
+      "value": 468
+    },
+    {
+      "year": 1986,
+      "value": 505
+    },
+    {
+      "year": 1987,
+      "value": 506
+    },
+    {
+      "year": 1988,
+      "value": 497
+    },
+    {
+      "year": 1989,
+      "value": 485
+    },
+    {
+      "year": 1990,
+      "value": 479
+    },
+    {
+      "year": 1991,
+      "value": 511
+    },
+    {
+      "year": 1992,
+      "value": 502
+    },
+    {
+      "year": 1993,
+      "value": 535
+    },
+    {
+      "year": 1994,
+      "value": 519
+    },
+    {
+      "year": 1995,
+      "value": 504
+    },
+    {
+      "year": 1996,
+      "value": 572
+    },
+    {
+      "year": 1997,
+      "value": 512
+    },
+    {
+      "year": 1998,
+      "value": 501
+    },
+    {
+      "year": 1999,
+      "value": 528
+    },
+    {
+      "year": 2000,
+      "value": 494
+    },
+    {
+      "year": 2001,
+      "value": 515
+    },
+    {
+      "year": 2002,
+      "value": 531
+    },
+    {
+      "year": 2003,
+      "value": 561
+    },
+    {
+      "year": 2004,
+      "value": 562
+    },
+    {
+      "year": 2005,
+      "value": 512
+    },
+    {
+      "year": 2006,
+      "value": 542
+    },
+    {
+      "year": 2007,
+      "value": 520
+    },
+    {
+      "year": 2008,
+      "value": 548
+    },
+    {
+      "year": 2009,
+      "value": 515
+    },
+    {
+      "year": 2010,
+      "value": 558
+    },
+    {
+      "year": 2011,
+      "value": 529
+    },
+    {
+      "year": 2012,
+      "value": 566
+    },
+    {
+      "year": 2013,
+      "value": 527
+    },
+    {
+      "year": 2014,
+      "value": 532
+    },
+    {
+      "year": 2015,
+      "value": 555
+    },
+    {
+      "year": 2016,
+      "value": 518
+    },
+    {
+      "year": 2017,
+      "value": 533
+    },
+    {
+      "year": 2018,
+      "value": 452
+    },
+    {
+      "year": 2019,
+      "value": 490
+    },
+    {
+      "year": 2020,
+      "value": 464
+    },
+    {
+      "year": 2021,
+      "value": 500
+    },
+    {
+      "year": 2022,
+      "value": 450
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data"
+}

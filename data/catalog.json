@@ -30,7 +30,11 @@
     { "id": "kosti_incidence", "label": "Zhoubné nádory kostí — incidence", "code": "C40–C41", "tags": ["onkologie", "sarkomy", "dětská onkologie"] },
     { "id": "ustni_dutina_incidence", "label": "Rakovina dutiny ústní a hltanu — incidence", "code": "C00–C14", "tags": ["onkologie", "kouření", "alkohol"] },
     { "id": "stitna_zlaza_deti_incidence", "label": "Rakovina štítné žlázy u dětí a dospívajících — incidence", "code": "C73", "tags": ["onkologie", "dětská onkologie", "vzácná onemocnění"] },
-    { "id": "vzacne_nadory_incidence", "label": "Vzácné onkologické diagnózy — incidence", "code": "C30–C31, C37–C38, C45–C49, C69, C74–C75", "tags": ["onkologie", "vzácná onemocnění", "specializovaná péče"] }
+    { "id": "vzacne_nadory_incidence", "label": "Vzácné onkologické diagnózy — incidence", "code": "C30–C31, C37–C38, C45–C49, C69, C74–C75", "tags": ["onkologie", "vzácná onemocnění", "specializovaná péče"] },
+    { "id": "stitna_zlaza_dospeli_incidence", "label": "Rakovina štítné žlázy u dospělých — incidence", "code": "C73", "tags": ["onkologie", "hormonální systém", "ženské zdraví"] },
+    { "id": "myelom_incidence", "label": "Mnohočetný myelom — incidence", "code": "C90", "tags": ["onkologie", "hematologie", "stárnutí populace"] },
+    { "id": "hrtan_incidence", "label": "Rakovina hrtanu — incidence", "code": "C32", "tags": ["onkologie", "kouření", "alkohol"] },
+    { "id": "kuze_nemelanomove_incidence", "label": "Kožní rakoviny mimo melanom — incidence", "code": "C44", "tags": ["onkologie", "kůže", "ultrafialové záření"] }
   ],
   "international": [
     {

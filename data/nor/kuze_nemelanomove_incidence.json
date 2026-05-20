@@ -1,0 +1,211 @@
+{
+  "id": "kuze_nemelanomove_incidence",
+  "label": "Kožní rakoviny mimo melanom — incidence",
+  "human_name": "Kožní rakoviny mimo melanom",
+  "description": "Souhrn nejčastějších kožních zhoubných nádorů — bazaliomu (bazocelulárního karcinomu) a spinocelulárního karcinomu. Z pohledu počtu případů jde o nejčastější zhoubný nádor v Česku vůbec. Prognosticky jsou ale tyto nádory naprosto odlišné od melanomu — naprostá většina případů je dobře léčitelná drobným chirurgickým zákrokem.",
+  "code": "C44",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "incidence_rocni",
+  "metric_label": "Roční počet nově diagnostikovaných případů",
+  "relevant_for": [
+    "onkologie",
+    "kůže",
+    "ultrafialové záření",
+    "stárnutí populace"
+  ],
+  "trend_context": "Vývoj odráží stárnutí populace, kumulativní expozici ultrafialovému záření (slunění, solária, práce venku) a lepší záchyt díky preventivním kožním prohlídkám. Spolu s melanomem představují tyto nádory hlavní agendu kožních lékařů.",
+  "updated": "2026-05-20",
+  "coverage": "1977–2022",
+  "trend": "up",
+  "delta": 410,
+  "peakYear": 2018,
+  "data": [
+    {
+      "year": 1977,
+      "value": 5459
+    },
+    {
+      "year": 1978,
+      "value": 5487
+    },
+    {
+      "year": 1979,
+      "value": 5263
+    },
+    {
+      "year": 1980,
+      "value": 5437
+    },
+    {
+      "year": 1981,
+      "value": 5930
+    },
+    {
+      "year": 1982,
+      "value": 6054
+    },
+    {
+      "year": 1983,
+      "value": 6242
+    },
+    {
+      "year": 1984,
+      "value": 6100
+    },
+    {
+      "year": 1985,
+      "value": 6414
+    },
+    {
+      "year": 1986,
+      "value": 6508
+    },
+    {
+      "year": 1987,
+      "value": 6867
+    },
+    {
+      "year": 1988,
+      "value": 6855
+    },
+    {
+      "year": 1989,
+      "value": 6995
+    },
+    {
+      "year": 1990,
+      "value": 6782
+    },
+    {
+      "year": 1991,
+      "value": 7207
+    },
+    {
+      "year": 1992,
+      "value": 8194
+    },
+    {
+      "year": 1993,
+      "value": 9182
+    },
+    {
+      "year": 1994,
+      "value": 9653
+    },
+    {
+      "year": 1995,
+      "value": 10121
+    },
+    {
+      "year": 1996,
+      "value": 10479
+    },
+    {
+      "year": 1997,
+      "value": 11504
+    },
+    {
+      "year": 1998,
+      "value": 11082
+    },
+    {
+      "year": 1999,
+      "value": 11740
+    },
+    {
+      "year": 2000,
+      "value": 12153
+    },
+    {
+      "year": 2001,
+      "value": 12839
+    },
+    {
+      "year": 2002,
+      "value": 13989
+    },
+    {
+      "year": 2003,
+      "value": 14620
+    },
+    {
+      "year": 2004,
+      "value": 15196
+    },
+    {
+      "year": 2005,
+      "value": 16705
+    },
+    {
+      "year": 2006,
+      "value": 16635
+    },
+    {
+      "year": 2007,
+      "value": 18789
+    },
+    {
+      "year": 2008,
+      "value": 18541
+    },
+    {
+      "year": 2009,
+      "value": 19205
+    },
+    {
+      "year": 2010,
+      "value": 20690
+    },
+    {
+      "year": 2011,
+      "value": 20858
+    },
+    {
+      "year": 2012,
+      "value": 22687
+    },
+    {
+      "year": 2013,
+      "value": 24341
+    },
+    {
+      "year": 2014,
+      "value": 25668
+    },
+    {
+      "year": 2015,
+      "value": 27493
+    },
+    {
+      "year": 2016,
+      "value": 28392
+    },
+    {
+      "year": 2017,
+      "value": 28078
+    },
+    {
+      "year": 2018,
+      "value": 28596
+    },
+    {
+      "year": 2019,
+      "value": 25541
+    },
+    {
+      "year": 2020,
+      "value": 22962
+    },
+    {
+      "year": 2021,
+      "value": 24394
+    },
+    {
+      "year": 2022,
+      "value": 27815
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data"
+}
