@@ -251,6 +251,7 @@ export default function App() {
         { id: 'deloha_incidence', folder: 'nor' },
         { id: 'kosti_incidence', folder: 'nor' },
         { id: 'ustni_dutina_incidence', folder: 'nor' },
+        { id: 'stitna_zlaza_deti_incidence', folder: 'nor' },
       ];
       const loaded = [];
 

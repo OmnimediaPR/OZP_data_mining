@@ -429,6 +429,28 @@ DATASETS = {
         "diagnosis_prefix": ["C00", "C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10", "C11", "C12", "C13", "C14"],
         "year_col": "rok_dg",
     },
+    "stitna_zlaza_deti_incidence": {
+        "label": "Rakovina štítné žlázy u dětí a dospívajících — incidence",
+        "human_name": "Rakovina štítné žlázy u dětí a dospívajících",
+        "description": "Zhoubný nádor štítné žlázy u dětí a dospívajících do 19 let. V mezinárodní onkologii (Mezinárodní agentura pro výzkum rakoviny) se pediatrická onkologie obvykle definuje jako 0–19 let. Většina případů má velmi dobrou prognózu.",
+        "code": "C73",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů (0–19 let)",
+        "relevant_for": [
+            "onkologie",
+            "dětská onkologie",
+            "hormonální systém",
+            "vzácná onemocnění",
+        ],
+        "trend_context": "U dětí a dospívajících je rakovina štítné žlázy vzácná. Případná kolísání v ročních počtech proto odpovídají statistickému šumu vzácných onemocnění, ne skutečným změnám rizika. Léčba má v této věkové skupině vysokou úspěšnost.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C73",
+        "year_col": "rok_dg",
+        "age_col": "vek_kategorie_kod_dg",
+        "age_codes": ["66000004", "66005009", "66010014", "66015019"],
+    },
 }
 
 
@@ -478,6 +500,10 @@ def count_cases_by_year_multi(
     `diagnosis_prefix` může být string nebo seznam stringů (multi-kód, např.
     kolorektum ["C18","C19","C20"]).
 
+    Volitelně lze v `cfg` zadat `age_col` + `age_codes` (set/list kódů ÚZIS
+    věkové kategorie, např. ["66000004", "66005009", "66010014", "66015019"]
+    pro děti a dospívající 0–19 let). Pokud chybí, věk se nefiltruje.
+
     Předpoklad: všechny datasety v `datasets` mají stejný `diagnosis_col`
     a `year_col` (u NOR 1770 jsou všechny `diagnoza_kod` + `rok_dg`).
     Pokud se rozcházejí, funkce shodí výjimku.
@@ -497,14 +523,6 @@ def count_cases_by_year_multi(
     diagnosis_col = next(iter(dx_cols))
     year_col = next(iter(yr_cols))
 
-    # Předem zkompilovat prefixy do tuplů (pro str.startswith(tuple)).
-    prefixes_per_ds: list[tuple[str, tuple[str, ...]]] = []
-    for ds_id, cfg in datasets:
-        p = cfg["diagnosis_prefix"]
-        prefixes_per_ds.append(
-            (ds_id, (p,) if isinstance(p, str) else tuple(p))
-        )
-
     counts: dict[str, dict[int, int]] = {ds_id: {} for ds_id, _ in datasets}
 
     with csv_path.open(encoding="utf-8", newline="") as f:
@@ -522,6 +540,28 @@ def count_cases_by_year_multi(
                 f"Nalezené sloupce: {reader.fieldnames}"
             )
 
+        # Předem zkompilovat per-dataset state:
+        # (ds_id, prefixes_tuple, age_col_actual_or_None, age_codes_set_or_None)
+        per_ds: list[tuple[str, tuple, str | None, set[str] | None]] = []
+        for ds_id, cfg in datasets:
+            p = cfg["diagnosis_prefix"]
+            prefixes = (p,) if isinstance(p, str) else tuple(p)
+
+            age_col_name = cfg.get("age_col")
+            if age_col_name:
+                age_col_actual = cols_lower.get(age_col_name.lower())
+                if not age_col_actual:
+                    raise ValueError(
+                        f"CSV neobsahuje sloupec '{age_col_name}' "
+                        f"pro dataset {ds_id}"
+                    )
+                age_codes = set(cfg["age_codes"])
+            else:
+                age_col_actual = None
+                age_codes = None
+
+            per_ds.append((ds_id, prefixes, age_col_actual, age_codes))
+
         for row in reader:
             dx = (row.get(dx_col) or "").strip()
             if not dx:
@@ -533,9 +573,14 @@ def count_cases_by_year_multi(
             if not (1950 <= year <= 2030):
                 continue
 
-            for ds_id, prefixes in prefixes_per_ds:
-                if dx.startswith(prefixes):
-                    counts[ds_id][year] = counts[ds_id].get(year, 0) + 1
+            for ds_id, prefixes, age_col_actual, age_codes in per_ds:
+                if not dx.startswith(prefixes):
+                    continue
+                if age_codes is not None:
+                    age_val = (row.get(age_col_actual) or "").strip()
+                    if age_val not in age_codes:
+                        continue
+                counts[ds_id][year] = counts[ds_id].get(year, 0) + 1
 
     return {
         ds_id: [{"year": y, "value": d[y]} for y in sorted(d.keys())]
