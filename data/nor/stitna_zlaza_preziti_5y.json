@@ -1,0 +1,122 @@
+{
+  "id": "stitna_zlaza_preziti_5y",
+  "label": "Rakovina štítné žlázy — 5leté přežití",
+  "human_name": "5leté přežití u rakoviny štítné žlázy",
+  "description": "Procento pacientů, kteří žijí 5 a více let po diagnóze rakoviny štítné žlázy. Patří k onkologicky nejlépe prognosticky diagnózám — papilární karcinom (drtivá většina případů) má vynikající prognózu.",
+  "code": "C73",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "preziti_5_let",
+  "metric_label": "5leté přežití (% pacientů)",
+  "relevant_for": [
+    "onkologie",
+    "hormonální systém",
+    "kvalita léčby"
+  ],
+  "trend_context": "Vývoj se drží na vysokých hodnotách díky pomalému růstu papilárního karcinomu a moderní léčbě (chirurgie + radiojód). Vyšší podíl drobných nádorů zachycených ultrazvukem dál zvyšuje průměrné přežití.",
+  "updated": "2026-05-20",
+  "coverage": "1994–2017",
+  "trend": "up",
+  "delta": 19.8,
+  "peakYear": 2016,
+  "data": [
+    {
+      "year": 1994,
+      "value": 68.2
+    },
+    {
+      "year": 1995,
+      "value": 68.9
+    },
+    {
+      "year": 1996,
+      "value": 74.2
+    },
+    {
+      "year": 1997,
+      "value": 74.2
+    },
+    {
+      "year": 1998,
+      "value": 71.6
+    },
+    {
+      "year": 1999,
+      "value": 73.8
+    },
+    {
+      "year": 2000,
+      "value": 77.5
+    },
+    {
+      "year": 2001,
+      "value": 79.4
+    },
+    {
+      "year": 2002,
+      "value": 74.9
+    },
+    {
+      "year": 2003,
+      "value": 82.6
+    },
+    {
+      "year": 2004,
+      "value": 83.6
+    },
+    {
+      "year": 2005,
+      "value": 83.8
+    },
+    {
+      "year": 2006,
+      "value": 84.1
+    },
+    {
+      "year": 2007,
+      "value": 84.5
+    },
+    {
+      "year": 2008,
+      "value": 85.7
+    },
+    {
+      "year": 2009,
+      "value": 85.7
+    },
+    {
+      "year": 2010,
+      "value": 87.8
+    },
+    {
+      "year": 2011,
+      "value": 88.7
+    },
+    {
+      "year": 2012,
+      "value": 87.1
+    },
+    {
+      "year": 2013,
+      "value": 88.1
+    },
+    {
+      "year": 2014,
+      "value": 90.1
+    },
+    {
+      "year": 2015,
+      "value": 91.1
+    },
+    {
+      "year": 2016,
+      "value": 91.8
+    },
+    {
+      "year": 2017,
+      "value": 87.8
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data"
+}

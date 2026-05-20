@@ -1,0 +1,122 @@
+{
+  "id": "kuze_nemelanomove_preziti_5y",
+  "label": "Kožní rakoviny mimo melanom — 5leté přežití",
+  "human_name": "5leté přežití u kožních rakovin mimo melanom",
+  "description": "Procento pacientů, kteří žijí 5 a více let po diagnóze nemelanomových kožních rakovin (bazaliom, spinocelulární karcinom). Patří k onkologicky nejlépe prognosticky diagnózám — naprostá většina pacientů se daří úplně vyléčit.",
+  "code": "C44",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "preziti_5_let",
+  "metric_label": "5leté přežití (% pacientů)",
+  "relevant_for": [
+    "onkologie",
+    "kůže",
+    "kvalita léčby"
+  ],
+  "trend_context": "Vývoj se drží na vysokých hodnotách. Bazaliom téměř nemetastázuje, spinaliom má dobrou prognózu při včasném záchytu. Pouze ve výjimečných pokročilých případech je léčba obtížnější.",
+  "updated": "2026-05-20",
+  "coverage": "1994–2017",
+  "trend": "plateau",
+  "delta": 2.1,
+  "peakYear": 2010,
+  "data": [
+    {
+      "year": 1994,
+      "value": 73.1
+    },
+    {
+      "year": 1995,
+      "value": 74.1
+    },
+    {
+      "year": 1996,
+      "value": 75.1
+    },
+    {
+      "year": 1997,
+      "value": 75.9
+    },
+    {
+      "year": 1998,
+      "value": 74.9
+    },
+    {
+      "year": 1999,
+      "value": 74.6
+    },
+    {
+      "year": 2000,
+      "value": 75.1
+    },
+    {
+      "year": 2001,
+      "value": 75.6
+    },
+    {
+      "year": 2002,
+      "value": 75.9
+    },
+    {
+      "year": 2003,
+      "value": 76.3
+    },
+    {
+      "year": 2004,
+      "value": 76.8
+    },
+    {
+      "year": 2005,
+      "value": 77.4
+    },
+    {
+      "year": 2006,
+      "value": 77.4
+    },
+    {
+      "year": 2007,
+      "value": 77.6
+    },
+    {
+      "year": 2008,
+      "value": 76.8
+    },
+    {
+      "year": 2009,
+      "value": 77.0
+    },
+    {
+      "year": 2010,
+      "value": 77.7
+    },
+    {
+      "year": 2011,
+      "value": 76.5
+    },
+    {
+      "year": 2012,
+      "value": 76.7
+    },
+    {
+      "year": 2013,
+      "value": 77.4
+    },
+    {
+      "year": 2014,
+      "value": 77.0
+    },
+    {
+      "year": 2015,
+      "value": 77.6
+    },
+    {
+      "year": 2016,
+      "value": 76.0
+    },
+    {
+      "year": 2017,
+      "value": 75.1
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data"
+}
