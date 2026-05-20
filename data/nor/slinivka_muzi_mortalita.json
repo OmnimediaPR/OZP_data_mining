@@ -1,0 +1,199 @@
+{
+  "id": "slinivka_muzi_mortalita",
+  "label": "Rakovina slinivky břišní u mužů — úmrtnost",
+  "human_name": "Úmrtnost na rakovinu slinivky břišní u mužů",
+  "description": "Roční počet úmrtí na rakovinu slinivky břišní u mužů. U mužů je výskyt mírně vyšší kvůli vyšší míře kouření a obezity.",
+  "code": "C25 (muži)",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "mortalita_rocni",
+  "metric_label": "Roční počet úmrtí (muži)",
+  "relevant_for": [
+    "onkologie",
+    "trávicí systém",
+    "mužské zdraví",
+    "mortalita"
+  ],
+  "trend_context": "Vývoj úmrtnosti kopíruje růst incidence — léčba zůstává obtížná.",
+  "updated": "2026-05-20",
+  "data": [
+    {
+      "year": 1980,
+      "value": 518
+    },
+    {
+      "year": 1981,
+      "value": 548
+    },
+    {
+      "year": 1982,
+      "value": 557
+    },
+    {
+      "year": 1983,
+      "value": 585
+    },
+    {
+      "year": 1984,
+      "value": 596
+    },
+    {
+      "year": 1985,
+      "value": 598
+    },
+    {
+      "year": 1986,
+      "value": 605
+    },
+    {
+      "year": 1987,
+      "value": 689
+    },
+    {
+      "year": 1988,
+      "value": 619
+    },
+    {
+      "year": 1989,
+      "value": 695
+    },
+    {
+      "year": 1990,
+      "value": 699
+    },
+    {
+      "year": 1991,
+      "value": 694
+    },
+    {
+      "year": 1992,
+      "value": 696
+    },
+    {
+      "year": 1993,
+      "value": 696
+    },
+    {
+      "year": 1994,
+      "value": 710
+    },
+    {
+      "year": 1995,
+      "value": 688
+    },
+    {
+      "year": 1996,
+      "value": 736
+    },
+    {
+      "year": 1997,
+      "value": 747
+    },
+    {
+      "year": 1998,
+      "value": 739
+    },
+    {
+      "year": 1999,
+      "value": 681
+    },
+    {
+      "year": 2000,
+      "value": 738
+    },
+    {
+      "year": 2001,
+      "value": 748
+    },
+    {
+      "year": 2002,
+      "value": 785
+    },
+    {
+      "year": 2003,
+      "value": 781
+    },
+    {
+      "year": 2004,
+      "value": 763
+    },
+    {
+      "year": 2005,
+      "value": 851
+    },
+    {
+      "year": 2006,
+      "value": 808
+    },
+    {
+      "year": 2007,
+      "value": 890
+    },
+    {
+      "year": 2008,
+      "value": 831
+    },
+    {
+      "year": 2009,
+      "value": 958
+    },
+    {
+      "year": 2010,
+      "value": 971
+    },
+    {
+      "year": 2011,
+      "value": 1037
+    },
+    {
+      "year": 2012,
+      "value": 981
+    },
+    {
+      "year": 2013,
+      "value": 1014
+    },
+    {
+      "year": 2014,
+      "value": 1012
+    },
+    {
+      "year": 2015,
+      "value": 1038
+    },
+    {
+      "year": 2016,
+      "value": 1058
+    },
+    {
+      "year": 2017,
+      "value": 1078
+    },
+    {
+      "year": 2018,
+      "value": 1070
+    },
+    {
+      "year": 2019,
+      "value": 1124
+    },
+    {
+      "year": 2020,
+      "value": 1181
+    },
+    {
+      "year": 2021,
+      "value": 1183
+    },
+    {
+      "year": 2022,
+      "value": 1153
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data",
+  "coverage": "1980–2022",
+  "trend": "up",
+  "delta": 117,
+  "peakYear": 2021
+}
