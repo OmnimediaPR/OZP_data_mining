@@ -37,7 +37,15 @@
     { "id": "kuze_nemelanomove_incidence", "label": "Kožní rakoviny mimo melanom — incidence", "code": "C44", "tags": ["onkologie", "kůže", "ultrafialové záření"] },
     { "id": "hodgkin_lymfom_incidence", "label": "Hodgkinův lymfom — incidence", "code": "C81", "tags": ["onkologie", "hematologie", "mladší pacienti"] },
     { "id": "lymfomy_b_bunecne_incidence", "label": "B-buněčné non-Hodgkinovy lymfomy — incidence", "code": "C82, C83, C85", "tags": ["onkologie", "hematologie", "imunita"] },
-    { "id": "lymfomy_t_bunecne_incidence", "label": "T-buněčné a NK-buněčné lymfomy — incidence", "code": "C84, C86", "tags": ["onkologie", "hematologie", "vzácná onemocnění"] }
+    { "id": "lymfomy_t_bunecne_incidence", "label": "T-buněčné a NK-buněčné lymfomy — incidence", "code": "C84, C86", "tags": ["onkologie", "hematologie", "vzácná onemocnění"] },
+    { "id": "kolorektum_mladi_incidence", "label": "Rakovina tlustého střeva a konečníku u mladších dospělých — incidence", "code": "C18–C20", "tags": ["onkologie", "early-onset", "mladší pacienti"] },
+    { "id": "kolorektum_starsi_incidence", "label": "Rakovina tlustého střeva a konečníku u starších dospělých — incidence", "code": "C18–C20", "tags": ["onkologie", "screening tlustého střeva", "starší pacienti"] },
+    { "id": "prsa_mladi_incidence", "label": "Rakovina prsu u mladších žen — incidence", "code": "C50", "tags": ["onkologie", "ženské zdraví", "early-onset"] },
+    { "id": "prsa_starsi_incidence", "label": "Rakovina prsu u starších žen — incidence", "code": "C50", "tags": ["onkologie", "ženské zdraví", "mamografický screening"] },
+    { "id": "plice_mladi_incidence", "label": "Rakovina plic u mladších dospělých — incidence", "code": "C34", "tags": ["onkologie", "kouření", "early-onset"] },
+    { "id": "plice_starsi_incidence", "label": "Rakovina plic u starších dospělých — incidence", "code": "C34", "tags": ["onkologie", "kouření", "starší pacienti"] },
+    { "id": "melanom_mladi_incidence", "label": "Zhoubný melanom kůže u mladších dospělých — incidence", "code": "C43", "tags": ["onkologie", "kůže", "solária"] },
+    { "id": "melanom_starsi_incidence", "label": "Zhoubný melanom kůže u starších dospělých — incidence", "code": "C43", "tags": ["onkologie", "kůže", "stárnutí populace"] }
   ],
   "international": [
     {

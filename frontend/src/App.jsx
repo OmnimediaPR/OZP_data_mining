@@ -260,6 +260,14 @@ export default function App() {
         { id: 'hodgkin_lymfom_incidence', folder: 'nor' },
         { id: 'lymfomy_b_bunecne_incidence', folder: 'nor' },
         { id: 'lymfomy_t_bunecne_incidence', folder: 'nor' },
+        { id: 'kolorektum_mladi_incidence', folder: 'nor' },
+        { id: 'kolorektum_starsi_incidence', folder: 'nor' },
+        { id: 'prsa_mladi_incidence', folder: 'nor' },
+        { id: 'prsa_starsi_incidence', folder: 'nor' },
+        { id: 'plice_mladi_incidence', folder: 'nor' },
+        { id: 'plice_starsi_incidence', folder: 'nor' },
+        { id: 'melanom_mladi_incidence', folder: 'nor' },
+        { id: 'melanom_starsi_incidence', folder: 'nor' },
       ];
       const loaded = [];
 
