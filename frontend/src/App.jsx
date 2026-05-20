@@ -444,12 +444,19 @@ export default function App() {
 
     let text = '';
     try {
-      const nationalDs = selectedDatasets.filter(d => d.source_type !== 'international');
+      const nationalDs = selectedDatasets.filter(d => d.source_type !== 'international' && d.source_type !== 'regional_snapshot');
+      const regionalDs = selectedDatasets.filter(d => d.source_type === 'regional_snapshot');
       const intlDs = selectedDatasets.filter(d => d.source_type === 'international');
 
       const nationalSummary = nationalDs.map(d => {
         const first = d.data[0], last = d.data[d.data.length - 1];
         return `- [id: ${d.id}] ${d.label} (MKN ${d.code}): ${first.value.toLocaleString('cs-CZ')} v ${first.year} → ${last.value.toLocaleString('cs-CZ')} v ${last.year} (Δ ${d.delta > 0 ? '+' : ''}${d.delta} %). Trend: ${d.trend === 'up' ? 'rostoucí' : d.trend === 'down' ? 'klesající' : 'plateau'}, peak ${d.peakYear}. Kontext: ${d.trend_context || ''}`;
+      }).join('\n');
+
+      const regionalSummary = regionalDs.map(d => {
+        const sorted = [...d.data].sort((a, b) => b.value - a.value);
+        const breakdown = sorted.map(r => `${r.kraj_nazev}: ${r.value.toLocaleString('cs-CZ')}`).join('; ');
+        return `- [id: ${d.id}] ${d.label} (MKN ${d.code}, rok ${d.snapshot_year}): ${breakdown}. Peak kraj: ${d.peakRegion}. Kontext: ${d.trend_context || ''}`;
       }).join('\n');
 
       const intlSummary = intlDs.map(d => {
@@ -465,7 +472,10 @@ TÉMA BRIEFU: "${topic}"
 NÁRODNÍ DATA Z NKIS / ÚZIS ČR:
 ${nationalSummary || '(žádná národní data nevybrána)'}
 
-${intlSummary ? `MEZINÁRODNÍ SROVNÁVACÍ DATA:
+${regionalSummary ? `KRAJOVÝ POHLED (snapshot ČR):
+${regionalSummary}
+
+` : ''}${intlSummary ? `MEZINÁRODNÍ SROVNÁVACÍ DATA:
 ${intlSummary}
 
 DŮLEŽITÉ: vždy zmiň rok dat a metodiku. Pokud roky nesedí, uveď orientačnost. NEPOUŽÍVEJ OECD ukazatel "30denní mortalita po AIM" — není srovnatelný (Stolpe et al. 2023).
@@ -637,12 +647,21 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
             t(ds.description || ''),
           ]));
           if (ds.metric_label && ds.data?.length) {
-            const fv = ds.data[0]?.value, lv = ds.data[ds.data.length - 1]?.value;
-            const fy = ds.data[0]?.year, ly = ds.data[ds.data.length - 1]?.year;
-            coParas.push(p(t(
-              `${ds.metric_label}: ${fv?.toLocaleString('cs-CZ')} → ${lv?.toLocaleString('cs-CZ')} (období ${fy}–${ly})`,
-              { italic: true, color: '888888', size: 16 }
-            )));
+            if (ds.source_type === 'regional_snapshot') {
+              const sorted = [...ds.data].sort((a, b) => b.value - a.value);
+              const top3 = sorted.slice(0, 3).map(r => `${r.kraj_nazev}: ${r.value.toLocaleString('cs-CZ')}`).join('; ');
+              coParas.push(p(t(
+                `${ds.metric_label} — top 3 kraje (${ds.snapshot_year}): ${top3}`,
+                { italic: true, color: '888888', size: 16 }
+              )));
+            } else {
+              const fv = ds.data[0]?.value, lv = ds.data[ds.data.length - 1]?.value;
+              const fy = ds.data[0]?.year, ly = ds.data[ds.data.length - 1]?.year;
+              coParas.push(p(t(
+                `${ds.metric_label}: ${fv?.toLocaleString('cs-CZ')} → ${lv?.toLocaleString('cs-CZ')} (období ${fy}–${ly})`,
+                { italic: true, color: '888888', size: 16 }
+              )));
+            }
           }
         }
         return new TableRow({
@@ -890,9 +909,10 @@ function SectionHeader({ number, title, subtitle }) {
 
 function DatasetCard({ d, selected, onToggle }) {
   const isInternational = d.source_type === 'international';
-  const peakVal = d.peakYear ? d.data.find(x => x.year === d.peakYear)?.value : null;
-  const first = d.data?.[0];
-  const last = d.data?.[d.data.length - 1];
+  const isRegional = d.source_type === 'regional_snapshot';
+  const peakVal = !isRegional && d.peakYear ? d.data.find(x => x.year === d.peakYear)?.value : null;
+  const first = !isRegional ? d.data?.[0] : null;
+  const last = !isRegional ? d.data?.[d.data.length - 1] : null;
   const trendColor = d.trend === 'up' ? '#1F6F47' : d.trend === 'down' ? '#9A2A1F' : '#7A6F2A';
   const trendWord = d.trend === 'up' ? 'Růst' : d.trend === 'down' ? 'Pokles' : 'Změna';
   const fmtNum = (n) => n.toLocaleString('cs-CZ');
@@ -942,8 +962,18 @@ function DatasetCard({ d, selected, onToggle }) {
         </div>
       )}
 
-      {/* 5. Pro národní: metric line + delta line + graf */}
-      {!isInternational && first && last && (
+      {/* 5a. Pro regional snapshot: bar chart per kraj */}
+      {isRegional && d.data?.length > 0 && (
+        <div style={{ margin: '4px 0 8px' }}>
+          <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#888', marginBottom: 8 }}>
+            {d.metric_label || `Kraje (${d.snapshot_year})`}
+          </div>
+          <RegionalBars data={d.data} peakRegion={d.peakRegion} />
+        </div>
+      )}
+
+      {/* 5b. Pro národní časové řady: metric line + delta line + graf */}
+      {!isInternational && !isRegional && first && last && (
         <>
           {d.metric_label && (
             <div style={{ fontSize: 13, color: '#1A1A1A', marginBottom: 4 }}>
@@ -1017,6 +1047,32 @@ function DatasetCard({ d, selected, onToggle }) {
         )}
         {d.updated && ` · aktualizováno ${d.updated}`}
       </div>
+    </div>
+  );
+}
+
+function RegionalBars({ data, peakRegion }) {
+  // Seřadit kraje sestupně podle hodnoty pro lepší čitelnost.
+  const sorted = [...data].sort((a, b) => b.value - a.value);
+  const maxVal = Math.max(...sorted.map(r => r.value));
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+      {sorted.map((r, i) => {
+        const width = maxVal > 0 ? (r.value / maxVal) * 100 : 0;
+        const isPeak = r.kraj_nazev === peakRegion;
+        const color = isPeak ? '#C9302C' : '#1F4E8C88';
+        return (
+          <div key={r.kraj_kod} style={{ display: 'grid', gridTemplateColumns: '140px 1fr 60px', gap: 8, alignItems: 'center', fontSize: 11 }}>
+            <span style={{ fontWeight: isPeak ? 700 : 400, color: isPeak ? '#1A1A1A' : '#444' }}>{r.kraj_nazev}</span>
+            <div style={{ height: 12, background: '#F0EEE6', position: 'relative' }}>
+              <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: `${width}%`, background: color }} />
+            </div>
+            <span className="num" style={{ textAlign: 'right', fontWeight: isPeak ? 700 : 400 }}>
+              {r.value.toLocaleString('cs-CZ')}
+            </span>
+          </div>
+        );
+      })}
     </div>
   );
 }
