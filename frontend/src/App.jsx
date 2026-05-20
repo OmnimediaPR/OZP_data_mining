@@ -322,6 +322,13 @@ export default function App() {
         { id: 'melanom_zeny_incidence', folder: 'nor' },
         { id: 'mocovy_mechyr_muzi_incidence', folder: 'nor' },
         { id: 'mocovy_mechyr_zeny_incidence', folder: 'nor' },
+        { id: 'slinivka_mladi_incidence', folder: 'nor' },
+        { id: 'slinivka_starsi_incidence', folder: 'nor' },
+        { id: 'mozek_mladi_incidence', folder: 'nor' },
+        { id: 'mozek_starsi_incidence', folder: 'nor' },
+        { id: 'jicen_mladi_incidence', folder: 'nor' },
+        { id: 'jicen_starsi_incidence', folder: 'nor' },
+        { id: 'stitna_zlaza_male_deti_incidence', folder: 'nor' },
       ];
       const loaded = [];
 

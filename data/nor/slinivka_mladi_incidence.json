@@ -1,0 +1,211 @@
+{
+  "id": "slinivka_mladi_incidence",
+  "label": "Rakovina slinivky břišní u mladších dospělých — incidence",
+  "human_name": "Rakovina slinivky břišní u mladších dospělých (do 49 let)",
+  "description": "Zhoubný nádor slinivky břišní u pacientů mladších 50 let. U mladších pacientů je rakovina slinivky vzácnější, ale prognóza zůstává stejně obtížná jako u starších.",
+  "code": "C25",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "incidence_rocni",
+  "metric_label": "Roční počet nově diagnostikovaných případů (do 49 let)",
+  "relevant_for": [
+    "onkologie",
+    "trávicí systém",
+    "early-onset",
+    "genetika"
+  ],
+  "trend_context": "U mladších pacientů hraje silnější roli dědičná složka (rodinná anamnéza, mutace v genech BRCA2 a dalších). Vývoj odráží i lepší záchyt díky zobrazovacím metodám u rizikových pacientů.",
+  "updated": "2026-05-20",
+  "coverage": "1977–2022",
+  "trend": "up",
+  "delta": 46,
+  "peakYear": 2020,
+  "data": [
+    {
+      "year": 1977,
+      "value": 70
+    },
+    {
+      "year": 1978,
+      "value": 80
+    },
+    {
+      "year": 1979,
+      "value": 71
+    },
+    {
+      "year": 1980,
+      "value": 65
+    },
+    {
+      "year": 1981,
+      "value": 75
+    },
+    {
+      "year": 1982,
+      "value": 86
+    },
+    {
+      "year": 1983,
+      "value": 82
+    },
+    {
+      "year": 1984,
+      "value": 76
+    },
+    {
+      "year": 1985,
+      "value": 102
+    },
+    {
+      "year": 1986,
+      "value": 104
+    },
+    {
+      "year": 1987,
+      "value": 108
+    },
+    {
+      "year": 1988,
+      "value": 110
+    },
+    {
+      "year": 1989,
+      "value": 107
+    },
+    {
+      "year": 1990,
+      "value": 119
+    },
+    {
+      "year": 1991,
+      "value": 115
+    },
+    {
+      "year": 1992,
+      "value": 128
+    },
+    {
+      "year": 1993,
+      "value": 98
+    },
+    {
+      "year": 1994,
+      "value": 99
+    },
+    {
+      "year": 1995,
+      "value": 102
+    },
+    {
+      "year": 1996,
+      "value": 119
+    },
+    {
+      "year": 1997,
+      "value": 113
+    },
+    {
+      "year": 1998,
+      "value": 114
+    },
+    {
+      "year": 1999,
+      "value": 82
+    },
+    {
+      "year": 2000,
+      "value": 94
+    },
+    {
+      "year": 2001,
+      "value": 86
+    },
+    {
+      "year": 2002,
+      "value": 99
+    },
+    {
+      "year": 2003,
+      "value": 89
+    },
+    {
+      "year": 2004,
+      "value": 71
+    },
+    {
+      "year": 2005,
+      "value": 89
+    },
+    {
+      "year": 2006,
+      "value": 87
+    },
+    {
+      "year": 2007,
+      "value": 83
+    },
+    {
+      "year": 2008,
+      "value": 86
+    },
+    {
+      "year": 2009,
+      "value": 91
+    },
+    {
+      "year": 2010,
+      "value": 92
+    },
+    {
+      "year": 2011,
+      "value": 74
+    },
+    {
+      "year": 2012,
+      "value": 98
+    },
+    {
+      "year": 2013,
+      "value": 84
+    },
+    {
+      "year": 2014,
+      "value": 91
+    },
+    {
+      "year": 2015,
+      "value": 100
+    },
+    {
+      "year": 2016,
+      "value": 89
+    },
+    {
+      "year": 2017,
+      "value": 83
+    },
+    {
+      "year": 2018,
+      "value": 93
+    },
+    {
+      "year": 2019,
+      "value": 111
+    },
+    {
+      "year": 2020,
+      "value": 131
+    },
+    {
+      "year": 2021,
+      "value": 92
+    },
+    {
+      "year": 2022,
+      "value": 100
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data"
+}

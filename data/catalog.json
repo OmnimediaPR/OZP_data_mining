@@ -99,7 +99,14 @@
     { "id": "melanom_muzi_incidence", "label": "Zhoubný melanom kůže u mužů — incidence", "code": "C43", "tags": ["onkologie", "kůže", "mužské zdraví"] },
     { "id": "melanom_zeny_incidence", "label": "Zhoubný melanom kůže u žen — incidence", "code": "C43", "tags": ["onkologie", "kůže", "ženské zdraví"] },
     { "id": "mocovy_mechyr_muzi_incidence", "label": "Rakovina močového měchýře u mužů — incidence", "code": "C67", "tags": ["onkologie", "močový systém", "mužské zdraví"] },
-    { "id": "mocovy_mechyr_zeny_incidence", "label": "Rakovina močového měchýře u žen — incidence", "code": "C67", "tags": ["onkologie", "močový systém", "ženské zdraví"] }
+    { "id": "mocovy_mechyr_zeny_incidence", "label": "Rakovina močového měchýře u žen — incidence", "code": "C67", "tags": ["onkologie", "močový systém", "ženské zdraví"] },
+    { "id": "slinivka_mladi_incidence", "label": "Rakovina slinivky břišní u mladších dospělých — incidence", "code": "C25", "tags": ["onkologie", "trávicí systém", "early-onset"] },
+    { "id": "slinivka_starsi_incidence", "label": "Rakovina slinivky břišní u starších dospělých — incidence", "code": "C25", "tags": ["onkologie", "trávicí systém", "stárnutí populace"] },
+    { "id": "mozek_mladi_incidence", "label": "Zhoubný nádor mozku u mladších dospělých — incidence", "code": "C71", "tags": ["onkologie", "neurologie", "early-onset"] },
+    { "id": "mozek_starsi_incidence", "label": "Zhoubný nádor mozku u starších dospělých — incidence", "code": "C71", "tags": ["onkologie", "neurologie", "stárnutí populace"] },
+    { "id": "jicen_mladi_incidence", "label": "Rakovina jícnu u mladších dospělých — incidence", "code": "C15", "tags": ["onkologie", "trávicí systém", "early-onset"] },
+    { "id": "jicen_starsi_incidence", "label": "Rakovina jícnu u starších dospělých — incidence", "code": "C15", "tags": ["onkologie", "trávicí systém", "kouření"] },
+    { "id": "stitna_zlaza_male_deti_incidence", "label": "Rakovina štítné žlázy u malých dětí — incidence", "code": "C73", "tags": ["onkologie", "dětská onkologie", "vzácná onemocnění"] }
   ],
   "international": [
     {
