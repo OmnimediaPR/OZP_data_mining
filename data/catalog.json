@@ -211,6 +211,27 @@
       "code": "MedPed",
       "source": "Vrablík et al. / PLOS GPH",
       "tags": ["mezinárodní", "genetika", "FH"]
+    },
+    {
+      "id": "eu_cancer_mortality_sdr",
+      "label": "Úmrtnost na novotvary — EU srovnání",
+      "code": "hlth_cd_asdr2 (C00–C97)",
+      "source": "Eurostat",
+      "tags": ["mezinárodní", "onkologie", "mortalita"]
+    },
+    {
+      "id": "oecd_prsa_preziti",
+      "label": "Rakovina prsu — 5leté přežití — OECD srovnání",
+      "code": "OECD Cancer Care (2024)",
+      "source": "OECD Health at a Glance",
+      "tags": ["mezinárodní", "onkologie", "ženské zdraví", "kvalita péče"]
+    },
+    {
+      "id": "oecd_kolorektum_preziti",
+      "label": "Rakovina tlustého střeva a konečníku — 5leté přežití — OECD srovnání",
+      "code": "OECD Cancer Care (2024)",
+      "source": "OECD Health at a Glance",
+      "tags": ["mezinárodní", "onkologie", "screening tlustého střeva", "kvalita péče"]
     }
   ]
 }
