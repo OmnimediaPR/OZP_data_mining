@@ -232,6 +232,10 @@ export default function App() {
         { id: 'hf', folder: 'nkis' },
         { id: 'kvo', folder: 'nkis' },
         { id: 'prsa_incidence', folder: 'nor' },
+        { id: 'plice_incidence', folder: 'nor' },
+        { id: 'prostata_incidence', folder: 'nor' },
+        { id: 'kolorektum_incidence', folder: 'nor' },
+        { id: 'melanom_incidence', folder: 'nor' },
       ];
       const loaded = [];
 

@@ -1,0 +1,211 @@
+{
+  "id": "melanom_incidence",
+  "label": "Zhoubný melanom kůže — incidence",
+  "human_name": "Zhoubný melanom kůže",
+  "description": "Nejnebezpečnější druh kožní rakoviny — vzniká z pigmentových buněk (melanocytů). Dá se úspěšně léčit, pokud se zachytí včas.",
+  "code": "C43",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "incidence_rocni",
+  "metric_label": "Roční počet nově diagnostikovaných případů",
+  "relevant_for": [
+    "onkologie",
+    "kůže",
+    "ultrafialové záření",
+    "prevence"
+  ],
+  "trend_context": "Strmý nárůst odráží především lepší záchyt — díky osvětě a preventivním prohlídkám u kožního lékaře — a změnu životního stylu (víc slunění, cestování do teplých zemí, solária). Úmrtnost roste mnohem pomaleji.",
+  "updated": "2026-05-20",
+  "coverage": "1977–2022",
+  "trend": "up",
+  "delta": 464,
+  "peakYear": 2022,
+  "data": [
+    {
+      "year": 1977,
+      "value": 500
+    },
+    {
+      "year": 1978,
+      "value": 513
+    },
+    {
+      "year": 1979,
+      "value": 552
+    },
+    {
+      "year": 1980,
+      "value": 565
+    },
+    {
+      "year": 1981,
+      "value": 613
+    },
+    {
+      "year": 1982,
+      "value": 568
+    },
+    {
+      "year": 1983,
+      "value": 615
+    },
+    {
+      "year": 1984,
+      "value": 688
+    },
+    {
+      "year": 1985,
+      "value": 630
+    },
+    {
+      "year": 1986,
+      "value": 737
+    },
+    {
+      "year": 1987,
+      "value": 772
+    },
+    {
+      "year": 1988,
+      "value": 854
+    },
+    {
+      "year": 1989,
+      "value": 822
+    },
+    {
+      "year": 1990,
+      "value": 834
+    },
+    {
+      "year": 1991,
+      "value": 900
+    },
+    {
+      "year": 1992,
+      "value": 983
+    },
+    {
+      "year": 1993,
+      "value": 1108
+    },
+    {
+      "year": 1994,
+      "value": 1082
+    },
+    {
+      "year": 1995,
+      "value": 1272
+    },
+    {
+      "year": 1996,
+      "value": 1211
+    },
+    {
+      "year": 1997,
+      "value": 1234
+    },
+    {
+      "year": 1998,
+      "value": 1316
+    },
+    {
+      "year": 1999,
+      "value": 1360
+    },
+    {
+      "year": 2000,
+      "value": 1459
+    },
+    {
+      "year": 2001,
+      "value": 1495
+    },
+    {
+      "year": 2002,
+      "value": 1597
+    },
+    {
+      "year": 2003,
+      "value": 1719
+    },
+    {
+      "year": 2004,
+      "value": 1670
+    },
+    {
+      "year": 2005,
+      "value": 1875
+    },
+    {
+      "year": 2006,
+      "value": 1778
+    },
+    {
+      "year": 2007,
+      "value": 2056
+    },
+    {
+      "year": 2008,
+      "value": 1914
+    },
+    {
+      "year": 2009,
+      "value": 2120
+    },
+    {
+      "year": 2010,
+      "value": 2085
+    },
+    {
+      "year": 2011,
+      "value": 2082
+    },
+    {
+      "year": 2012,
+      "value": 2225
+    },
+    {
+      "year": 2013,
+      "value": 2325
+    },
+    {
+      "year": 2014,
+      "value": 2443
+    },
+    {
+      "year": 2015,
+      "value": 2612
+    },
+    {
+      "year": 2016,
+      "value": 2646
+    },
+    {
+      "year": 2017,
+      "value": 2637
+    },
+    {
+      "year": 2018,
+      "value": 2643
+    },
+    {
+      "year": 2019,
+      "value": 2711
+    },
+    {
+      "year": 2020,
+      "value": 2438
+    },
+    {
+      "year": 2021,
+      "value": 2476
+    },
+    {
+      "year": 2022,
+      "value": 2818
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data"
+}

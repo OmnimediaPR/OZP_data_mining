@@ -49,6 +49,86 @@ DATASETS = {
         "diagnosis_prefix": "C50",
         "year_col": "rok_dg",
     },
+    "plice_incidence": {
+        "label": "Rakovina plic — incidence",
+        "human_name": "Rakovina plic",
+        "description": "Zhoubný nádor plicní tkáně — onkologický zabiják číslo jedna v Česku z hlediska úmrtnosti. Ve většině případů je spojen s kouřením.",
+        "code": "C34",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů",
+        "relevant_for": [
+            "onkologie",
+            "kouření",
+            "kvalita ovzduší",
+            "prevence",
+        ],
+        "trend_context": "Dlouhodobý pokles u mužů odpovídá poklesu kouření. U žen incidence naopak roste, protože ženy začaly kouřit hromadně později. Po roce 2000 narůstá také podíl nekuřáků mezi pacienty.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C34",
+        "year_col": "rok_dg",
+    },
+    "prostata_incidence": {
+        "label": "Rakovina prostaty — incidence",
+        "human_name": "Rakovina prostaty",
+        "description": "Zhoubný nádor předstojné žlázy — nejčastější rakovina mužů v Česku. Typicky se objevuje po šedesátém roce života.",
+        "code": "C61",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů",
+        "relevant_for": [
+            "onkologie",
+            "mužské zdraví",
+            "preventivní prohlídky",
+            "stárnutí populace",
+        ],
+        "trend_context": "Strmý nárůst po roce 2000 odráží zavedení vyšetření krve na prostatický specifický antigen — díky němu se zachytí víc časných případů. Úmrtnost přitom roste mnohem pomaleji.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C61",
+        "year_col": "rok_dg",
+    },
+    "kolorektum_incidence": {
+        "label": "Rakovina tlustého střeva a konečníku — incidence",
+        "human_name": "Rakovina tlustého střeva a konečníku",
+        "description": "Zhoubný nádor v tlustém střevě nebo konečníku — třetí nejčastější rakovina v Česku. Zahrnuje tračník, přechod mezi tračníkem a konečníkem a samotný konečník.",
+        "code": "C18–C20",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů",
+        "relevant_for": [
+            "onkologie",
+            "screening tlustého střeva",
+            "životní styl",
+            "prevence",
+        ],
+        "trend_context": "Česko mělo dlouhá léta nejvyšší úmrtnost na rakovinu tlustého střeva na světě. Pokles po roce 2000 souvisí s plošným screeningem (test na skryté krvácení do stolice a kolonoskopie) zavedeným v roce 2000 a rozšířeným v roce 2009.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": ["C18", "C19", "C20"],
+        "year_col": "rok_dg",
+    },
+    "melanom_incidence": {
+        "label": "Zhoubný melanom kůže — incidence",
+        "human_name": "Zhoubný melanom kůže",
+        "description": "Nejnebezpečnější druh kožní rakoviny — vzniká z pigmentových buněk (melanocytů). Dá se úspěšně léčit, pokud se zachytí včas.",
+        "code": "C43",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů",
+        "relevant_for": [
+            "onkologie",
+            "kůže",
+            "ultrafialové záření",
+            "prevence",
+        ],
+        "trend_context": "Strmý nárůst odráží především lepší záchyt — díky osvětě a preventivním prohlídkám u kožního lékaře — a změnu životního stylu (víc slunění, cestování do teplých zemí, solária). Úmrtnost roste mnohem pomaleji.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C43",
+        "year_col": "rok_dg",
+    },
 }
 
 
@@ -85,14 +165,26 @@ def download_csv_to_tempfile(url: str) -> Path | None:
 
 
 def count_cases_by_year(
-    csv_path: Path, diagnosis_col: str, diagnosis_prefix: str, year_col: str
+    csv_path: Path,
+    diagnosis_col: str,
+    diagnosis_prefix,
+    year_col: str,
 ) -> list:
     """Spočítá počet řádků podle roku pro danou diagnózu.
 
     Filtruje řádky kde hodnota v `diagnosis_col` začíná na `diagnosis_prefix`
     (např. "C50" zachytí "C50", "C50.0", "C50.1" …) a počítá je seskupené
     podle roku ve sloupci `year_col`.
+
+    `diagnosis_prefix` může být string ("C50") nebo seznam stringů
+    (["C18", "C19", "C20"] pro kolorektum). Match je OR přes seznam.
     """
+    # Normalizace na tuple pro str.startswith(tuple).
+    if isinstance(diagnosis_prefix, str):
+        prefixes = (diagnosis_prefix,)
+    else:
+        prefixes = tuple(diagnosis_prefix)
+
     counts: dict[int, int] = {}
 
     with csv_path.open(encoding="utf-8", newline="") as f:
@@ -112,7 +204,7 @@ def count_cases_by_year(
 
         for row in reader:
             dx = (row.get(dx_col) or "").strip()
-            if not dx.startswith(diagnosis_prefix):
+            if not dx.startswith(prefixes):
                 continue
             try:
                 year = int(row[yr_col])

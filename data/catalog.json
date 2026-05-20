@@ -9,7 +9,11 @@
     { "id": "i71", "label": "Výduť aorty", "code": "I71", "tags": ["aorta", "ateroskleróza"] },
     { "id": "cmp", "label": "Cévní mozková příhoda", "code": "I60-I64", "tags": ["akutní", "mrtvice"] },
     { "id": "hyp", "label": "Hypertenze", "code": "I10", "tags": ["prevence", "cholesterol"] },
-    { "id": "prsa_incidence", "label": "Rakovina prsu — incidence", "code": "C50", "tags": ["onkologie", "ženské zdraví", "screening"] }
+    { "id": "prsa_incidence", "label": "Rakovina prsu — incidence", "code": "C50", "tags": ["onkologie", "ženské zdraví", "screening"] },
+    { "id": "plice_incidence", "label": "Rakovina plic — incidence", "code": "C34", "tags": ["onkologie", "kouření", "prevence"] },
+    { "id": "prostata_incidence", "label": "Rakovina prostaty — incidence", "code": "C61", "tags": ["onkologie", "mužské zdraví", "screening"] },
+    { "id": "kolorektum_incidence", "label": "Rakovina tlustého střeva a konečníku — incidence", "code": "C18–C20", "tags": ["onkologie", "screening", "prevence"] },
+    { "id": "melanom_incidence", "label": "Zhoubný melanom kůže — incidence", "code": "C43", "tags": ["onkologie", "kůže", "prevence"] }
   ],
   "international": [
     {
