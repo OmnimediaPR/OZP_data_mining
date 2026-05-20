@@ -51,7 +51,19 @@
     { "id": "leukemie_deti_incidence", "label": "Leukémie u dětí a dospívajících — incidence", "code": "C91–C95", "tags": ["onkologie", "dětská onkologie", "akutní lymfoblastická leukémie"] },
     { "id": "leukemie_dospeli_incidence", "label": "Leukémie u dospělých — incidence", "code": "C91–C95", "tags": ["onkologie", "hematologie", "stárnutí populace"] },
     { "id": "kolorektum_velmi_mladi_incidence", "label": "Rakovina tlustého střeva a konečníku u velmi mladých dospělých — incidence", "code": "C18–C20", "tags": ["onkologie", "early-onset", "mladší pacienti"] },
-    { "id": "kolorektum_stredni_incidence", "label": "Rakovina tlustého střeva a konečníku ve středním věku — incidence", "code": "C18–C20", "tags": ["onkologie", "screening tlustého střeva", "early-onset"] }
+    { "id": "kolorektum_stredni_incidence", "label": "Rakovina tlustého střeva a konečníku ve středním věku — incidence", "code": "C18–C20", "tags": ["onkologie", "screening tlustého střeva", "early-onset"] },
+    { "id": "prsa_mortalita", "label": "Rakovina prsu — úmrtnost", "code": "C50", "tags": ["onkologie", "ženské zdraví", "mortalita"] },
+    { "id": "plice_mortalita", "label": "Rakovina plic — úmrtnost", "code": "C34", "tags": ["onkologie", "kouření", "mortalita"] },
+    { "id": "prostata_mortalita", "label": "Rakovina prostaty — úmrtnost", "code": "C61", "tags": ["onkologie", "mužské zdraví", "mortalita"] },
+    { "id": "kolorektum_mortalita", "label": "Rakovina tlustého střeva a konečníku — úmrtnost", "code": "C18–C20", "tags": ["onkologie", "screening tlustého střeva", "mortalita"] },
+    { "id": "melanom_mortalita", "label": "Zhoubný melanom kůže — úmrtnost", "code": "C43", "tags": ["onkologie", "kůže", "mortalita"] },
+    { "id": "zaludek_mortalita", "label": "Rakovina žaludku — úmrtnost", "code": "C16", "tags": ["onkologie", "trávicí systém", "mortalita"] },
+    { "id": "slinivka_mortalita", "label": "Rakovina slinivky břišní — úmrtnost", "code": "C25", "tags": ["onkologie", "trávicí systém", "mortalita"] },
+    { "id": "jicen_mortalita", "label": "Rakovina jícnu — úmrtnost", "code": "C15", "tags": ["onkologie", "trávicí systém", "mortalita"] },
+    { "id": "cipek_mortalita", "label": "Rakovina hrdla děložního — úmrtnost", "code": "C53", "tags": ["onkologie", "ženské zdraví", "mortalita"] },
+    { "id": "leukemie_mortalita", "label": "Leukémie — úmrtnost", "code": "C91–C95", "tags": ["onkologie", "hematologie", "mortalita"] },
+    { "id": "lymfomy_mortalita", "label": "Lymfomy — úmrtnost (souhrn)", "code": "C81–C86", "tags": ["onkologie", "hematologie", "mortalita"] },
+    { "id": "mozek_mortalita", "label": "Zhoubný nádor mozku — úmrtnost", "code": "C71", "tags": ["onkologie", "neurologie", "mortalita"] }
   ],
   "international": [
     {

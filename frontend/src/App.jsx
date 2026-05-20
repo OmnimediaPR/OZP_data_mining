@@ -274,6 +274,18 @@ export default function App() {
         { id: 'leukemie_dospeli_incidence', folder: 'nor' },
         { id: 'kolorektum_velmi_mladi_incidence', folder: 'nor' },
         { id: 'kolorektum_stredni_incidence', folder: 'nor' },
+        { id: 'prsa_mortalita', folder: 'nor' },
+        { id: 'plice_mortalita', folder: 'nor' },
+        { id: 'prostata_mortalita', folder: 'nor' },
+        { id: 'kolorektum_mortalita', folder: 'nor' },
+        { id: 'melanom_mortalita', folder: 'nor' },
+        { id: 'zaludek_mortalita', folder: 'nor' },
+        { id: 'slinivka_mortalita', folder: 'nor' },
+        { id: 'jicen_mortalita', folder: 'nor' },
+        { id: 'cipek_mortalita', folder: 'nor' },
+        { id: 'leukemie_mortalita', folder: 'nor' },
+        { id: 'lymfomy_mortalita', folder: 'nor' },
+        { id: 'mozek_mortalita', folder: 'nor' },
       ];
       const loaded = [];
 

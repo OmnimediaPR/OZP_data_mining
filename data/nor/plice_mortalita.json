@@ -1,0 +1,199 @@
+{
+  "id": "plice_mortalita",
+  "label": "Rakovina plic — úmrtnost",
+  "human_name": "Úmrtnost na rakovinu plic",
+  "description": "Roční počet úmrtí na rakovinu plic v Česku. Onkologický zabiják číslo jedna z hlediska úmrtnosti — víc lidí umírá na rakovinu plic než na jakoukoli jinou rakovinu.",
+  "code": "C34",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "mortalita_rocni",
+  "metric_label": "Roční počet úmrtí v ČR",
+  "relevant_for": [
+    "onkologie",
+    "kouření",
+    "kvalita ovzduší",
+    "screening"
+  ],
+  "trend_context": "Vývoj odráží dlouhodobé vzorce kouření — pokles u mužů, růst u žen. Záchyt v pokročilém stadiu zůstává hlavním důvodem vysoké úmrtnosti. Od roku 2022 je v Česku k dispozici screening rakoviny plic pro dlouhodobé kuřáky.",
+  "updated": "2026-05-20",
+  "coverage": "1980–2022",
+  "trend": "plateau",
+  "delta": -1,
+  "peakYear": 1995,
+  "data": [
+    {
+      "year": 1980,
+      "value": 5000
+    },
+    {
+      "year": 1981,
+      "value": 5040
+    },
+    {
+      "year": 1982,
+      "value": 5130
+    },
+    {
+      "year": 1983,
+      "value": 5306
+    },
+    {
+      "year": 1984,
+      "value": 5230
+    },
+    {
+      "year": 1985,
+      "value": 5117
+    },
+    {
+      "year": 1986,
+      "value": 5261
+    },
+    {
+      "year": 1987,
+      "value": 5207
+    },
+    {
+      "year": 1988,
+      "value": 5119
+    },
+    {
+      "year": 1989,
+      "value": 5227
+    },
+    {
+      "year": 1990,
+      "value": 5264
+    },
+    {
+      "year": 1991,
+      "value": 5320
+    },
+    {
+      "year": 1992,
+      "value": 5325
+    },
+    {
+      "year": 1993,
+      "value": 5203
+    },
+    {
+      "year": 1994,
+      "value": 5543
+    },
+    {
+      "year": 1995,
+      "value": 5772
+    },
+    {
+      "year": 1996,
+      "value": 5574
+    },
+    {
+      "year": 1997,
+      "value": 5543
+    },
+    {
+      "year": 1998,
+      "value": 5416
+    },
+    {
+      "year": 1999,
+      "value": 5607
+    },
+    {
+      "year": 2000,
+      "value": 5709
+    },
+    {
+      "year": 2001,
+      "value": 5622
+    },
+    {
+      "year": 2002,
+      "value": 5541
+    },
+    {
+      "year": 2003,
+      "value": 5558
+    },
+    {
+      "year": 2004,
+      "value": 5672
+    },
+    {
+      "year": 2005,
+      "value": 5536
+    },
+    {
+      "year": 2006,
+      "value": 5516
+    },
+    {
+      "year": 2007,
+      "value": 5460
+    },
+    {
+      "year": 2008,
+      "value": 5402
+    },
+    {
+      "year": 2009,
+      "value": 5446
+    },
+    {
+      "year": 2010,
+      "value": 5554
+    },
+    {
+      "year": 2011,
+      "value": 5582
+    },
+    {
+      "year": 2012,
+      "value": 5586
+    },
+    {
+      "year": 2013,
+      "value": 5411
+    },
+    {
+      "year": 2014,
+      "value": 5246
+    },
+    {
+      "year": 2015,
+      "value": 5249
+    },
+    {
+      "year": 2016,
+      "value": 5316
+    },
+    {
+      "year": 2017,
+      "value": 5447
+    },
+    {
+      "year": 2018,
+      "value": 5262
+    },
+    {
+      "year": 2019,
+      "value": 5322
+    },
+    {
+      "year": 2020,
+      "value": 5294
+    },
+    {
+      "year": 2021,
+      "value": 4886
+    },
+    {
+      "year": 2022,
+      "value": 4957
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data"
+}

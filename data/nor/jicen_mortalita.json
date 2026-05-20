@@ -1,0 +1,199 @@
+{
+  "id": "jicen_mortalita",
+  "label": "Rakovina jícnu — úmrtnost",
+  "human_name": "Úmrtnost na rakovinu jícnu",
+  "description": "Roční počet úmrtí na rakovinu jícnu v Česku. Patří k onkologicky obtížně léčitelným diagnózám — pětileté přežití zůstává nízké.",
+  "code": "C15",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "mortalita_rocni",
+  "metric_label": "Roční počet úmrtí v ČR",
+  "relevant_for": [
+    "onkologie",
+    "trávicí systém",
+    "alkohol",
+    "kouření"
+  ],
+  "trend_context": "Vývoj odráží dlouhodobé vzorce kouření, konzumace alkoholu a obezity. Záchyt je obtížný, protože první příznaky (potíže s polykáním) se objevují, až když je nádor pokročilý.",
+  "updated": "2026-05-20",
+  "coverage": "1980–2022",
+  "trend": "up",
+  "delta": 184,
+  "peakYear": 2019,
+  "data": [
+    {
+      "year": 1980,
+      "value": 195
+    },
+    {
+      "year": 1981,
+      "value": 215
+    },
+    {
+      "year": 1982,
+      "value": 208
+    },
+    {
+      "year": 1983,
+      "value": 215
+    },
+    {
+      "year": 1984,
+      "value": 236
+    },
+    {
+      "year": 1985,
+      "value": 200
+    },
+    {
+      "year": 1986,
+      "value": 204
+    },
+    {
+      "year": 1987,
+      "value": 259
+    },
+    {
+      "year": 1988,
+      "value": 238
+    },
+    {
+      "year": 1989,
+      "value": 288
+    },
+    {
+      "year": 1990,
+      "value": 289
+    },
+    {
+      "year": 1991,
+      "value": 299
+    },
+    {
+      "year": 1992,
+      "value": 321
+    },
+    {
+      "year": 1993,
+      "value": 327
+    },
+    {
+      "year": 1994,
+      "value": 330
+    },
+    {
+      "year": 1995,
+      "value": 331
+    },
+    {
+      "year": 1996,
+      "value": 375
+    },
+    {
+      "year": 1997,
+      "value": 385
+    },
+    {
+      "year": 1998,
+      "value": 361
+    },
+    {
+      "year": 1999,
+      "value": 356
+    },
+    {
+      "year": 2000,
+      "value": 375
+    },
+    {
+      "year": 2001,
+      "value": 319
+    },
+    {
+      "year": 2002,
+      "value": 391
+    },
+    {
+      "year": 2003,
+      "value": 400
+    },
+    {
+      "year": 2004,
+      "value": 399
+    },
+    {
+      "year": 2005,
+      "value": 394
+    },
+    {
+      "year": 2006,
+      "value": 408
+    },
+    {
+      "year": 2007,
+      "value": 392
+    },
+    {
+      "year": 2008,
+      "value": 437
+    },
+    {
+      "year": 2009,
+      "value": 435
+    },
+    {
+      "year": 2010,
+      "value": 481
+    },
+    {
+      "year": 2011,
+      "value": 473
+    },
+    {
+      "year": 2012,
+      "value": 532
+    },
+    {
+      "year": 2013,
+      "value": 533
+    },
+    {
+      "year": 2014,
+      "value": 523
+    },
+    {
+      "year": 2015,
+      "value": 526
+    },
+    {
+      "year": 2016,
+      "value": 516
+    },
+    {
+      "year": 2017,
+      "value": 553
+    },
+    {
+      "year": 2018,
+      "value": 531
+    },
+    {
+      "year": 2019,
+      "value": 582
+    },
+    {
+      "year": 2020,
+      "value": 577
+    },
+    {
+      "year": 2021,
+      "value": 570
+    },
+    {
+      "year": 2022,
+      "value": 553
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data"
+}

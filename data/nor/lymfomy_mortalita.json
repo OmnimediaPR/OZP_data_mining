@@ -1,0 +1,199 @@
+{
+  "id": "lymfomy_mortalita",
+  "label": "Lymfomy — úmrtnost (souhrn)",
+  "human_name": "Úmrtnost na lymfomy (souhrn)",
+  "description": "Roční počet úmrtí na všechny typy lymfomů v Česku (Hodgkinův i non-Hodgkinovy). Souhrnný pohled — úmrtnost se v posledních dvou desetiletích dařilo snižovat zejména u Hodgkinova lymfomu a B-buněčných non-Hodgkinových.",
+  "code": "C81–C86",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "mortalita_rocni",
+  "metric_label": "Roční počet úmrtí v ČR",
+  "relevant_for": [
+    "onkologie",
+    "hematologie",
+    "kvalita léčby",
+    "cílená léčba"
+  ],
+  "trend_context": "Vývoj odráží stárnutí populace, ale především dramatický pokrok v léčbě — od cílených léků (například monoklonálních protilátek) po kombinované režimy. U Hodgkinova lymfomu patří úspěch léčby k nejvyšším v onkologii.",
+  "updated": "2026-05-20",
+  "coverage": "1980–2022",
+  "trend": "up",
+  "delta": 33,
+  "peakYear": 1989,
+  "data": [
+    {
+      "year": 1980,
+      "value": 496
+    },
+    {
+      "year": 1981,
+      "value": 529
+    },
+    {
+      "year": 1982,
+      "value": 538
+    },
+    {
+      "year": 1983,
+      "value": 586
+    },
+    {
+      "year": 1984,
+      "value": 570
+    },
+    {
+      "year": 1985,
+      "value": 593
+    },
+    {
+      "year": 1986,
+      "value": 595
+    },
+    {
+      "year": 1987,
+      "value": 606
+    },
+    {
+      "year": 1988,
+      "value": 572
+    },
+    {
+      "year": 1989,
+      "value": 667
+    },
+    {
+      "year": 1990,
+      "value": 604
+    },
+    {
+      "year": 1991,
+      "value": 631
+    },
+    {
+      "year": 1992,
+      "value": 616
+    },
+    {
+      "year": 1993,
+      "value": 654
+    },
+    {
+      "year": 1994,
+      "value": 548
+    },
+    {
+      "year": 1995,
+      "value": 573
+    },
+    {
+      "year": 1996,
+      "value": 573
+    },
+    {
+      "year": 1997,
+      "value": 585
+    },
+    {
+      "year": 1998,
+      "value": 556
+    },
+    {
+      "year": 1999,
+      "value": 584
+    },
+    {
+      "year": 2000,
+      "value": 611
+    },
+    {
+      "year": 2001,
+      "value": 623
+    },
+    {
+      "year": 2002,
+      "value": 565
+    },
+    {
+      "year": 2003,
+      "value": 586
+    },
+    {
+      "year": 2004,
+      "value": 576
+    },
+    {
+      "year": 2005,
+      "value": 587
+    },
+    {
+      "year": 2006,
+      "value": 555
+    },
+    {
+      "year": 2007,
+      "value": 535
+    },
+    {
+      "year": 2008,
+      "value": 543
+    },
+    {
+      "year": 2009,
+      "value": 562
+    },
+    {
+      "year": 2010,
+      "value": 519
+    },
+    {
+      "year": 2011,
+      "value": 598
+    },
+    {
+      "year": 2012,
+      "value": 550
+    },
+    {
+      "year": 2013,
+      "value": 581
+    },
+    {
+      "year": 2014,
+      "value": 563
+    },
+    {
+      "year": 2015,
+      "value": 563
+    },
+    {
+      "year": 2016,
+      "value": 611
+    },
+    {
+      "year": 2017,
+      "value": 610
+    },
+    {
+      "year": 2018,
+      "value": 597
+    },
+    {
+      "year": 2019,
+      "value": 662
+    },
+    {
+      "year": 2020,
+      "value": 646
+    },
+    {
+      "year": 2021,
+      "value": 594
+    },
+    {
+      "year": 2022,
+      "value": 661
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data"
+}

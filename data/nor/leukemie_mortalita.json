@@ -1,0 +1,199 @@
+{
+  "id": "leukemie_mortalita",
+  "label": "Leukémie — úmrtnost",
+  "human_name": "Úmrtnost na leukémie",
+  "description": "Roční počet úmrtí na leukémie v Česku. Úmrtnost u dospělých výrazně závisí na typu leukémie a věku pacienta — u dětí naopak léčba dosahuje vysoké úspěšnosti.",
+  "code": "C91–C95",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "mortalita_rocni",
+  "metric_label": "Roční počet úmrtí v ČR",
+  "relevant_for": [
+    "onkologie",
+    "hematologie",
+    "kvalita léčby",
+    "stárnutí populace"
+  ],
+  "trend_context": "Vývoj odráží stárnutí populace, lepší klasifikaci a zásadní pokrok v léčbě (cílené léky, transplantace kostní dřeně). U dětských leukémií patří úmrtnost k onkologickým úspěchům — drtivá většina dětí se daří úplně vyléčit.",
+  "updated": "2026-05-20",
+  "coverage": "1980–2022",
+  "trend": "up",
+  "delta": 69,
+  "peakYear": 2019,
+  "data": [
+    {
+      "year": 1980,
+      "value": 521
+    },
+    {
+      "year": 1981,
+      "value": 632
+    },
+    {
+      "year": 1982,
+      "value": 652
+    },
+    {
+      "year": 1983,
+      "value": 635
+    },
+    {
+      "year": 1984,
+      "value": 677
+    },
+    {
+      "year": 1985,
+      "value": 620
+    },
+    {
+      "year": 1986,
+      "value": 647
+    },
+    {
+      "year": 1987,
+      "value": 745
+    },
+    {
+      "year": 1988,
+      "value": 737
+    },
+    {
+      "year": 1989,
+      "value": 783
+    },
+    {
+      "year": 1990,
+      "value": 778
+    },
+    {
+      "year": 1991,
+      "value": 839
+    },
+    {
+      "year": 1992,
+      "value": 748
+    },
+    {
+      "year": 1993,
+      "value": 723
+    },
+    {
+      "year": 1994,
+      "value": 858
+    },
+    {
+      "year": 1995,
+      "value": 841
+    },
+    {
+      "year": 1996,
+      "value": 839
+    },
+    {
+      "year": 1997,
+      "value": 835
+    },
+    {
+      "year": 1998,
+      "value": 880
+    },
+    {
+      "year": 1999,
+      "value": 854
+    },
+    {
+      "year": 2000,
+      "value": 916
+    },
+    {
+      "year": 2001,
+      "value": 898
+    },
+    {
+      "year": 2002,
+      "value": 846
+    },
+    {
+      "year": 2003,
+      "value": 878
+    },
+    {
+      "year": 2004,
+      "value": 906
+    },
+    {
+      "year": 2005,
+      "value": 832
+    },
+    {
+      "year": 2006,
+      "value": 846
+    },
+    {
+      "year": 2007,
+      "value": 794
+    },
+    {
+      "year": 2008,
+      "value": 816
+    },
+    {
+      "year": 2009,
+      "value": 812
+    },
+    {
+      "year": 2010,
+      "value": 801
+    },
+    {
+      "year": 2011,
+      "value": 853
+    },
+    {
+      "year": 2012,
+      "value": 884
+    },
+    {
+      "year": 2013,
+      "value": 899
+    },
+    {
+      "year": 2014,
+      "value": 889
+    },
+    {
+      "year": 2015,
+      "value": 836
+    },
+    {
+      "year": 2016,
+      "value": 839
+    },
+    {
+      "year": 2017,
+      "value": 906
+    },
+    {
+      "year": 2018,
+      "value": 949
+    },
+    {
+      "year": 2019,
+      "value": 982
+    },
+    {
+      "year": 2020,
+      "value": 980
+    },
+    {
+      "year": 2021,
+      "value": 899
+    },
+    {
+      "year": 2022,
+      "value": 882
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data"
+}
