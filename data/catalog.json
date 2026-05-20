@@ -250,6 +250,34 @@
       "code": "OECD Cancer Care (2024)",
       "source": "OECD Health at a Glance",
       "tags": ["mezinárodní", "onkologie", "screening tlustého střeva", "kvalita péče"]
+    },
+    {
+      "id": "oecd_plice_preziti",
+      "label": "Rakovina plic — 5leté přežití — OECD srovnání",
+      "code": "OECD Cancer Care (2024)",
+      "source": "OECD Health at a Glance",
+      "tags": ["mezinárodní", "onkologie", "kouření", "kvalita péče"]
+    },
+    {
+      "id": "oecd_prostata_preziti",
+      "label": "Rakovina prostaty — 5leté přežití — OECD srovnání",
+      "code": "OECD Cancer Care (2024)",
+      "source": "OECD Health at a Glance",
+      "tags": ["mezinárodní", "onkologie", "mužské zdraví", "kvalita péče"]
+    },
+    {
+      "id": "eu_ihd_mortality_sdr",
+      "label": "Úmrtnost na ischemickou chorobu srdeční — EU srovnání",
+      "code": "hlth_cd_asdr2 (I20–I25)",
+      "source": "Eurostat",
+      "tags": ["mezinárodní", "kardiovaskulární", "mortalita"]
+    },
+    {
+      "id": "eu_stroke_mortality_sdr",
+      "label": "Úmrtnost na cévní mozkové příhody — EU srovnání",
+      "code": "hlth_cd_asdr2 (I60–I69)",
+      "source": "Eurostat",
+      "tags": ["mezinárodní", "kardiovaskulární", "mortalita"]
     }
   ]
 }
