@@ -1,0 +1,211 @@
+{
+  "id": "prsa_incidence",
+  "label": "Rakovina prsu — incidence",
+  "human_name": "Rakovina prsu",
+  "description": "Zhoubný nádor prsní žlázy — nejčastější rakovina žen v Česku. Vzácně postihuje i muže (méně než 1 % případů).",
+  "code": "C50",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "incidence_rocni",
+  "metric_label": "Roční počet nově diagnostikovaných případů",
+  "relevant_for": [
+    "onkologie",
+    "ženské zdraví",
+    "mamografický screening",
+    "prevence rakoviny"
+  ],
+  "trend_context": "Nárůst odráží především stárnutí populace a lepší záchyt díky mamografickému screeningu zavedenému v Česku od roku 2002. Mortalita přitom dlouhodobě klesá — tedy víc žen rakovinu prsu má, ale méně z ní umírá.",
+  "updated": "2026-05-20",
+  "coverage": "1977–2022",
+  "trend": "up",
+  "delta": 182,
+  "peakYear": 2022,
+  "data": [
+    {
+      "year": 1977,
+      "value": 2839
+    },
+    {
+      "year": 1978,
+      "value": 2788
+    },
+    {
+      "year": 1979,
+      "value": 2809
+    },
+    {
+      "year": 1980,
+      "value": 2853
+    },
+    {
+      "year": 1981,
+      "value": 2988
+    },
+    {
+      "year": 1982,
+      "value": 3072
+    },
+    {
+      "year": 1983,
+      "value": 3048
+    },
+    {
+      "year": 1984,
+      "value": 3234
+    },
+    {
+      "year": 1985,
+      "value": 3155
+    },
+    {
+      "year": 1986,
+      "value": 3263
+    },
+    {
+      "year": 1987,
+      "value": 3601
+    },
+    {
+      "year": 1988,
+      "value": 3404
+    },
+    {
+      "year": 1989,
+      "value": 3586
+    },
+    {
+      "year": 1990,
+      "value": 3516
+    },
+    {
+      "year": 1991,
+      "value": 3886
+    },
+    {
+      "year": 1992,
+      "value": 4094
+    },
+    {
+      "year": 1993,
+      "value": 4227
+    },
+    {
+      "year": 1994,
+      "value": 4681
+    },
+    {
+      "year": 1995,
+      "value": 4638
+    },
+    {
+      "year": 1996,
+      "value": 4615
+    },
+    {
+      "year": 1997,
+      "value": 4646
+    },
+    {
+      "year": 1998,
+      "value": 4798
+    },
+    {
+      "year": 1999,
+      "value": 5180
+    },
+    {
+      "year": 2000,
+      "value": 5065
+    },
+    {
+      "year": 2001,
+      "value": 5317
+    },
+    {
+      "year": 2002,
+      "value": 5632
+    },
+    {
+      "year": 2003,
+      "value": 6013
+    },
+    {
+      "year": 2004,
+      "value": 5855
+    },
+    {
+      "year": 2005,
+      "value": 5790
+    },
+    {
+      "year": 2006,
+      "value": 6086
+    },
+    {
+      "year": 2007,
+      "value": 6775
+    },
+    {
+      "year": 2008,
+      "value": 6617
+    },
+    {
+      "year": 2009,
+      "value": 6181
+    },
+    {
+      "year": 2010,
+      "value": 6759
+    },
+    {
+      "year": 2011,
+      "value": 6768
+    },
+    {
+      "year": 2012,
+      "value": 7039
+    },
+    {
+      "year": 2013,
+      "value": 7353
+    },
+    {
+      "year": 2014,
+      "value": 7232
+    },
+    {
+      "year": 2015,
+      "value": 7312
+    },
+    {
+      "year": 2016,
+      "value": 7438
+    },
+    {
+      "year": 2017,
+      "value": 7374
+    },
+    {
+      "year": 2018,
+      "value": 7305
+    },
+    {
+      "year": 2019,
+      "value": 7972
+    },
+    {
+      "year": 2020,
+      "value": 7405
+    },
+    {
+      "year": 2021,
+      "value": 7945
+    },
+    {
+      "year": 2022,
+      "value": 7993
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data"
+}

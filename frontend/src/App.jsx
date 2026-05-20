@@ -221,15 +221,23 @@ export default function App() {
 
   // Načti národní datasety ze static JSON souborů (generované GitHub Actions).
   // JSON už nese všechna pole včetně human_name, description, relevant_for, trend_context —
-  // viz sync_nkis.py. Frontend nepřidává nic, jen prochází fetch.
+  // viz sync_nkis.py / sync_nor.py. Frontend nepřidává nic, jen prochází fetch.
+  // folder = která složka v data/: 'nkis' (kardio z NKIS), 'nor' (onko z NOR).
   useEffect(() => {
     async function loadData() {
-      const ids = ['aim', 'cmp', 'hyp', 'hf', 'kvo'];
+      const sources = [
+        { id: 'aim', folder: 'nkis' },
+        { id: 'cmp', folder: 'nkis' },
+        { id: 'hyp', folder: 'nkis' },
+        { id: 'hf', folder: 'nkis' },
+        { id: 'kvo', folder: 'nkis' },
+        { id: 'prsa_incidence', folder: 'nor' },
+      ];
       const loaded = [];
 
-      for (const id of ids) {
+      for (const { id, folder } of sources) {
         try {
-          const response = await fetch(`${DATA_BASE}nkis/${id}.json`);
+          const response = await fetch(`${DATA_BASE}${folder}/${id}.json`);
           if (response.ok) {
             loaded.push(await response.json());
           }
