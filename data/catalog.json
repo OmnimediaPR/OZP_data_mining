@@ -13,7 +13,11 @@
     { "id": "plice_incidence", "label": "Rakovina plic — incidence", "code": "C34", "tags": ["onkologie", "kouření", "prevence"] },
     { "id": "prostata_incidence", "label": "Rakovina prostaty — incidence", "code": "C61", "tags": ["onkologie", "mužské zdraví", "screening"] },
     { "id": "kolorektum_incidence", "label": "Rakovina tlustého střeva a konečníku — incidence", "code": "C18–C20", "tags": ["onkologie", "screening", "prevence"] },
-    { "id": "melanom_incidence", "label": "Zhoubný melanom kůže — incidence", "code": "C43", "tags": ["onkologie", "kůže", "prevence"] }
+    { "id": "melanom_incidence", "label": "Zhoubný melanom kůže — incidence", "code": "C43", "tags": ["onkologie", "kůže", "prevence"] },
+    { "id": "zaludek_incidence", "label": "Rakovina žaludku — incidence", "code": "C16", "tags": ["onkologie", "trávicí systém", "prevence"] },
+    { "id": "slinivka_incidence", "label": "Rakovina slinivky břišní — incidence", "code": "C25", "tags": ["onkologie", "trávicí systém"] },
+    { "id": "mozek_incidence", "label": "Zhoubný nádor mozku — incidence", "code": "C71", "tags": ["onkologie", "neurologie"] },
+    { "id": "leukemie_incidence", "label": "Leukémie — incidence", "code": "C91–C95", "tags": ["onkologie", "hematologie", "dětská onkologie"] }
   ],
   "international": [
     {

@@ -236,6 +236,10 @@ export default function App() {
         { id: 'prostata_incidence', folder: 'nor' },
         { id: 'kolorektum_incidence', folder: 'nor' },
         { id: 'melanom_incidence', folder: 'nor' },
+        { id: 'zaludek_incidence', folder: 'nor' },
+        { id: 'slinivka_incidence', folder: 'nor' },
+        { id: 'mozek_incidence', folder: 'nor' },
+        { id: 'leukemie_incidence', folder: 'nor' },
       ];
       const loaded = [];
 
