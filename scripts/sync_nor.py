@@ -1752,17 +1752,31 @@ def compute_meta(series: list, cfg: dict | None = None) -> dict:
     Pro survival_5y (procenta) používá absolutní rozdíl v procentních
     bodech místo relativního procenta — relativní změna mezi 74 a 80
     je matoucí ("+8 %"), absolutní +6 p.b. je jasnější.
+
+    Delta se počítá z 3letých klouzavých průměrů prvních a posledních
+    3 let — stabilizuje výsledek u vzácných dg, kde single-year může
+    být silně ovlivněný šumem (např. 1 → 26 případů by jinak dalo
+    +2500 %, s rolling průměrem realistických ~+700 %).
+
+    U sérií kratších než 6 bodů se používá single-year hodnota
+    (nedostatek dat pro rolling průměr).
     """
     if not series or len(series) < 2:
         return {"trend": "unknown", "delta": 0, "peakYear": None}
 
-    first = series[0]
-    last = series[-1]
     aggregation = cfg.get("aggregation", "count") if cfg else "count"
+
+    # 3letý klouzavý průměr na začátku a na konci série, pokud máme dost dat.
+    if len(series) >= 6:
+        first_value = sum(p["value"] for p in series[:3]) / 3
+        last_value = sum(p["value"] for p in series[-3:]) / 3
+    else:
+        first_value = series[0]["value"]
+        last_value = series[-1]["value"]
 
     if aggregation == "survival_5y":
         # Delta v procentních bodech (např. z 60% na 80% = +20)
-        delta = round(last["value"] - first["value"], 1)
+        delta = round(last_value - first_value, 1)
         if delta > 5:
             trend = "up"
         elif delta < -5:
@@ -1771,10 +1785,10 @@ def compute_meta(series: list, cfg: dict | None = None) -> dict:
             trend = "plateau"
     else:
         # Relativní změna v procentech (např. z 1000 na 1500 = +50%)
-        if first["value"] == 0:
+        if first_value == 0:
             delta = 0
         else:
-            delta = round(((last["value"] - first["value"]) / first["value"]) * 100)
+            delta = round(((last_value - first_value) / first_value) * 100)
         if delta > 10:
             trend = "up"
         elif delta < -10:

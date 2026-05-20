@@ -17,8 +17,8 @@
   "trend_context": "Vývoj odráží zavedení plošného screeningu (testu na skryté krvácení do stolice v roce 2000 a kolonoskopie v roce 2009) a zlepšení léčby. Česko se z nejhůře postižené země světa postupně dostává k evropskému průměru.",
   "updated": "2026-05-20",
   "coverage": "1980–2022",
-  "trend": "up",
-  "delta": 17,
+  "trend": "plateau",
+  "delta": 6,
   "peakYear": 2003,
   "data": [
     {

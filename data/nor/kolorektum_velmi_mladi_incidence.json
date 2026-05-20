@@ -17,8 +17,8 @@
   "trend_context": "V Česku se počet velmi mladých případů rakoviny tlustého střeva sleduje obzvlášť pozorně — celosvětově patří k překvapivě rostoucím onkologickým nálezům. Mezi předpokládané faktory patří strava, obezita, méně pohybu a změny ve složení střevního mikrobiomu. Žádný z nich však zatím nárůst nedokáže plně vysvětlit.",
   "updated": "2026-05-20",
   "coverage": "1977–2022",
-  "trend": "plateau",
-  "delta": 7,
+  "trend": "up",
+  "delta": 15,
   "peakYear": 2016,
   "data": [
     {
