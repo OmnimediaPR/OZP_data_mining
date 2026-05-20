@@ -120,6 +120,180 @@ DATASETS = {
         "metric_col": "pocet_pripadu",
         "agg_func": "sum",
     },
+    "preventivni_prohlidky_pokryti": {
+        "label": "Preventivní prohlídky — pokrytí populace",
+        "human_name": "Pokrytí populace preventivními prohlídkami",
+        "description": "Procento pojištěnců v cílové populaci, kteří absolvovali preventivní prohlídku u praktického lékaře. Klíčový ukazatel základní péče o veřejné zdraví.",
+        "code": "preventivní prohlídky",
+        "source": "Centrální evidence dat populačních preventivních programů (ÚZIS)",
+        "source_type": "national",
+        "metric": "pokryti_pct",
+        "metric_label": "Pokrytí populace (%)",
+        "relevant_for": ["prevence", "veřejné zdraví", "primární péče", "pojišťovny"],
+        "trend_context": "Vývoj odráží osvětu o významu prevence, dostupnost praktických lékařů a motivaci pacientů. V Česku je preventivní prohlídka hrazena pojišťovnou jednou za dva roky.",
+        "data_url": "https://datanzis.uzis.gov.cz/data/PPS-08-PREVENCE/PPS-08-03/Otevrena-data-PPS-08-03-preventivni-prohlidky-pokryti.csv",
+        "source_url": "https://www.nzip.cz/data/2579-preventivni-prohlidky-pokryti-otevrena-data",
+        "year_col": "rok",
+        "agg_func": "ratio",
+        "numerator_col": "pocet_vysetrenych",
+        "denominator_col": "populace",
+    },
+    "kolorektum_screening_pokryti": {
+        "label": "Kolorektální screening — pokrytí cílové populace",
+        "human_name": "Pokrytí populace kolorektálním screeningem",
+        "description": "Procento osob z cílové věkové populace (50 let a více), které absolvovaly preventivní vyšetření na rakovinu tlustého střeva (test na skryté krvácení nebo kolonoskopii) v tříletém intervalu.",
+        "code": "screening C18–C20",
+        "source": "Informační systém screeningu karcinomu tlustého střeva a konečníku (ÚZIS)",
+        "source_type": "national",
+        "metric": "pokryti_pct",
+        "metric_label": "Pokrytí populace (%)",
+        "relevant_for": ["prevence", "screening tlustého střeva", "veřejné zdraví", "pojišťovny"],
+        "trend_context": "Vývoj odráží osvětu (mediální kampaně) a aktivní zvaní pojišťoven od roku 2014. Cílová populace je ženy i muži 50 a více let.",
+        "data_url": "https://datanzis.uzis.gov.cz/data/PPS-02-KRK/PPS-02-08/Otevrena-data-PPS-02-08-kolorektum-screening-pokryti-populace-trilete.csv",
+        "source_url": "https://www.nzip.cz/data/2601-kolorektum-screening-pokryti-populace-trilete-otevrena-data",
+        "year_col": "rok",
+        "agg_func": "ratio",
+        "numerator_col": "pocet_vysetreni",
+        "denominator_col": "populace",
+    },
+    "prostata_psa_pokryti": {
+        "label": "Vyšetření krve na prostatický specifický antigen — pokrytí mužů",
+        "human_name": "Pokrytí mužů vyšetřením krve na prostatický specifický antigen",
+        "description": "Procento mužů, kteří absolvovali vyšetření krve na prostatický specifický antigen (test pro časný záchyt rakoviny prostaty). V Česku není plošný screening, vyšetření probíhá v rámci preventivní prohlídky nebo na žádost pacienta.",
+        "code": "screening C61",
+        "source": "Informační systém screeningu karcinomu prostaty (ÚZIS)",
+        "source_type": "national",
+        "metric": "pokryti_pct",
+        "metric_label": "Pokrytí mužů (%)",
+        "relevant_for": ["prevence", "mužské zdraví", "preventivní prohlídky"],
+        "trend_context": "Vývoj odráží osvětu o významu vyšetření u mužů starších 50 let a doporučení odborných společností. Plošný screening v Česku zatím není zaveden, debata o jeho přínosu i rizicích pokračuje.",
+        "data_url": "https://datanzis.uzis.gov.cz/data/PPS-05-PROSTATA/PPS-05-01/Otevrena-data-PPS-05-01-prostata-podil-vystrenych-psa.csv",
+        "source_url": "https://www.nzip.cz/data/2616-prostata-podil-vysetrenych-psa-otevrena-data",
+        "year_col": "rok",
+        "agg_func": "ratio",
+        "numerator_col": "pocet_vysetrenych",
+        "denominator_col": "populace",
+    },
+    "autismus_vcasny_zachyt_pokryti": {
+        "label": "Včasný záchyt poruch autistického spektra — pokrytí pojištěnců",
+        "human_name": "Pokrytí pojištěnců včasným záchytem poruch autistického spektra (ve věku 2 let)",
+        "description": "Procento dětských pojištěnců, kteří absolvovali standardizovaný screening poruch autistického spektra ve věku 2 let (M-CHAT-R nebo podobný test).",
+        "code": "screening F84",
+        "source": "Další prevence u novorozenců a dětí (ÚZIS)",
+        "source_type": "national",
+        "metric": "pokryti_pct",
+        "metric_label": "Pokrytí pojištěnců (%)",
+        "relevant_for": ["dětská psychiatrie", "vývojové poruchy", "prevence", "primární péče"],
+        "trend_context": "Vývoj odráží zavedení plošného screeningu poruch autistického spektra do preventivních prohlídek u dětského lékaře. Časný záchyt umožňuje včasnou intervenci, která zlepšuje vývoj dítěte.",
+        "data_url": "https://datanzis.uzis.gov.cz/data/PPS-09-DETI/PPS-09-02/Otevrena-data-PPS-09-02-vcasny-zachyt-poruchy-autistickeho-spektra.csv",
+        "source_url": "https://www.nzip.cz/data/2649-vcasny-zachyt-poruchy-autistickeho-spektra-otevrena-data",
+        "year_col": "rok",
+        "agg_func": "ratio",
+        "numerator_col": "pocet_vysetrenych",
+        "denominator_col": "pocet_pojistencu",
+    },
+    "kycle_screening_pokryti": {
+        "label": "Screening dysplazie kyčelního kloubu — pokrytí novorozenců",
+        "human_name": "Pokrytí novorozenců screeningem dysplazie kyčelního kloubu (ve věku 1 roku)",
+        "description": "Procento novorozenců, kteří absolvovali alespoň jedno preventivní ultrazvukové vyšetření kyčelních kloubů. Patří k dlouhodobě nejúspěšnějším českým preventivním programům.",
+        "code": "screening Q65",
+        "source": "Další prevence u novorozenců a dětí (ÚZIS)",
+        "source_type": "national",
+        "metric": "pokryti_pct",
+        "metric_label": "Pokrytí novorozenců (%)",
+        "relevant_for": ["dětské zdraví", "prevence", "ortopedie", "primární péče"],
+        "trend_context": "Vývoj odráží zavedení tříkolového screeningu (1, 6 a 12 týdnů věku). Včasný záchyt dysplazie umožňuje neoperativní léčbu (Pavlíkovy třmeny) a předchází invalidizujícím změnám v dospělosti.",
+        "data_url": "https://datanzis.uzis.gov.cz/data/PPS-09-DETI/PPS-09-03/Otevrena-data-PPS-09-03-screening-kycle.csv",
+        "source_url": "https://www.nzip.cz/data/2711-screening-kycle-otevrena-data",
+        "year_col": "rok_narozeni",
+        "agg_func": "ratio",
+        "numerator_col": "pocet_jeden_screening",
+        "denominator_col": "populace",
+    },
+    "ocekavatelna_umrti": {
+        "label": "Očekávatelná úmrtí — časový trend",
+        "human_name": "Očekávatelná úmrtí v ČR",
+        "description": "Roční počet úmrtí, která lze dopředu očekávat — typicky u pacientů s chronickým onemocněním v terminální fázi. Klíčový ukazatel pro plánování paliativní a hospicové péče.",
+        "code": "paliativní péče",
+        "source": "List o prohlídce zemřelého (ÚZIS)",
+        "source_type": "national",
+        "metric": "umrti_rocni",
+        "metric_label": "Roční počet úmrtí",
+        "relevant_for": ["paliativní péče", "stárnutí populace", "veřejné zdraví", "hospice"],
+        "trend_context": "Vývoj odráží stárnutí populace a nárůst chronických onemocnění. Předem očekávatelná úmrtí představují cílovou skupinu paliativní péče — důstojné konce života v hospicích, na specializovaných odděleních nebo doma s péčí mobilního hospice.",
+        "data_url": "https://datanzis.uzis.gov.cz/data/NR-06-LPZ/NR-06-39/Otevrena-data-NR-06-39-ocekavatelne-umrti-vek-pohlavi-kraje-casovy-trend.csv",
+        "source_url": "https://www.nzip.cz/data/2693-ocekavatelne-umrti-vek-pohlavi-kraje-casovy-trend-otevrena-data",
+        "year_col": "rok",
+        "metric_col": "ocekavatelne_zemreli_pocet",
+        "agg_func": "sum",
+    },
+    "alergicka_ryma_dispenzarizovani": {
+        "label": "Alergická rýma — dispenzarizovaní pacienti",
+        "human_name": "Pacienti s alergickou rýmou",
+        "description": "Roční počet dispenzarizovaných (dlouhodobě sledovaných) pacientů s alergickou rýmou. Roste jako součást širšího fenoménu nárůstu alergických onemocnění v moderní populaci.",
+        "code": "J30",
+        "source": "Národní registr hrazených zdravotních služeb (ÚZIS)",
+        "source_type": "national",
+        "metric": "prevalence_rocni",
+        "metric_label": "Roční počet sledovaných pacientů",
+        "relevant_for": ["alergologie", "chronická onemocnění", "kvalita ovzduší", "imunita"],
+        "trend_context": "Nárůst odráží 'epidemii alergií' v moderních populacích — souvisí s tzv. hygienickou hypotézou (děti vyrůstají ve sterilnějším prostředí, imunitní systém přepíná na alergické reakce), kvalitou ovzduší a vyšším výskytem polenu kvůli změnám klimatu.",
+        "data_url": "https://datanzis.uzis.gov.cz/data/NR-04-NRHZS/NR-04-89/Otevrena-data-NR-04-89-alergicka-ryma.csv",
+        "source_url": "https://www.nzip.cz/data/2646-alergicka-ryma-otevrena-data",
+        "year_col": "rok",
+        "metric_col": "pocet",
+        "agg_func": "sum",
+    },
+    "vrozene_vady": {
+        "label": "Vrozené vady — incidence",
+        "human_name": "Vrozené vady u novorozenců",
+        "description": "Roční počet novorozenců s vrozenou vadou. Sleduje se více než 12 hlavních diagnostických kategorií. Klíčový ukazatel pro prenatální péči a genetické poradenství.",
+        "code": "Q00–Q99",
+        "source": "Národní registr reprodukčního zdraví — modul vrozených vad (ÚZIS)",
+        "source_type": "national",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet novorozenců s vrozenou vadou",
+        "relevant_for": ["dětské zdraví", "genetika", "prenatální péče", "vzácná onemocnění"],
+        "trend_context": "Vývoj odráží kombinaci kvality prenatální péče (časný záchyt, ukončení rizikových těhotenství), genetického poradenství a změn v reprodukčním chování (vyšší věk rodiček). Část kolísání jsou statistické fluktuace u vzácných vad.",
+        "data_url": "https://datanzis.uzis.gov.cz/data/NR-13-NRRZ-VV/NR-13-02/Otevrena-data-NR-13-02-vrozene-vady-cesko.csv",
+        "source_url": "https://www.nzip.cz/data/2669-vrozene-vady-cesko-otevrena-data",
+        "year_col": "rok_narozeni",
+        "agg_func": "count",
+    },
+    "lazenska_pece_pacienti": {
+        "label": "Lázeňská péče — pacienti",
+        "human_name": "Pacienti s hrazenou lázeňskou péčí",
+        "description": "Roční počet pacientů, kteří absolvovali komplexní nebo příspěvkovou lázeňskou péči hrazenou zdravotními pojišťovnami. Česká specifika — lázeňství má v ČR dlouhou tradici a je nadstandardním benefitem proti většině jiných zemí.",
+        "code": "rehabilitace",
+        "source": "Národní registr hrazených zdravotních služeb (ÚZIS)",
+        "source_type": "national",
+        "metric": "pacienti_rocni",
+        "metric_label": "Roční počet pacientů",
+        "relevant_for": ["rehabilitace", "kvalita života", "chronická onemocnění", "pojišťovny"],
+        "trend_context": "Vývoj odráží legislativní změny (úpravy podmínek hrazení), epidemii covidu (přerušení v roce 2020) a stárnutí populace. Lázeňská péče je hrazena u definovaných indikací (po operacích, chronická onemocnění pohybového aparátu, neurologické nemoci a další).",
+        "data_url": "https://datanzis.uzis.gov.cz/data/NR-04-NRHZS/NR-04-90/Otevrena-data-NR-04-90-lazenska-pece-pacienti.csv",
+        "source_url": "https://www.nzip.cz/data/2651-lazenska-pece-pacienti-otevrena-data",
+        "year_col": "rok",
+        "metric_col": "pocet",
+        "agg_func": "sum",
+    },
+    "paliativni_pece_pacienti": {
+        "label": "Paliativní péče — unikátní pacienti",
+        "human_name": "Unikátní pacienti s vykázanou paliativní péčí",
+        "description": "Roční počet unikátních pacientů, u kterých byla vykázána paliativní péče (odbornost 929 nebo DRG markery paliativní péče). Klíčový ukazatel rozšíření paliativní péče v Česku.",
+        "code": "paliativní péče",
+        "source": "Národní informační systém paliativní péče (ÚZIS)",
+        "source_type": "national",
+        "metric": "pacienti_rocni",
+        "metric_label": "Roční počet unikátních pacientů",
+        "relevant_for": ["paliativní péče", "kvalita života", "stárnutí populace", "hospice"],
+        "trend_context": "Vývoj odráží postupný rozvoj paliativní péče v Česku — zvyšuje se počet specializovaných zařízení (mobilní hospice, paliativní oddělení v nemocnicích), roste informovanost lékařů i pacientů. Stále existuje výrazná regionální nerovnost dostupnosti.",
+        "data_url": "https://datanzis.uzis.gov.cz/data/OIS-05-NISPP/OIS-05-06/Otevrena-data-OIS-05-06-unikatni-pacienti-vykazana-pece-odbornost-929-drg-markery.csv",
+        "source_url": "https://www.nzip.cz/data/2657-unikatni-pacienti-vykazana-pece-odbornost-929-drg-markery-otevrena-data",
+        "year_col": "rok",
+        "metric_col": "pocet",
+        "agg_func": "sum",
+    },
     "astma_dispenzarizovani": {
         "label": "Bronchiální astma — dispenzarizovaní pacienti",
         "human_name": "Pacienti s bronchiálním astmatem",
@@ -170,9 +344,24 @@ def download_csv(url: str) -> Path | None:
         return None
 
 
-def aggregate_by_year(csv_path: Path, year_col: str, metric_col: str, agg_func: str) -> list:
-    """Agreguje metric_col per year_col. agg_func: 'sum' nebo 'count'."""
+def aggregate_by_year(
+    csv_path: Path,
+    year_col: str,
+    metric_col: str,
+    agg_func: str,
+    numerator_col: str | None = None,
+    denominator_col: str | None = None,
+) -> list:
+    """Agreguje hodnotu per year_col.
+
+    agg_func:
+    - "sum"   — součet hodnot v metric_col
+    - "count" — počet řádků
+    - "ratio" — sum(numerator_col) / sum(denominator_col) × 100 (pokrytí v %)
+    """
     sums: dict[int, float] = {}
+    numerator: dict[int, float] = {}
+    denominator: dict[int, float] = {}
 
     # Auto-detekce kódování (ÚZIS používá UTF-8 nebo Windows-1250).
     with csv_path.open("rb") as f:
@@ -198,13 +387,22 @@ def aggregate_by_year(csv_path: Path, year_col: str, metric_col: str, agg_func: 
 
         cols_lower = {c.lower(): c for c in reader.fieldnames}
         yr_col = cols_lower.get(year_col.lower())
-        mc_col = cols_lower.get(metric_col.lower())
 
-        if not yr_col or not mc_col:
-            raise ValueError(
-                f"CSV neobsahuje očekávané sloupce '{year_col}' / '{metric_col}'. "
-                f"Nalezené: {reader.fieldnames}"
-            )
+        if not yr_col:
+            raise ValueError(f"CSV neobsahuje rok sloupec '{year_col}'")
+
+        if agg_func == "ratio":
+            num_col = cols_lower.get((numerator_col or "").lower())
+            den_col = cols_lower.get((denominator_col or "").lower())
+            if not num_col or not den_col:
+                raise ValueError(
+                    f"agg_func=ratio vyžaduje numerator_col a denominator_col. "
+                    f"Nalezené sloupce: {reader.fieldnames}"
+                )
+        else:
+            mc_col = cols_lower.get((metric_col or "").lower())
+            if agg_func != "count" and not mc_col:
+                raise ValueError(f"CSV neobsahuje metric_col '{metric_col}'")
 
         for row in reader:
             try:
@@ -216,6 +414,14 @@ def aggregate_by_year(csv_path: Path, year_col: str, metric_col: str, agg_func: 
 
             if agg_func == "count":
                 sums[year] = sums.get(year, 0) + 1
+            elif agg_func == "ratio":
+                try:
+                    n = float(row[num_col])
+                    d = float(row[den_col])
+                except (ValueError, TypeError):
+                    continue
+                numerator[year] = numerator.get(year, 0) + n
+                denominator[year] = denominator.get(year, 0) + d
             else:  # sum
                 try:
                     value = float(row[mc_col])
@@ -223,11 +429,25 @@ def aggregate_by_year(csv_path: Path, year_col: str, metric_col: str, agg_func: 
                     continue
                 sums[year] = sums.get(year, 0) + value
 
+    if agg_func == "ratio":
+        return [
+            {
+                "year": y,
+                "value": round(100 * numerator[y] / denominator[y], 1) if denominator[y] else 0,
+            }
+            for y in sorted(numerator.keys())
+            if denominator.get(y, 0) > 0
+        ]
+
     return [{"year": y, "value": int(sums[y]) if sums[y].is_integer() else round(sums[y], 1)} for y in sorted(sums.keys())]
 
 
-def compute_meta(series: list) -> dict:
-    """Trend, delta, peak — rolling 3-letý průměr pro stabilitu."""
+def compute_meta(series: list, cfg: dict | None = None) -> dict:
+    """Trend, delta, peak — rolling 3-letý průměr pro stabilitu.
+
+    Pro agg_func="ratio" (procenta) používá absolutní rozdíl v procentních
+    bodech místo relativního procenta.
+    """
     if not series or len(series) < 2:
         return {"trend": "unknown", "delta": 0, "peakYear": None}
 
@@ -238,17 +458,26 @@ def compute_meta(series: list) -> dict:
         first_value = series[0]["value"]
         last_value = series[-1]["value"]
 
-    if first_value == 0:
-        delta = 0
+    agg_func = cfg.get("agg_func", "sum") if cfg else "sum"
+    if agg_func == "ratio":
+        delta = round(last_value - first_value, 1)
+        if delta > 5:
+            trend = "up"
+        elif delta < -5:
+            trend = "down"
+        else:
+            trend = "plateau"
     else:
-        delta = round(((last_value - first_value) / first_value) * 100)
-
-    if delta > 10:
-        trend = "up"
-    elif delta < -10:
-        trend = "down"
-    else:
-        trend = "plateau"
+        if first_value == 0:
+            delta = 0
+        else:
+            delta = round(((last_value - first_value) / first_value) * 100)
+        if delta > 10:
+            trend = "up"
+        elif delta < -10:
+            trend = "down"
+        else:
+            trend = "plateau"
 
     peak = max(series, key=lambda r: r["value"])
     return {"trend": trend, "delta": delta, "peakYear": peak["year"]}
@@ -263,7 +492,12 @@ def sync_one(ds_id: str, cfg: dict) -> str:
 
     try:
         series = aggregate_by_year(
-            csv_path, cfg["year_col"], cfg["metric_col"], cfg.get("agg_func", "sum")
+            csv_path,
+            cfg["year_col"],
+            cfg.get("metric_col"),
+            cfg.get("agg_func", "sum"),
+            numerator_col=cfg.get("numerator_col"),
+            denominator_col=cfg.get("denominator_col"),
         )
         if not series:
             print("  CHYBA: žádná data po agregaci", file=sys.stderr)
@@ -277,7 +511,7 @@ def sync_one(ds_id: str, cfg: dict) -> str:
         except OSError:
             pass
 
-    meta = compute_meta(series)
+    meta = compute_meta(series, cfg)
 
     out = {
         "id": ds_id,

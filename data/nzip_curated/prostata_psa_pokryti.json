@@ -1,0 +1,82 @@
+{
+  "id": "prostata_psa_pokryti",
+  "label": "Vyšetření krve na prostatický specifický antigen — pokrytí mužů",
+  "human_name": "Pokrytí mužů vyšetřením krve na prostatický specifický antigen",
+  "description": "Procento mužů, kteří absolvovali vyšetření krve na prostatický specifický antigen (test pro časný záchyt rakoviny prostaty). V Česku není plošný screening, vyšetření probíhá v rámci preventivní prohlídky nebo na žádost pacienta.",
+  "code": "screening C61",
+  "source": "Informační systém screeningu karcinomu prostaty (ÚZIS)",
+  "source_type": "national",
+  "metric": "pokryti_pct",
+  "metric_label": "Pokrytí mužů (%)",
+  "relevant_for": [
+    "prevence",
+    "mužské zdraví",
+    "preventivní prohlídky"
+  ],
+  "trend_context": "Vývoj odráží osvětu o významu vyšetření u mužů starších 50 let a doporučení odborných společností. Plošný screening v Česku zatím není zaveden, debata o jeho přínosu i rizicích pokračuje.",
+  "updated": "2026-05-20",
+  "coverage": "2011–2024",
+  "trend": "up",
+  "delta": 10.3,
+  "peakYear": 2024,
+  "data": [
+    {
+      "year": 2011,
+      "value": 31.2
+    },
+    {
+      "year": 2012,
+      "value": 31.4
+    },
+    {
+      "year": 2013,
+      "value": 31.7
+    },
+    {
+      "year": 2014,
+      "value": 32.9
+    },
+    {
+      "year": 2015,
+      "value": 34.7
+    },
+    {
+      "year": 2016,
+      "value": 35.9
+    },
+    {
+      "year": 2017,
+      "value": 36.2
+    },
+    {
+      "year": 2018,
+      "value": 36.2
+    },
+    {
+      "year": 2019,
+      "value": 37.1
+    },
+    {
+      "year": 2020,
+      "value": 36.2
+    },
+    {
+      "year": 2021,
+      "value": 37.1
+    },
+    {
+      "year": 2022,
+      "value": 39.6
+    },
+    {
+      "year": 2023,
+      "value": 41.2
+    },
+    {
+      "year": 2024,
+      "value": 44.5
+    }
+  ],
+  "data_url": "https://datanzis.uzis.gov.cz/data/PPS-05-PROSTATA/PPS-05-01/Otevrena-data-PPS-05-01-prostata-podil-vystrenych-psa.csv",
+  "source_url": "https://www.nzip.cz/data/2616-prostata-podil-vysetrenych-psa-otevrena-data"
+}

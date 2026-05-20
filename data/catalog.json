@@ -137,7 +137,17 @@
     { "id": "sebevrazdy_hospitalizace", "label": "Pokusy o sebevraždu — hospitalizace", "code": "X60–X84", "tags": ["duševní zdraví", "veřejné zdraví", "krizová intervence"] },
     { "id": "autismus_deti_incidence", "label": "Děti a mladiství s poruchami autistického spektra — incidence", "code": "F84", "tags": ["duševní zdraví", "dětská psychiatrie", "vývojové poruchy"] },
     { "id": "pohlavni_nemoci_incidence", "label": "Pohlavní nemoci — incidence", "code": "A50–A64", "tags": ["infekční nemoci", "sexuální zdraví", "veřejné zdraví"] },
-    { "id": "astma_dispenzarizovani", "label": "Bronchiální astma — dispenzarizovaní pacienti", "code": "J45", "tags": ["chronická onemocnění", "alergologie", "kvalita ovzduší"] }
+    { "id": "astma_dispenzarizovani", "label": "Bronchiální astma — dispenzarizovaní pacienti", "code": "J45", "tags": ["chronická onemocnění", "alergologie", "kvalita ovzduší"] },
+    { "id": "preventivni_prohlidky_pokryti", "label": "Preventivní prohlídky — pokrytí populace", "code": "preventivní prohlídky", "tags": ["prevence", "veřejné zdraví", "primární péče"] },
+    { "id": "kolorektum_screening_pokryti", "label": "Kolorektální screening — pokrytí cílové populace", "code": "screening C18–C20", "tags": ["prevence", "screening tlustého střeva", "pojišťovny"] },
+    { "id": "prostata_psa_pokryti", "label": "Vyšetření krve na prostatický specifický antigen — pokrytí mužů", "code": "screening C61", "tags": ["prevence", "mužské zdraví"] },
+    { "id": "autismus_vcasny_zachyt_pokryti", "label": "Včasný záchyt poruch autistického spektra — pokrytí pojištěnců", "code": "screening F84", "tags": ["dětská psychiatrie", "vývojové poruchy", "prevence"] },
+    { "id": "kycle_screening_pokryti", "label": "Screening dysplazie kyčelního kloubu — pokrytí novorozenců", "code": "screening Q65", "tags": ["dětské zdraví", "prevence", "ortopedie"] },
+    { "id": "ocekavatelna_umrti", "label": "Očekávatelná úmrtí — časový trend", "code": "paliativní péče", "tags": ["paliativní péče", "stárnutí populace"] },
+    { "id": "alergicka_ryma_dispenzarizovani", "label": "Alergická rýma — dispenzarizovaní pacienti", "code": "J30", "tags": ["alergologie", "chronická onemocnění", "kvalita ovzduší"] },
+    { "id": "vrozene_vady", "label": "Vrozené vady — incidence", "code": "Q00–Q99", "tags": ["dětské zdraví", "genetika", "prenatální péče"] },
+    { "id": "lazenska_pece_pacienti", "label": "Lázeňská péče — pacienti", "code": "rehabilitace", "tags": ["rehabilitace", "kvalita života", "pojišťovny"] },
+    { "id": "paliativni_pece_pacienti", "label": "Paliativní péče — unikátní pacienti", "code": "paliativní péče", "tags": ["paliativní péče", "kvalita života", "hospice"] }
   ],
   "international": [
     {

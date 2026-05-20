@@ -1,0 +1,59 @@
+{
+  "id": "autismus_vcasny_zachyt_pokryti",
+  "label": "Včasný záchyt poruch autistického spektra — pokrytí pojištěnců",
+  "human_name": "Pokrytí pojištěnců včasným záchytem poruch autistického spektra (ve věku 2 let)",
+  "description": "Procento dětských pojištěnců, kteří absolvovali standardizovaný screening poruch autistického spektra ve věku 2 let (M-CHAT-R nebo podobný test).",
+  "code": "screening F84",
+  "source": "Další prevence u novorozenců a dětí (ÚZIS)",
+  "source_type": "national",
+  "metric": "pokryti_pct",
+  "metric_label": "Pokrytí pojištěnců (%)",
+  "relevant_for": [
+    "dětská psychiatrie",
+    "vývojové poruchy",
+    "prevence",
+    "primární péče"
+  ],
+  "trend_context": "Vývoj odráží zavedení plošného screeningu poruch autistického spektra do preventivních prohlídek u dětského lékaře. Časný záchyt umožňuje včasnou intervenci, která zlepšuje vývoj dítěte.",
+  "updated": "2026-05-20",
+  "coverage": "2017–2024",
+  "trend": "up",
+  "delta": 20.2,
+  "peakYear": 2021,
+  "data": [
+    {
+      "year": 2017,
+      "value": 32.5
+    },
+    {
+      "year": 2018,
+      "value": 69.2
+    },
+    {
+      "year": 2019,
+      "value": 74.9
+    },
+    {
+      "year": 2020,
+      "value": 79.0
+    },
+    {
+      "year": 2021,
+      "value": 81.0
+    },
+    {
+      "year": 2022,
+      "value": 78.2
+    },
+    {
+      "year": 2023,
+      "value": 79.1
+    },
+    {
+      "year": 2024,
+      "value": 79.9
+    }
+  ],
+  "data_url": "https://datanzis.uzis.gov.cz/data/PPS-09-DETI/PPS-09-02/Otevrena-data-PPS-09-02-vcasny-zachyt-poruchy-autistickeho-spektra.csv",
+  "source_url": "https://www.nzip.cz/data/2649-vcasny-zachyt-poruchy-autistickeho-spektra-otevrena-data"
+}

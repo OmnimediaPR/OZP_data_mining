@@ -1,0 +1,87 @@
+{
+  "id": "alergicka_ryma_dispenzarizovani",
+  "label": "Alergická rýma — dispenzarizovaní pacienti",
+  "human_name": "Pacienti s alergickou rýmou",
+  "description": "Roční počet dispenzarizovaných (dlouhodobě sledovaných) pacientů s alergickou rýmou. Roste jako součást širšího fenoménu nárůstu alergických onemocnění v moderní populaci.",
+  "code": "J30",
+  "source": "Národní registr hrazených zdravotních služeb (ÚZIS)",
+  "source_type": "national",
+  "metric": "prevalence_rocni",
+  "metric_label": "Roční počet sledovaných pacientů",
+  "relevant_for": [
+    "alergologie",
+    "chronická onemocnění",
+    "kvalita ovzduší",
+    "imunita"
+  ],
+  "trend_context": "Nárůst odráží 'epidemii alergií' v moderních populacích — souvisí s tzv. hygienickou hypotézou (děti vyrůstají ve sterilnějším prostředí, imunitní systém přepíná na alergické reakce), kvalitou ovzduší a vyšším výskytem polenu kvůli změnám klimatu.",
+  "updated": "2026-05-20",
+  "coverage": "2010–2024",
+  "trend": "up",
+  "delta": 106,
+  "peakYear": 2024,
+  "data": [
+    {
+      "year": 2010,
+      "value": 650566
+    },
+    {
+      "year": 2011,
+      "value": 807297
+    },
+    {
+      "year": 2012,
+      "value": 870585
+    },
+    {
+      "year": 2013,
+      "value": 934970
+    },
+    {
+      "year": 2014,
+      "value": 1049921
+    },
+    {
+      "year": 2015,
+      "value": 1132380
+    },
+    {
+      "year": 2016,
+      "value": 1185994
+    },
+    {
+      "year": 2017,
+      "value": 1210481
+    },
+    {
+      "year": 2018,
+      "value": 1276708
+    },
+    {
+      "year": 2019,
+      "value": 1332913
+    },
+    {
+      "year": 2020,
+      "value": 1294562
+    },
+    {
+      "year": 2021,
+      "value": 1366717
+    },
+    {
+      "year": 2022,
+      "value": 1529650
+    },
+    {
+      "year": 2023,
+      "value": 1587572
+    },
+    {
+      "year": 2024,
+      "value": 1670577
+    }
+  ],
+  "data_url": "https://datanzis.uzis.gov.cz/data/NR-04-NRHZS/NR-04-89/Otevrena-data-NR-04-89-alergicka-ryma.csv",
+  "source_url": "https://www.nzip.cz/data/2646-alergicka-ryma-otevrena-data"
+}

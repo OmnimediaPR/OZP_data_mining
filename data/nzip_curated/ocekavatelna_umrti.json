@@ -1,0 +1,83 @@
+{
+  "id": "ocekavatelna_umrti",
+  "label": "Očekávatelná úmrtí — časový trend",
+  "human_name": "Očekávatelná úmrtí v ČR",
+  "description": "Roční počet úmrtí, která lze dopředu očekávat — typicky u pacientů s chronickým onemocněním v terminální fázi. Klíčový ukazatel pro plánování paliativní a hospicové péče.",
+  "code": "paliativní péče",
+  "source": "List o prohlídce zemřelého (ÚZIS)",
+  "source_type": "national",
+  "metric": "umrti_rocni",
+  "metric_label": "Roční počet úmrtí",
+  "relevant_for": [
+    "paliativní péče",
+    "stárnutí populace",
+    "veřejné zdraví",
+    "hospice"
+  ],
+  "trend_context": "Vývoj odráží stárnutí populace a nárůst chronických onemocnění. Předem očekávatelná úmrtí představují cílovou skupinu paliativní péče — důstojné konce života v hospicích, na specializovaných odděleních nebo doma s péčí mobilního hospice.",
+  "updated": "2026-05-20",
+  "coverage": "2011–2024",
+  "trend": "plateau",
+  "delta": 3,
+  "peakYear": 2020,
+  "data": [
+    {
+      "year": 2011,
+      "value": 129016
+    },
+    {
+      "year": 2012,
+      "value": 130276
+    },
+    {
+      "year": 2013,
+      "value": 135578
+    },
+    {
+      "year": 2014,
+      "value": 131250
+    },
+    {
+      "year": 2015,
+      "value": 137138
+    },
+    {
+      "year": 2016,
+      "value": 134536
+    },
+    {
+      "year": 2017,
+      "value": 138110
+    },
+    {
+      "year": 2018,
+      "value": 139044
+    },
+    {
+      "year": 2019,
+      "value": 138946
+    },
+    {
+      "year": 2020,
+      "value": 142382
+    },
+    {
+      "year": 2021,
+      "value": 135390
+    },
+    {
+      "year": 2022,
+      "value": 137524
+    },
+    {
+      "year": 2023,
+      "value": 134512
+    },
+    {
+      "year": 2024,
+      "value": 133448
+    }
+  ],
+  "data_url": "https://datanzis.uzis.gov.cz/data/NR-06-LPZ/NR-06-39/Otevrena-data-NR-06-39-ocekavatelne-umrti-vek-pohlavi-kraje-casovy-trend.csv",
+  "source_url": "https://www.nzip.cz/data/2693-ocekavatelne-umrti-vek-pohlavi-kraje-casovy-trend-otevrena-data"
+}

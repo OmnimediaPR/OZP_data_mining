@@ -360,6 +360,16 @@ export default function App() {
         { id: 'autismus_deti_incidence', folder: 'nzip_curated' },
         { id: 'pohlavni_nemoci_incidence', folder: 'nzip_curated' },
         { id: 'astma_dispenzarizovani', folder: 'nzip_curated' },
+        { id: 'preventivni_prohlidky_pokryti', folder: 'nzip_curated' },
+        { id: 'kolorektum_screening_pokryti', folder: 'nzip_curated' },
+        { id: 'prostata_psa_pokryti', folder: 'nzip_curated' },
+        { id: 'autismus_vcasny_zachyt_pokryti', folder: 'nzip_curated' },
+        { id: 'kycle_screening_pokryti', folder: 'nzip_curated' },
+        { id: 'ocekavatelna_umrti', folder: 'nzip_curated' },
+        { id: 'alergicka_ryma_dispenzarizovani', folder: 'nzip_curated' },
+        { id: 'vrozene_vady', folder: 'nzip_curated' },
+        { id: 'lazenska_pece_pacienti', folder: 'nzip_curated' },
+        { id: 'paliativni_pece_pacienti', folder: 'nzip_curated' },
       ];
       const loaded = [];
 
