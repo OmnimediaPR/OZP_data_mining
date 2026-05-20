@@ -1,0 +1,98 @@
+{
+  "id": "kolorektum_kraje_2022",
+  "label": "Rakovina tlustého střeva a konečníku — krajový pohled 2022",
+  "human_name": "Rakovina tlustého střeva a konečníku — krajový pohled",
+  "description": "Počet nově diagnostikovaných případů rakoviny tlustého střeva a konečníku v roce 2022 podle krajů. Regionální rozdíly odrážejí velikost populace, životní styl a dostupnost screeningu.",
+  "code": "C18–C20",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "regional_snapshot",
+  "metric": "incidence_2022",
+  "metric_label": "Roční počet nově diagnostikovaných případů (2022)",
+  "relevant_for": [
+    "onkologie",
+    "screening tlustého střeva",
+    "regionální nerovnosti",
+    "životní styl"
+  ],
+  "trend_context": "Krajové rozdíly v absolutních počtech odrážejí velikost populace a věkovou strukturu kraje. Dostupnost kolonoskopických center a účast na screeningu se mezi kraji liší.",
+  "updated": "2026-05-20",
+  "data": [
+    {
+      "kraj_kod": "CZ010",
+      "kraj_nazev": "Hlavní město Praha",
+      "value": 692
+    },
+    {
+      "kraj_kod": "CZ020",
+      "kraj_nazev": "Středočeský",
+      "value": 905
+    },
+    {
+      "kraj_kod": "CZ031",
+      "kraj_nazev": "Jihočeský",
+      "value": 450
+    },
+    {
+      "kraj_kod": "CZ032",
+      "kraj_nazev": "Plzeňský",
+      "value": 422
+    },
+    {
+      "kraj_kod": "CZ041",
+      "kraj_nazev": "Karlovarský",
+      "value": 223
+    },
+    {
+      "kraj_kod": "CZ042",
+      "kraj_nazev": "Ústecký",
+      "value": 548
+    },
+    {
+      "kraj_kod": "CZ051",
+      "kraj_nazev": "Liberecký",
+      "value": 315
+    },
+    {
+      "kraj_kod": "CZ052",
+      "kraj_nazev": "Královéhradecký",
+      "value": 337
+    },
+    {
+      "kraj_kod": "CZ053",
+      "kraj_nazev": "Pardubický",
+      "value": 268
+    },
+    {
+      "kraj_kod": "CZ063",
+      "kraj_nazev": "Vysočina",
+      "value": 371
+    },
+    {
+      "kraj_kod": "CZ064",
+      "kraj_nazev": "Jihomoravský",
+      "value": 768
+    },
+    {
+      "kraj_kod": "CZ071",
+      "kraj_nazev": "Olomoucký",
+      "value": 410
+    },
+    {
+      "kraj_kod": "CZ072",
+      "kraj_nazev": "Zlínský",
+      "value": 453
+    },
+    {
+      "kraj_kod": "CZ080",
+      "kraj_nazev": "Moravskoslezský",
+      "value": 945
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+  "coverage": "2022",
+  "snapshot_year": 2022,
+  "trend": "snapshot",
+  "delta": 0,
+  "peakRegion": "Moravskoslezský"
+}
