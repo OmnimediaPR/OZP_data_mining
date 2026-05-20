@@ -1,0 +1,211 @@
+{
+  "id": "prsa_stadium_1_share",
+  "label": "Rakovina prsu — záchyt v 1. stadiu",
+  "human_name": "Záchyt rakoviny prsu v 1. stadiu",
+  "description": "Procento nově diagnostikovaných pacientek (a pacientů) zachycených v 1. stadiu rakoviny prsu — nejranější, lokalizovaný nádor s nejlepší prognózou. Ukazatel úspěšnosti časného záchytu (mamografický screening, samovyšetření).",
+  "code": "C50",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "stadium_1_share",
+  "metric_label": "Pacientky zachycené v 1. stadiu (%)",
+  "relevant_for": [
+    "onkologie",
+    "ženské zdraví",
+    "mamografický screening",
+    "prevence"
+  ],
+  "trend_context": "Klíčový ukazatel úspěšnosti mamografického screeningu zavedeného v Česku od roku 2002. Časný záchyt zásadně zvyšuje šanci na úplné vyléčení a umožňuje šetrnější léčbu.",
+  "updated": "2026-05-20",
+  "coverage": "1977–2022",
+  "trend": "up",
+  "delta": 31.7,
+  "peakYear": 2018,
+  "data": [
+    {
+      "year": 1977,
+      "value": 19.7
+    },
+    {
+      "year": 1978,
+      "value": 18.3
+    },
+    {
+      "year": 1979,
+      "value": 15.6
+    },
+    {
+      "year": 1980,
+      "value": 15.3
+    },
+    {
+      "year": 1981,
+      "value": 16.4
+    },
+    {
+      "year": 1982,
+      "value": 14.9
+    },
+    {
+      "year": 1983,
+      "value": 13.6
+    },
+    {
+      "year": 1984,
+      "value": 13.1
+    },
+    {
+      "year": 1985,
+      "value": 13.0
+    },
+    {
+      "year": 1986,
+      "value": 15.5
+    },
+    {
+      "year": 1987,
+      "value": 15.0
+    },
+    {
+      "year": 1988,
+      "value": 14.1
+    },
+    {
+      "year": 1989,
+      "value": 14.9
+    },
+    {
+      "year": 1990,
+      "value": 15.3
+    },
+    {
+      "year": 1991,
+      "value": 16.6
+    },
+    {
+      "year": 1992,
+      "value": 16.8
+    },
+    {
+      "year": 1993,
+      "value": 17.9
+    },
+    {
+      "year": 1994,
+      "value": 21.1
+    },
+    {
+      "year": 1995,
+      "value": 21.5
+    },
+    {
+      "year": 1996,
+      "value": 22.8
+    },
+    {
+      "year": 1997,
+      "value": 25.4
+    },
+    {
+      "year": 1998,
+      "value": 25.7
+    },
+    {
+      "year": 1999,
+      "value": 28.4
+    },
+    {
+      "year": 2000,
+      "value": 30.8
+    },
+    {
+      "year": 2001,
+      "value": 33.0
+    },
+    {
+      "year": 2002,
+      "value": 34.3
+    },
+    {
+      "year": 2003,
+      "value": 37.9
+    },
+    {
+      "year": 2004,
+      "value": 38.6
+    },
+    {
+      "year": 2005,
+      "value": 38.9
+    },
+    {
+      "year": 2006,
+      "value": 38.6
+    },
+    {
+      "year": 2007,
+      "value": 41.2
+    },
+    {
+      "year": 2008,
+      "value": 41.3
+    },
+    {
+      "year": 2009,
+      "value": 39.9
+    },
+    {
+      "year": 2010,
+      "value": 41.9
+    },
+    {
+      "year": 2011,
+      "value": 44.1
+    },
+    {
+      "year": 2012,
+      "value": 45.9
+    },
+    {
+      "year": 2013,
+      "value": 48.4
+    },
+    {
+      "year": 2014,
+      "value": 48.6
+    },
+    {
+      "year": 2015,
+      "value": 48.3
+    },
+    {
+      "year": 2016,
+      "value": 49.7
+    },
+    {
+      "year": 2017,
+      "value": 51.0
+    },
+    {
+      "year": 2018,
+      "value": 51.2
+    },
+    {
+      "year": 2019,
+      "value": 50.6
+    },
+    {
+      "year": 2020,
+      "value": 48.8
+    },
+    {
+      "year": 2021,
+      "value": 49.9
+    },
+    {
+      "year": 2022,
+      "value": 50.1
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data"
+}

@@ -1,0 +1,211 @@
+{
+  "id": "prostata_stadium_4_share",
+  "label": "Rakovina prostaty — záchyt ve 4. stadiu",
+  "human_name": "Záchyt rakoviny prostaty ve 4. stadiu",
+  "description": "Procento nově diagnostikovaných pacientů s rakovinou prostaty zachycených až ve 4. stadiu — pokročilý nádor s metastázami. Nízké hodnoty znamenají úspěch časného záchytu.",
+  "code": "C61",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "stadium_4_share",
+  "metric_label": "Pacienti zachycení ve 4. stadiu (%)",
+  "relevant_for": [
+    "onkologie",
+    "mužské zdraví",
+    "pozdní záchyt",
+    "metastázy"
+  ],
+  "trend_context": "Doplněk k záchytu v 1. stadiu — i přes široké využití vyšetření krve na prostatický specifický antigen část pacientů přichází k diagnóze pozdě, často protože preventivní prohlídky vynechali nebo byli rezistentní vůči vyšetření.",
+  "updated": "2026-05-20",
+  "coverage": "1977–2022",
+  "trend": "down",
+  "delta": -39.2,
+  "peakYear": 1990,
+  "data": [
+    {
+      "year": 1977,
+      "value": 44.7
+    },
+    {
+      "year": 1978,
+      "value": 57.0
+    },
+    {
+      "year": 1979,
+      "value": 57.4
+    },
+    {
+      "year": 1980,
+      "value": 57.7
+    },
+    {
+      "year": 1981,
+      "value": 51.2
+    },
+    {
+      "year": 1982,
+      "value": 47.2
+    },
+    {
+      "year": 1983,
+      "value": 48.9
+    },
+    {
+      "year": 1984,
+      "value": 50.4
+    },
+    {
+      "year": 1985,
+      "value": 53.2
+    },
+    {
+      "year": 1986,
+      "value": 59.0
+    },
+    {
+      "year": 1987,
+      "value": 57.3
+    },
+    {
+      "year": 1988,
+      "value": 57.8
+    },
+    {
+      "year": 1989,
+      "value": 59.4
+    },
+    {
+      "year": 1990,
+      "value": 64.6
+    },
+    {
+      "year": 1991,
+      "value": 58.5
+    },
+    {
+      "year": 1992,
+      "value": 56.1
+    },
+    {
+      "year": 1993,
+      "value": 53.5
+    },
+    {
+      "year": 1994,
+      "value": 49.9
+    },
+    {
+      "year": 1995,
+      "value": 42.8
+    },
+    {
+      "year": 1996,
+      "value": 41.3
+    },
+    {
+      "year": 1997,
+      "value": 37.8
+    },
+    {
+      "year": 1998,
+      "value": 37.0
+    },
+    {
+      "year": 1999,
+      "value": 32.8
+    },
+    {
+      "year": 2000,
+      "value": 34.2
+    },
+    {
+      "year": 2001,
+      "value": 31.3
+    },
+    {
+      "year": 2002,
+      "value": 26.9
+    },
+    {
+      "year": 2003,
+      "value": 26.3
+    },
+    {
+      "year": 2004,
+      "value": 22.7
+    },
+    {
+      "year": 2005,
+      "value": 17.6
+    },
+    {
+      "year": 2006,
+      "value": 17.7
+    },
+    {
+      "year": 2007,
+      "value": 18.0
+    },
+    {
+      "year": 2008,
+      "value": 16.7
+    },
+    {
+      "year": 2009,
+      "value": 15.3
+    },
+    {
+      "year": 2010,
+      "value": 13.5
+    },
+    {
+      "year": 2011,
+      "value": 13.3
+    },
+    {
+      "year": 2012,
+      "value": 13.0
+    },
+    {
+      "year": 2013,
+      "value": 13.3
+    },
+    {
+      "year": 2014,
+      "value": 13.9
+    },
+    {
+      "year": 2015,
+      "value": 13.9
+    },
+    {
+      "year": 2016,
+      "value": 13.0
+    },
+    {
+      "year": 2017,
+      "value": 12.8
+    },
+    {
+      "year": 2018,
+      "value": 11.8
+    },
+    {
+      "year": 2019,
+      "value": 13.0
+    },
+    {
+      "year": 2020,
+      "value": 14.6
+    },
+    {
+      "year": 2021,
+      "value": 14.4
+    },
+    {
+      "year": 2022,
+      "value": 12.5
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data"
+}

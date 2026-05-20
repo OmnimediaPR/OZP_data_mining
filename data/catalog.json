@@ -75,7 +75,19 @@
     { "id": "hodgkin_preziti_5y", "label": "Hodgkinův lymfom — 5leté přežití", "code": "C81", "tags": ["onkologie", "hematologie", "přežití"] },
     { "id": "lymfomy_b_bunecne_preziti_5y", "label": "B-buněčné non-Hodgkinovy lymfomy — 5leté přežití", "code": "C82, C83, C85", "tags": ["onkologie", "hematologie", "přežití"] },
     { "id": "leukemie_preziti_5y", "label": "Leukémie — 5leté přežití", "code": "C91–C95", "tags": ["onkologie", "hematologie", "přežití"] },
-    { "id": "mozek_preziti_5y", "label": "Zhoubný nádor mozku — 5leté přežití", "code": "C71", "tags": ["onkologie", "neurologie", "přežití"] }
+    { "id": "mozek_preziti_5y", "label": "Zhoubný nádor mozku — 5leté přežití", "code": "C71", "tags": ["onkologie", "neurologie", "přežití"] },
+    { "id": "prsa_stadium_1_share", "label": "Rakovina prsu — záchyt v 1. stadiu", "code": "C50", "tags": ["onkologie", "ženské zdraví", "stadium"] },
+    { "id": "prsa_stadium_4_share", "label": "Rakovina prsu — záchyt ve 4. stadiu", "code": "C50", "tags": ["onkologie", "ženské zdraví", "stadium"] },
+    { "id": "kolorektum_stadium_1_share", "label": "Rakovina tlustého střeva a konečníku — záchyt v 1. stadiu", "code": "C18–C20", "tags": ["onkologie", "screening tlustého střeva", "stadium"] },
+    { "id": "kolorektum_stadium_4_share", "label": "Rakovina tlustého střeva a konečníku — záchyt ve 4. stadiu", "code": "C18–C20", "tags": ["onkologie", "screening tlustého střeva", "stadium"] },
+    { "id": "plice_stadium_1_share", "label": "Rakovina plic — záchyt v 1. stadiu", "code": "C34", "tags": ["onkologie", "kouření", "stadium"] },
+    { "id": "plice_stadium_4_share", "label": "Rakovina plic — záchyt ve 4. stadiu", "code": "C34", "tags": ["onkologie", "kouření", "stadium"] },
+    { "id": "prostata_stadium_1_share", "label": "Rakovina prostaty — záchyt v 1. stadiu", "code": "C61", "tags": ["onkologie", "mužské zdraví", "stadium"] },
+    { "id": "prostata_stadium_4_share", "label": "Rakovina prostaty — záchyt ve 4. stadiu", "code": "C61", "tags": ["onkologie", "mužské zdraví", "stadium"] },
+    { "id": "melanom_stadium_1_share", "label": "Zhoubný melanom kůže — záchyt v 1. stadiu", "code": "C43", "tags": ["onkologie", "kůže", "stadium"] },
+    { "id": "melanom_stadium_4_share", "label": "Zhoubný melanom kůže — záchyt ve 4. stadiu", "code": "C43", "tags": ["onkologie", "kůže", "stadium"] },
+    { "id": "zaludek_stadium_1_share", "label": "Rakovina žaludku — záchyt v 1. stadiu", "code": "C16", "tags": ["onkologie", "trávicí systém", "stadium"] },
+    { "id": "zaludek_stadium_4_share", "label": "Rakovina žaludku — záchyt ve 4. stadiu", "code": "C16", "tags": ["onkologie", "trávicí systém", "stadium"] }
   ],
   "international": [
     {

@@ -1,0 +1,211 @@
+{
+  "id": "plice_stadium_4_share",
+  "label": "Rakovina plic — záchyt ve 4. stadiu",
+  "human_name": "Záchyt rakoviny plic ve 4. stadiu",
+  "description": "Procento nově diagnostikovaných pacientů s rakovinou plic zachycených až ve 4. stadiu — pokročilá fáze s metastázami. U rakoviny plic je pozdní záchyt dlouhodobě hlavním důvodem vysoké úmrtnosti.",
+  "code": "C34",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "stadium_4_share",
+  "metric_label": "Pacienti zachycení ve 4. stadiu (%)",
+  "relevant_for": [
+    "onkologie",
+    "kouření",
+    "pozdní záchyt",
+    "metastázy"
+  ],
+  "trend_context": "Hlavní důvod vysoké úmrtnosti na rakovinu plic — drtivá většina pacientů přichází k diagnóze, až když jsou tumor a metastázy rozsáhlé. Zavedený plicní screening (2022+) má potenciál tento podíl postupně snižovat.",
+  "updated": "2026-05-20",
+  "coverage": "1977–2022",
+  "trend": "up",
+  "delta": 57.1,
+  "peakYear": 2021,
+  "data": [
+    {
+      "year": 1977,
+      "value": 0.9
+    },
+    {
+      "year": 1978,
+      "value": 0.7
+    },
+    {
+      "year": 1979,
+      "value": 0.8
+    },
+    {
+      "year": 1980,
+      "value": 0.9
+    },
+    {
+      "year": 1981,
+      "value": 1.4
+    },
+    {
+      "year": 1982,
+      "value": 26.9
+    },
+    {
+      "year": 1983,
+      "value": 28.9
+    },
+    {
+      "year": 1984,
+      "value": 28.3
+    },
+    {
+      "year": 1985,
+      "value": 29.5
+    },
+    {
+      "year": 1986,
+      "value": 32.2
+    },
+    {
+      "year": 1987,
+      "value": 32.4
+    },
+    {
+      "year": 1988,
+      "value": 33.4
+    },
+    {
+      "year": 1989,
+      "value": 34.0
+    },
+    {
+      "year": 1990,
+      "value": 35.7
+    },
+    {
+      "year": 1991,
+      "value": 38.4
+    },
+    {
+      "year": 1992,
+      "value": 39.4
+    },
+    {
+      "year": 1993,
+      "value": 40.2
+    },
+    {
+      "year": 1994,
+      "value": 40.1
+    },
+    {
+      "year": 1995,
+      "value": 40.9
+    },
+    {
+      "year": 1996,
+      "value": 40.5
+    },
+    {
+      "year": 1997,
+      "value": 43.1
+    },
+    {
+      "year": 1998,
+      "value": 44.0
+    },
+    {
+      "year": 1999,
+      "value": 44.7
+    },
+    {
+      "year": 2000,
+      "value": 46.0
+    },
+    {
+      "year": 2001,
+      "value": 45.0
+    },
+    {
+      "year": 2002,
+      "value": 48.0
+    },
+    {
+      "year": 2003,
+      "value": 49.9
+    },
+    {
+      "year": 2004,
+      "value": 51.7
+    },
+    {
+      "year": 2005,
+      "value": 50.6
+    },
+    {
+      "year": 2006,
+      "value": 53.9
+    },
+    {
+      "year": 2007,
+      "value": 55.5
+    },
+    {
+      "year": 2008,
+      "value": 55.1
+    },
+    {
+      "year": 2009,
+      "value": 54.7
+    },
+    {
+      "year": 2010,
+      "value": 56.1
+    },
+    {
+      "year": 2011,
+      "value": 56.9
+    },
+    {
+      "year": 2012,
+      "value": 56.8
+    },
+    {
+      "year": 2013,
+      "value": 56.3
+    },
+    {
+      "year": 2014,
+      "value": 56.4
+    },
+    {
+      "year": 2015,
+      "value": 56.0
+    },
+    {
+      "year": 2016,
+      "value": 57.0
+    },
+    {
+      "year": 2017,
+      "value": 57.0
+    },
+    {
+      "year": 2018,
+      "value": 57.0
+    },
+    {
+      "year": 2019,
+      "value": 55.9
+    },
+    {
+      "year": 2020,
+      "value": 57.0
+    },
+    {
+      "year": 2021,
+      "value": 59.8
+    },
+    {
+      "year": 2022,
+      "value": 56.9
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data"
+}

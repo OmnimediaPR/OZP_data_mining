@@ -1473,6 +1473,285 @@ DATASETS = {
         "diagnosis_group": 21,
         "year_col": "rok_dg",
     },
+    # === NOR 1770 — Záchyt v stadiu (% pacientů zachycených v daném stadiu) ===
+    # Stadium TNM 1-4 v CSV NOR 1770. Hodnoty 'X' (neznámé) a 'Y' (neaplikovatelné)
+    # se vyřazují, aby čísla byla srovnatelná v čase.
+    "prsa_stadium_1_share": {
+        "label": "Rakovina prsu — záchyt v 1. stadiu",
+        "human_name": "Záchyt rakoviny prsu v 1. stadiu",
+        "description": "Procento nově diagnostikovaných pacientek (a pacientů) zachycených v 1. stadiu rakoviny prsu — nejranější, lokalizovaný nádor s nejlepší prognózou. Ukazatel úspěšnosti časného záchytu (mamografický screening, samovyšetření).",
+        "code": "C50",
+        "metric": "stadium_1_share",
+        "metric_label": "Pacientky zachycené v 1. stadiu (%)",
+        "relevant_for": [
+            "onkologie",
+            "ženské zdraví",
+            "mamografický screening",
+            "prevence",
+        ],
+        "trend_context": "Klíčový ukazatel úspěšnosti mamografického screeningu zavedeného v Česku od roku 2002. Časný záchyt zásadně zvyšuje šanci na úplné vyléčení a umožňuje šetrnější léčbu.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "stage_share",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C50",
+        "year_col": "rok_dg",
+        "stage_col": "stadium",
+        "stage_values": ["1"],
+    },
+    "prsa_stadium_4_share": {
+        "label": "Rakovina prsu — záchyt ve 4. stadiu",
+        "human_name": "Záchyt rakoviny prsu ve 4. stadiu",
+        "description": "Procento nově diagnostikovaných pacientek zachycených až ve 4. stadiu rakoviny prsu — pokročilá fáze s metastázami. Nízké hodnoty znamenají úspěch časného záchytu.",
+        "code": "C50",
+        "metric": "stadium_4_share",
+        "metric_label": "Pacientky zachycené ve 4. stadiu (%)",
+        "relevant_for": [
+            "onkologie",
+            "ženské zdraví",
+            "pozdní záchyt",
+            "metastázy",
+        ],
+        "trend_context": "Doplněk k záchytu v 1. stadiu — ukazuje, kolika pacientkám se nedaří nádor zachytit včas. Čím nižší hodnota, tím lépe pracují screening a osvěta.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "stage_share",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C50",
+        "year_col": "rok_dg",
+        "stage_col": "stadium",
+        "stage_values": ["4"],
+    },
+    "kolorektum_stadium_1_share": {
+        "label": "Rakovina tlustého střeva a konečníku — záchyt v 1. stadiu",
+        "human_name": "Záchyt rakoviny tlustého střeva a konečníku v 1. stadiu",
+        "description": "Procento nově diagnostikovaných pacientů zachycených v 1. stadiu — nejranější, lokalizovaný nádor. Klíčový ukazatel úspěchu screeningu kolonoskopií a testem na skryté krvácení.",
+        "code": "C18–C20",
+        "metric": "stadium_1_share",
+        "metric_label": "Pacienti zachycení v 1. stadiu (%)",
+        "relevant_for": [
+            "onkologie",
+            "screening tlustého střeva",
+            "prevence",
+            "kolonoskopie",
+        ],
+        "trend_context": "Klíčový ukazatel úspěšnosti českého screeningu — testu na skryté krvácení do stolice (od 2000) a kolonoskopie (od 2009). Záchyt v časném stadiu umožňuje šetrnější chirurgickou léčbu a výrazně lepší prognózu.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "stage_share",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": ["C18", "C19", "C20"],
+        "year_col": "rok_dg",
+        "stage_col": "stadium",
+        "stage_values": ["1"],
+    },
+    "kolorektum_stadium_4_share": {
+        "label": "Rakovina tlustého střeva a konečníku — záchyt ve 4. stadiu",
+        "human_name": "Záchyt rakoviny tlustého střeva a konečníku ve 4. stadiu",
+        "description": "Procento nově diagnostikovaných pacientů zachycených až ve 4. stadiu — pokročilý nádor s metastázami. Nízké hodnoty znamenají úspěch screeningu a osvěty.",
+        "code": "C18–C20",
+        "metric": "stadium_4_share",
+        "metric_label": "Pacienti zachycení ve 4. stadiu (%)",
+        "relevant_for": [
+            "onkologie",
+            "screening tlustého střeva",
+            "pozdní záchyt",
+            "metastázy",
+        ],
+        "trend_context": "Doplněk k záchytu v 1. stadiu — ukazuje, kolika pacientům se nedaří zachytit nádor včas. Vývoj klesá s rozšiřováním screeningu, ale stále řada pacientů přichází pozdě, často protože screening nevyužili.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "stage_share",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": ["C18", "C19", "C20"],
+        "year_col": "rok_dg",
+        "stage_col": "stadium",
+        "stage_values": ["4"],
+    },
+    "plice_stadium_1_share": {
+        "label": "Rakovina plic — záchyt v 1. stadiu",
+        "human_name": "Záchyt rakoviny plic v 1. stadiu",
+        "description": "Procento nově diagnostikovaných pacientů s rakovinou plic zachycených v 1. stadiu. U rakoviny plic je časný záchyt mimořádně obtížný — nemoc se obvykle projeví, až když je rozšířená.",
+        "code": "C34",
+        "metric": "stadium_1_share",
+        "metric_label": "Pacienti zachycení v 1. stadiu (%)",
+        "relevant_for": [
+            "onkologie",
+            "kouření",
+            "screening",
+            "kvalita léčby",
+        ],
+        "trend_context": "Od roku 2022 je v Česku zavedený plicní screening pro dlouhodobé kuřáky pomocí nízkodávkové počítačové tomografie. Cílem je posunout záchyt do časnějších stadií a tím zvýšit šanci na vyléčení.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "stage_share",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C34",
+        "year_col": "rok_dg",
+        "stage_col": "stadium",
+        "stage_values": ["1"],
+    },
+    "plice_stadium_4_share": {
+        "label": "Rakovina plic — záchyt ve 4. stadiu",
+        "human_name": "Záchyt rakoviny plic ve 4. stadiu",
+        "description": "Procento nově diagnostikovaných pacientů s rakovinou plic zachycených až ve 4. stadiu — pokročilá fáze s metastázami. U rakoviny plic je pozdní záchyt dlouhodobě hlavním důvodem vysoké úmrtnosti.",
+        "code": "C34",
+        "metric": "stadium_4_share",
+        "metric_label": "Pacienti zachycení ve 4. stadiu (%)",
+        "relevant_for": [
+            "onkologie",
+            "kouření",
+            "pozdní záchyt",
+            "metastázy",
+        ],
+        "trend_context": "Hlavní důvod vysoké úmrtnosti na rakovinu plic — drtivá většina pacientů přichází k diagnóze, až když jsou tumor a metastázy rozsáhlé. Zavedený plicní screening (2022+) má potenciál tento podíl postupně snižovat.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "stage_share",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C34",
+        "year_col": "rok_dg",
+        "stage_col": "stadium",
+        "stage_values": ["4"],
+    },
+    "prostata_stadium_1_share": {
+        "label": "Rakovina prostaty — záchyt v 1. stadiu",
+        "human_name": "Záchyt rakoviny prostaty v 1. stadiu",
+        "description": "Procento nově diagnostikovaných pacientů s rakovinou prostaty zachycených v 1. stadiu — lokalizovaný nádor s nejlepší prognózou. Vysoký podíl odráží úspěch vyšetření krve na prostatický specifický antigen.",
+        "code": "C61",
+        "metric": "stadium_1_share",
+        "metric_label": "Pacienti zachycení v 1. stadiu (%)",
+        "relevant_for": [
+            "onkologie",
+            "mužské zdraví",
+            "preventivní prohlídky",
+            "prevence",
+        ],
+        "trend_context": "Vývoj odráží zavedení vyšetření krve na prostatický specifický antigen. Časný záchyt umožňuje šetrnější léčbu (operace, ozařování bez systémové terapie) a u řady pacientů i 'aktivní sledování' místo okamžité léčby.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "stage_share",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C61",
+        "year_col": "rok_dg",
+        "stage_col": "stadium",
+        "stage_values": ["1"],
+    },
+    "prostata_stadium_4_share": {
+        "label": "Rakovina prostaty — záchyt ve 4. stadiu",
+        "human_name": "Záchyt rakoviny prostaty ve 4. stadiu",
+        "description": "Procento nově diagnostikovaných pacientů s rakovinou prostaty zachycených až ve 4. stadiu — pokročilý nádor s metastázami. Nízké hodnoty znamenají úspěch časného záchytu.",
+        "code": "C61",
+        "metric": "stadium_4_share",
+        "metric_label": "Pacienti zachycení ve 4. stadiu (%)",
+        "relevant_for": [
+            "onkologie",
+            "mužské zdraví",
+            "pozdní záchyt",
+            "metastázy",
+        ],
+        "trend_context": "Doplněk k záchytu v 1. stadiu — i přes široké využití vyšetření krve na prostatický specifický antigen část pacientů přichází k diagnóze pozdě, často protože preventivní prohlídky vynechali nebo byli rezistentní vůči vyšetření.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "stage_share",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C61",
+        "year_col": "rok_dg",
+        "stage_col": "stadium",
+        "stage_values": ["4"],
+    },
+    "melanom_stadium_1_share": {
+        "label": "Zhoubný melanom kůže — záchyt v 1. stadiu",
+        "human_name": "Záchyt zhoubného melanomu kůže v 1. stadiu",
+        "description": "Procento nově diagnostikovaných pacientů s melanomem zachyceným v 1. stadiu — tenký, lokalizovaný nádor s vynikající prognózou. Melanom má díky viditelnosti na kůži jeden z nejvyšších podílů časného záchytu mezi rakovinami.",
+        "code": "C43",
+        "metric": "stadium_1_share",
+        "metric_label": "Pacienti zachycení v 1. stadiu (%)",
+        "relevant_for": [
+            "onkologie",
+            "kůže",
+            "preventivní prohlídky",
+            "prevence",
+        ],
+        "trend_context": "Vývoj odráží osvětu o samovyšetření a preventivních prohlídkách u kožního lékaře. Časný záchyt umožňuje vyléčit pacienta drobným chirurgickým zákrokem s vynikající prognózou.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "stage_share",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C43",
+        "year_col": "rok_dg",
+        "stage_col": "stadium",
+        "stage_values": ["1"],
+    },
+    "melanom_stadium_4_share": {
+        "label": "Zhoubný melanom kůže — záchyt ve 4. stadiu",
+        "human_name": "Záchyt zhoubného melanomu kůže ve 4. stadiu",
+        "description": "Procento pacientů s melanomem zachyceným až ve 4. stadiu — pokročilý nádor s metastázami. U melanomu je tento podíl nízký, protože nádor je viditelný na kůži a daří se ho zachytit dříve.",
+        "code": "C43",
+        "metric": "stadium_4_share",
+        "metric_label": "Pacienti zachycení ve 4. stadiu (%)",
+        "relevant_for": [
+            "onkologie",
+            "kůže",
+            "pozdní záchyt",
+            "imunoterapie",
+        ],
+        "trend_context": "Část pacientů přichází k diagnóze pozdě — typicky proto, že melanom byl skrytý (například na pokožce hlavy nebo na zádech). U pokročilých melanomů přitom imunoterapie a cílená léčba zásadně zlepšily prognózu.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "stage_share",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C43",
+        "year_col": "rok_dg",
+        "stage_col": "stadium",
+        "stage_values": ["4"],
+    },
+    "zaludek_stadium_1_share": {
+        "label": "Rakovina žaludku — záchyt v 1. stadiu",
+        "human_name": "Záchyt rakoviny žaludku v 1. stadiu",
+        "description": "Procento pacientů s rakovinou žaludku zachycenou v 1. stadiu. U rakoviny žaludku je časný záchyt obtížný — bez screeningu se nemoc obvykle projeví, až když je pokročilá.",
+        "code": "C16",
+        "metric": "stadium_1_share",
+        "metric_label": "Pacienti zachycení v 1. stadiu (%)",
+        "relevant_for": [
+            "onkologie",
+            "trávicí systém",
+            "časný záchyt",
+            "kvalita léčby",
+        ],
+        "trend_context": "V Česku není plošný screening rakoviny žaludku, časný záchyt obvykle závisí na vyšetření kvůli zažívacím potížím. Pacientům se zvýšeným rizikem (rodinná anamnéza, infekce Helicobacter pylori) lze doporučit gastroskopické sledování.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "stage_share",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C16",
+        "year_col": "rok_dg",
+        "stage_col": "stadium",
+        "stage_values": ["1"],
+    },
+    "zaludek_stadium_4_share": {
+        "label": "Rakovina žaludku — záchyt ve 4. stadiu",
+        "human_name": "Záchyt rakoviny žaludku ve 4. stadiu",
+        "description": "Procento pacientů s rakovinou žaludku zachycenou až ve 4. stadiu — pokročilý nádor s metastázami. Vysoký podíl pozdního záchytu je v Česku dlouhodobou výzvou.",
+        "code": "C16",
+        "metric": "stadium_4_share",
+        "metric_label": "Pacienti zachycení ve 4. stadiu (%)",
+        "relevant_for": [
+            "onkologie",
+            "trávicí systém",
+            "pozdní záchyt",
+            "metastázy",
+        ],
+        "trend_context": "Vysoký podíl pacientů s rakovinou žaludku diagnostikovaných až ve 4. stadiu odráží absenci plošného screeningu. Modernizace léčby pomáhá zlepšovat prognózu i u pokročilých případů.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "stage_share",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C16",
+        "year_col": "rok_dg",
+        "stage_col": "stadium",
+        "stage_values": ["4"],
+    },
 }
 
 
@@ -1746,6 +2025,98 @@ def compute_5year_survival_by_year_multi(
     }
 
 
+def compute_stage_share_by_year_multi(
+    csv_path: Path, datasets: list[tuple[str, dict]]
+) -> dict[str, list]:
+    """Spočítá podíl daného stadia záchytu per rok dg pro víc datasetů.
+
+    Per dataset filtruje na `diagnosis_prefix` (C-kód) a počítá procento
+    pacientů s `stadium` v `stage_values` (list např. ["1"] pro stadium 1)
+    z těch s **známým stadiem** (1-4). Hodnoty 'X' (neznámé) a 'Y'
+    (neaplikovatelné) se vyřazují, aby čísla byla srovnatelná v čase.
+
+    Vrací list `{year, value}` kde value = procento.
+    Roky s méně než 30 pacienty s jasným stadiem vynechány (šum).
+    """
+    if not datasets:
+        return {}
+
+    # Validace shared sloupců.
+    dx_cols = {cfg["diagnosis_col"] for _, cfg in datasets}
+    yr_cols = {cfg["year_col"] for _, cfg in datasets}
+    stage_cols = {cfg["stage_col"] for _, cfg in datasets}
+    if len(dx_cols) > 1 or len(yr_cols) > 1 or len(stage_cols) > 1:
+        raise ValueError(
+            f"Datasety stage_share sdílející data_url musí mít stejné sloupce. "
+            f"Nalezeno: dx={dx_cols}, yr={yr_cols}, stage={stage_cols}"
+        )
+    diagnosis_col = next(iter(dx_cols))
+    year_col = next(iter(yr_cols))
+    stage_col = next(iter(stage_cols))
+
+    KNOWN_STAGES = {"1", "2", "3", "4"}
+    MIN_SAMPLE_PER_YEAR = 30
+
+    known: dict[str, dict[int, int]] = {ds_id: {} for ds_id, _ in datasets}
+    matching: dict[str, dict[int, int]] = {ds_id: {} for ds_id, _ in datasets}
+
+    with csv_path.open(encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f)
+        if not reader.fieldnames:
+            raise ValueError("CSV nemá hlavičku")
+
+        cols_lower = {c.lower(): c for c in reader.fieldnames}
+        dx_col = cols_lower.get(diagnosis_col.lower())
+        yr_col = cols_lower.get(year_col.lower())
+        st_col = cols_lower.get(stage_col.lower())
+
+        if not dx_col or not yr_col or not st_col:
+            raise ValueError(
+                f"CSV neobsahuje očekávané sloupce. Nalezené: {reader.fieldnames}"
+            )
+
+        # Per dataset: prefix tuple + stage_values set
+        per_ds: list[tuple[str, tuple, set[str]]] = []
+        for ds_id, cfg in datasets:
+            p = cfg["diagnosis_prefix"]
+            prefixes = (p,) if isinstance(p, str) else tuple(p)
+            stage_values = set(cfg["stage_values"])
+            per_ds.append((ds_id, prefixes, stage_values))
+
+        for row in reader:
+            dx = (row.get(dx_col) or "").strip()
+            if not dx:
+                continue
+            try:
+                year = int(row[yr_col])
+            except (ValueError, TypeError):
+                continue
+            if not (1950 <= year <= 2030):
+                continue
+            stage = (row.get(st_col) or "").strip()
+            if stage not in KNOWN_STAGES:
+                continue
+
+            for ds_id, prefixes, stage_values in per_ds:
+                if not dx.startswith(prefixes):
+                    continue
+                known[ds_id][year] = known[ds_id].get(year, 0) + 1
+                if stage in stage_values:
+                    matching[ds_id][year] = matching[ds_id].get(year, 0) + 1
+
+    return {
+        ds_id: [
+            {
+                "year": y,
+                "value": round(100 * matching[ds_id].get(y, 0) / known[ds_id][y], 1),
+            }
+            for y in sorted(known[ds_id].keys())
+            if known[ds_id][y] >= MIN_SAMPLE_PER_YEAR
+        ]
+        for ds_id, _ in datasets
+    }
+
+
 def compute_meta(series: list, cfg: dict | None = None) -> dict:
     """Spočítá meta-informace pro frontend (trend, delta, peak).
 
@@ -1774,8 +2145,8 @@ def compute_meta(series: list, cfg: dict | None = None) -> dict:
         first_value = series[0]["value"]
         last_value = series[-1]["value"]
 
-    if aggregation == "survival_5y":
-        # Delta v procentních bodech (např. z 60% na 80% = +20)
+    if aggregation in ("survival_5y", "stage_share"):
+        # Procentní data — delta v procentních bodech (např. z 60% na 80% = +20).
         delta = round(last_value - first_value, 1)
         if delta > 5:
             trend = "up"
@@ -1846,37 +2217,44 @@ def write_dataset_json(dataset_id: str, cfg: dict, series: list) -> str:
 
 
 def sync_group(url: str, datasets: list[tuple[str, dict]]) -> dict[str, str]:
-    """Stáhne jeden CSV a single-pass naparsuje všechny datasety, které ho sdílí.
+    """Stáhne jeden CSV a naparsuje všechny datasety, které ho sdílí.
 
-    Dispatch podle `aggregation` v cfg:
+    Datasety se uvnitř skupiny dál pod-seskupí podle `aggregation` v cfg,
+    aby šly mít smíšené typy (count + stage_share, atd.) v jednom CSV.
+    Pro každou aggregaci se volá příslušná funkce nad stejným staženým
+    souborem (každá funkce dělá vlastní průchod CSV).
+
+    Aggregace:
     - "count" (default) — počet řádků odpovídajících filtru (incidence/mortalita)
     - "survival_5y" — procento přeživších 5+ let
+    - "stage_share" — procento pacientů v daném stadiu záchytu
 
-    Vrací: dict `dataset_id → "ok" | "failed"`. Pokud selže stažení nebo
-    parsování CSV, všechny datasety v skupině dostanou "failed".
+    Vrací: dict `dataset_id → "ok" | "failed"`. Pokud selže stažení,
+    všechny datasety v skupině dostanou "failed".
     """
     ds_ids = [ds_id for ds_id, _ in datasets]
     print(f"\n=== Skupina ({len(datasets)} dg): {', '.join(ds_ids)} ===")
-
-    # Validace, že všechny datasety v skupině mají stejný aggregation typ.
-    aggregations = {cfg.get("aggregation", "count") for _, cfg in datasets}
-    if len(aggregations) > 1:
-        print(
-            f"  CHYBA: smíšené aggregace v jedné skupině: {aggregations}",
-            file=sys.stderr,
-        )
-        return {ds_id: "failed" for ds_id in ds_ids}
-    aggregation = next(iter(aggregations))
 
     csv_path = download_csv_to_tempfile(url)
     if csv_path is None:
         return {ds_id: "failed" for ds_id in ds_ids}
 
+    # Pod-seskupit podle aggregation type (každý type = jeden průchod CSV).
+    by_agg: dict[str, list[tuple[str, dict]]] = {}
+    for ds_id, cfg in datasets:
+        agg = cfg.get("aggregation", "count")
+        by_agg.setdefault(agg, []).append((ds_id, cfg))
+
+    all_series: dict[str, list] = {}
     try:
-        if aggregation == "survival_5y":
-            series_by_id = compute_5year_survival_by_year_multi(csv_path, datasets)
-        else:
-            series_by_id = count_cases_by_year_multi(csv_path, datasets)
+        for agg, ds_subset in by_agg.items():
+            if agg == "survival_5y":
+                series = compute_5year_survival_by_year_multi(csv_path, ds_subset)
+            elif agg == "stage_share":
+                series = compute_stage_share_by_year_multi(csv_path, ds_subset)
+            else:
+                series = count_cases_by_year_multi(csv_path, ds_subset)
+            all_series.update(series)
     except Exception as e:
         print(f"  CHYBA při parsování CSV: {e}", file=sys.stderr)
         return {ds_id: "failed" for ds_id in ds_ids}
@@ -1888,7 +2266,7 @@ def sync_group(url: str, datasets: list[tuple[str, dict]]) -> dict[str, str]:
 
     results = {}
     for ds_id, cfg in datasets:
-        series = series_by_id.get(ds_id, [])
+        series = all_series.get(ds_id, [])
         results[ds_id] = write_dataset_json(ds_id, cfg, series)
     return results
 

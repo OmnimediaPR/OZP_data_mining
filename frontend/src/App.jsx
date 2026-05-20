@@ -298,6 +298,18 @@ export default function App() {
         { id: 'lymfomy_b_bunecne_preziti_5y', folder: 'nor' },
         { id: 'leukemie_preziti_5y', folder: 'nor' },
         { id: 'mozek_preziti_5y', folder: 'nor' },
+        { id: 'prsa_stadium_1_share', folder: 'nor' },
+        { id: 'prsa_stadium_4_share', folder: 'nor' },
+        { id: 'kolorektum_stadium_1_share', folder: 'nor' },
+        { id: 'kolorektum_stadium_4_share', folder: 'nor' },
+        { id: 'plice_stadium_1_share', folder: 'nor' },
+        { id: 'plice_stadium_4_share', folder: 'nor' },
+        { id: 'prostata_stadium_1_share', folder: 'nor' },
+        { id: 'prostata_stadium_4_share', folder: 'nor' },
+        { id: 'melanom_stadium_1_share', folder: 'nor' },
+        { id: 'melanom_stadium_4_share', folder: 'nor' },
+        { id: 'zaludek_stadium_1_share', folder: 'nor' },
+        { id: 'zaludek_stadium_4_share', folder: 'nor' },
       ];
       const loaded = [];
 
