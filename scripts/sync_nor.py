@@ -424,28 +424,48 @@ def download_csv_to_tempfile(url: str) -> Path | None:
         return None
 
 
-def count_cases_by_year(
-    csv_path: Path,
-    diagnosis_col: str,
-    diagnosis_prefix,
-    year_col: str,
-) -> list:
-    """Spočítá počet řádků podle roku pro danou diagnózu.
+def count_cases_by_year_multi(
+    csv_path: Path, datasets: list[tuple[str, dict]]
+) -> dict[str, list]:
+    """Spočítá počet řádků podle roku pro víc datasetů v jednom průchodu CSV.
 
-    Filtruje řádky kde hodnota v `diagnosis_col` začíná na `diagnosis_prefix`
-    (např. "C50" zachytí "C50", "C50.0", "C50.1" …) a počítá je seskupené
-    podle roku ve sloupci `year_col`.
+    `datasets` je list `(dataset_id, cfg)` dvojic, které **sdílejí stejný
+    CSV** (stejný `data_url`). Pro každý dataset se sleduje vlastní counter
+    podle jeho `diagnosis_prefix`. Vrací: dict `dataset_id → [{year, value}]`.
 
-    `diagnosis_prefix` může být string ("C50") nebo seznam stringů
-    (["C18", "C19", "C20"] pro kolorektum). Match je OR přes seznam.
+    Filtruje řádky kde hodnota v `diagnosis_col` začíná na některém z prefixů
+    daného datasetu (např. "C50" zachytí "C50", "C50.0", "C50.1" …).
+    `diagnosis_prefix` může být string nebo seznam stringů (multi-kód, např.
+    kolorektum ["C18","C19","C20"]).
+
+    Předpoklad: všechny datasety v `datasets` mají stejný `diagnosis_col`
+    a `year_col` (u NOR 1770 jsou všechny `diagnoza_kod` + `rok_dg`).
+    Pokud se rozcházejí, funkce shodí výjimku.
     """
-    # Normalizace na tuple pro str.startswith(tuple).
-    if isinstance(diagnosis_prefix, str):
-        prefixes = (diagnosis_prefix,)
-    else:
-        prefixes = tuple(diagnosis_prefix)
+    if not datasets:
+        return {}
 
-    counts: dict[int, int] = {}
+    # Validace, že všechny sdílejí dx_col + yr_col (jinak by single-pass
+    # nedával smysl — museli bychom CSV procházet vícekrát).
+    dx_cols = {cfg["diagnosis_col"] for _, cfg in datasets}
+    yr_cols = {cfg["year_col"] for _, cfg in datasets}
+    if len(dx_cols) > 1 or len(yr_cols) > 1:
+        raise ValueError(
+            "Datasety sdílející data_url musí mít stejný diagnosis_col "
+            f"a year_col. Nalezeno: dx_col={dx_cols}, yr_col={yr_cols}"
+        )
+    diagnosis_col = next(iter(dx_cols))
+    year_col = next(iter(yr_cols))
+
+    # Předem zkompilovat prefixy do tuplů (pro str.startswith(tuple)).
+    prefixes_per_ds: list[tuple[str, tuple[str, ...]]] = []
+    for ds_id, cfg in datasets:
+        p = cfg["diagnosis_prefix"]
+        prefixes_per_ds.append(
+            (ds_id, (p,) if isinstance(p, str) else tuple(p))
+        )
+
+    counts: dict[str, dict[int, int]] = {ds_id: {} for ds_id, _ in datasets}
 
     with csv_path.open(encoding="utf-8", newline="") as f:
         reader = csv.DictReader(f)
@@ -464,7 +484,7 @@ def count_cases_by_year(
 
         for row in reader:
             dx = (row.get(dx_col) or "").strip()
-            if not dx.startswith(prefixes):
+            if not dx:
                 continue
             try:
                 year = int(row[yr_col])
@@ -472,9 +492,15 @@ def count_cases_by_year(
                 continue
             if not (1950 <= year <= 2030):
                 continue
-            counts[year] = counts.get(year, 0) + 1
 
-    return [{"year": y, "value": counts[y]} for y in sorted(counts.keys())]
+            for ds_id, prefixes in prefixes_per_ds:
+                if dx.startswith(prefixes):
+                    counts[ds_id][year] = counts[ds_id].get(year, 0) + 1
+
+    return {
+        ds_id: [{"year": y, "value": d[y]} for y in sorted(d.keys())]
+        for ds_id, d in counts.items()
+    }
 
 
 def compute_meta(series: list) -> dict:
@@ -501,35 +527,14 @@ def compute_meta(series: list) -> dict:
     return {"trend": trend, "delta": delta_pct, "peakYear": peak["year"]}
 
 
-def sync_one(dataset_id: str, cfg: dict) -> str:
-    """Stáhne, naparsuje a uloží jeden dataset.
-
-    Vrací: "ok" (úspěch) nebo "failed" (chyba stahování/parsování).
-    """
-    print(f"\n[{dataset_id}] {cfg['label']} ({cfg['code']})")
-
-    csv_path = download_csv_to_tempfile(cfg["data_url"])
-    if csv_path is None:
-        return "failed"
-
-    try:
-        series = count_cases_by_year(
-            csv_path,
-            cfg["diagnosis_col"],
-            cfg["diagnosis_prefix"],
-            cfg["year_col"],
+def write_dataset_json(dataset_id: str, cfg: dict, series: list) -> str:
+    """Vyrobí výstupní JSON pro jeden dataset a uloží ho. Vrací 'ok' / 'failed'."""
+    if not series:
+        print(
+            f"  [{dataset_id}] CHYBA: žádná data po filtru diagnózy",
+            file=sys.stderr,
         )
-        if not series:
-            print("  CHYBA: žádná data po filtru diagnózy", file=sys.stderr)
-            return "failed"
-    except Exception as e:
-        print(f"  CHYBA při parsování: {e}", file=sys.stderr)
         return "failed"
-    finally:
-        try:
-            csv_path.unlink()
-        except OSError:
-            pass
 
     meta = compute_meta(series)
 
@@ -560,18 +565,59 @@ def sync_one(dataset_id: str, cfg: dict) -> str:
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2))
 
     print(
-        f"  OK: {len(series)} let dat, delta {meta['delta']:+}%, "
+        f"  [{dataset_id}] OK: {len(series)} let dat, delta {meta['delta']:+}%, "
         f"uloženo do {out_path.relative_to(OUT_DIR.parent.parent)}"
     )
     return "ok"
 
 
+def sync_group(url: str, datasets: list[tuple[str, dict]]) -> dict[str, str]:
+    """Stáhne jeden CSV a single-pass naparsuje všechny datasety, které ho sdílí.
+
+    Vrací: dict `dataset_id → "ok" | "failed"`. Pokud selže stažení nebo
+    parsování CSV, všechny datasety v skupině dostanou "failed".
+    """
+    ds_ids = [ds_id for ds_id, _ in datasets]
+    print(f"\n=== Skupina ({len(datasets)} dg): {', '.join(ds_ids)} ===")
+
+    csv_path = download_csv_to_tempfile(url)
+    if csv_path is None:
+        return {ds_id: "failed" for ds_id in ds_ids}
+
+    try:
+        series_by_id = count_cases_by_year_multi(csv_path, datasets)
+    except Exception as e:
+        print(f"  CHYBA při parsování CSV: {e}", file=sys.stderr)
+        return {ds_id: "failed" for ds_id in ds_ids}
+    finally:
+        try:
+            csv_path.unlink()
+        except OSError:
+            pass
+
+    results = {}
+    for ds_id, cfg in datasets:
+        series = series_by_id.get(ds_id, [])
+        results[ds_id] = write_dataset_json(ds_id, cfg, series)
+    return results
+
+
 def main():
     print(f"NOR sync — start v {datetime.now().isoformat()}")
 
-    results = {}
+    # Seskupit datasety podle data_url (cache stahování — 1 CSV = 1 download).
+    groups: dict[str, list[tuple[str, dict]]] = {}
     for ds_id, cfg in DATASETS.items():
-        results[ds_id] = sync_one(ds_id, cfg)
+        groups.setdefault(cfg["data_url"], []).append((ds_id, cfg))
+
+    print(
+        f"  {len(DATASETS)} datasetů v {len(groups)} skupinách "
+        f"(={len(groups)} stažení CSV)"
+    )
+
+    results: dict[str, str] = {}
+    for url, datasets in groups.items():
+        results.update(sync_group(url, datasets))
 
     ok = [k for k, v in results.items() if v == "ok"]
     failed = [k for k, v in results.items() if v == "failed"]
