@@ -26,7 +26,9 @@
     { "id": "varlata_incidence", "label": "Rakovina varlat — incidence", "code": "C62", "tags": ["onkologie", "mužské zdraví", "mladší pacienti"] },
     { "id": "vajecnik_incidence", "label": "Rakovina vaječníku — incidence", "code": "C56", "tags": ["onkologie", "ženské zdraví", "genetika"] },
     { "id": "cipek_incidence", "label": "Rakovina hrdla děložního — incidence", "code": "C53", "tags": ["onkologie", "ženské zdraví", "očkování"] },
-    { "id": "deloha_incidence", "label": "Rakovina těla děložního — incidence", "code": "C54", "tags": ["onkologie", "ženské zdraví", "obezita"] }
+    { "id": "deloha_incidence", "label": "Rakovina těla děložního — incidence", "code": "C54", "tags": ["onkologie", "ženské zdraví", "obezita"] },
+    { "id": "kosti_incidence", "label": "Zhoubné nádory kostí — incidence", "code": "C40–C41", "tags": ["onkologie", "sarkomy", "dětská onkologie"] },
+    { "id": "ustni_dutina_incidence", "label": "Rakovina dutiny ústní a hltanu — incidence", "code": "C00–C14", "tags": ["onkologie", "kouření", "alkohol"] }
   ],
   "international": [
     {

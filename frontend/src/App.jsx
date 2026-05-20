@@ -249,6 +249,8 @@ export default function App() {
         { id: 'vajecnik_incidence', folder: 'nor' },
         { id: 'cipek_incidence', folder: 'nor' },
         { id: 'deloha_incidence', folder: 'nor' },
+        { id: 'kosti_incidence', folder: 'nor' },
+        { id: 'ustni_dutina_incidence', folder: 'nor' },
       ];
       const loaded = [];
 
