@@ -1,0 +1,198 @@
+{
+  "id": "vzacne_nadory_mortalita",
+  "label": "Vzácné onkologické diagnózy — úmrtnost",
+  "human_name": "Úmrtnost na vzácné onkologické diagnózy",
+  "description": "Roční počet úmrtí na souhrn vzácných onkologických diagnóz — sarkomy měkkých tkání, mezoteliom, nádory oka, nadledvin, dutiny nosní, brzlíku a dalších.",
+  "code": "C30–C31, C37–C38, C45–C49, C69, C74–C75",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "mortalita_rocni",
+  "metric_label": "Roční počet úmrtí v ČR",
+  "relevant_for": [
+    "onkologie",
+    "vzácná onemocnění",
+    "specializovaná péče"
+  ],
+  "trend_context": "Souhrnný pohled na úmrtnost u vzácných nádorů. Péče se soustřeďuje do specializovaných center, která mají dostatečnou zkušenost s konkrétními diagnózami.",
+  "updated": "2026-05-20",
+  "coverage": "1980–2022",
+  "trend": "up",
+  "delta": 32,
+  "peakYear": 2019,
+  "data": [
+    {
+      "year": 1980,
+      "value": 342
+    },
+    {
+      "year": 1981,
+      "value": 354
+    },
+    {
+      "year": 1982,
+      "value": 375
+    },
+    {
+      "year": 1983,
+      "value": 403
+    },
+    {
+      "year": 1984,
+      "value": 356
+    },
+    {
+      "year": 1985,
+      "value": 318
+    },
+    {
+      "year": 1986,
+      "value": 369
+    },
+    {
+      "year": 1987,
+      "value": 364
+    },
+    {
+      "year": 1988,
+      "value": 334
+    },
+    {
+      "year": 1989,
+      "value": 385
+    },
+    {
+      "year": 1990,
+      "value": 395
+    },
+    {
+      "year": 1991,
+      "value": 380
+    },
+    {
+      "year": 1992,
+      "value": 369
+    },
+    {
+      "year": 1993,
+      "value": 380
+    },
+    {
+      "year": 1994,
+      "value": 420
+    },
+    {
+      "year": 1995,
+      "value": 406
+    },
+    {
+      "year": 1996,
+      "value": 406
+    },
+    {
+      "year": 1997,
+      "value": 389
+    },
+    {
+      "year": 1998,
+      "value": 426
+    },
+    {
+      "year": 1999,
+      "value": 468
+    },
+    {
+      "year": 2000,
+      "value": 430
+    },
+    {
+      "year": 2001,
+      "value": 418
+    },
+    {
+      "year": 2002,
+      "value": 461
+    },
+    {
+      "year": 2003,
+      "value": 495
+    },
+    {
+      "year": 2004,
+      "value": 486
+    },
+    {
+      "year": 2005,
+      "value": 441
+    },
+    {
+      "year": 2006,
+      "value": 444
+    },
+    {
+      "year": 2007,
+      "value": 426
+    },
+    {
+      "year": 2008,
+      "value": 375
+    },
+    {
+      "year": 2009,
+      "value": 391
+    },
+    {
+      "year": 2010,
+      "value": 402
+    },
+    {
+      "year": 2011,
+      "value": 397
+    },
+    {
+      "year": 2012,
+      "value": 397
+    },
+    {
+      "year": 2013,
+      "value": 411
+    },
+    {
+      "year": 2014,
+      "value": 430
+    },
+    {
+      "year": 2015,
+      "value": 430
+    },
+    {
+      "year": 2016,
+      "value": 427
+    },
+    {
+      "year": 2017,
+      "value": 417
+    },
+    {
+      "year": 2018,
+      "value": 431
+    },
+    {
+      "year": 2019,
+      "value": 500
+    },
+    {
+      "year": 2020,
+      "value": 479
+    },
+    {
+      "year": 2021,
+      "value": 453
+    },
+    {
+      "year": 2022,
+      "value": 481
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data"
+}
