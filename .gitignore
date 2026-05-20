@@ -141,3 +141,7 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Lokální dev artefakty (vite public mirror dat, python cache)
+frontend/public/
+scripts/__pycache__/
