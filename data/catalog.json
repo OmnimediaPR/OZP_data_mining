@@ -21,7 +21,12 @@
     { "id": "lymfomy_incidence", "label": "Lymfomy — incidence", "code": "C81–C85", "tags": ["onkologie", "hematologie", "imunita"] },
     { "id": "ledvina_incidence", "label": "Rakovina ledviny — incidence", "code": "C64", "tags": ["onkologie", "močový systém", "kouření"] },
     { "id": "mocovy_mechyr_incidence", "label": "Rakovina močového měchýře — incidence", "code": "C67", "tags": ["onkologie", "močový systém", "kouření"] },
-    { "id": "stitna_zlaza_incidence", "label": "Rakovina štítné žlázy — incidence", "code": "C73", "tags": ["onkologie", "hormonální systém", "ženské zdraví"] }
+    { "id": "stitna_zlaza_incidence", "label": "Rakovina štítné žlázy — incidence", "code": "C73", "tags": ["onkologie", "hormonální systém", "ženské zdraví"] },
+    { "id": "jicen_incidence", "label": "Rakovina jícnu — incidence", "code": "C15", "tags": ["onkologie", "trávicí systém", "kouření"] },
+    { "id": "varlata_incidence", "label": "Rakovina varlat — incidence", "code": "C62", "tags": ["onkologie", "mužské zdraví", "mladší pacienti"] },
+    { "id": "vajecnik_incidence", "label": "Rakovina vaječníku — incidence", "code": "C56", "tags": ["onkologie", "ženské zdraví", "genetika"] },
+    { "id": "cipek_incidence", "label": "Rakovina hrdla děložního — incidence", "code": "C53", "tags": ["onkologie", "ženské zdraví", "očkování"] },
+    { "id": "deloha_incidence", "label": "Rakovina těla děložního — incidence", "code": "C54", "tags": ["onkologie", "ženské zdraví", "obezita"] }
   ],
   "international": [
     {

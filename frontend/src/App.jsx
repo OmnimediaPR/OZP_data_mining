@@ -244,6 +244,11 @@ export default function App() {
         { id: 'ledvina_incidence', folder: 'nor' },
         { id: 'mocovy_mechyr_incidence', folder: 'nor' },
         { id: 'stitna_zlaza_incidence', folder: 'nor' },
+        { id: 'jicen_incidence', folder: 'nor' },
+        { id: 'varlata_incidence', folder: 'nor' },
+        { id: 'vajecnik_incidence', folder: 'nor' },
+        { id: 'cipek_incidence', folder: 'nor' },
+        { id: 'deloha_incidence', folder: 'nor' },
       ];
       const loaded = [];
 
