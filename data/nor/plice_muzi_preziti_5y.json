@@ -1,0 +1,123 @@
+{
+  "id": "plice_muzi_preziti_5y",
+  "label": "Rakovina plic u mužů — 5leté přežití",
+  "human_name": "5leté přežití u rakoviny plic u mužů",
+  "description": "Procento mužů, kteří žijí 5 a více let po diagnóze rakoviny plic. U mužů je výskyt vyšší kvůli historicky vyšší míře kouření, ale přežití je srovnatelné se ženami.",
+  "code": "C34 (muži)",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "preziti_5_let",
+  "metric_label": "5leté přežití (% mužů)",
+  "relevant_for": [
+    "onkologie",
+    "kouření",
+    "mužské zdraví",
+    "kvalita léčby"
+  ],
+  "trend_context": "U mužů s rakovinou plic je drtivá většina pacientů kuřáků. Vývoj přežití odráží zlepšení léčby (cílené léky, imunoterapie) a snahu o časnější záchyt.",
+  "updated": "2026-05-20",
+  "data": [
+    {
+      "year": 1994,
+      "value": 5.3
+    },
+    {
+      "year": 1995,
+      "value": 4.9
+    },
+    {
+      "year": 1996,
+      "value": 5.2
+    },
+    {
+      "year": 1997,
+      "value": 4.5
+    },
+    {
+      "year": 1998,
+      "value": 5.6
+    },
+    {
+      "year": 1999,
+      "value": 6.0
+    },
+    {
+      "year": 2000,
+      "value": 6.2
+    },
+    {
+      "year": 2001,
+      "value": 6.6
+    },
+    {
+      "year": 2002,
+      "value": 6.5
+    },
+    {
+      "year": 2003,
+      "value": 6.4
+    },
+    {
+      "year": 2004,
+      "value": 6.3
+    },
+    {
+      "year": 2005,
+      "value": 7.4
+    },
+    {
+      "year": 2006,
+      "value": 6.2
+    },
+    {
+      "year": 2007,
+      "value": 6.6
+    },
+    {
+      "year": 2008,
+      "value": 7.1
+    },
+    {
+      "year": 2009,
+      "value": 7.4
+    },
+    {
+      "year": 2010,
+      "value": 7.5
+    },
+    {
+      "year": 2011,
+      "value": 6.6
+    },
+    {
+      "year": 2012,
+      "value": 7.7
+    },
+    {
+      "year": 2013,
+      "value": 7.7
+    },
+    {
+      "year": 2014,
+      "value": 8.5
+    },
+    {
+      "year": 2015,
+      "value": 8.6
+    },
+    {
+      "year": 2016,
+      "value": 8.8
+    },
+    {
+      "year": 2017,
+      "value": 9.0
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+  "coverage": "1994–2017",
+  "trend": "plateau",
+  "delta": 3.7,
+  "peakYear": 2017
+}

@@ -1645,6 +1645,108 @@ DATASETS = {
             "66070074", "66075079", "66080084", "66085999",
         ],
     },
+    "zaludek_muzi_mortalita": {
+        "label": "Rakovina žaludku u mužů — úmrtnost",
+        "human_name": "Úmrtnost na rakovinu žaludku u mužů",
+        "description": "Roční počet úmrtí na rakovinu žaludku u mužů. U mužů je výskyt přibližně dvojnásobný oproti ženám, ale obě skupiny dlouhodobě klesají.",
+        "code": "C16",
+        "metric": "mortalita_rocni",
+        "metric_label": "Roční počet úmrtí (muži)",
+        "relevant_for": ["onkologie", "trávicí systém", "mužské zdraví", "mortalita"],
+        "trend_context": "Mužská úmrtnost na rakovinu žaludku v Česku dlouhodobě klesá díky lepší kvalitě stravy a léčbě bakterie Helicobacter pylori.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C16",
+        "year_col": "umrti_rok",
+        "sex_col": "pohlavi",
+        "sex_value": "1",
+    },
+    "zaludek_zeny_mortalita": {
+        "label": "Rakovina žaludku u žen — úmrtnost",
+        "human_name": "Úmrtnost na rakovinu žaludku u žen",
+        "description": "Roční počet úmrtí na rakovinu žaludku u žen. Ženská úmrtnost je nižší než mužská a dlouhodobě klesá.",
+        "code": "C16",
+        "metric": "mortalita_rocni",
+        "metric_label": "Roční počet úmrtí (ženy)",
+        "relevant_for": ["onkologie", "trávicí systém", "ženské zdraví", "mortalita"],
+        "trend_context": "Ženská úmrtnost na rakovinu žaludku klesá ze stejných důvodů jako mužská — lepší strava, čistá voda, léčba Helicobacter pylori.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C16",
+        "year_col": "umrti_rok",
+        "sex_col": "pohlavi",
+        "sex_value": "2",
+    },
+    "plice_mladi_mortalita": {
+        "label": "Rakovina plic u mladších dospělých — úmrtnost",
+        "human_name": "Úmrtnost na rakovinu plic u mladších dospělých (do 49 let)",
+        "description": "Roční počet úmrtí na rakovinu plic u pacientů mladších 50 let. U mladších pacientů je vyšší podíl nekuřáků a často odlišný profil rizikových faktorů.",
+        "code": "C34",
+        "metric": "mortalita_rocni",
+        "metric_label": "Roční počet úmrtí (do 49 let)",
+        "relevant_for": ["onkologie", "kouření", "early-onset", "mortalita"],
+        "trend_context": "U mladších pacientů úmrtnost klesá s poklesem kouření v jejich generaci. Roli hraje i kvalita ovzduší a expozice radonu.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C34",
+        "year_col": "umrti_rok",
+        "age_col": "umrti_vek_kategorie_kod",
+        "age_codes": ["66000004","66005009","66010014","66015019","66020024","66025029","66030034","66035039","66040044","66045049"],
+    },
+    "plice_starsi_mortalita": {
+        "label": "Rakovina plic u starších dospělých — úmrtnost",
+        "human_name": "Úmrtnost na rakovinu plic u starších dospělých (50+ let)",
+        "description": "Roční počet úmrtí na rakovinu plic u pacientů 50 a více let. Drtivá většina úmrtí spadá do této věkové skupiny.",
+        "code": "C34",
+        "metric": "mortalita_rocni",
+        "metric_label": "Roční počet úmrtí (50+ let)",
+        "relevant_for": ["onkologie", "kouření", "stárnutí populace", "mortalita"],
+        "trend_context": "U starších pacientů úmrtnost na rakovinu plic odráží kumulativní efekt kouření — různý u mužů (klesá) a žen (roste).",
+        "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C34",
+        "year_col": "umrti_rok",
+        "age_col": "umrti_vek_kategorie_kod",
+        "age_codes": ["66050054","66055059","66060064","66065069","66070074","66075079","66080084","66085999"],
+    },
+    "melanom_muzi_mortalita": {
+        "label": "Zhoubný melanom kůže u mužů — úmrtnost",
+        "human_name": "Úmrtnost na zhoubný melanom kůže u mužů",
+        "description": "Roční počet úmrtí na zhoubný melanom kůže u mužů. Muži chodí na preventivní kožní prohlídky méně často než ženy, což přispívá k pozdějšímu záchytu.",
+        "code": "C43",
+        "metric": "mortalita_rocni",
+        "metric_label": "Roční počet úmrtí (muži)",
+        "relevant_for": ["onkologie", "kůže", "mužské zdraví", "mortalita"],
+        "trend_context": "Mužská úmrtnost na melanom roste s rostoucí incidencí, ale modernizace léčby (imunoterapie, cílené léky) zpomaluje růst.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C43",
+        "year_col": "umrti_rok",
+        "sex_col": "pohlavi",
+        "sex_value": "1",
+    },
+    "melanom_zeny_mortalita": {
+        "label": "Zhoubný melanom kůže u žen — úmrtnost",
+        "human_name": "Úmrtnost na zhoubný melanom kůže u žen",
+        "description": "Roční počet úmrtí na zhoubný melanom kůže u žen. Ženy chodí na preventivní kožní prohlídky častěji než muži, což přispívá k časnějšímu záchytu a lepší prognóze.",
+        "code": "C43",
+        "metric": "mortalita_rocni",
+        "metric_label": "Roční počet úmrtí (ženy)",
+        "relevant_for": ["onkologie", "kůže", "ženské zdraví", "mortalita"],
+        "trend_context": "Ženská úmrtnost na melanom roste pomaleji než mužská — dík vyšší účasti na preventivních prohlídkách u kožního lékaře.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C43",
+        "year_col": "umrti_rok",
+        "sex_col": "pohlavi",
+        "sex_value": "2",
+    },
     # === NOR 1771 — Krajové snapshoty mortality 2022 ===
     "prsa_mortalita_kraje_2022": {
         "label": "Rakovina prsu — úmrtnost podle krajů 2022",
@@ -2185,6 +2287,78 @@ DATASETS = {
         "group_col": "diagnoza_skupina",
         "diagnosis_group": 25,
         "year_col": "rok_dg",
+    },
+    "plice_muzi_preziti_5y": {
+        "label": "Rakovina plic u mužů — 5leté přežití",
+        "human_name": "5leté přežití u rakoviny plic u mužů",
+        "description": "Procento mužů, kteří žijí 5 a více let po diagnóze rakoviny plic. U mužů je výskyt vyšší kvůli historicky vyšší míře kouření, ale přežití je srovnatelné se ženami.",
+        "code": "C34 (muži)",
+        "metric": "preziti_5_let",
+        "metric_label": "5leté přežití (% mužů)",
+        "relevant_for": ["onkologie", "kouření", "mužské zdraví", "kvalita léčby"],
+        "trend_context": "U mužů s rakovinou plic je drtivá většina pacientů kuřáků. Vývoj přežití odráží zlepšení léčby (cílené léky, imunoterapie) a snahu o časnější záchyt.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+        "aggregation": "survival_5y",
+        "group_col": "diagnoza_skupina",
+        "diagnosis_group": 9,
+        "year_col": "rok_dg",
+        "sex_col": "pohlavi",
+        "sex_value": "1",
+    },
+    "plice_zeny_preziti_5y": {
+        "label": "Rakovina plic u žen — 5leté přežití",
+        "human_name": "5leté přežití u rakoviny plic u žen",
+        "description": "Procento žen, které žijí 5 a více let po diagnóze rakoviny plic. U žen je vyšší podíl nekuřaček a častější jsou jiné histologické typy (adenokarcinom).",
+        "code": "C34 (ženy)",
+        "metric": "preziti_5_let",
+        "metric_label": "5leté přežití (% žen)",
+        "relevant_for": ["onkologie", "kouření", "ženské zdraví", "kvalita léčby"],
+        "trend_context": "U žen s rakovinou plic je vyšší podíl nekuřaček. Adenokarcinom, který u žen převažuje, často dobře reaguje na cílenou léčbu — to vytváří potenciál pro lepší prognózu než u klasického kuřáckého malobuněčného karcinomu.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+        "aggregation": "survival_5y",
+        "group_col": "diagnoza_skupina",
+        "diagnosis_group": 9,
+        "year_col": "rok_dg",
+        "sex_col": "pohlavi",
+        "sex_value": "2",
+    },
+    "kolorektum_muzi_preziti_5y": {
+        "label": "Rakovina tlustého střeva a konečníku u mužů — 5leté přežití",
+        "human_name": "5leté přežití u rakoviny tlustého střeva a konečníku u mužů",
+        "description": "Procento mužů, kteří žijí 5 a více let po diagnóze rakoviny tlustého střeva a konečníku.",
+        "code": "C18–C20 (muži)",
+        "metric": "preziti_5_let",
+        "metric_label": "5leté přežití (% mužů)",
+        "relevant_for": ["onkologie", "mužské zdraví", "screening tlustého střeva", "kvalita léčby"],
+        "trend_context": "U mužů s rakovinou tlustého střeva je obvykle prognóza horší kvůli nižší účasti na screeningu a pozdějšímu záchytu.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+        "aggregation": "survival_5y",
+        "group_col": "diagnoza_skupina",
+        "diagnosis_group": 4,
+        "year_col": "rok_dg",
+        "sex_col": "pohlavi",
+        "sex_value": "1",
+    },
+    "kolorektum_zeny_preziti_5y": {
+        "label": "Rakovina tlustého střeva a konečníku u žen — 5leté přežití",
+        "human_name": "5leté přežití u rakoviny tlustého střeva a konečníku u žen",
+        "description": "Procento žen, které žijí 5 a více let po diagnóze rakoviny tlustého střeva a konečníku.",
+        "code": "C18–C20 (ženy)",
+        "metric": "preziti_5_let",
+        "metric_label": "5leté přežití (% žen)",
+        "relevant_for": ["onkologie", "ženské zdraví", "screening tlustého střeva", "kvalita léčby"],
+        "trend_context": "U žen s rakovinou tlustého střeva je vyšší účast na screeningu a obvykle časnější záchyt — to přispívá k lepší prognóze než u mužů.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+        "aggregation": "survival_5y",
+        "group_col": "diagnoza_skupina",
+        "diagnosis_group": 4,
+        "year_col": "rok_dg",
+        "sex_col": "pohlavi",
+        "sex_value": "2",
     },
     "prsa_mladi_preziti_5y": {
         "label": "Rakovina prsu u mladších žen — 5leté přežití",
@@ -3342,8 +3516,8 @@ def compute_5year_survival_by_year_multi(
                 f"CSV neobsahuje očekávané sloupce. Nalezené: {reader.fieldnames}"
             )
 
-        # Per-dataset filtr: group_value (string) + age filter (volitelně).
-        per_ds: list[tuple[str, str, str | None, set[str] | None]] = []
+        # Per-dataset filtr: group_value (string) + age filter (volitelně) + sex filter (volitelně).
+        per_ds: list[tuple[str, str, str | None, set[str] | None, str | None, str | None]] = []
         for ds_id, cfg in datasets:
             group_value = str(cfg["diagnosis_group"])
             age_col_name = cfg.get("age_col")
@@ -3353,7 +3527,16 @@ def compute_5year_survival_by_year_multi(
             else:
                 age_col_actual = None
                 age_codes = None
-            per_ds.append((ds_id, group_value, age_col_actual, age_codes))
+
+            sex_col_name = cfg.get("sex_col")
+            if sex_col_name:
+                sex_col_actual = cols_lower.get(sex_col_name.lower())
+                sex_value = str(cfg["sex_value"])
+            else:
+                sex_col_actual = None
+                sex_value = None
+
+            per_ds.append((ds_id, group_value, age_col_actual, age_codes, sex_col_actual, sex_value))
 
         for row in reader:
             try:
@@ -3385,12 +3568,16 @@ def compute_5year_survival_by_year_multi(
             if status == "censored":
                 continue
 
-            for ds_id, group_value, age_col_actual, age_codes in per_ds:
+            for ds_id, group_value, age_col_actual, age_codes, sex_col_actual, sex_value in per_ds:
                 if row_group != group_value:
                     continue
                 if age_codes is not None:
                     age_val = (row.get(age_col_actual) or "").strip()
                     if age_val not in age_codes:
+                        continue
+                if sex_value is not None:
+                    row_sex = (row.get(sex_col_actual) or "").strip()
+                    if row_sex != sex_value:
                         continue
                 known[ds_id][year] = known[ds_id].get(year, 0) + 1
                 if status == "survived":

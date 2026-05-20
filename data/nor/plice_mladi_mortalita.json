@@ -1,0 +1,199 @@
+{
+  "id": "plice_mladi_mortalita",
+  "label": "Rakovina plic u mladších dospělých — úmrtnost",
+  "human_name": "Úmrtnost na rakovinu plic u mladších dospělých (do 49 let)",
+  "description": "Roční počet úmrtí na rakovinu plic u pacientů mladších 50 let. U mladších pacientů je vyšší podíl nekuřáků a často odlišný profil rizikových faktorů.",
+  "code": "C34",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "mortalita_rocni",
+  "metric_label": "Roční počet úmrtí (do 49 let)",
+  "relevant_for": [
+    "onkologie",
+    "kouření",
+    "early-onset",
+    "mortalita"
+  ],
+  "trend_context": "U mladších pacientů úmrtnost klesá s poklesem kouření v jejich generaci. Roli hraje i kvalita ovzduší a expozice radonu.",
+  "updated": "2026-05-20",
+  "data": [
+    {
+      "year": 1980,
+      "value": 355
+    },
+    {
+      "year": 1981,
+      "value": 324
+    },
+    {
+      "year": 1982,
+      "value": 327
+    },
+    {
+      "year": 1983,
+      "value": 355
+    },
+    {
+      "year": 1984,
+      "value": 357
+    },
+    {
+      "year": 1985,
+      "value": 363
+    },
+    {
+      "year": 1986,
+      "value": 405
+    },
+    {
+      "year": 1987,
+      "value": 384
+    },
+    {
+      "year": 1988,
+      "value": 424
+    },
+    {
+      "year": 1989,
+      "value": 405
+    },
+    {
+      "year": 1990,
+      "value": 433
+    },
+    {
+      "year": 1991,
+      "value": 435
+    },
+    {
+      "year": 1992,
+      "value": 449
+    },
+    {
+      "year": 1993,
+      "value": 393
+    },
+    {
+      "year": 1994,
+      "value": 457
+    },
+    {
+      "year": 1995,
+      "value": 413
+    },
+    {
+      "year": 1996,
+      "value": 443
+    },
+    {
+      "year": 1997,
+      "value": 390
+    },
+    {
+      "year": 1998,
+      "value": 348
+    },
+    {
+      "year": 1999,
+      "value": 339
+    },
+    {
+      "year": 2000,
+      "value": 339
+    },
+    {
+      "year": 2001,
+      "value": 273
+    },
+    {
+      "year": 2002,
+      "value": 249
+    },
+    {
+      "year": 2003,
+      "value": 216
+    },
+    {
+      "year": 2004,
+      "value": 226
+    },
+    {
+      "year": 2005,
+      "value": 188
+    },
+    {
+      "year": 2006,
+      "value": 171
+    },
+    {
+      "year": 2007,
+      "value": 154
+    },
+    {
+      "year": 2008,
+      "value": 127
+    },
+    {
+      "year": 2009,
+      "value": 121
+    },
+    {
+      "year": 2010,
+      "value": 129
+    },
+    {
+      "year": 2011,
+      "value": 127
+    },
+    {
+      "year": 2012,
+      "value": 115
+    },
+    {
+      "year": 2013,
+      "value": 118
+    },
+    {
+      "year": 2014,
+      "value": 135
+    },
+    {
+      "year": 2015,
+      "value": 119
+    },
+    {
+      "year": 2016,
+      "value": 103
+    },
+    {
+      "year": 2017,
+      "value": 115
+    },
+    {
+      "year": 2018,
+      "value": 102
+    },
+    {
+      "year": 2019,
+      "value": 100
+    },
+    {
+      "year": 2020,
+      "value": 80
+    },
+    {
+      "year": 2021,
+      "value": 78
+    },
+    {
+      "year": 2022,
+      "value": 76
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data",
+  "coverage": "1980–2022",
+  "trend": "down",
+  "delta": -77,
+  "peakYear": 1994
+}
