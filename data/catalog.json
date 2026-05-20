@@ -17,7 +17,11 @@
     { "id": "zaludek_incidence", "label": "Rakovina žaludku — incidence", "code": "C16", "tags": ["onkologie", "trávicí systém", "prevence"] },
     { "id": "slinivka_incidence", "label": "Rakovina slinivky břišní — incidence", "code": "C25", "tags": ["onkologie", "trávicí systém"] },
     { "id": "mozek_incidence", "label": "Zhoubný nádor mozku — incidence", "code": "C71", "tags": ["onkologie", "neurologie"] },
-    { "id": "leukemie_incidence", "label": "Leukémie — incidence", "code": "C91–C95", "tags": ["onkologie", "hematologie", "dětská onkologie"] }
+    { "id": "leukemie_incidence", "label": "Leukémie — incidence", "code": "C91–C95", "tags": ["onkologie", "hematologie", "dětská onkologie"] },
+    { "id": "lymfomy_incidence", "label": "Lymfomy — incidence", "code": "C81–C85", "tags": ["onkologie", "hematologie", "imunita"] },
+    { "id": "ledvina_incidence", "label": "Rakovina ledviny — incidence", "code": "C64", "tags": ["onkologie", "močový systém", "kouření"] },
+    { "id": "mocovy_mechyr_incidence", "label": "Rakovina močového měchýře — incidence", "code": "C67", "tags": ["onkologie", "močový systém", "kouření"] },
+    { "id": "stitna_zlaza_incidence", "label": "Rakovina štítné žlázy — incidence", "code": "C73", "tags": ["onkologie", "hormonální systém", "ženské zdraví"] }
   ],
   "international": [
     {

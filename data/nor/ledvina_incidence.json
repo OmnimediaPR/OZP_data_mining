@@ -1,0 +1,211 @@
+{
+  "id": "ledvina_incidence",
+  "label": "Rakovina ledviny — incidence",
+  "human_name": "Rakovina ledviny",
+  "description": "Zhoubný nádor ledviny — typicky se objevuje po šedesátém roce života. Často se najde náhodně při zobrazovacím vyšetření z jiného důvodu.",
+  "code": "C64",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "incidence_rocni",
+  "metric_label": "Roční počet nově diagnostikovaných případů",
+  "relevant_for": [
+    "onkologie",
+    "močový systém",
+    "kouření",
+    "obezita"
+  ],
+  "trend_context": "Vývoj odráží stárnutí populace, vyšší výskyt obezity a vysokého krevního tlaku, ale také lepší záchyt díky širší dostupnosti ultrazvuku a počítačové tomografie. Česko patří dlouhodobě k zemím s nejvyšším výskytem rakoviny ledviny na světě.",
+  "updated": "2026-05-20",
+  "coverage": "1977–2022",
+  "trend": "up",
+  "delta": 335,
+  "peakYear": 2019,
+  "data": [
+    {
+      "year": 1977,
+      "value": 756
+    },
+    {
+      "year": 1978,
+      "value": 754
+    },
+    {
+      "year": 1979,
+      "value": 765
+    },
+    {
+      "year": 1980,
+      "value": 805
+    },
+    {
+      "year": 1981,
+      "value": 889
+    },
+    {
+      "year": 1982,
+      "value": 860
+    },
+    {
+      "year": 1983,
+      "value": 921
+    },
+    {
+      "year": 1984,
+      "value": 977
+    },
+    {
+      "year": 1985,
+      "value": 1027
+    },
+    {
+      "year": 1986,
+      "value": 1138
+    },
+    {
+      "year": 1987,
+      "value": 1218
+    },
+    {
+      "year": 1988,
+      "value": 1258
+    },
+    {
+      "year": 1989,
+      "value": 1378
+    },
+    {
+      "year": 1990,
+      "value": 1455
+    },
+    {
+      "year": 1991,
+      "value": 1644
+    },
+    {
+      "year": 1992,
+      "value": 1716
+    },
+    {
+      "year": 1993,
+      "value": 1820
+    },
+    {
+      "year": 1994,
+      "value": 2320
+    },
+    {
+      "year": 1995,
+      "value": 2291
+    },
+    {
+      "year": 1996,
+      "value": 2410
+    },
+    {
+      "year": 1997,
+      "value": 2392
+    },
+    {
+      "year": 1998,
+      "value": 2333
+    },
+    {
+      "year": 1999,
+      "value": 2325
+    },
+    {
+      "year": 2000,
+      "value": 2396
+    },
+    {
+      "year": 2001,
+      "value": 2375
+    },
+    {
+      "year": 2002,
+      "value": 2584
+    },
+    {
+      "year": 2003,
+      "value": 2644
+    },
+    {
+      "year": 2004,
+      "value": 2800
+    },
+    {
+      "year": 2005,
+      "value": 2855
+    },
+    {
+      "year": 2006,
+      "value": 2681
+    },
+    {
+      "year": 2007,
+      "value": 2897
+    },
+    {
+      "year": 2008,
+      "value": 2922
+    },
+    {
+      "year": 2009,
+      "value": 2929
+    },
+    {
+      "year": 2010,
+      "value": 2950
+    },
+    {
+      "year": 2011,
+      "value": 3064
+    },
+    {
+      "year": 2012,
+      "value": 3115
+    },
+    {
+      "year": 2013,
+      "value": 3154
+    },
+    {
+      "year": 2014,
+      "value": 3276
+    },
+    {
+      "year": 2015,
+      "value": 3068
+    },
+    {
+      "year": 2016,
+      "value": 3280
+    },
+    {
+      "year": 2017,
+      "value": 3128
+    },
+    {
+      "year": 2018,
+      "value": 3149
+    },
+    {
+      "year": 2019,
+      "value": 3420
+    },
+    {
+      "year": 2020,
+      "value": 3213
+    },
+    {
+      "year": 2021,
+      "value": 3073
+    },
+    {
+      "year": 2022,
+      "value": 3290
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data"
+}

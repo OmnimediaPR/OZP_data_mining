@@ -240,6 +240,10 @@ export default function App() {
         { id: 'slinivka_incidence', folder: 'nor' },
         { id: 'mozek_incidence', folder: 'nor' },
         { id: 'leukemie_incidence', folder: 'nor' },
+        { id: 'lymfomy_incidence', folder: 'nor' },
+        { id: 'ledvina_incidence', folder: 'nor' },
+        { id: 'mocovy_mechyr_incidence', folder: 'nor' },
+        { id: 'stitna_zlaza_incidence', folder: 'nor' },
       ];
       const loaded = [];
 
