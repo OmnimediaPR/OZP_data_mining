@@ -473,6 +473,14 @@ export default function App() {
         { id: 'vrozene_vady', folder: 'nzip_curated' },
         { id: 'lazenska_pece_pacienti', folder: 'nzip_curated' },
         { id: 'paliativni_pece_pacienti', folder: 'nzip_curated' },
+        { id: 'mamografie_screening_pokryti', folder: 'nzip_curated' },
+        { id: 'cervix_screening_pokryti', folder: 'nzip_curated' },
+        { id: 'umrti_mkn10_celkem', folder: 'nzip_curated' },
+        { id: 'atopicka_dermatitida', folder: 'nzip_curated' },
+        { id: 'cdz_pacienti', folder: 'nzip_curated' },
+        { id: 'umrti_doma_ocekavatelne', folder: 'nzip_curated' },
+        { id: 'dialyza_nefrolog_pokryti', folder: 'nzip_curated' },
+        { id: 'toks_pozitivni_podil', folder: 'nzip_curated' },
       ];
       const loaded = [];
 

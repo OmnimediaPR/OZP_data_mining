@@ -181,7 +181,15 @@
     { "id": "alergicka_ryma_dispenzarizovani", "label": "Alergická rýma — dispenzarizovaní pacienti", "code": "J30", "tags": ["alergologie", "chronická onemocnění", "kvalita ovzduší"] },
     { "id": "vrozene_vady", "label": "Vrozené vady — incidence", "code": "Q00–Q99", "tags": ["dětské zdraví", "genetika", "prenatální péče"] },
     { "id": "lazenska_pece_pacienti", "label": "Lázeňská péče — pacienti", "code": "rehabilitace", "tags": ["rehabilitace", "kvalita života", "pojišťovny"] },
-    { "id": "paliativni_pece_pacienti", "label": "Paliativní péče — unikátní pacienti", "code": "paliativní péče", "tags": ["paliativní péče", "kvalita života", "hospice"] }
+    { "id": "paliativni_pece_pacienti", "label": "Paliativní péče — unikátní pacienti", "code": "paliativní péče", "tags": ["paliativní péče", "kvalita života", "hospice"] },
+    { "id": "mamografie_screening_pokryti", "label": "Mamografický screening — pokrytí cílové populace", "code": "screening C50", "tags": ["prevence", "ženské zdraví", "mamografický screening"] },
+    { "id": "cervix_screening_pokryti", "label": "Cervikální screening — pokrytí cílové populace", "code": "screening C53", "tags": ["prevence", "ženské zdraví", "gynekologický screening"] },
+    { "id": "umrti_mkn10_celkem", "label": "Úmrtí podle kapitol MKN-10 — celkem", "code": "úmrtnost celkem", "tags": ["veřejné zdraví", "stárnutí populace", "demografie"] },
+    { "id": "atopicka_dermatitida", "label": "Atopická dermatitida — dispenzarizovaní pacienti", "code": "L20", "tags": ["alergologie", "kůže", "dětské zdraví"] },
+    { "id": "cdz_pacienti", "label": "Centra duševního zdraví — pacienti", "code": "psychiatrická péče", "tags": ["duševní zdraví", "komunitní psychiatrie"] },
+    { "id": "umrti_doma_ocekavatelne", "label": "Očekávatelná úmrtí — místo úmrtí", "code": "paliativní péče", "tags": ["paliativní péče", "hospice", "kvalita umírání"] },
+    { "id": "dialyza_nefrolog_pokryti", "label": "Chronická dialýza — podíl s předchozím vyšetřením nefrologem", "code": "nefrologie", "tags": ["prevence", "močový systém", "chronická onemocnění"] },
+    { "id": "toks_pozitivni_podil", "label": "Test na skryté krvácení do stolice — podíl pozitivních", "code": "screening C18–C20", "tags": ["screening tlustého střeva", "prevence"] }
   ],
   "international": [
     {
