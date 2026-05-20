@@ -1,0 +1,155 @@
+{
+  "id": "pohlavni_nemoci_incidence",
+  "label": "Pohlavní nemoci — incidence",
+  "human_name": "Pohlavní nemoci v ČR",
+  "description": "Roční počet hlášených případů pohlavně přenosných nemocí (například syfilis, kapavka, chlamydie). Patří k nejdéle sledovaným epidemiologickým ukazatelům v ČR.",
+  "code": "A50–A64",
+  "source": "Registr pohlavních nemocí (ÚZIS)",
+  "source_type": "national",
+  "metric": "incidence_rocni",
+  "metric_label": "Roční počet hlášených případů",
+  "relevant_for": [
+    "infekční nemoci",
+    "sexuální zdraví",
+    "veřejné zdraví",
+    "prevence"
+  ],
+  "trend_context": "Vývoj odráží změny v sexuálním chování, dostupnost testování a osvětu. V posledních letech v Česku narůstá syfilis a kapavka, zejména u mladších věkových skupin a v některých populačních podskupinách.",
+  "updated": "2026-05-20",
+  "coverage": "1994–2025",
+  "trend": "up",
+  "delta": 64,
+  "peakYear": 2023,
+  "data": [
+    {
+      "year": 1994,
+      "value": 3317
+    },
+    {
+      "year": 1995,
+      "value": 2469
+    },
+    {
+      "year": 1996,
+      "value": 1745
+    },
+    {
+      "year": 1997,
+      "value": 1702
+    },
+    {
+      "year": 1998,
+      "value": 1742
+    },
+    {
+      "year": 1999,
+      "value": 1726
+    },
+    {
+      "year": 2000,
+      "value": 1855
+    },
+    {
+      "year": 2001,
+      "value": 2256
+    },
+    {
+      "year": 2002,
+      "value": 1887
+    },
+    {
+      "year": 2003,
+      "value": 1880
+    },
+    {
+      "year": 2004,
+      "value": 1634
+    },
+    {
+      "year": 2005,
+      "value": 1387
+    },
+    {
+      "year": 2006,
+      "value": 1584
+    },
+    {
+      "year": 2007,
+      "value": 1971
+    },
+    {
+      "year": 2008,
+      "value": 1667
+    },
+    {
+      "year": 2009,
+      "value": 1721
+    },
+    {
+      "year": 2010,
+      "value": 1779
+    },
+    {
+      "year": 2011,
+      "value": 1452
+    },
+    {
+      "year": 2012,
+      "value": 1856
+    },
+    {
+      "year": 2013,
+      "value": 2139
+    },
+    {
+      "year": 2014,
+      "value": 2139
+    },
+    {
+      "year": 2015,
+      "value": 2233
+    },
+    {
+      "year": 2016,
+      "value": 2262
+    },
+    {
+      "year": 2017,
+      "value": 2234
+    },
+    {
+      "year": 2018,
+      "value": 2243
+    },
+    {
+      "year": 2019,
+      "value": 2531
+    },
+    {
+      "year": 2020,
+      "value": 2584
+    },
+    {
+      "year": 2021,
+      "value": 2834
+    },
+    {
+      "year": 2022,
+      "value": 3221
+    },
+    {
+      "year": 2023,
+      "value": 4233
+    },
+    {
+      "year": 2024,
+      "value": 4206
+    },
+    {
+      "year": 2025,
+      "value": 3921
+    }
+  ],
+  "data_url": "https://datanzis.uzis.gov.cz/data/NR-29-RPN/NR-29-01/Otevrena-data-NR-29-01-pohlavni-nemoci.csv",
+  "source_url": "https://www.nzip.cz/data/2639-pohlavni-nemoci-otevrena-data"
+}

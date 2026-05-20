@@ -106,7 +106,12 @@
     { "id": "mozek_starsi_incidence", "label": "Zhoubný nádor mozku u starších dospělých — incidence", "code": "C71", "tags": ["onkologie", "neurologie", "stárnutí populace"] },
     { "id": "jicen_mladi_incidence", "label": "Rakovina jícnu u mladších dospělých — incidence", "code": "C15", "tags": ["onkologie", "trávicí systém", "early-onset"] },
     { "id": "jicen_starsi_incidence", "label": "Rakovina jícnu u starších dospělých — incidence", "code": "C15", "tags": ["onkologie", "trávicí systém", "kouření"] },
-    { "id": "stitna_zlaza_male_deti_incidence", "label": "Rakovina štítné žlázy u malých dětí — incidence", "code": "C73", "tags": ["onkologie", "dětská onkologie", "vzácná onemocnění"] }
+    { "id": "stitna_zlaza_male_deti_incidence", "label": "Rakovina štítné žlázy u malých dětí — incidence", "code": "C73", "tags": ["onkologie", "dětská onkologie", "vzácná onemocnění"] },
+    { "id": "tuberkuloza_incidence", "label": "Tuberkulóza — incidence", "code": "A15–A19", "tags": ["infekční nemoci", "veřejné zdraví", "očkování"] },
+    { "id": "sebevrazdy_hospitalizace", "label": "Pokusy o sebevraždu — hospitalizace", "code": "X60–X84", "tags": ["duševní zdraví", "veřejné zdraví", "krizová intervence"] },
+    { "id": "autismus_deti_incidence", "label": "Děti a mladiství s poruchami autistického spektra — incidence", "code": "F84", "tags": ["duševní zdraví", "dětská psychiatrie", "vývojové poruchy"] },
+    { "id": "pohlavni_nemoci_incidence", "label": "Pohlavní nemoci — incidence", "code": "A50–A64", "tags": ["infekční nemoci", "sexuální zdraví", "veřejné zdraví"] },
+    { "id": "astma_dispenzarizovani", "label": "Bronchiální astma — dispenzarizovaní pacienti", "code": "J45", "tags": ["chronická onemocnění", "alergologie", "kvalita ovzduší"] }
   ],
   "international": [
     {

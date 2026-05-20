@@ -329,6 +329,11 @@ export default function App() {
         { id: 'jicen_mladi_incidence', folder: 'nor' },
         { id: 'jicen_starsi_incidence', folder: 'nor' },
         { id: 'stitna_zlaza_male_deti_incidence', folder: 'nor' },
+        { id: 'tuberkuloza_incidence', folder: 'nzip_curated' },
+        { id: 'sebevrazdy_hospitalizace', folder: 'nzip_curated' },
+        { id: 'autismus_deti_incidence', folder: 'nzip_curated' },
+        { id: 'pohlavni_nemoci_incidence', folder: 'nzip_curated' },
+        { id: 'astma_dispenzarizovani', folder: 'nzip_curated' },
       ];
       const loaded = [];
 

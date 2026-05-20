@@ -1,0 +1,87 @@
+{
+  "id": "autismus_deti_incidence",
+  "label": "Děti a mladiství s poruchami autistického spektra — incidence",
+  "human_name": "Děti a mladiství s poruchami autistického spektra",
+  "description": "Roční počet dětí a mladistvých s diagnostikovanou poruchou autistického spektra. Zahrnuje dětský autismus, atypický autismus, Aspergerův syndrom a další pervazivní vývojové poruchy.",
+  "code": "F84",
+  "source": "Národní informační systém péče o duševní zdraví (ÚZIS)",
+  "source_type": "national",
+  "metric": "pacienti_rocni",
+  "metric_label": "Roční počet pacientů",
+  "relevant_for": [
+    "duševní zdraví",
+    "dětská psychiatrie",
+    "vývojové poruchy",
+    "vzdělávání"
+  ],
+  "trend_context": "Nárůst odráží především lepší záchyt — rozšířené screeningové nástroje, vyšší informovanost rodičů a pediatrů, dostupnost specializované diagnostiky. Reálná prevalence poruch autistického spektra je v populaci stabilní, ale dříve byla velká část případů nediagnostikovaná.",
+  "updated": "2026-05-20",
+  "coverage": "2010–2024",
+  "trend": "up",
+  "delta": 236,
+  "peakYear": 2024,
+  "data": [
+    {
+      "year": 2010,
+      "value": 2703
+    },
+    {
+      "year": 2011,
+      "value": 3341
+    },
+    {
+      "year": 2012,
+      "value": 3986
+    },
+    {
+      "year": 2013,
+      "value": 4678
+    },
+    {
+      "year": 2014,
+      "value": 5327
+    },
+    {
+      "year": 2015,
+      "value": 6120
+    },
+    {
+      "year": 2016,
+      "value": 6783
+    },
+    {
+      "year": 2017,
+      "value": 7566
+    },
+    {
+      "year": 2018,
+      "value": 8064
+    },
+    {
+      "year": 2019,
+      "value": 8501
+    },
+    {
+      "year": 2020,
+      "value": 8649
+    },
+    {
+      "year": 2021,
+      "value": 9146
+    },
+    {
+      "year": 2022,
+      "value": 10364
+    },
+    {
+      "year": 2023,
+      "value": 11163
+    },
+    {
+      "year": 2024,
+      "value": 12197
+    }
+  ],
+  "data_url": "https://datanzis.uzis.gov.cz/data/OIS-04-NISDZ/OIS-04-17/Otevrena-data-OIS-04-17-deti-a-mladistvi-poruchy-autistickeho-spektra.csv",
+  "source_url": "https://www.nzip.cz/data/2663-deti-a-mladistvi-poruchy-autistickeho-spektra-otevrena-data"
+}
