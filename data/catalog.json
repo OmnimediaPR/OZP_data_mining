@@ -87,7 +87,19 @@
     { "id": "melanom_stadium_1_share", "label": "Zhoubný melanom kůže — záchyt v 1. stadiu", "code": "C43", "tags": ["onkologie", "kůže", "stadium"] },
     { "id": "melanom_stadium_4_share", "label": "Zhoubný melanom kůže — záchyt ve 4. stadiu", "code": "C43", "tags": ["onkologie", "kůže", "stadium"] },
     { "id": "zaludek_stadium_1_share", "label": "Rakovina žaludku — záchyt v 1. stadiu", "code": "C16", "tags": ["onkologie", "trávicí systém", "stadium"] },
-    { "id": "zaludek_stadium_4_share", "label": "Rakovina žaludku — záchyt ve 4. stadiu", "code": "C16", "tags": ["onkologie", "trávicí systém", "stadium"] }
+    { "id": "zaludek_stadium_4_share", "label": "Rakovina žaludku — záchyt ve 4. stadiu", "code": "C16", "tags": ["onkologie", "trávicí systém", "stadium"] },
+    { "id": "plice_muzi_incidence", "label": "Rakovina plic u mužů — incidence", "code": "C34", "tags": ["onkologie", "kouření", "mužské zdraví"] },
+    { "id": "plice_zeny_incidence", "label": "Rakovina plic u žen — incidence", "code": "C34", "tags": ["onkologie", "kouření", "ženské zdraví"] },
+    { "id": "kolorektum_muzi_incidence", "label": "Rakovina tlustého střeva a konečníku u mužů — incidence", "code": "C18–C20", "tags": ["onkologie", "screening tlustého střeva", "mužské zdraví"] },
+    { "id": "kolorektum_zeny_incidence", "label": "Rakovina tlustého střeva a konečníku u žen — incidence", "code": "C18–C20", "tags": ["onkologie", "screening tlustého střeva", "ženské zdraví"] },
+    { "id": "zaludek_muzi_incidence", "label": "Rakovina žaludku u mužů — incidence", "code": "C16", "tags": ["onkologie", "trávicí systém", "mužské zdraví"] },
+    { "id": "zaludek_zeny_incidence", "label": "Rakovina žaludku u žen — incidence", "code": "C16", "tags": ["onkologie", "trávicí systém", "ženské zdraví"] },
+    { "id": "hrtan_muzi_incidence", "label": "Rakovina hrtanu u mužů — incidence", "code": "C32", "tags": ["onkologie", "kouření", "mužské zdraví"] },
+    { "id": "hrtan_zeny_incidence", "label": "Rakovina hrtanu u žen — incidence", "code": "C32", "tags": ["onkologie", "kouření", "ženské zdraví"] },
+    { "id": "melanom_muzi_incidence", "label": "Zhoubný melanom kůže u mužů — incidence", "code": "C43", "tags": ["onkologie", "kůže", "mužské zdraví"] },
+    { "id": "melanom_zeny_incidence", "label": "Zhoubný melanom kůže u žen — incidence", "code": "C43", "tags": ["onkologie", "kůže", "ženské zdraví"] },
+    { "id": "mocovy_mechyr_muzi_incidence", "label": "Rakovina močového měchýře u mužů — incidence", "code": "C67", "tags": ["onkologie", "močový systém", "mužské zdraví"] },
+    { "id": "mocovy_mechyr_zeny_incidence", "label": "Rakovina močového měchýře u žen — incidence", "code": "C67", "tags": ["onkologie", "močový systém", "ženské zdraví"] }
   ],
   "international": [
     {

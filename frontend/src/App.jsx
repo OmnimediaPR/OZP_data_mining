@@ -310,6 +310,18 @@ export default function App() {
         { id: 'melanom_stadium_4_share', folder: 'nor' },
         { id: 'zaludek_stadium_1_share', folder: 'nor' },
         { id: 'zaludek_stadium_4_share', folder: 'nor' },
+        { id: 'plice_muzi_incidence', folder: 'nor' },
+        { id: 'plice_zeny_incidence', folder: 'nor' },
+        { id: 'kolorektum_muzi_incidence', folder: 'nor' },
+        { id: 'kolorektum_zeny_incidence', folder: 'nor' },
+        { id: 'zaludek_muzi_incidence', folder: 'nor' },
+        { id: 'zaludek_zeny_incidence', folder: 'nor' },
+        { id: 'hrtan_muzi_incidence', folder: 'nor' },
+        { id: 'hrtan_zeny_incidence', folder: 'nor' },
+        { id: 'melanom_muzi_incidence', folder: 'nor' },
+        { id: 'melanom_zeny_incidence', folder: 'nor' },
+        { id: 'mocovy_mechyr_muzi_incidence', folder: 'nor' },
+        { id: 'mocovy_mechyr_zeny_incidence', folder: 'nor' },
       ];
       const loaded = [];
 

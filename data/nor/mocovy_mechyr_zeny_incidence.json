@@ -1,0 +1,211 @@
+{
+  "id": "mocovy_mechyr_zeny_incidence",
+  "label": "Rakovina močového měchýře u žen — incidence",
+  "human_name": "Rakovina močového měchýře u žen",
+  "description": "Zhoubný nádor sliznice močového měchýře u žen. U žen je výskyt řádově nižší než u mužů, ale dlouhodobě se zvyšuje s rozšířením kouření v ženské populaci.",
+  "code": "C67",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "incidence_rocni",
+  "metric_label": "Roční počet nově diagnostikovaných případů (ženy)",
+  "relevant_for": [
+    "onkologie",
+    "močový systém",
+    "kouření",
+    "ženské zdraví"
+  ],
+  "trend_context": "Vývoj u žen odráží zpožděnou expanzi kouření v ženské populaci — podobně jako u rakoviny plic. U žen je nemoc často diagnostikována později kvůli záměně příznaků s močovou infekcí.",
+  "updated": "2026-05-20",
+  "coverage": "1977–2022",
+  "trend": "up",
+  "delta": 245,
+  "peakYear": 2004,
+  "data": [
+    {
+      "year": 1977,
+      "value": 155
+    },
+    {
+      "year": 1978,
+      "value": 182
+    },
+    {
+      "year": 1979,
+      "value": 182
+    },
+    {
+      "year": 1980,
+      "value": 202
+    },
+    {
+      "year": 1981,
+      "value": 183
+    },
+    {
+      "year": 1982,
+      "value": 235
+    },
+    {
+      "year": 1983,
+      "value": 219
+    },
+    {
+      "year": 1984,
+      "value": 235
+    },
+    {
+      "year": 1985,
+      "value": 239
+    },
+    {
+      "year": 1986,
+      "value": 265
+    },
+    {
+      "year": 1987,
+      "value": 297
+    },
+    {
+      "year": 1988,
+      "value": 271
+    },
+    {
+      "year": 1989,
+      "value": 291
+    },
+    {
+      "year": 1990,
+      "value": 289
+    },
+    {
+      "year": 1991,
+      "value": 367
+    },
+    {
+      "year": 1992,
+      "value": 357
+    },
+    {
+      "year": 1993,
+      "value": 412
+    },
+    {
+      "year": 1994,
+      "value": 425
+    },
+    {
+      "year": 1995,
+      "value": 460
+    },
+    {
+      "year": 1996,
+      "value": 510
+    },
+    {
+      "year": 1997,
+      "value": 500
+    },
+    {
+      "year": 1998,
+      "value": 519
+    },
+    {
+      "year": 1999,
+      "value": 559
+    },
+    {
+      "year": 2000,
+      "value": 529
+    },
+    {
+      "year": 2001,
+      "value": 535
+    },
+    {
+      "year": 2002,
+      "value": 564
+    },
+    {
+      "year": 2003,
+      "value": 560
+    },
+    {
+      "year": 2004,
+      "value": 652
+    },
+    {
+      "year": 2005,
+      "value": 597
+    },
+    {
+      "year": 2006,
+      "value": 580
+    },
+    {
+      "year": 2007,
+      "value": 611
+    },
+    {
+      "year": 2008,
+      "value": 619
+    },
+    {
+      "year": 2009,
+      "value": 571
+    },
+    {
+      "year": 2010,
+      "value": 596
+    },
+    {
+      "year": 2011,
+      "value": 548
+    },
+    {
+      "year": 2012,
+      "value": 594
+    },
+    {
+      "year": 2013,
+      "value": 586
+    },
+    {
+      "year": 2014,
+      "value": 588
+    },
+    {
+      "year": 2015,
+      "value": 549
+    },
+    {
+      "year": 2016,
+      "value": 550
+    },
+    {
+      "year": 2017,
+      "value": 571
+    },
+    {
+      "year": 2018,
+      "value": 554
+    },
+    {
+      "year": 2019,
+      "value": 632
+    },
+    {
+      "year": 2020,
+      "value": 607
+    },
+    {
+      "year": 2021,
+      "value": 595
+    },
+    {
+      "year": 2022,
+      "value": 587
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data"
+}

@@ -1,0 +1,211 @@
+{
+  "id": "melanom_zeny_incidence",
+  "label": "Zhoubný melanom kůže u žen — incidence",
+  "human_name": "Zhoubný melanom kůže u žen",
+  "description": "Zhoubný nádor pigmentových buněk kůže u žen. U žen se melanom typicky objevuje na dolních končetinách. Ženy chodí na preventivní kožní vyšetření častěji než muži.",
+  "code": "C43",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "incidence_rocni",
+  "metric_label": "Roční počet nově diagnostikovaných případů (ženy)",
+  "relevant_for": [
+    "onkologie",
+    "kůže",
+    "ultrafialové záření",
+    "ženské zdraví"
+  ],
+  "trend_context": "U žen výskyt roste — souvisí s expozicí ultrafialovému záření, používáním solárií zejména v mladších věkových skupinách a životním stylem. Ženy se ke kožnímu lékaři dostávají častěji než muži.",
+  "updated": "2026-05-20",
+  "coverage": "1977–2022",
+  "trend": "up",
+  "delta": 344,
+  "peakYear": 2022,
+  "data": [
+    {
+      "year": 1977,
+      "value": 258
+    },
+    {
+      "year": 1978,
+      "value": 266
+    },
+    {
+      "year": 1979,
+      "value": 302
+    },
+    {
+      "year": 1980,
+      "value": 281
+    },
+    {
+      "year": 1981,
+      "value": 309
+    },
+    {
+      "year": 1982,
+      "value": 306
+    },
+    {
+      "year": 1983,
+      "value": 318
+    },
+    {
+      "year": 1984,
+      "value": 373
+    },
+    {
+      "year": 1985,
+      "value": 324
+    },
+    {
+      "year": 1986,
+      "value": 392
+    },
+    {
+      "year": 1987,
+      "value": 404
+    },
+    {
+      "year": 1988,
+      "value": 441
+    },
+    {
+      "year": 1989,
+      "value": 442
+    },
+    {
+      "year": 1990,
+      "value": 422
+    },
+    {
+      "year": 1991,
+      "value": 485
+    },
+    {
+      "year": 1992,
+      "value": 522
+    },
+    {
+      "year": 1993,
+      "value": 609
+    },
+    {
+      "year": 1994,
+      "value": 553
+    },
+    {
+      "year": 1995,
+      "value": 697
+    },
+    {
+      "year": 1996,
+      "value": 617
+    },
+    {
+      "year": 1997,
+      "value": 653
+    },
+    {
+      "year": 1998,
+      "value": 689
+    },
+    {
+      "year": 1999,
+      "value": 691
+    },
+    {
+      "year": 2000,
+      "value": 726
+    },
+    {
+      "year": 2001,
+      "value": 737
+    },
+    {
+      "year": 2002,
+      "value": 827
+    },
+    {
+      "year": 2003,
+      "value": 856
+    },
+    {
+      "year": 2004,
+      "value": 815
+    },
+    {
+      "year": 2005,
+      "value": 949
+    },
+    {
+      "year": 2006,
+      "value": 842
+    },
+    {
+      "year": 2007,
+      "value": 1046
+    },
+    {
+      "year": 2008,
+      "value": 891
+    },
+    {
+      "year": 2009,
+      "value": 986
+    },
+    {
+      "year": 2010,
+      "value": 1035
+    },
+    {
+      "year": 2011,
+      "value": 976
+    },
+    {
+      "year": 2012,
+      "value": 1030
+    },
+    {
+      "year": 2013,
+      "value": 1139
+    },
+    {
+      "year": 2014,
+      "value": 1203
+    },
+    {
+      "year": 2015,
+      "value": 1211
+    },
+    {
+      "year": 2016,
+      "value": 1220
+    },
+    {
+      "year": 2017,
+      "value": 1243
+    },
+    {
+      "year": 2018,
+      "value": 1217
+    },
+    {
+      "year": 2019,
+      "value": 1259
+    },
+    {
+      "year": 2020,
+      "value": 1166
+    },
+    {
+      "year": 2021,
+      "value": 1210
+    },
+    {
+      "year": 2022,
+      "value": 1290
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data"
+}

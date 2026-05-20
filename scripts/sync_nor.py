@@ -1729,6 +1729,212 @@ DATASETS = {
         "stage_col": "stadium",
         "stage_values": ["1"],
     },
+    # === NOR 1770 — Pohlavní splity ===
+    # ÚZIS kód: pohlavi=1 muž, pohlavi=2 žena.
+    "plice_muzi_incidence": {
+        "label": "Rakovina plic u mužů — incidence",
+        "human_name": "Rakovina plic u mužů",
+        "description": "Zhoubný nádor plicní tkáně u mužů. Mužská populace má dlouhodobě vyšší výskyt rakoviny plic kvůli historicky vyšší míře kouření.",
+        "code": "C34",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů (muži)",
+        "relevant_for": ["onkologie", "kouření", "mužské zdraví", "kvalita ovzduší"],
+        "trend_context": "Vývoj u mužů odráží dlouhodobý pokles kouření, který začal v 80. letech minulého století. Mužská rakovina plic je v Česku dlouhodobě klesající příběh — patří mezi tiché úspěchy boje proti kouření.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C34",
+        "year_col": "rok_dg",
+        "sex_col": "pohlavi",
+        "sex_value": "1",
+    },
+    "plice_zeny_incidence": {
+        "label": "Rakovina plic u žen — incidence",
+        "human_name": "Rakovina plic u žen",
+        "description": "Zhoubný nádor plicní tkáně u žen. U žen výskyt dlouhodobě roste — ženy začaly kouřit hromadně později než muži a nyní do diagnostické věkové skupiny vstupují silnější ročníky kuřaček.",
+        "code": "C34",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů (ženy)",
+        "relevant_for": ["onkologie", "kouření", "ženské zdraví", "životní prostředí"],
+        "trend_context": "Vývoj u žen jde opačným směrem než u mužů. Ženy začaly kouřit hromadně až ve druhé polovině 20. století a důsledky se v incidenci rakoviny plic projevují s typickým zpožděním 20-30 let. U mladších žen narůstá podíl nekuřáček.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C34",
+        "year_col": "rok_dg",
+        "sex_col": "pohlavi",
+        "sex_value": "2",
+    },
+    "kolorektum_muzi_incidence": {
+        "label": "Rakovina tlustého střeva a konečníku u mužů — incidence",
+        "human_name": "Rakovina tlustého střeva a konečníku u mužů",
+        "description": "Zhoubný nádor tlustého střeva a konečníku u mužů. Česká mužská populace patří dlouhodobě k nejvíce zatíženým na světě — kombinace stravy bohaté na červené maso, méně pohybu a vyšší konzumace alkoholu.",
+        "code": "C18–C20",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů (muži)",
+        "relevant_for": ["onkologie", "screening tlustého střeva", "mužské zdraví", "životní styl"],
+        "trend_context": "U mužů byl historicky výskyt podstatně vyšší než u žen. Plošný screening zavedený od roku 2000 přispěl k poklesu, ale česká mužská populace zůstává globálně nadprůměrně postižená.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": ["C18", "C19", "C20"],
+        "year_col": "rok_dg",
+        "sex_col": "pohlavi",
+        "sex_value": "1",
+    },
+    "kolorektum_zeny_incidence": {
+        "label": "Rakovina tlustého střeva a konečníku u žen — incidence",
+        "human_name": "Rakovina tlustého střeva a konečníku u žen",
+        "description": "Zhoubný nádor tlustého střeva a konečníku u žen. U žen je výskyt nižší než u mužů, ale rovněž česká ženská populace patří mezi nejvíce postižené v Evropě.",
+        "code": "C18–C20",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů (ženy)",
+        "relevant_for": ["onkologie", "screening tlustého střeva", "ženské zdraví", "životní styl"],
+        "trend_context": "Plošný screening (od 2000 testem na skryté krvácení do stolice, od 2009 kolonoskopií) přispívá k poklesu výskytu. Účast žen na screeningu je v Česku obecně vyšší než účast mužů.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": ["C18", "C19", "C20"],
+        "year_col": "rok_dg",
+        "sex_col": "pohlavi",
+        "sex_value": "2",
+    },
+    "zaludek_muzi_incidence": {
+        "label": "Rakovina žaludku u mužů — incidence",
+        "human_name": "Rakovina žaludku u mužů",
+        "description": "Zhoubný nádor žaludeční sliznice u mužů. U mužů je výskyt přibližně dvojnásobný oproti ženám — souvisí s vyšší konzumací alkoholu, kouřením a častější infekcí Helicobacter pylori.",
+        "code": "C16",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů (muži)",
+        "relevant_for": ["onkologie", "trávicí systém", "mužské zdraví", "životní styl"],
+        "trend_context": "Vývoj u mužů kopíruje celkový pokles rakoviny žaludku — lepší kvalita stravy, čistá pitná voda a léčba bakterie Helicobacter pylori.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C16",
+        "year_col": "rok_dg",
+        "sex_col": "pohlavi",
+        "sex_value": "1",
+    },
+    "zaludek_zeny_incidence": {
+        "label": "Rakovina žaludku u žen — incidence",
+        "human_name": "Rakovina žaludku u žen",
+        "description": "Zhoubný nádor žaludeční sliznice u žen. U žen je výskyt nižší než u mužů, dlouhodobě dál klesá s lepší kvalitou stravy a vodě.",
+        "code": "C16",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů (ženy)",
+        "relevant_for": ["onkologie", "trávicí systém", "ženské zdraví", "životní styl"],
+        "trend_context": "Vývoj u žen kopíruje celkový pokles rakoviny žaludku.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C16",
+        "year_col": "rok_dg",
+        "sex_col": "pohlavi",
+        "sex_value": "2",
+    },
+    "hrtan_muzi_incidence": {
+        "label": "Rakovina hrtanu u mužů — incidence",
+        "human_name": "Rakovina hrtanu u mužů",
+        "description": "Zhoubný nádor hrtanu u mužů. Drtivou většinu pacientů s rakovinou hrtanu tvoří muži — souvisí s historicky vyšší mírou kouření a konzumace alkoholu.",
+        "code": "C32",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů (muži)",
+        "relevant_for": ["onkologie", "kouření", "alkohol", "mužské zdraví"],
+        "trend_context": "Vývoj u mužů odráží dlouhodobý pokles kouření a konzumace alkoholu — patří k tichým úspěchům prevence.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C32",
+        "year_col": "rok_dg",
+        "sex_col": "pohlavi",
+        "sex_value": "1",
+    },
+    "hrtan_zeny_incidence": {
+        "label": "Rakovina hrtanu u žen — incidence",
+        "human_name": "Rakovina hrtanu u žen",
+        "description": "Zhoubný nádor hrtanu u žen. U žen je výskyt řádově nižší než u mužů, dlouhodobě se ale s rozšířením kouření mezi ženami pomalu zvyšuje.",
+        "code": "C32",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů (ženy)",
+        "relevant_for": ["onkologie", "kouření", "alkohol", "ženské zdraví"],
+        "trend_context": "Vývoj u žen odráží zpožděnou expanzi kouření v ženské populaci — podobně jako u rakoviny plic.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C32",
+        "year_col": "rok_dg",
+        "sex_col": "pohlavi",
+        "sex_value": "2",
+    },
+    "melanom_muzi_incidence": {
+        "label": "Zhoubný melanom kůže u mužů — incidence",
+        "human_name": "Zhoubný melanom kůže u mužů",
+        "description": "Zhoubný nádor pigmentových buněk kůže u mužů. U mužů se melanom typicky objevuje na trupu (zádech, hrudníku) — místech, která hůře vidí sami při samovyšetření.",
+        "code": "C43",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů (muži)",
+        "relevant_for": ["onkologie", "kůže", "ultrafialové záření", "mužské zdraví"],
+        "trend_context": "Vývoj u mužů odráží kumulativní expozici ultrafialovému záření a změny v chování (slunění, dovolené v teplých zemích). Muži obvykle chodí k preventivnímu vyšetření kůže méně často než ženy.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C43",
+        "year_col": "rok_dg",
+        "sex_col": "pohlavi",
+        "sex_value": "1",
+    },
+    "melanom_zeny_incidence": {
+        "label": "Zhoubný melanom kůže u žen — incidence",
+        "human_name": "Zhoubný melanom kůže u žen",
+        "description": "Zhoubný nádor pigmentových buněk kůže u žen. U žen se melanom typicky objevuje na dolních končetinách. Ženy chodí na preventivní kožní vyšetření častěji než muži.",
+        "code": "C43",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů (ženy)",
+        "relevant_for": ["onkologie", "kůže", "ultrafialové záření", "ženské zdraví"],
+        "trend_context": "U žen výskyt roste — souvisí s expozicí ultrafialovému záření, používáním solárií zejména v mladších věkových skupinách a životním stylem. Ženy se ke kožnímu lékaři dostávají častěji než muži.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C43",
+        "year_col": "rok_dg",
+        "sex_col": "pohlavi",
+        "sex_value": "2",
+    },
+    "mocovy_mechyr_muzi_incidence": {
+        "label": "Rakovina močového měchýře u mužů — incidence",
+        "human_name": "Rakovina močového měchýře u mužů",
+        "description": "Zhoubný nádor sliznice močového měchýře u mužů. U mužů je výskyt přibližně třikrát vyšší než u žen — odraz historicky vyšší míry kouření a častější profesionální expozice barvivům v průmyslu.",
+        "code": "C67",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů (muži)",
+        "relevant_for": ["onkologie", "močový systém", "kouření", "mužské zdraví"],
+        "trend_context": "Vývoj u mužů odráží dlouhodobé vzorce kouření a profesionální expozici v lakařských, gumárenských a textilních provozech.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C67",
+        "year_col": "rok_dg",
+        "sex_col": "pohlavi",
+        "sex_value": "1",
+    },
+    "mocovy_mechyr_zeny_incidence": {
+        "label": "Rakovina močového měchýře u žen — incidence",
+        "human_name": "Rakovina močového měchýře u žen",
+        "description": "Zhoubný nádor sliznice močového měchýře u žen. U žen je výskyt řádově nižší než u mužů, ale dlouhodobě se zvyšuje s rozšířením kouření v ženské populaci.",
+        "code": "C67",
+        "metric": "incidence_rocni",
+        "metric_label": "Roční počet nově diagnostikovaných případů (ženy)",
+        "relevant_for": ["onkologie", "močový systém", "kouření", "ženské zdraví"],
+        "trend_context": "Vývoj u žen odráží zpožděnou expanzi kouření v ženské populaci — podobně jako u rakoviny plic. U žen je nemoc často diagnostikována později kvůli záměně příznaků s močovou infekcí.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C67",
+        "year_col": "rok_dg",
+        "sex_col": "pohlavi",
+        "sex_value": "2",
+    },
     "zaludek_stadium_4_share": {
         "label": "Rakovina žaludku — záchyt ve 4. stadiu",
         "human_name": "Záchyt rakoviny žaludku ve 4. stadiu",
@@ -1842,8 +2048,11 @@ def count_cases_by_year_multi(
             )
 
         # Předem zkompilovat per-dataset state:
-        # (ds_id, prefixes_tuple, age_col_actual_or_None, age_codes_set_or_None)
-        per_ds: list[tuple[str, tuple, str | None, set[str] | None]] = []
+        # (ds_id, prefixes_tuple, age_col_actual_or_None, age_codes_set_or_None,
+        #  sex_col_actual_or_None, sex_value_or_None)
+        per_ds: list[
+            tuple[str, tuple, str | None, set[str] | None, str | None, str | None]
+        ] = []
         for ds_id, cfg in datasets:
             p = cfg["diagnosis_prefix"]
             prefixes = (p,) if isinstance(p, str) else tuple(p)
@@ -1861,7 +2070,22 @@ def count_cases_by_year_multi(
                 age_col_actual = None
                 age_codes = None
 
-            per_ds.append((ds_id, prefixes, age_col_actual, age_codes))
+            sex_col_name = cfg.get("sex_col")
+            if sex_col_name:
+                sex_col_actual = cols_lower.get(sex_col_name.lower())
+                if not sex_col_actual:
+                    raise ValueError(
+                        f"CSV neobsahuje sloupec '{sex_col_name}' "
+                        f"pro dataset {ds_id}"
+                    )
+                sex_value = str(cfg["sex_value"])
+            else:
+                sex_col_actual = None
+                sex_value = None
+
+            per_ds.append(
+                (ds_id, prefixes, age_col_actual, age_codes, sex_col_actual, sex_value)
+            )
 
         for row in reader:
             dx = (row.get(dx_col) or "").strip()
@@ -1874,12 +2098,16 @@ def count_cases_by_year_multi(
             if not (1950 <= year <= 2030):
                 continue
 
-            for ds_id, prefixes, age_col_actual, age_codes in per_ds:
+            for ds_id, prefixes, age_col_actual, age_codes, sex_col_actual, sex_value in per_ds:
                 if not dx.startswith(prefixes):
                     continue
                 if age_codes is not None:
                     age_val = (row.get(age_col_actual) or "").strip()
                     if age_val not in age_codes:
+                        continue
+                if sex_value is not None:
+                    row_sex = (row.get(sex_col_actual) or "").strip()
+                    if row_sex != sex_value:
                         continue
                 counts[ds_id][year] = counts[ds_id].get(year, 0) + 1
 
