@@ -1,0 +1,211 @@
+{
+  "id": "stitna_zlaza_stadium_1_share",
+  "label": "Rakovina štítné žlázy — záchyt v 1. stadiu",
+  "human_name": "Záchyt rakoviny štítné žlázy v 1. stadiu",
+  "description": "Procento pacientů s rakovinou štítné žlázy zachycenou v 1. stadiu. U štítné žlázy je drtivá většina nádorů zachycena v časném stadiu díky ultrazvuku.",
+  "code": "C73",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "stadium_1_share",
+  "metric_label": "Pacienti zachycení v 1. stadiu (%)",
+  "relevant_for": [
+    "onkologie",
+    "hormonální systém",
+    "časný záchyt",
+    "ultrazvukový záchyt"
+  ],
+  "trend_context": "Široké využití ultrazvuku posouvá záchyt do velmi časných stadií. U papilárního karcinomu (drtivá většina) je prognóza i u větších nádorů vynikající.",
+  "updated": "2026-05-20",
+  "data": [
+    {
+      "year": 1977,
+      "value": 33.3
+    },
+    {
+      "year": 1978,
+      "value": 32.5
+    },
+    {
+      "year": 1979,
+      "value": 33.3
+    },
+    {
+      "year": 1980,
+      "value": 41.1
+    },
+    {
+      "year": 1981,
+      "value": 35.8
+    },
+    {
+      "year": 1982,
+      "value": 21.1
+    },
+    {
+      "year": 1983,
+      "value": 29.5
+    },
+    {
+      "year": 1984,
+      "value": 29.1
+    },
+    {
+      "year": 1985,
+      "value": 30.8
+    },
+    {
+      "year": 1986,
+      "value": 36.3
+    },
+    {
+      "year": 1987,
+      "value": 35.0
+    },
+    {
+      "year": 1988,
+      "value": 31.0
+    },
+    {
+      "year": 1989,
+      "value": 30.0
+    },
+    {
+      "year": 1990,
+      "value": 22.9
+    },
+    {
+      "year": 1991,
+      "value": 28.6
+    },
+    {
+      "year": 1992,
+      "value": 27.1
+    },
+    {
+      "year": 1993,
+      "value": 26.6
+    },
+    {
+      "year": 1994,
+      "value": 31.0
+    },
+    {
+      "year": 1995,
+      "value": 38.3
+    },
+    {
+      "year": 1996,
+      "value": 41.1
+    },
+    {
+      "year": 1997,
+      "value": 40.0
+    },
+    {
+      "year": 1998,
+      "value": 38.5
+    },
+    {
+      "year": 1999,
+      "value": 41.0
+    },
+    {
+      "year": 2000,
+      "value": 42.1
+    },
+    {
+      "year": 2001,
+      "value": 46.9
+    },
+    {
+      "year": 2002,
+      "value": 44.4
+    },
+    {
+      "year": 2003,
+      "value": 49.2
+    },
+    {
+      "year": 2004,
+      "value": 52.2
+    },
+    {
+      "year": 2005,
+      "value": 65.7
+    },
+    {
+      "year": 2006,
+      "value": 63.2
+    },
+    {
+      "year": 2007,
+      "value": 66.3
+    },
+    {
+      "year": 2008,
+      "value": 72.5
+    },
+    {
+      "year": 2009,
+      "value": 71.5
+    },
+    {
+      "year": 2010,
+      "value": 70.4
+    },
+    {
+      "year": 2011,
+      "value": 69.4
+    },
+    {
+      "year": 2012,
+      "value": 72.8
+    },
+    {
+      "year": 2013,
+      "value": 72.3
+    },
+    {
+      "year": 2014,
+      "value": 76.9
+    },
+    {
+      "year": 2015,
+      "value": 77.3
+    },
+    {
+      "year": 2016,
+      "value": 79.8
+    },
+    {
+      "year": 2017,
+      "value": 75.9
+    },
+    {
+      "year": 2018,
+      "value": 75.0
+    },
+    {
+      "year": 2019,
+      "value": 84.0
+    },
+    {
+      "year": 2020,
+      "value": 80.7
+    },
+    {
+      "year": 2021,
+      "value": 79.0
+    },
+    {
+      "year": 2022,
+      "value": 82.8
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+  "coverage": "1977–2022",
+  "trend": "up",
+  "delta": 47.8,
+  "peakYear": 2019
+}
