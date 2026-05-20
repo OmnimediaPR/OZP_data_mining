@@ -528,6 +528,16 @@ export default function App() {
         { id: 'prostata_mortalita_kraje_2022', folder: 'nor' },
         { id: 'kolorektum_mortalita_kraje_2022', folder: 'nor' },
         { id: 'melanom_mortalita_kraje_2022', folder: 'nor' },
+        { id: 'prsa_kraje_2022', folder: 'nor' },
+        { id: 'plice_kraje_2022', folder: 'nor' },
+        { id: 'prostata_kraje_2022', folder: 'nor' },
+        { id: 'kolorektum_kraje_2022', folder: 'nor' },
+        { id: 'melanom_kraje_2022', folder: 'nor' },
+        { id: 'prsa_kraje_timeseries', folder: 'nor' },
+        { id: 'plice_kraje_timeseries', folder: 'nor' },
+        { id: 'prostata_kraje_timeseries', folder: 'nor' },
+        { id: 'kolorektum_kraje_timeseries', folder: 'nor' },
+        { id: 'melanom_kraje_timeseries', folder: 'nor' },
         { id: 'plice_muzi_mortalita', folder: 'nor' },
         { id: 'plice_zeny_mortalita', folder: 'nor' },
         { id: 'kolorektum_muzi_mortalita', folder: 'nor' },
@@ -703,8 +713,9 @@ export default function App() {
 
     let text = '';
     try {
-      const nationalDs = selectedDatasets.filter(d => d.source_type !== 'international' && d.source_type !== 'regional_snapshot');
+      const nationalDs = selectedDatasets.filter(d => !['international', 'regional_snapshot', 'regional_timeseries'].includes(d.source_type));
       const regionalDs = selectedDatasets.filter(d => d.source_type === 'regional_snapshot');
+      const regionalTSDs = selectedDatasets.filter(d => d.source_type === 'regional_timeseries');
       const intlDs = selectedDatasets.filter(d => d.source_type === 'international');
 
       const nationalSummary = nationalDs.map(d => {
@@ -716,6 +727,23 @@ export default function App() {
         const sorted = [...d.data].sort((a, b) => b.value - a.value);
         const breakdown = sorted.map(r => `${r.kraj_nazev}: ${r.value.toLocaleString('cs-CZ')}`).join('; ');
         return `- [id: ${d.id}] ${d.label} (MKN ${d.code}, rok ${d.snapshot_year}): ${breakdown}. Peak kraj: ${d.peakRegion}. Kontext: ${d.trend_context || ''}`;
+      }).join('\n');
+
+      const regionalTSSummary = regionalTSDs.map(d => {
+        // Pro každý kraj spočítat průběh (první a poslední rok).
+        const years = [...new Set(d.data.map(r => r.year))].sort((a, b) => a - b);
+        const firstYr = years[0], lastYr = years[years.length - 1];
+        const krajeMap = new Map();
+        for (const r of d.data) {
+          if (!krajeMap.has(r.kraj_kod)) krajeMap.set(r.kraj_kod, { kraj: r.kraj_nazev, first: null, last: null });
+          if (r.year === firstYr) krajeMap.get(r.kraj_kod).first = r.value;
+          if (r.year === lastYr) krajeMap.get(r.kraj_kod).last = r.value;
+        }
+        const breakdown = [...krajeMap.values()]
+          .sort((a, b) => b.last - a.last)
+          .map(k => `${k.kraj}: ${k.first}→${k.last} (Δ ${k.first ? Math.round((k.last - k.first) / k.first * 100) : 0}%)`)
+          .join('; ');
+        return `- [id: ${d.id}] ${d.label} (MKN ${d.code}, ${firstYr}-${lastYr} per kraj): ${breakdown}. Kontext: ${d.trend_context || ''}`;
       }).join('\n');
 
       const intlSummary = intlDs.map(d => {
@@ -733,6 +761,9 @@ ${nationalSummary || '(žádná národní data nevybrána)'}
 
 ${regionalSummary ? `KRAJOVÝ POHLED (snapshot ČR):
 ${regionalSummary}
+
+` : ''}${regionalTSSummary ? `KRAJOVÝ VÝVOJ V ČASE (multi-year per kraj):
+${regionalTSSummary}
 
 ` : ''}${intlSummary ? `MEZINÁRODNÍ SROVNÁVACÍ DATA:
 ${intlSummary}
@@ -1169,9 +1200,11 @@ function SectionHeader({ number, title, subtitle }) {
 function DatasetCard({ d, selected, onToggle }) {
   const isInternational = d.source_type === 'international';
   const isRegional = d.source_type === 'regional_snapshot';
-  const peakVal = !isRegional && d.peakYear ? d.data.find(x => x.year === d.peakYear)?.value : null;
-  const first = !isRegional ? d.data?.[0] : null;
-  const last = !isRegional ? d.data?.[d.data.length - 1] : null;
+  const isRegionalTS = d.source_type === 'regional_timeseries';
+  const isStandardSeries = !isRegional && !isRegionalTS;
+  const peakVal = isStandardSeries && d.peakYear ? d.data.find(x => x.year === d.peakYear)?.value : null;
+  const first = isStandardSeries ? d.data?.[0] : null;
+  const last = isStandardSeries ? d.data?.[d.data.length - 1] : null;
   const trendColor = d.trend === 'up' ? '#1F6F47' : d.trend === 'down' ? '#9A2A1F' : '#7A6F2A';
   const trendWord = d.trend === 'up' ? 'Růst' : d.trend === 'down' ? 'Pokles' : 'Změna';
   const fmtNum = (n) => n.toLocaleString('cs-CZ');
@@ -1234,8 +1267,18 @@ function DatasetCard({ d, selected, onToggle }) {
         </div>
       )}
 
+      {/* 5c. Pro regional_timeseries: heatmap (roky × kraje) */}
+      {isRegionalTS && d.data?.length > 0 && (
+        <div style={{ margin: '4px 0 8px' }}>
+          <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#888', marginBottom: 8 }}>
+            {d.metric_label || `Vývoj per kraj (${d.coverage})`}
+          </div>
+          <RegionalHeatmap data={d.data} />
+        </div>
+      )}
+
       {/* 5b. Pro národní časové řady: metric line + delta line + graf */}
-      {!isInternational && !isRegional && first && last && (
+      {!isInternational && !isRegional && !isRegionalTS && first && last && (
         <>
           {d.metric_label && (
             <div style={{ fontSize: 13, color: '#1A1A1A', marginBottom: 4 }}>
@@ -1378,6 +1421,58 @@ function RegionalMap({ data, peakRegion }) {
           </div>
         );
       })}
+    </div>
+  );
+}
+
+function RegionalHeatmap({ data }) {
+  // data je list [{year, kraj_kod, kraj_nazev, value}].
+  // Vykreslíme jako matrix: řádky = kraje, sloupce = roky, intenzita = value.
+  const years = [...new Set(data.map(r => r.year))].sort((a, b) => a - b);
+  const krajeMap = new Map();
+  for (const r of data) {
+    if (!krajeMap.has(r.kraj_kod)) krajeMap.set(r.kraj_kod, { kraj_kod: r.kraj_kod, kraj_nazev: r.kraj_nazev, total: 0 });
+    krajeMap.get(r.kraj_kod).total += r.value;
+  }
+  const kraje = [...krajeMap.values()].sort((a, b) => b.total - a.total);
+  const lookup = {};
+  for (const r of data) lookup[`${r.kraj_kod}_${r.year}`] = r.value;
+  const allValues = data.map(r => r.value);
+  const maxVal = Math.max(...allValues);
+
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: `100px repeat(${years.length}, 1fr)`, gap: 1, fontSize: 9 }}>
+      <div></div>
+      {years.map(y => <div key={y} style={{ textAlign: 'center', fontWeight: 600, color: '#666' }}>{y}</div>)}
+      {kraje.map(k => (
+        <React.Fragment key={k.kraj_kod}>
+          <div style={{ paddingRight: 4, color: '#444', textAlign: 'right', alignSelf: 'center' }}>
+            {k.kraj_nazev.length > 12 ? k.kraj_nazev.slice(0, 11) + '.' : k.kraj_nazev}
+          </div>
+          {years.map(y => {
+            const val = lookup[`${k.kraj_kod}_${y}`] || 0;
+            const intensity = maxVal > 0 ? val / maxVal : 0;
+            return (
+              <div
+                key={y}
+                title={`${k.kraj_nazev}, ${y}: ${val.toLocaleString('cs-CZ')}`}
+                style={{
+                  background: `rgba(31, 78, 140, ${0.1 + intensity * 0.85})`,
+                  height: 22,
+                  color: intensity > 0.5 ? '#FFF' : '#444',
+                  fontSize: 9,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: 600,
+                }}
+              >
+                {val.toLocaleString('cs-CZ')}
+              </div>
+            );
+          })}
+        </React.Fragment>
+      ))}
     </div>
   );
 }

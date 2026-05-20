@@ -970,6 +970,97 @@ DATASETS = {
         "diagnosis_prefix": ["C84", "C86"],
         "year_col": "rok_dg",
     },
+    # === NOR 1770 — Krajové časové řady (multi-year per kraj) ===
+    "prsa_kraje_timeseries": {
+        "label": "Rakovina prsu — krajové časové řady 2013–2022",
+        "human_name": "Rakovina prsu — krajový vývoj 2013–2022",
+        "description": "Vývoj počtu nově diagnostikovaných případů rakoviny prsu v jednotlivých krajích za poslední dekádu. Umožňuje sledovat regionální rozdíly v čase a identifikovat kraje s nejrychlejším růstem nebo poklesem.",
+        "code": "C50",
+        "metric": "incidence_kraje_timeseries",
+        "metric_label": "Roční počet nově diagnostikovaných případů per kraj",
+        "relevant_for": ["onkologie", "ženské zdraví", "regionální nerovnosti", "vývoj v čase"],
+        "trend_context": "Krajové časové řady ukazují, jak se vývoj liší mezi regiony — v některých krajích roste incidence rychleji (často kvůli stárnutí populace), v jiných pomaleji.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "regional_timeseries",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C50",
+        "year_col": "rok_dg",
+        "region_col": "kraj_kod",
+        "year_range": [2013, 2022],
+    },
+    "plice_kraje_timeseries": {
+        "label": "Rakovina plic — krajové časové řady 2013–2022",
+        "human_name": "Rakovina plic — krajový vývoj 2013–2022",
+        "description": "Vývoj počtu nově diagnostikovaných případů rakoviny plic v jednotlivých krajích za poslední dekádu.",
+        "code": "C34",
+        "metric": "incidence_kraje_timeseries",
+        "metric_label": "Roční počet nově diagnostikovaných případů per kraj",
+        "relevant_for": ["onkologie", "kouření", "regionální nerovnosti", "vývoj v čase"],
+        "trend_context": "Krajové časové řady umožňují sledovat, jak se daří snižovat výskyt rakoviny plic v jednotlivých regionech. Severozápadní Čechy a Moravskoslezský kraj jsou tradičně nejvíce zatížené.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "regional_timeseries",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C34",
+        "year_col": "rok_dg",
+        "region_col": "kraj_kod",
+        "year_range": [2013, 2022],
+    },
+    "prostata_kraje_timeseries": {
+        "label": "Rakovina prostaty — krajové časové řady 2013–2022",
+        "human_name": "Rakovina prostaty — krajový vývoj 2013–2022",
+        "description": "Vývoj počtu nově diagnostikovaných případů rakoviny prostaty v jednotlivých krajích za poslední dekádu.",
+        "code": "C61",
+        "metric": "incidence_kraje_timeseries",
+        "metric_label": "Roční počet nově diagnostikovaných případů per kraj",
+        "relevant_for": ["onkologie", "mužské zdraví", "regionální nerovnosti", "vývoj v čase"],
+        "trend_context": "Krajové časové řady odrážejí dostupnost vyšetření krve na prostatický specifický antigen a věkovou strukturu mužské populace v jednotlivých regionech.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "regional_timeseries",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C61",
+        "year_col": "rok_dg",
+        "region_col": "kraj_kod",
+        "year_range": [2013, 2022],
+    },
+    "kolorektum_kraje_timeseries": {
+        "label": "Rakovina tlustého střeva a konečníku — krajové časové řady 2013–2022",
+        "human_name": "Rakovina tlustého střeva a konečníku — krajový vývoj 2013–2022",
+        "description": "Vývoj počtu nově diagnostikovaných případů rakoviny tlustého střeva a konečníku v jednotlivých krajích za poslední dekádu.",
+        "code": "C18–C20",
+        "metric": "incidence_kraje_timeseries",
+        "metric_label": "Roční počet nově diagnostikovaných případů per kraj",
+        "relevant_for": ["onkologie", "screening tlustého střeva", "regionální nerovnosti", "vývoj v čase"],
+        "trend_context": "Krajové časové řady ukazují, jak se daří screeningu v jednotlivých regionech. Účast na screeningu se mezi kraji výrazně liší.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "regional_timeseries",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": ["C18", "C19", "C20"],
+        "year_col": "rok_dg",
+        "region_col": "kraj_kod",
+        "year_range": [2013, 2022],
+    },
+    "melanom_kraje_timeseries": {
+        "label": "Zhoubný melanom kůže — krajové časové řady 2013–2022",
+        "human_name": "Zhoubný melanom kůže — krajový vývoj 2013–2022",
+        "description": "Vývoj počtu nově diagnostikovaných případů zhoubného melanomu kůže v jednotlivých krajích za poslední dekádu.",
+        "code": "C43",
+        "metric": "incidence_kraje_timeseries",
+        "metric_label": "Roční počet nově diagnostikovaných případů per kraj",
+        "relevant_for": ["onkologie", "kůže", "regionální nerovnosti", "vývoj v čase"],
+        "trend_context": "Krajové časové řady odrážejí osvětu o nebezpečí ultrafialového záření, dostupnost preventivních prohlídek u kožního lékaře a životní styl populace v jednotlivých regionech.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+        "aggregation": "regional_timeseries",
+        "diagnosis_col": "diagnoza_kod",
+        "diagnosis_prefix": "C43",
+        "year_col": "rok_dg",
+        "region_col": "kraj_kod",
+        "year_range": [2013, 2022],
+    },
     # === NOR 1770 — Krajový snapshot incidence pro 2022 ===
     "prsa_kraje_2022": {
         "label": "Rakovina prsu — krajový pohled 2022",
@@ -3862,6 +3953,82 @@ def compute_regional_snapshot_multi(
     }
 
 
+def compute_regional_timeseries_multi(
+    csv_path: Path, datasets: list[tuple[str, dict]]
+) -> dict[str, list]:
+    """Časová řada per kraj — multi-year × multi-region.
+
+    Per dataset filtruje na `diagnosis_prefix` a group by (year, region).
+    Vrací list `[{year, kraj_kod, kraj_nazev, value}]` — long format.
+    """
+    if not datasets:
+        return {}
+
+    KRAJE = {
+        "CZ010": "Hlavní město Praha", "CZ020": "Středočeský",
+        "CZ031": "Jihočeský", "CZ032": "Plzeňský",
+        "CZ041": "Karlovarský", "CZ042": "Ústecký",
+        "CZ051": "Liberecký", "CZ052": "Královéhradecký",
+        "CZ053": "Pardubický", "CZ063": "Vysočina",
+        "CZ064": "Jihomoravský", "CZ071": "Olomoucký",
+        "CZ072": "Zlínský", "CZ080": "Moravskoslezský",
+    }
+
+    dx_cols = {cfg["diagnosis_col"] for _, cfg in datasets}
+    yr_cols = {cfg["year_col"] for _, cfg in datasets}
+    region_cols = {cfg["region_col"] for _, cfg in datasets}
+    if len(dx_cols) > 1 or len(yr_cols) > 1 or len(region_cols) > 1:
+        raise ValueError("Datasety regional_timeseries musí mít stejné sloupce")
+    diagnosis_col = next(iter(dx_cols))
+    year_col = next(iter(yr_cols))
+    region_col = next(iter(region_cols))
+
+    # year_range — filtrovat na poslední N let pro stručnost (default 10).
+    year_range = datasets[0][1].get("year_range")  # např. [2013, 2022]
+
+    counts: dict[str, dict[tuple[int, str], int]] = {ds_id: {} for ds_id, _ in datasets}
+
+    with csv_path.open(encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f)
+        cols_lower = {c.lower(): c for c in reader.fieldnames}
+        dx_col = cols_lower.get(diagnosis_col.lower())
+        yr_col = cols_lower.get(year_col.lower())
+        rg_col = cols_lower.get(region_col.lower())
+
+        per_ds = []
+        for ds_id, cfg in datasets:
+            p = cfg["diagnosis_prefix"]
+            prefixes = (p,) if isinstance(p, str) else tuple(p)
+            per_ds.append((ds_id, prefixes))
+
+        for row in reader:
+            try:
+                year = int(row[yr_col])
+            except (ValueError, TypeError):
+                continue
+            if year_range and not (year_range[0] <= year <= year_range[1]):
+                continue
+            dx = (row.get(dx_col) or "").strip()
+            if not dx:
+                continue
+            region = (row.get(rg_col) or "").strip()
+            if region not in KRAJE:
+                continue
+
+            for ds_id, prefixes in per_ds:
+                if dx.startswith(prefixes):
+                    key = (year, region)
+                    counts[ds_id][key] = counts[ds_id].get(key, 0) + 1
+
+    return {
+        ds_id: [
+            {"year": y, "kraj_kod": k, "kraj_nazev": KRAJE[k], "value": counts[ds_id][(y, k)]}
+            for y, k in sorted(counts[ds_id].keys())
+        ]
+        for ds_id, _ in datasets
+    }
+
+
 def compute_stage_share_by_year_multi(
     csv_path: Path, datasets: list[tuple[str, dict]]
 ) -> dict[str, list]:
@@ -4049,6 +4216,14 @@ def write_dataset_json(dataset_id: str, cfg: dict, series: list) -> str:
         out["delta"] = 0
         out["peakRegion"] = peak["kraj_nazev"]
         log_msg = f"snapshot {target_year}, peak {peak['kraj_nazev']} ({peak['value']})"
+    elif aggregation == "regional_timeseries":
+        # Long-format multi-year × multi-region; data je [{year, kraj_kod, kraj_nazev, value}].
+        years = sorted({r["year"] for r in series})
+        out["source_type"] = "regional_timeseries"
+        out["coverage"] = f"{years[0]}–{years[-1]}" if years else ""
+        out["trend"] = "regional"
+        out["delta"] = 0
+        log_msg = f"{len(years)} let × {len({r['kraj_kod'] for r in series})} krajů ({len(series)} rows)"
     else:
         meta = compute_meta(series, cfg)
         out["coverage"] = f"{series[0]['year']}–{series[-1]['year']}"
@@ -4106,6 +4281,8 @@ def sync_group(url: str, datasets: list[tuple[str, dict]]) -> dict[str, str]:
                 series = compute_stage_share_by_year_multi(csv_path, ds_subset)
             elif agg == "regional_snapshot":
                 series = compute_regional_snapshot_multi(csv_path, ds_subset)
+            elif agg == "regional_timeseries":
+                series = compute_regional_timeseries_multi(csv_path, ds_subset)
             else:
                 series = count_cases_by_year_multi(csv_path, ds_subset)
             all_series.update(series)

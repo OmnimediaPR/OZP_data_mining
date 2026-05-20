@@ -1,0 +1,866 @@
+{
+  "id": "kolorektum_kraje_timeseries",
+  "label": "Rakovina tlustého střeva a konečníku — krajové časové řady 2013–2022",
+  "human_name": "Rakovina tlustého střeva a konečníku — krajový vývoj 2013–2022",
+  "description": "Vývoj počtu nově diagnostikovaných případů rakoviny tlustého střeva a konečníku v jednotlivých krajích za poslední dekádu.",
+  "code": "C18–C20",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "regional_timeseries",
+  "metric": "incidence_kraje_timeseries",
+  "metric_label": "Roční počet nově diagnostikovaných případů per kraj",
+  "relevant_for": [
+    "onkologie",
+    "screening tlustého střeva",
+    "regionální nerovnosti",
+    "vývoj v čase"
+  ],
+  "trend_context": "Krajové časové řady ukazují, jak se daří screeningu v jednotlivých regionech. Účast na screeningu se mezi kraji výrazně liší.",
+  "updated": "2026-05-20",
+  "data": [
+    {
+      "year": 2013,
+      "kraj_kod": "CZ010",
+      "kraj_nazev": "Hlavní město Praha",
+      "value": 901
+    },
+    {
+      "year": 2013,
+      "kraj_kod": "CZ020",
+      "kraj_nazev": "Středočeský",
+      "value": 890
+    },
+    {
+      "year": 2013,
+      "kraj_kod": "CZ031",
+      "kraj_nazev": "Jihočeský",
+      "value": 544
+    },
+    {
+      "year": 2013,
+      "kraj_kod": "CZ032",
+      "kraj_nazev": "Plzeňský",
+      "value": 497
+    },
+    {
+      "year": 2013,
+      "kraj_kod": "CZ041",
+      "kraj_nazev": "Karlovarský",
+      "value": 240
+    },
+    {
+      "year": 2013,
+      "kraj_kod": "CZ042",
+      "kraj_nazev": "Ústecký",
+      "value": 639
+    },
+    {
+      "year": 2013,
+      "kraj_kod": "CZ051",
+      "kraj_nazev": "Liberecký",
+      "value": 335
+    },
+    {
+      "year": 2013,
+      "kraj_kod": "CZ052",
+      "kraj_nazev": "Královéhradecký",
+      "value": 419
+    },
+    {
+      "year": 2013,
+      "kraj_kod": "CZ053",
+      "kraj_nazev": "Pardubický",
+      "value": 345
+    },
+    {
+      "year": 2013,
+      "kraj_kod": "CZ063",
+      "kraj_nazev": "Vysočina",
+      "value": 384
+    },
+    {
+      "year": 2013,
+      "kraj_kod": "CZ064",
+      "kraj_nazev": "Jihomoravský",
+      "value": 880
+    },
+    {
+      "year": 2013,
+      "kraj_kod": "CZ071",
+      "kraj_nazev": "Olomoucký",
+      "value": 483
+    },
+    {
+      "year": 2013,
+      "kraj_kod": "CZ072",
+      "kraj_nazev": "Zlínský",
+      "value": 475
+    },
+    {
+      "year": 2013,
+      "kraj_kod": "CZ080",
+      "kraj_nazev": "Moravskoslezský",
+      "value": 1033
+    },
+    {
+      "year": 2014,
+      "kraj_kod": "CZ010",
+      "kraj_nazev": "Hlavní město Praha",
+      "value": 896
+    },
+    {
+      "year": 2014,
+      "kraj_kod": "CZ020",
+      "kraj_nazev": "Středočeský",
+      "value": 920
+    },
+    {
+      "year": 2014,
+      "kraj_kod": "CZ031",
+      "kraj_nazev": "Jihočeský",
+      "value": 523
+    },
+    {
+      "year": 2014,
+      "kraj_kod": "CZ032",
+      "kraj_nazev": "Plzeňský",
+      "value": 556
+    },
+    {
+      "year": 2014,
+      "kraj_kod": "CZ041",
+      "kraj_nazev": "Karlovarský",
+      "value": 265
+    },
+    {
+      "year": 2014,
+      "kraj_kod": "CZ042",
+      "kraj_nazev": "Ústecký",
+      "value": 639
+    },
+    {
+      "year": 2014,
+      "kraj_kod": "CZ051",
+      "kraj_nazev": "Liberecký",
+      "value": 373
+    },
+    {
+      "year": 2014,
+      "kraj_kod": "CZ052",
+      "kraj_nazev": "Královéhradecký",
+      "value": 457
+    },
+    {
+      "year": 2014,
+      "kraj_kod": "CZ053",
+      "kraj_nazev": "Pardubický",
+      "value": 377
+    },
+    {
+      "year": 2014,
+      "kraj_kod": "CZ063",
+      "kraj_nazev": "Vysočina",
+      "value": 417
+    },
+    {
+      "year": 2014,
+      "kraj_kod": "CZ064",
+      "kraj_nazev": "Jihomoravský",
+      "value": 884
+    },
+    {
+      "year": 2014,
+      "kraj_kod": "CZ071",
+      "kraj_nazev": "Olomoucký",
+      "value": 532
+    },
+    {
+      "year": 2014,
+      "kraj_kod": "CZ072",
+      "kraj_nazev": "Zlínský",
+      "value": 467
+    },
+    {
+      "year": 2014,
+      "kraj_kod": "CZ080",
+      "kraj_nazev": "Moravskoslezský",
+      "value": 1047
+    },
+    {
+      "year": 2015,
+      "kraj_kod": "CZ010",
+      "kraj_nazev": "Hlavní město Praha",
+      "value": 816
+    },
+    {
+      "year": 2015,
+      "kraj_kod": "CZ020",
+      "kraj_nazev": "Středočeský",
+      "value": 823
+    },
+    {
+      "year": 2015,
+      "kraj_kod": "CZ031",
+      "kraj_nazev": "Jihočeský",
+      "value": 521
+    },
+    {
+      "year": 2015,
+      "kraj_kod": "CZ032",
+      "kraj_nazev": "Plzeňský",
+      "value": 481
+    },
+    {
+      "year": 2015,
+      "kraj_kod": "CZ041",
+      "kraj_nazev": "Karlovarský",
+      "value": 257
+    },
+    {
+      "year": 2015,
+      "kraj_kod": "CZ042",
+      "kraj_nazev": "Ústecký",
+      "value": 656
+    },
+    {
+      "year": 2015,
+      "kraj_kod": "CZ051",
+      "kraj_nazev": "Liberecký",
+      "value": 334
+    },
+    {
+      "year": 2015,
+      "kraj_kod": "CZ052",
+      "kraj_nazev": "Královéhradecký",
+      "value": 414
+    },
+    {
+      "year": 2015,
+      "kraj_kod": "CZ053",
+      "kraj_nazev": "Pardubický",
+      "value": 369
+    },
+    {
+      "year": 2015,
+      "kraj_kod": "CZ063",
+      "kraj_nazev": "Vysočina",
+      "value": 397
+    },
+    {
+      "year": 2015,
+      "kraj_kod": "CZ064",
+      "kraj_nazev": "Jihomoravský",
+      "value": 920
+    },
+    {
+      "year": 2015,
+      "kraj_kod": "CZ071",
+      "kraj_nazev": "Olomoucký",
+      "value": 535
+    },
+    {
+      "year": 2015,
+      "kraj_kod": "CZ072",
+      "kraj_nazev": "Zlínský",
+      "value": 493
+    },
+    {
+      "year": 2015,
+      "kraj_kod": "CZ080",
+      "kraj_nazev": "Moravskoslezský",
+      "value": 983
+    },
+    {
+      "year": 2016,
+      "kraj_kod": "CZ010",
+      "kraj_nazev": "Hlavní město Praha",
+      "value": 831
+    },
+    {
+      "year": 2016,
+      "kraj_kod": "CZ020",
+      "kraj_nazev": "Středočeský",
+      "value": 867
+    },
+    {
+      "year": 2016,
+      "kraj_kod": "CZ031",
+      "kraj_nazev": "Jihočeský",
+      "value": 466
+    },
+    {
+      "year": 2016,
+      "kraj_kod": "CZ032",
+      "kraj_nazev": "Plzeňský",
+      "value": 471
+    },
+    {
+      "year": 2016,
+      "kraj_kod": "CZ041",
+      "kraj_nazev": "Karlovarský",
+      "value": 246
+    },
+    {
+      "year": 2016,
+      "kraj_kod": "CZ042",
+      "kraj_nazev": "Ústecký",
+      "value": 616
+    },
+    {
+      "year": 2016,
+      "kraj_kod": "CZ051",
+      "kraj_nazev": "Liberecký",
+      "value": 353
+    },
+    {
+      "year": 2016,
+      "kraj_kod": "CZ052",
+      "kraj_nazev": "Královéhradecký",
+      "value": 395
+    },
+    {
+      "year": 2016,
+      "kraj_kod": "CZ053",
+      "kraj_nazev": "Pardubický",
+      "value": 348
+    },
+    {
+      "year": 2016,
+      "kraj_kod": "CZ063",
+      "kraj_nazev": "Vysočina",
+      "value": 372
+    },
+    {
+      "year": 2016,
+      "kraj_kod": "CZ064",
+      "kraj_nazev": "Jihomoravský",
+      "value": 922
+    },
+    {
+      "year": 2016,
+      "kraj_kod": "CZ071",
+      "kraj_nazev": "Olomoucký",
+      "value": 474
+    },
+    {
+      "year": 2016,
+      "kraj_kod": "CZ072",
+      "kraj_nazev": "Zlínský",
+      "value": 423
+    },
+    {
+      "year": 2016,
+      "kraj_kod": "CZ080",
+      "kraj_nazev": "Moravskoslezský",
+      "value": 940
+    },
+    {
+      "year": 2017,
+      "kraj_kod": "CZ010",
+      "kraj_nazev": "Hlavní město Praha",
+      "value": 727
+    },
+    {
+      "year": 2017,
+      "kraj_kod": "CZ020",
+      "kraj_nazev": "Středočeský",
+      "value": 776
+    },
+    {
+      "year": 2017,
+      "kraj_kod": "CZ031",
+      "kraj_nazev": "Jihočeský",
+      "value": 425
+    },
+    {
+      "year": 2017,
+      "kraj_kod": "CZ032",
+      "kraj_nazev": "Plzeňský",
+      "value": 448
+    },
+    {
+      "year": 2017,
+      "kraj_kod": "CZ041",
+      "kraj_nazev": "Karlovarský",
+      "value": 208
+    },
+    {
+      "year": 2017,
+      "kraj_kod": "CZ042",
+      "kraj_nazev": "Ústecký",
+      "value": 586
+    },
+    {
+      "year": 2017,
+      "kraj_kod": "CZ051",
+      "kraj_nazev": "Liberecký",
+      "value": 346
+    },
+    {
+      "year": 2017,
+      "kraj_kod": "CZ052",
+      "kraj_nazev": "Královéhradecký",
+      "value": 452
+    },
+    {
+      "year": 2017,
+      "kraj_kod": "CZ053",
+      "kraj_nazev": "Pardubický",
+      "value": 337
+    },
+    {
+      "year": 2017,
+      "kraj_kod": "CZ063",
+      "kraj_nazev": "Vysočina",
+      "value": 352
+    },
+    {
+      "year": 2017,
+      "kraj_kod": "CZ064",
+      "kraj_nazev": "Jihomoravský",
+      "value": 853
+    },
+    {
+      "year": 2017,
+      "kraj_kod": "CZ071",
+      "kraj_nazev": "Olomoucký",
+      "value": 472
+    },
+    {
+      "year": 2017,
+      "kraj_kod": "CZ072",
+      "kraj_nazev": "Zlínský",
+      "value": 466
+    },
+    {
+      "year": 2017,
+      "kraj_kod": "CZ080",
+      "kraj_nazev": "Moravskoslezský",
+      "value": 968
+    },
+    {
+      "year": 2018,
+      "kraj_kod": "CZ010",
+      "kraj_nazev": "Hlavní město Praha",
+      "value": 782
+    },
+    {
+      "year": 2018,
+      "kraj_kod": "CZ020",
+      "kraj_nazev": "Středočeský",
+      "value": 744
+    },
+    {
+      "year": 2018,
+      "kraj_kod": "CZ031",
+      "kraj_nazev": "Jihočeský",
+      "value": 459
+    },
+    {
+      "year": 2018,
+      "kraj_kod": "CZ032",
+      "kraj_nazev": "Plzeňský",
+      "value": 453
+    },
+    {
+      "year": 2018,
+      "kraj_kod": "CZ041",
+      "kraj_nazev": "Karlovarský",
+      "value": 244
+    },
+    {
+      "year": 2018,
+      "kraj_kod": "CZ042",
+      "kraj_nazev": "Ústecký",
+      "value": 581
+    },
+    {
+      "year": 2018,
+      "kraj_kod": "CZ051",
+      "kraj_nazev": "Liberecký",
+      "value": 338
+    },
+    {
+      "year": 2018,
+      "kraj_kod": "CZ052",
+      "kraj_nazev": "Královéhradecký",
+      "value": 348
+    },
+    {
+      "year": 2018,
+      "kraj_kod": "CZ053",
+      "kraj_nazev": "Pardubický",
+      "value": 353
+    },
+    {
+      "year": 2018,
+      "kraj_kod": "CZ063",
+      "kraj_nazev": "Vysočina",
+      "value": 359
+    },
+    {
+      "year": 2018,
+      "kraj_kod": "CZ064",
+      "kraj_nazev": "Jihomoravský",
+      "value": 795
+    },
+    {
+      "year": 2018,
+      "kraj_kod": "CZ071",
+      "kraj_nazev": "Olomoucký",
+      "value": 434
+    },
+    {
+      "year": 2018,
+      "kraj_kod": "CZ072",
+      "kraj_nazev": "Zlínský",
+      "value": 481
+    },
+    {
+      "year": 2018,
+      "kraj_kod": "CZ080",
+      "kraj_nazev": "Moravskoslezský",
+      "value": 937
+    },
+    {
+      "year": 2019,
+      "kraj_kod": "CZ010",
+      "kraj_nazev": "Hlavní město Praha",
+      "value": 863
+    },
+    {
+      "year": 2019,
+      "kraj_kod": "CZ020",
+      "kraj_nazev": "Středočeský",
+      "value": 779
+    },
+    {
+      "year": 2019,
+      "kraj_kod": "CZ031",
+      "kraj_nazev": "Jihočeský",
+      "value": 463
+    },
+    {
+      "year": 2019,
+      "kraj_kod": "CZ032",
+      "kraj_nazev": "Plzeňský",
+      "value": 369
+    },
+    {
+      "year": 2019,
+      "kraj_kod": "CZ041",
+      "kraj_nazev": "Karlovarský",
+      "value": 231
+    },
+    {
+      "year": 2019,
+      "kraj_kod": "CZ042",
+      "kraj_nazev": "Ústecký",
+      "value": 570
+    },
+    {
+      "year": 2019,
+      "kraj_kod": "CZ051",
+      "kraj_nazev": "Liberecký",
+      "value": 280
+    },
+    {
+      "year": 2019,
+      "kraj_kod": "CZ052",
+      "kraj_nazev": "Královéhradecký",
+      "value": 423
+    },
+    {
+      "year": 2019,
+      "kraj_kod": "CZ053",
+      "kraj_nazev": "Pardubický",
+      "value": 327
+    },
+    {
+      "year": 2019,
+      "kraj_kod": "CZ063",
+      "kraj_nazev": "Vysočina",
+      "value": 373
+    },
+    {
+      "year": 2019,
+      "kraj_kod": "CZ064",
+      "kraj_nazev": "Jihomoravský",
+      "value": 789
+    },
+    {
+      "year": 2019,
+      "kraj_kod": "CZ071",
+      "kraj_nazev": "Olomoucký",
+      "value": 434
+    },
+    {
+      "year": 2019,
+      "kraj_kod": "CZ072",
+      "kraj_nazev": "Zlínský",
+      "value": 487
+    },
+    {
+      "year": 2019,
+      "kraj_kod": "CZ080",
+      "kraj_nazev": "Moravskoslezský",
+      "value": 994
+    },
+    {
+      "year": 2020,
+      "kraj_kod": "CZ010",
+      "kraj_nazev": "Hlavní město Praha",
+      "value": 701
+    },
+    {
+      "year": 2020,
+      "kraj_kod": "CZ020",
+      "kraj_nazev": "Středočeský",
+      "value": 817
+    },
+    {
+      "year": 2020,
+      "kraj_kod": "CZ031",
+      "kraj_nazev": "Jihočeský",
+      "value": 475
+    },
+    {
+      "year": 2020,
+      "kraj_kod": "CZ032",
+      "kraj_nazev": "Plzeňský",
+      "value": 363
+    },
+    {
+      "year": 2020,
+      "kraj_kod": "CZ041",
+      "kraj_nazev": "Karlovarský",
+      "value": 216
+    },
+    {
+      "year": 2020,
+      "kraj_kod": "CZ042",
+      "kraj_nazev": "Ústecký",
+      "value": 524
+    },
+    {
+      "year": 2020,
+      "kraj_kod": "CZ051",
+      "kraj_nazev": "Liberecký",
+      "value": 251
+    },
+    {
+      "year": 2020,
+      "kraj_kod": "CZ052",
+      "kraj_nazev": "Královéhradecký",
+      "value": 395
+    },
+    {
+      "year": 2020,
+      "kraj_kod": "CZ053",
+      "kraj_nazev": "Pardubický",
+      "value": 332
+    },
+    {
+      "year": 2020,
+      "kraj_kod": "CZ063",
+      "kraj_nazev": "Vysočina",
+      "value": 363
+    },
+    {
+      "year": 2020,
+      "kraj_kod": "CZ064",
+      "kraj_nazev": "Jihomoravský",
+      "value": 754
+    },
+    {
+      "year": 2020,
+      "kraj_kod": "CZ071",
+      "kraj_nazev": "Olomoucký",
+      "value": 410
+    },
+    {
+      "year": 2020,
+      "kraj_kod": "CZ072",
+      "kraj_nazev": "Zlínský",
+      "value": 446
+    },
+    {
+      "year": 2020,
+      "kraj_kod": "CZ080",
+      "kraj_nazev": "Moravskoslezský",
+      "value": 951
+    },
+    {
+      "year": 2021,
+      "kraj_kod": "CZ010",
+      "kraj_nazev": "Hlavní město Praha",
+      "value": 683
+    },
+    {
+      "year": 2021,
+      "kraj_kod": "CZ020",
+      "kraj_nazev": "Středočeský",
+      "value": 791
+    },
+    {
+      "year": 2021,
+      "kraj_kod": "CZ031",
+      "kraj_nazev": "Jihočeský",
+      "value": 508
+    },
+    {
+      "year": 2021,
+      "kraj_kod": "CZ032",
+      "kraj_nazev": "Plzeňský",
+      "value": 383
+    },
+    {
+      "year": 2021,
+      "kraj_kod": "CZ041",
+      "kraj_nazev": "Karlovarský",
+      "value": 196
+    },
+    {
+      "year": 2021,
+      "kraj_kod": "CZ042",
+      "kraj_nazev": "Ústecký",
+      "value": 540
+    },
+    {
+      "year": 2021,
+      "kraj_kod": "CZ051",
+      "kraj_nazev": "Liberecký",
+      "value": 303
+    },
+    {
+      "year": 2021,
+      "kraj_kod": "CZ052",
+      "kraj_nazev": "Královéhradecký",
+      "value": 407
+    },
+    {
+      "year": 2021,
+      "kraj_kod": "CZ053",
+      "kraj_nazev": "Pardubický",
+      "value": 348
+    },
+    {
+      "year": 2021,
+      "kraj_kod": "CZ063",
+      "kraj_nazev": "Vysočina",
+      "value": 336
+    },
+    {
+      "year": 2021,
+      "kraj_kod": "CZ064",
+      "kraj_nazev": "Jihomoravský",
+      "value": 775
+    },
+    {
+      "year": 2021,
+      "kraj_kod": "CZ071",
+      "kraj_nazev": "Olomoucký",
+      "value": 424
+    },
+    {
+      "year": 2021,
+      "kraj_kod": "CZ072",
+      "kraj_nazev": "Zlínský",
+      "value": 493
+    },
+    {
+      "year": 2021,
+      "kraj_kod": "CZ080",
+      "kraj_nazev": "Moravskoslezský",
+      "value": 979
+    },
+    {
+      "year": 2022,
+      "kraj_kod": "CZ010",
+      "kraj_nazev": "Hlavní město Praha",
+      "value": 692
+    },
+    {
+      "year": 2022,
+      "kraj_kod": "CZ020",
+      "kraj_nazev": "Středočeský",
+      "value": 905
+    },
+    {
+      "year": 2022,
+      "kraj_kod": "CZ031",
+      "kraj_nazev": "Jihočeský",
+      "value": 450
+    },
+    {
+      "year": 2022,
+      "kraj_kod": "CZ032",
+      "kraj_nazev": "Plzeňský",
+      "value": 422
+    },
+    {
+      "year": 2022,
+      "kraj_kod": "CZ041",
+      "kraj_nazev": "Karlovarský",
+      "value": 223
+    },
+    {
+      "year": 2022,
+      "kraj_kod": "CZ042",
+      "kraj_nazev": "Ústecký",
+      "value": 548
+    },
+    {
+      "year": 2022,
+      "kraj_kod": "CZ051",
+      "kraj_nazev": "Liberecký",
+      "value": 315
+    },
+    {
+      "year": 2022,
+      "kraj_kod": "CZ052",
+      "kraj_nazev": "Královéhradecký",
+      "value": 337
+    },
+    {
+      "year": 2022,
+      "kraj_kod": "CZ053",
+      "kraj_nazev": "Pardubický",
+      "value": 268
+    },
+    {
+      "year": 2022,
+      "kraj_kod": "CZ063",
+      "kraj_nazev": "Vysočina",
+      "value": 371
+    },
+    {
+      "year": 2022,
+      "kraj_kod": "CZ064",
+      "kraj_nazev": "Jihomoravský",
+      "value": 768
+    },
+    {
+      "year": 2022,
+      "kraj_kod": "CZ071",
+      "kraj_nazev": "Olomoucký",
+      "value": 410
+    },
+    {
+      "year": 2022,
+      "kraj_kod": "CZ072",
+      "kraj_nazev": "Zlínský",
+      "value": 453
+    },
+    {
+      "year": 2022,
+      "kraj_kod": "CZ080",
+      "kraj_nazev": "Moravskoslezský",
+      "value": 945
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+  "coverage": "2013–2022",
+  "trend": "regional",
+  "delta": 0
+}
