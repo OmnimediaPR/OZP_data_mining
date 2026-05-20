@@ -1213,6 +1213,266 @@ DATASETS = {
         "diagnosis_prefix": "C71",
         "year_col": "umrti_rok",
     },
+    # === NOR 1772 — Přežití pacientů ===
+    # Třetí NOR CSV (~131 MB). Klíčové sloupce: rok_dg, doba_sledovani (dny),
+    # preziti (0/1). 5-leté přežití = % pacientů s doba_sledovani >= 5*365
+    # AND preziti=1, filtrováno na pacienty diagnostikované do 2017.
+    # Filtr je na diagnoza_skupina (číselný kód), ne na diagnoza_kod.
+    # Mapování: 1=C00-C14, 2=C15, 3=C16, 4=C18-C20, 7=C25, 8=C32, 9=C33-C34,
+    # 10=C43, 11=C44, 13=C50, 14=C53, 15=C54-C55, 16=C56, 17=C61, 18=C62,
+    # 19=C64, 20=C67, 21=C71-C72, 22=C73, 23=C81, 24=C82,C83,C85, 25=C90,
+    # 26=C91-C95.
+    "prsa_preziti_5y": {
+        "label": "Rakovina prsu — 5leté přežití",
+        "human_name": "5leté přežití u rakoviny prsu",
+        "description": "Procento pacientek (a pacientů), které žijí 5 a více let po diagnóze rakoviny prsu. Klíčový ukazatel úspěšnosti časného záchytu a léčby — víc znamená lepší prognózu pro nové pacienty.",
+        "code": "C50",
+        "metric": "preziti_5_let",
+        "metric_label": "5leté přežití (% pacientů)",
+        "relevant_for": [
+            "onkologie",
+            "ženské zdraví",
+            "kvalita léčby",
+            "mamografický screening",
+        ],
+        "trend_context": "Hlavní ukazatel pokroku v péči o rakovinu prsu. Vývoj odráží zlepšení časného záchytu (mamografický screening od 2002) a moderní léčby (cílená a hormonální terapie). Česko se postupně dostává k úrovni zemí s nejlepší péčí.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+        "aggregation": "survival_5y",
+        "group_col": "diagnoza_skupina",
+        "diagnosis_group": 13,
+        "year_col": "rok_dg",
+    },
+    "plice_preziti_5y": {
+        "label": "Rakovina plic — 5leté přežití",
+        "human_name": "5leté přežití u rakoviny plic",
+        "description": "Procento pacientů, kteří žijí 5 a více let po diagnóze rakoviny plic. Patří k onkologicky nejhůře léčitelným diagnózám — rakovina plic se obvykle zachytí v pokročilém stadiu.",
+        "code": "C33–C34",
+        "metric": "preziti_5_let",
+        "metric_label": "5leté přežití (% pacientů)",
+        "relevant_for": [
+            "onkologie",
+            "kouření",
+            "screening",
+            "kvalita léčby",
+        ],
+        "trend_context": "Patří k onkologickým diagnózám s nejnižším přežitím — nemoc se obvykle zachytí pozdě, kdy je rozšířená. Od roku 2022 zavedený plicní screening pro dlouhodobé kuřáky má potenciál posunout záchyt k časnějším stadiím a tím i zlepšit prognózu.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+        "aggregation": "survival_5y",
+        "group_col": "diagnoza_skupina",
+        "diagnosis_group": 9,
+        "year_col": "rok_dg",
+    },
+    "prostata_preziti_5y": {
+        "label": "Rakovina prostaty — 5leté přežití",
+        "human_name": "5leté přežití u rakoviny prostaty",
+        "description": "Procento pacientů, kteří žijí 5 a více let po diagnóze rakoviny prostaty. Patří k onkologicky nejlépe prognosticky diagnózám — rakovina prostaty roste obvykle pomalu a moderní léčba pokročila zásadně.",
+        "code": "C61",
+        "metric": "preziti_5_let",
+        "metric_label": "5leté přežití (% pacientů)",
+        "relevant_for": [
+            "onkologie",
+            "mužské zdraví",
+            "preventivní prohlídky",
+            "kvalita léčby",
+        ],
+        "trend_context": "Vývoj odráží zavedení vyšetření krve na prostatický specifický antigen, díky kterému se zachytí mnoho pomalu rostoucích nádorů v časném stadiu. Moderní léčba (operace, ozařování, hormonální terapie) dál zlepšuje prognózu.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+        "aggregation": "survival_5y",
+        "group_col": "diagnoza_skupina",
+        "diagnosis_group": 17,
+        "year_col": "rok_dg",
+    },
+    "kolorektum_preziti_5y": {
+        "label": "Rakovina tlustého střeva a konečníku — 5leté přežití",
+        "human_name": "5leté přežití u rakoviny tlustého střeva a konečníku",
+        "description": "Procento pacientů, kteří žijí 5 a více let po diagnóze rakoviny tlustého střeva a konečníku. Klíčový ukazatel úspěchu českého screeningu — čím dříve se nádor zachytí, tím lepší je prognóza.",
+        "code": "C18–C20",
+        "metric": "preziti_5_let",
+        "metric_label": "5leté přežití (% pacientů)",
+        "relevant_for": [
+            "onkologie",
+            "screening tlustého střeva",
+            "kvalita léčby",
+            "prevence",
+        ],
+        "trend_context": "Vývoj odráží zavedení plošného screeningu (od 2000 testem na skryté krvácení do stolice, od 2009 také kolonoskopií) a zlepšení chirurgické i medikamentózní léčby.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+        "aggregation": "survival_5y",
+        "group_col": "diagnoza_skupina",
+        "diagnosis_group": 4,
+        "year_col": "rok_dg",
+    },
+    "melanom_preziti_5y": {
+        "label": "Zhoubný melanom kůže — 5leté přežití",
+        "human_name": "5leté přežití u zhoubného melanomu kůže",
+        "description": "Procento pacientů, kteří žijí 5 a více let po diagnóze zhoubného melanomu kůže. Včas zachycený melanom má vynikající prognózu, u pokročilých forem zase v posledních letech zásadně zlepšila imunoterapie.",
+        "code": "C43",
+        "metric": "preziti_5_let",
+        "metric_label": "5leté přežití (% pacientů)",
+        "relevant_for": [
+            "onkologie",
+            "kůže",
+            "kvalita léčby",
+            "imunoterapie",
+        ],
+        "trend_context": "Vývoj odráží osvětu o preventivních kožních prohlídkách (lepší časný záchyt) a revoluci v léčbě pokročilých melanomů — cílené léky a imunoterapie změnily prognózu u dříve neléčitelných stavů.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+        "aggregation": "survival_5y",
+        "group_col": "diagnoza_skupina",
+        "diagnosis_group": 10,
+        "year_col": "rok_dg",
+    },
+    "zaludek_preziti_5y": {
+        "label": "Rakovina žaludku — 5leté přežití",
+        "human_name": "5leté přežití u rakoviny žaludku",
+        "description": "Procento pacientů, kteří žijí 5 a více let po diagnóze rakoviny žaludku. Záchyt zůstává obtížný, ale moderní chirurgie a chemoterapie postupně zlepšují prognózu.",
+        "code": "C16",
+        "metric": "preziti_5_let",
+        "metric_label": "5leté přežití (% pacientů)",
+        "relevant_for": [
+            "onkologie",
+            "trávicí systém",
+            "kvalita léčby",
+        ],
+        "trend_context": "Vývoj odráží modernizaci chirurgické léčby (minimálně invazivní operace), zlepšení chemoterapie a v posledních letech i cílenou léčbu u některých podtypů.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+        "aggregation": "survival_5y",
+        "group_col": "diagnoza_skupina",
+        "diagnosis_group": 3,
+        "year_col": "rok_dg",
+    },
+    "slinivka_preziti_5y": {
+        "label": "Rakovina slinivky břišní — 5leté přežití",
+        "human_name": "5leté přežití u rakoviny slinivky břišní",
+        "description": "Procento pacientů, kteří žijí 5 a více let po diagnóze rakoviny slinivky břišní. Patří k onkologicky nejhorším prognózám — pětileté přežití zůstává dlouhodobě nízké, navzdory pokroku v jiných onkologických oborech.",
+        "code": "C25",
+        "metric": "preziti_5_let",
+        "metric_label": "5leté přežití (% pacientů)",
+        "relevant_for": [
+            "onkologie",
+            "trávicí systém",
+            "kvalita léčby",
+            "výzkum",
+        ],
+        "trend_context": "Vývoj odráží mírné zlepšení chirurgické a chemoterapeutické léčby, ale rakovina slinivky zůstává jednou z nejhůře léčitelných onkologických diagnóz. Velký prostor pro budoucí výzkum časné diagnostiky a cílené léčby.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+        "aggregation": "survival_5y",
+        "group_col": "diagnoza_skupina",
+        "diagnosis_group": 7,
+        "year_col": "rok_dg",
+    },
+    "cipek_preziti_5y": {
+        "label": "Rakovina hrdla děložního — 5leté přežití",
+        "human_name": "5leté přežití u rakoviny hrdla děložního",
+        "description": "Procento pacientek, které žijí 5 a více let po diagnóze rakoviny hrdla děložního. Díky gynekologickému screeningu se daří zachytit nádor v časném stadiu, kdy je prognóza výrazně lepší.",
+        "code": "C53",
+        "metric": "preziti_5_let",
+        "metric_label": "5leté přežití (% pacientek)",
+        "relevant_for": [
+            "onkologie",
+            "ženské zdraví",
+            "gynekologický screening",
+            "očkování",
+        ],
+        "trend_context": "Vývoj odráží zavedení gynekologického screeningu (cytologie čípku) a v posledních letech očkování proti lidskému papilomaviru. Časný záchyt v stadiu přednádorových změn umožňuje vyléčit pacientku dříve, než vůbec vznikne rakovina.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+        "aggregation": "survival_5y",
+        "group_col": "diagnoza_skupina",
+        "diagnosis_group": 14,
+        "year_col": "rok_dg",
+    },
+    "hodgkin_preziti_5y": {
+        "label": "Hodgkinův lymfom — 5leté přežití",
+        "human_name": "5leté přežití u Hodgkinova lymfomu",
+        "description": "Procento pacientů, kteří žijí 5 a více let po diagnóze Hodgkinova lymfomu. Patří k onkologicky nejúspěšnějším diagnózám — naprostou většinu pacientů se daří úplně vyléčit.",
+        "code": "C81",
+        "metric": "preziti_5_let",
+        "metric_label": "5leté přežití (% pacientů)",
+        "relevant_for": [
+            "onkologie",
+            "hematologie",
+            "kvalita léčby",
+            "mladší pacienti",
+        ],
+        "trend_context": "Hodgkinův lymfom byl jednou z prvních rakovin, u které medicína dokázala dosáhnout vysokých úspěchů léčby. Kombinace chemoterapie a ozařování vyléčí drtivou většinu pacientů a moderní režimy se snaží minimalizovat dlouhodobé následky.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+        "aggregation": "survival_5y",
+        "group_col": "diagnoza_skupina",
+        "diagnosis_group": 23,
+        "year_col": "rok_dg",
+    },
+    "lymfomy_b_bunecne_preziti_5y": {
+        "label": "B-buněčné non-Hodgkinovy lymfomy — 5leté přežití",
+        "human_name": "5leté přežití u B-buněčných non-Hodgkinových lymfomů",
+        "description": "Procento pacientů, kteří žijí 5 a více let po diagnóze B-buněčných non-Hodgkinových lymfomů. Drtivá většina non-Hodgkinových lymfomů spadá do této skupiny.",
+        "code": "C82, C83, C85",
+        "metric": "preziti_5_let",
+        "metric_label": "5leté přežití (% pacientů)",
+        "relevant_for": [
+            "onkologie",
+            "hematologie",
+            "kvalita léčby",
+            "cílená léčba",
+        ],
+        "trend_context": "Vývoj odráží zásadní pokrok v léčbě B-buněčných lymfomů — od cílených léků (monoklonálních protilátek) po kombinované režimy s chemoterapií. U řady podtypů se daří dosáhnout dlouhodobé remise nebo úplného vyléčení.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+        "aggregation": "survival_5y",
+        "group_col": "diagnoza_skupina",
+        "diagnosis_group": 24,
+        "year_col": "rok_dg",
+    },
+    "leukemie_preziti_5y": {
+        "label": "Leukémie — 5leté přežití",
+        "human_name": "5leté přežití u leukémií",
+        "description": "Procento pacientů, kteří žijí 5 a více let po diagnóze leukémií (souhrn všech typů). U dětských leukémií dosahuje přežití velmi vysokých hodnot, u dospělých velmi závisí na typu.",
+        "code": "C91–C95",
+        "metric": "preziti_5_let",
+        "metric_label": "5leté přežití (% pacientů)",
+        "relevant_for": [
+            "onkologie",
+            "hematologie",
+            "kvalita léčby",
+            "transplantace kostní dřeně",
+        ],
+        "trend_context": "Vývoj odráží pokrok v cílené léčbě (například léky proti chronické lymfocytární leukémii nebo akutní lymfoblastické leukémii) a v transplantaci kostní dřeně. U dětských leukémií patří přežití k onkologickým úspěchům.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+        "aggregation": "survival_5y",
+        "group_col": "diagnoza_skupina",
+        "diagnosis_group": 26,
+        "year_col": "rok_dg",
+    },
+    "mozek_preziti_5y": {
+        "label": "Zhoubný nádor mozku — 5leté přežití",
+        "human_name": "5leté přežití u zhoubného nádoru mozku",
+        "description": "Procento pacientů, kteří žijí 5 a více let po diagnóze zhoubného nádoru mozku. Patří k diagnostikám s nejhorší prognózou v onkologii — léčbu komplikuje poloha nádoru a citlivost mozkové tkáně.",
+        "code": "C71",
+        "metric": "preziti_5_let",
+        "metric_label": "5leté přežití (% pacientů)",
+        "relevant_for": [
+            "onkologie",
+            "neurologie",
+            "kvalita léčby",
+            "výzkum",
+        ],
+        "trend_context": "Vývoj odráží mírné zlepšení chirurgie, ozařování a chemoterapie. U nejagresivnějších typů (například glioblastom) zůstává prognóza navzdory pokroku velmi vážná — patří k onkologickým výzvám, kde výzkum nabízí výhled na zásadní změnu.",
+        "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+        "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+        "aggregation": "survival_5y",
+        "group_col": "diagnoza_skupina",
+        "diagnosis_group": 21,
+        "year_col": "rok_dg",
+    },
 }
 
 
@@ -1350,28 +1610,181 @@ def count_cases_by_year_multi(
     }
 
 
-def compute_meta(series: list) -> dict:
-    """Spočítá meta-informace pro frontend (trend, delta, peak)."""
+def compute_5year_survival_by_year_multi(
+    csv_path: Path, datasets: list[tuple[str, dict]]
+) -> dict[str, list]:
+    """Spočítá 5-leté přežití per rok diagnózy pro víc datasetů (NOR 1772).
+
+    Per dataset filtruje na `diagnosis_group` (číselný kód 1–29 v poli
+    `diagnoza_skupina` — viz mapování v komentáři u datasetů). Vrací
+    list `{year, value}` kde `value` = procento pacientů z toho roku,
+    kteří přežili 5 a více let.
+
+    Pole v NOR 1772:
+    - `preziti = 1` znamená ZEMŘEL (ne přežil — pozor, název je matoucí)
+    - `preziti = 0` znamená alive (k datu analýzy)
+    - `doba_sledovani` = dny od dg do úmrtí (preziti=1) nebo do dat. analýzy (preziti=0)
+
+    Klasifikace per pacient:
+    - "zemřel do 5 let" = `preziti = 1` AND `doba_sledovani < 5*365`
+    - "přežil 5+ let" = `doba_sledovani >= 5*365` (bez ohledu na finální stav)
+    - "cenzurováno" = `preziti = 0` AND `doba_sledovani < 5*365` (alive, ale ne ještě 5 let — vyřadit)
+
+    5y survival = přežil 5+ let / (přežil 5+ let + zemřel do 5 let).
+
+    Filtruje na pacienty diagnostikované >= 5 let zpět (jinak neznáme stav
+    v 5letém milníku). Roky s méně než 30 pacienty s jasným statusem
+    vynechány (statistický šum).
+    """
+    if not datasets:
+        return {}
+
+    # Sjednocená validace: všechny datasety v group musí mít stejný
+    # group_col (diagnoza_skupina) a year_col (rok_dg).
+    group_cols = {cfg["group_col"] for _, cfg in datasets}
+    yr_cols = {cfg["year_col"] for _, cfg in datasets}
+    if len(group_cols) > 1 or len(yr_cols) > 1:
+        raise ValueError(
+            f"Datasety sdílející data_url musí mít stejný group_col a year_col. "
+            f"Nalezeno: group_col={group_cols}, year_col={yr_cols}"
+        )
+    group_col = next(iter(group_cols))
+    year_col = next(iter(yr_cols))
+
+    # 5-letý milník v dnech (zaokrouhleno na 5×365=1825, ignoruje přestupné roky).
+    THRESHOLD_DAYS = 5 * 365
+    # Maximální rok diagnózy, pro který už máme aspoň 5letý milník.
+    # Předpoklad: data jsou stažena z 2024 release → poslední celý 5letý
+    # milník je 2018 (diagnostikováni 2018, milník v 2023).
+    MAX_YEAR_WITH_5Y = 2017
+    MIN_SAMPLE_PER_YEAR = 30
+
+    # Per dataset, per year: count známých statusů (přežil + zemřel) a samostatně přežil.
+    known: dict[str, dict[int, int]] = {ds_id: {} for ds_id, _ in datasets}
+    survived: dict[str, dict[int, int]] = {ds_id: {} for ds_id, _ in datasets}
+
+    with csv_path.open(encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f)
+        if not reader.fieldnames:
+            raise ValueError("CSV nemá hlavičku")
+
+        cols_lower = {c.lower(): c for c in reader.fieldnames}
+        gr_col = cols_lower.get(group_col.lower())
+        yr_col = cols_lower.get(year_col.lower())
+        doba_col = cols_lower.get("doba_sledovani")
+        prez_col = cols_lower.get("preziti")
+
+        if not gr_col or not yr_col or not doba_col or not prez_col:
+            raise ValueError(
+                f"CSV neobsahuje očekávané sloupce. Nalezené: {reader.fieldnames}"
+            )
+
+        # Per-dataset filtr: group_value (string) + age filter (volitelně).
+        per_ds: list[tuple[str, str, str | None, set[str] | None]] = []
+        for ds_id, cfg in datasets:
+            group_value = str(cfg["diagnosis_group"])
+            age_col_name = cfg.get("age_col")
+            if age_col_name:
+                age_col_actual = cols_lower.get(age_col_name.lower())
+                age_codes = set(cfg["age_codes"])
+            else:
+                age_col_actual = None
+                age_codes = None
+            per_ds.append((ds_id, group_value, age_col_actual, age_codes))
+
+        for row in reader:
+            try:
+                year = int(row[yr_col])
+            except (ValueError, TypeError):
+                continue
+            if year > MAX_YEAR_WITH_5Y:
+                continue
+            if not (1990 <= year <= 2030):
+                continue
+
+            row_group = (row.get(gr_col) or "").strip()
+            try:
+                doba = int(row[doba_col])
+                preziti = int(row[prez_col])
+            except (ValueError, TypeError):
+                continue
+
+            # Klasifikace per řádek:
+            # - "survived" = doba >= 1825 (sledován 5+ let, ať už pak zemřel nebo žije)
+            # - "died_under_5y" = preziti=1 (zemřel) AND doba < 1825 (před 5letým milníkem)
+            # - "censored" = preziti=0 (alive) AND doba < 1825 — neznáme 5letý stav, vyřadit
+            if doba >= THRESHOLD_DAYS:
+                status = "survived"
+            elif preziti == 1:
+                status = "died"
+            else:
+                status = "censored"
+            if status == "censored":
+                continue
+
+            for ds_id, group_value, age_col_actual, age_codes in per_ds:
+                if row_group != group_value:
+                    continue
+                if age_codes is not None:
+                    age_val = (row.get(age_col_actual) or "").strip()
+                    if age_val not in age_codes:
+                        continue
+                known[ds_id][year] = known[ds_id].get(year, 0) + 1
+                if status == "survived":
+                    survived[ds_id][year] = survived[ds_id].get(year, 0) + 1
+
+    return {
+        ds_id: [
+            {
+                "year": y,
+                "value": round(100 * survived[ds_id].get(y, 0) / known[ds_id][y], 1),
+            }
+            for y in sorted(known[ds_id].keys())
+            if known[ds_id][y] >= MIN_SAMPLE_PER_YEAR
+        ]
+        for ds_id, _ in datasets
+    }
+
+
+def compute_meta(series: list, cfg: dict | None = None) -> dict:
+    """Spočítá meta-informace pro frontend (trend, delta, peak).
+
+    Pro survival_5y (procenta) používá absolutní rozdíl v procentních
+    bodech místo relativního procenta — relativní změna mezi 74 a 80
+    je matoucí ("+8 %"), absolutní +6 p.b. je jasnější.
+    """
     if not series or len(series) < 2:
         return {"trend": "unknown", "delta": 0, "peakYear": None}
 
     first = series[0]
     last = series[-1]
-    if first["value"] == 0:
-        delta_pct = 0
+    aggregation = cfg.get("aggregation", "count") if cfg else "count"
+
+    if aggregation == "survival_5y":
+        # Delta v procentních bodech (např. z 60% na 80% = +20)
+        delta = round(last["value"] - first["value"], 1)
+        if delta > 5:
+            trend = "up"
+        elif delta < -5:
+            trend = "down"
+        else:
+            trend = "plateau"
     else:
-        delta_pct = round(((last["value"] - first["value"]) / first["value"]) * 100)
+        # Relativní změna v procentech (např. z 1000 na 1500 = +50%)
+        if first["value"] == 0:
+            delta = 0
+        else:
+            delta = round(((last["value"] - first["value"]) / first["value"]) * 100)
+        if delta > 10:
+            trend = "up"
+        elif delta < -10:
+            trend = "down"
+        else:
+            trend = "plateau"
 
     peak = max(series, key=lambda r: r["value"])
 
-    if delta_pct > 10:
-        trend = "up"
-    elif delta_pct < -10:
-        trend = "down"
-    else:
-        trend = "plateau"
-
-    return {"trend": trend, "delta": delta_pct, "peakYear": peak["year"]}
+    return {"trend": trend, "delta": delta, "peakYear": peak["year"]}
 
 
 def write_dataset_json(dataset_id: str, cfg: dict, series: list) -> str:
@@ -1383,7 +1796,7 @@ def write_dataset_json(dataset_id: str, cfg: dict, series: list) -> str:
         )
         return "failed"
 
-    meta = compute_meta(series)
+    meta = compute_meta(series, cfg)
 
     out = {
         "id": dataset_id,
@@ -1421,18 +1834,35 @@ def write_dataset_json(dataset_id: str, cfg: dict, series: list) -> str:
 def sync_group(url: str, datasets: list[tuple[str, dict]]) -> dict[str, str]:
     """Stáhne jeden CSV a single-pass naparsuje všechny datasety, které ho sdílí.
 
+    Dispatch podle `aggregation` v cfg:
+    - "count" (default) — počet řádků odpovídajících filtru (incidence/mortalita)
+    - "survival_5y" — procento přeživších 5+ let
+
     Vrací: dict `dataset_id → "ok" | "failed"`. Pokud selže stažení nebo
     parsování CSV, všechny datasety v skupině dostanou "failed".
     """
     ds_ids = [ds_id for ds_id, _ in datasets]
     print(f"\n=== Skupina ({len(datasets)} dg): {', '.join(ds_ids)} ===")
 
+    # Validace, že všechny datasety v skupině mají stejný aggregation typ.
+    aggregations = {cfg.get("aggregation", "count") for _, cfg in datasets}
+    if len(aggregations) > 1:
+        print(
+            f"  CHYBA: smíšené aggregace v jedné skupině: {aggregations}",
+            file=sys.stderr,
+        )
+        return {ds_id: "failed" for ds_id in ds_ids}
+    aggregation = next(iter(aggregations))
+
     csv_path = download_csv_to_tempfile(url)
     if csv_path is None:
         return {ds_id: "failed" for ds_id in ds_ids}
 
     try:
-        series_by_id = count_cases_by_year_multi(csv_path, datasets)
+        if aggregation == "survival_5y":
+            series_by_id = compute_5year_survival_by_year_multi(csv_path, datasets)
+        else:
+            series_by_id = count_cases_by_year_multi(csv_path, datasets)
     except Exception as e:
         print(f"  CHYBA při parsování CSV: {e}", file=sys.stderr)
         return {ds_id: "failed" for ds_id in ds_ids}

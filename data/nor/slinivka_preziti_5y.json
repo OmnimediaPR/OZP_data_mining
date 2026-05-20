@@ -1,0 +1,123 @@
+{
+  "id": "slinivka_preziti_5y",
+  "label": "Rakovina slinivky břišní — 5leté přežití",
+  "human_name": "5leté přežití u rakoviny slinivky břišní",
+  "description": "Procento pacientů, kteří žijí 5 a více let po diagnóze rakoviny slinivky břišní. Patří k onkologicky nejhorším prognózám — pětileté přežití zůstává dlouhodobě nízké, navzdory pokroku v jiných onkologických oborech.",
+  "code": "C25",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "preziti_5_let",
+  "metric_label": "5leté přežití (% pacientů)",
+  "relevant_for": [
+    "onkologie",
+    "trávicí systém",
+    "kvalita léčby",
+    "výzkum"
+  ],
+  "trend_context": "Vývoj odráží mírné zlepšení chirurgické a chemoterapeutické léčby, ale rakovina slinivky zůstává jednou z nejhůře léčitelných onkologických diagnóz. Velký prostor pro budoucí výzkum časné diagnostiky a cílené léčby.",
+  "updated": "2026-05-20",
+  "coverage": "1994–2017",
+  "trend": "plateau",
+  "delta": 4.3,
+  "peakYear": 2017,
+  "data": [
+    {
+      "year": 1994,
+      "value": 1.9
+    },
+    {
+      "year": 1995,
+      "value": 2.5
+    },
+    {
+      "year": 1996,
+      "value": 1.9
+    },
+    {
+      "year": 1997,
+      "value": 2.3
+    },
+    {
+      "year": 1998,
+      "value": 2.3
+    },
+    {
+      "year": 1999,
+      "value": 2.4
+    },
+    {
+      "year": 2000,
+      "value": 2.1
+    },
+    {
+      "year": 2001,
+      "value": 1.8
+    },
+    {
+      "year": 2002,
+      "value": 2.6
+    },
+    {
+      "year": 2003,
+      "value": 2.5
+    },
+    {
+      "year": 2004,
+      "value": 2.8
+    },
+    {
+      "year": 2005,
+      "value": 2.5
+    },
+    {
+      "year": 2006,
+      "value": 2.2
+    },
+    {
+      "year": 2007,
+      "value": 3.3
+    },
+    {
+      "year": 2008,
+      "value": 2.7
+    },
+    {
+      "year": 2009,
+      "value": 4.1
+    },
+    {
+      "year": 2010,
+      "value": 3.1
+    },
+    {
+      "year": 2011,
+      "value": 3.9
+    },
+    {
+      "year": 2012,
+      "value": 5.0
+    },
+    {
+      "year": 2013,
+      "value": 4.9
+    },
+    {
+      "year": 2014,
+      "value": 5.5
+    },
+    {
+      "year": 2015,
+      "value": 5.0
+    },
+    {
+      "year": 2016,
+      "value": 5.6
+    },
+    {
+      "year": 2017,
+      "value": 6.2
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data"
+}

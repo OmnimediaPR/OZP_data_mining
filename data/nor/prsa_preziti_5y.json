@@ -1,0 +1,123 @@
+{
+  "id": "prsa_preziti_5y",
+  "label": "Rakovina prsu — 5leté přežití",
+  "human_name": "5leté přežití u rakoviny prsu",
+  "description": "Procento pacientek (a pacientů), které žijí 5 a více let po diagnóze rakoviny prsu. Klíčový ukazatel úspěšnosti časného záchytu a léčby — víc znamená lepší prognózu pro nové pacienty.",
+  "code": "C50",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "preziti_5_let",
+  "metric_label": "5leté přežití (% pacientů)",
+  "relevant_for": [
+    "onkologie",
+    "ženské zdraví",
+    "kvalita léčby",
+    "mamografický screening"
+  ],
+  "trend_context": "Hlavní ukazatel pokroku v péči o rakovinu prsu. Vývoj odráží zlepšení časného záchytu (mamografický screening od 2002) a moderní léčby (cílená a hormonální terapie). Česko se postupně dostává k úrovni zemí s nejlepší péčí.",
+  "updated": "2026-05-20",
+  "coverage": "1994–2017",
+  "trend": "up",
+  "delta": 17.1,
+  "peakYear": 2015,
+  "data": [
+    {
+      "year": 1994,
+      "value": 59.8
+    },
+    {
+      "year": 1995,
+      "value": 59.5
+    },
+    {
+      "year": 1996,
+      "value": 60.9
+    },
+    {
+      "year": 1997,
+      "value": 61.5
+    },
+    {
+      "year": 1998,
+      "value": 62.6
+    },
+    {
+      "year": 1999,
+      "value": 65.8
+    },
+    {
+      "year": 2000,
+      "value": 65.1
+    },
+    {
+      "year": 2001,
+      "value": 67.2
+    },
+    {
+      "year": 2002,
+      "value": 66.8
+    },
+    {
+      "year": 2003,
+      "value": 71.4
+    },
+    {
+      "year": 2004,
+      "value": 70.3
+    },
+    {
+      "year": 2005,
+      "value": 71.0
+    },
+    {
+      "year": 2006,
+      "value": 71.3
+    },
+    {
+      "year": 2007,
+      "value": 73.7
+    },
+    {
+      "year": 2008,
+      "value": 74.2
+    },
+    {
+      "year": 2009,
+      "value": 73.2
+    },
+    {
+      "year": 2010,
+      "value": 74.6
+    },
+    {
+      "year": 2011,
+      "value": 74.9
+    },
+    {
+      "year": 2012,
+      "value": 75.3
+    },
+    {
+      "year": 2013,
+      "value": 76.5
+    },
+    {
+      "year": 2014,
+      "value": 77.3
+    },
+    {
+      "year": 2015,
+      "value": 78.0
+    },
+    {
+      "year": 2016,
+      "value": 77.3
+    },
+    {
+      "year": 2017,
+      "value": 76.9
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data"
+}

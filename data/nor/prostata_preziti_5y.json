@@ -1,0 +1,123 @@
+{
+  "id": "prostata_preziti_5y",
+  "label": "Rakovina prostaty — 5leté přežití",
+  "human_name": "5leté přežití u rakoviny prostaty",
+  "description": "Procento pacientů, kteří žijí 5 a více let po diagnóze rakoviny prostaty. Patří k onkologicky nejlépe prognosticky diagnózám — rakovina prostaty roste obvykle pomalu a moderní léčba pokročila zásadně.",
+  "code": "C61",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "preziti_5_let",
+  "metric_label": "5leté přežití (% pacientů)",
+  "relevant_for": [
+    "onkologie",
+    "mužské zdraví",
+    "preventivní prohlídky",
+    "kvalita léčby"
+  ],
+  "trend_context": "Vývoj odráží zavedení vyšetření krve na prostatický specifický antigen, díky kterému se zachytí mnoho pomalu rostoucích nádorů v časném stadiu. Moderní léčba (operace, ozařování, hormonální terapie) dál zlepšuje prognózu.",
+  "updated": "2026-05-20",
+  "coverage": "1994–2017",
+  "trend": "up",
+  "delta": 38.3,
+  "peakYear": 2017,
+  "data": [
+    {
+      "year": 1994,
+      "value": 36.6
+    },
+    {
+      "year": 1995,
+      "value": 36.6
+    },
+    {
+      "year": 1996,
+      "value": 39.0
+    },
+    {
+      "year": 1997,
+      "value": 42.4
+    },
+    {
+      "year": 1998,
+      "value": 42.6
+    },
+    {
+      "year": 1999,
+      "value": 44.8
+    },
+    {
+      "year": 2000,
+      "value": 45.2
+    },
+    {
+      "year": 2001,
+      "value": 49.4
+    },
+    {
+      "year": 2002,
+      "value": 51.3
+    },
+    {
+      "year": 2003,
+      "value": 53.1
+    },
+    {
+      "year": 2004,
+      "value": 58.3
+    },
+    {
+      "year": 2005,
+      "value": 62.0
+    },
+    {
+      "year": 2006,
+      "value": 64.0
+    },
+    {
+      "year": 2007,
+      "value": 64.3
+    },
+    {
+      "year": 2008,
+      "value": 66.1
+    },
+    {
+      "year": 2009,
+      "value": 68.8
+    },
+    {
+      "year": 2010,
+      "value": 71.8
+    },
+    {
+      "year": 2011,
+      "value": 72.4
+    },
+    {
+      "year": 2012,
+      "value": 73.1
+    },
+    {
+      "year": 2013,
+      "value": 73.4
+    },
+    {
+      "year": 2014,
+      "value": 73.5
+    },
+    {
+      "year": 2015,
+      "value": 74.5
+    },
+    {
+      "year": 2016,
+      "value": 74.0
+    },
+    {
+      "year": 2017,
+      "value": 74.9
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data"
+}

@@ -63,7 +63,19 @@
     { "id": "cipek_mortalita", "label": "Rakovina hrdla děložního — úmrtnost", "code": "C53", "tags": ["onkologie", "ženské zdraví", "mortalita"] },
     { "id": "leukemie_mortalita", "label": "Leukémie — úmrtnost", "code": "C91–C95", "tags": ["onkologie", "hematologie", "mortalita"] },
     { "id": "lymfomy_mortalita", "label": "Lymfomy — úmrtnost (souhrn)", "code": "C81–C86", "tags": ["onkologie", "hematologie", "mortalita"] },
-    { "id": "mozek_mortalita", "label": "Zhoubný nádor mozku — úmrtnost", "code": "C71", "tags": ["onkologie", "neurologie", "mortalita"] }
+    { "id": "mozek_mortalita", "label": "Zhoubný nádor mozku — úmrtnost", "code": "C71", "tags": ["onkologie", "neurologie", "mortalita"] },
+    { "id": "prsa_preziti_5y", "label": "Rakovina prsu — 5leté přežití", "code": "C50", "tags": ["onkologie", "ženské zdraví", "přežití"] },
+    { "id": "plice_preziti_5y", "label": "Rakovina plic — 5leté přežití", "code": "C33–C34", "tags": ["onkologie", "kouření", "přežití"] },
+    { "id": "prostata_preziti_5y", "label": "Rakovina prostaty — 5leté přežití", "code": "C61", "tags": ["onkologie", "mužské zdraví", "přežití"] },
+    { "id": "kolorektum_preziti_5y", "label": "Rakovina tlustého střeva a konečníku — 5leté přežití", "code": "C18–C20", "tags": ["onkologie", "screening tlustého střeva", "přežití"] },
+    { "id": "melanom_preziti_5y", "label": "Zhoubný melanom kůže — 5leté přežití", "code": "C43", "tags": ["onkologie", "kůže", "přežití"] },
+    { "id": "zaludek_preziti_5y", "label": "Rakovina žaludku — 5leté přežití", "code": "C16", "tags": ["onkologie", "trávicí systém", "přežití"] },
+    { "id": "slinivka_preziti_5y", "label": "Rakovina slinivky břišní — 5leté přežití", "code": "C25", "tags": ["onkologie", "trávicí systém", "přežití"] },
+    { "id": "cipek_preziti_5y", "label": "Rakovina hrdla děložního — 5leté přežití", "code": "C53", "tags": ["onkologie", "ženské zdraví", "přežití"] },
+    { "id": "hodgkin_preziti_5y", "label": "Hodgkinův lymfom — 5leté přežití", "code": "C81", "tags": ["onkologie", "hematologie", "přežití"] },
+    { "id": "lymfomy_b_bunecne_preziti_5y", "label": "B-buněčné non-Hodgkinovy lymfomy — 5leté přežití", "code": "C82, C83, C85", "tags": ["onkologie", "hematologie", "přežití"] },
+    { "id": "leukemie_preziti_5y", "label": "Leukémie — 5leté přežití", "code": "C91–C95", "tags": ["onkologie", "hematologie", "přežití"] },
+    { "id": "mozek_preziti_5y", "label": "Zhoubný nádor mozku — 5leté přežití", "code": "C71", "tags": ["onkologie", "neurologie", "přežití"] }
   ],
   "international": [
     {

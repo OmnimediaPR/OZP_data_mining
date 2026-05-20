@@ -1,0 +1,123 @@
+{
+  "id": "cipek_preziti_5y",
+  "label": "Rakovina hrdla děložního — 5leté přežití",
+  "human_name": "5leté přežití u rakoviny hrdla děložního",
+  "description": "Procento pacientek, které žijí 5 a více let po diagnóze rakoviny hrdla děložního. Díky gynekologickému screeningu se daří zachytit nádor v časném stadiu, kdy je prognóza výrazně lepší.",
+  "code": "C53",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "preziti_5_let",
+  "metric_label": "5leté přežití (% pacientek)",
+  "relevant_for": [
+    "onkologie",
+    "ženské zdraví",
+    "gynekologický screening",
+    "očkování"
+  ],
+  "trend_context": "Vývoj odráží zavedení gynekologického screeningu (cytologie čípku) a v posledních letech očkování proti lidskému papilomaviru. Časný záchyt v stadiu přednádorových změn umožňuje vyléčit pacientku dříve, než vůbec vznikne rakovina.",
+  "updated": "2026-05-20",
+  "coverage": "1994–2017",
+  "trend": "plateau",
+  "delta": -2.3,
+  "peakYear": 2006,
+  "data": [
+    {
+      "year": 1994,
+      "value": 61.0
+    },
+    {
+      "year": 1995,
+      "value": 62.0
+    },
+    {
+      "year": 1996,
+      "value": 59.4
+    },
+    {
+      "year": 1997,
+      "value": 58.9
+    },
+    {
+      "year": 1998,
+      "value": 57.7
+    },
+    {
+      "year": 1999,
+      "value": 59.1
+    },
+    {
+      "year": 2000,
+      "value": 60.8
+    },
+    {
+      "year": 2001,
+      "value": 62.6
+    },
+    {
+      "year": 2002,
+      "value": 59.0
+    },
+    {
+      "year": 2003,
+      "value": 62.9
+    },
+    {
+      "year": 2004,
+      "value": 61.4
+    },
+    {
+      "year": 2005,
+      "value": 62.5
+    },
+    {
+      "year": 2006,
+      "value": 64.5
+    },
+    {
+      "year": 2007,
+      "value": 63.8
+    },
+    {
+      "year": 2008,
+      "value": 63.6
+    },
+    {
+      "year": 2009,
+      "value": 62.2
+    },
+    {
+      "year": 2010,
+      "value": 62.5
+    },
+    {
+      "year": 2011,
+      "value": 63.4
+    },
+    {
+      "year": 2012,
+      "value": 59.5
+    },
+    {
+      "year": 2013,
+      "value": 59.9
+    },
+    {
+      "year": 2014,
+      "value": 62.1
+    },
+    {
+      "year": 2015,
+      "value": 55.8
+    },
+    {
+      "year": 2016,
+      "value": 60.7
+    },
+    {
+      "year": 2017,
+      "value": 58.7
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data"
+}

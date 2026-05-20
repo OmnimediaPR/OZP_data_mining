@@ -1,0 +1,123 @@
+{
+  "id": "mozek_preziti_5y",
+  "label": "Zhoubný nádor mozku — 5leté přežití",
+  "human_name": "5leté přežití u zhoubného nádoru mozku",
+  "description": "Procento pacientů, kteří žijí 5 a více let po diagnóze zhoubného nádoru mozku. Patří k diagnostikám s nejhorší prognózou v onkologii — léčbu komplikuje poloha nádoru a citlivost mozkové tkáně.",
+  "code": "C71",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "preziti_5_let",
+  "metric_label": "5leté přežití (% pacientů)",
+  "relevant_for": [
+    "onkologie",
+    "neurologie",
+    "kvalita léčby",
+    "výzkum"
+  ],
+  "trend_context": "Vývoj odráží mírné zlepšení chirurgie, ozařování a chemoterapie. U nejagresivnějších typů (například glioblastom) zůstává prognóza navzdory pokroku velmi vážná — patří k onkologickým výzvám, kde výzkum nabízí výhled na zásadní změnu.",
+  "updated": "2026-05-20",
+  "coverage": "1994–2017",
+  "trend": "plateau",
+  "delta": -0.5,
+  "peakYear": 2014,
+  "data": [
+    {
+      "year": 1994,
+      "value": 19.7
+    },
+    {
+      "year": 1995,
+      "value": 16.6
+    },
+    {
+      "year": 1996,
+      "value": 20.3
+    },
+    {
+      "year": 1997,
+      "value": 20.4
+    },
+    {
+      "year": 1998,
+      "value": 19.8
+    },
+    {
+      "year": 1999,
+      "value": 17.9
+    },
+    {
+      "year": 2000,
+      "value": 19.6
+    },
+    {
+      "year": 2001,
+      "value": 20.7
+    },
+    {
+      "year": 2002,
+      "value": 18.7
+    },
+    {
+      "year": 2003,
+      "value": 19.8
+    },
+    {
+      "year": 2004,
+      "value": 18.1
+    },
+    {
+      "year": 2005,
+      "value": 19.9
+    },
+    {
+      "year": 2006,
+      "value": 18.1
+    },
+    {
+      "year": 2007,
+      "value": 19.1
+    },
+    {
+      "year": 2008,
+      "value": 17.7
+    },
+    {
+      "year": 2009,
+      "value": 19.7
+    },
+    {
+      "year": 2010,
+      "value": 16.5
+    },
+    {
+      "year": 2011,
+      "value": 17.8
+    },
+    {
+      "year": 2012,
+      "value": 18.9
+    },
+    {
+      "year": 2013,
+      "value": 19.8
+    },
+    {
+      "year": 2014,
+      "value": 21.4
+    },
+    {
+      "year": 2015,
+      "value": 19.7
+    },
+    {
+      "year": 2016,
+      "value": 19.3
+    },
+    {
+      "year": 2017,
+      "value": 19.2
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data"
+}

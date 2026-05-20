@@ -1,0 +1,123 @@
+{
+  "id": "melanom_preziti_5y",
+  "label": "Zhoubný melanom kůže — 5leté přežití",
+  "human_name": "5leté přežití u zhoubného melanomu kůže",
+  "description": "Procento pacientů, kteří žijí 5 a více let po diagnóze zhoubného melanomu kůže. Včas zachycený melanom má vynikající prognózu, u pokročilých forem zase v posledních letech zásadně zlepšila imunoterapie.",
+  "code": "C43",
+  "source": "Národní onkologický registr (ÚZIS)",
+  "source_type": "national",
+  "metric": "preziti_5_let",
+  "metric_label": "5leté přežití (% pacientů)",
+  "relevant_for": [
+    "onkologie",
+    "kůže",
+    "kvalita léčby",
+    "imunoterapie"
+  ],
+  "trend_context": "Vývoj odráží osvětu o preventivních kožních prohlídkách (lepší časný záchyt) a revoluci v léčbě pokročilých melanomů — cílené léky a imunoterapie změnily prognózu u dříve neléčitelných stavů.",
+  "updated": "2026-05-20",
+  "coverage": "1994–2017",
+  "trend": "up",
+  "delta": 15.1,
+  "peakYear": 2015,
+  "data": [
+    {
+      "year": 1994,
+      "value": 60.4
+    },
+    {
+      "year": 1995,
+      "value": 67.5
+    },
+    {
+      "year": 1996,
+      "value": 64.2
+    },
+    {
+      "year": 1997,
+      "value": 63.6
+    },
+    {
+      "year": 1998,
+      "value": 66.7
+    },
+    {
+      "year": 1999,
+      "value": 67.2
+    },
+    {
+      "year": 2000,
+      "value": 65.0
+    },
+    {
+      "year": 2001,
+      "value": 66.6
+    },
+    {
+      "year": 2002,
+      "value": 66.8
+    },
+    {
+      "year": 2003,
+      "value": 72.0
+    },
+    {
+      "year": 2004,
+      "value": 70.1
+    },
+    {
+      "year": 2005,
+      "value": 71.5
+    },
+    {
+      "year": 2006,
+      "value": 69.2
+    },
+    {
+      "year": 2007,
+      "value": 72.4
+    },
+    {
+      "year": 2008,
+      "value": 71.7
+    },
+    {
+      "year": 2009,
+      "value": 70.4
+    },
+    {
+      "year": 2010,
+      "value": 71.4
+    },
+    {
+      "year": 2011,
+      "value": 72.3
+    },
+    {
+      "year": 2012,
+      "value": 73.4
+    },
+    {
+      "year": 2013,
+      "value": 74.1
+    },
+    {
+      "year": 2014,
+      "value": 76.1
+    },
+    {
+      "year": 2015,
+      "value": 76.4
+    },
+    {
+      "year": 2016,
+      "value": 74.0
+    },
+    {
+      "year": 2017,
+      "value": 75.5
+    }
+  ],
+  "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
+  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data"
+}

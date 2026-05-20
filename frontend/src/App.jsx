@@ -286,6 +286,18 @@ export default function App() {
         { id: 'leukemie_mortalita', folder: 'nor' },
         { id: 'lymfomy_mortalita', folder: 'nor' },
         { id: 'mozek_mortalita', folder: 'nor' },
+        { id: 'prsa_preziti_5y', folder: 'nor' },
+        { id: 'plice_preziti_5y', folder: 'nor' },
+        { id: 'prostata_preziti_5y', folder: 'nor' },
+        { id: 'kolorektum_preziti_5y', folder: 'nor' },
+        { id: 'melanom_preziti_5y', folder: 'nor' },
+        { id: 'zaludek_preziti_5y', folder: 'nor' },
+        { id: 'slinivka_preziti_5y', folder: 'nor' },
+        { id: 'cipek_preziti_5y', folder: 'nor' },
+        { id: 'hodgkin_preziti_5y', folder: 'nor' },
+        { id: 'lymfomy_b_bunecne_preziti_5y', folder: 'nor' },
+        { id: 'leukemie_preziti_5y', folder: 'nor' },
+        { id: 'mozek_preziti_5y', folder: 'nor' },
       ];
       const loaded = [];
 
