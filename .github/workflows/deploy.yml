@@ -39,10 +39,10 @@ jobs:
         working-directory: frontend
         run: npm ci
 
-      - name: Copy data files into frontend public directory
+      - name: Copy catalog into frontend public directory
         run: |
           mkdir -p frontend/public/data
-          cp -r data/* frontend/public/data/
+          cp data/catalog.json frontend/public/data/catalog.json
 
       - name: Build
         working-directory: frontend
