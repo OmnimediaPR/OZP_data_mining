@@ -6,6 +6,93 @@ import {
   HeadingLevel, AlignmentType, ShadingType, BorderStyle, WidthType,
 } from 'docx';
 import { saveAs } from 'file-saver';
+import Papa from 'papaparse';
+
+// ============================================================
+// ON-DEMAND DATA FETCH (KROK 3 nové architektury)
+// CSV se stahuje až ve chvíli, kdy uživatel dataset vybere.
+// Cache je per csv_url, takže NOR (5 dg sdílí 197 MB CSV) se stáhne jednou.
+// ============================================================
+
+const csvCache = new Map(); // url → Promise<csvText>
+
+function fetchCsvCached(url) {
+  if (csvCache.has(url)) return csvCache.get(url);
+  const promise = fetch(url).then(r => {
+    if (!r.ok) throw new Error(`HTTP ${r.status} pro ${url}`);
+    return r.text();
+  }).catch(e => {
+    csvCache.delete(url); // umožni retry po chybě
+    throw e;
+  });
+  csvCache.set(url, promise);
+  return promise;
+}
+
+// Postaví časovou řadu [{year, value}] z catalog metadata + raw CSV.
+async function parseDataset(entry) {
+  const csvText = await fetchCsvCached(entry.csv_url);
+  const parsed = Papa.parse(csvText, {
+    header: true,
+    skipEmptyLines: true,
+    dynamicTyping: false,
+  });
+  if (parsed.errors.length > 5) {
+    console.warn(`Papa parse warnings pro ${entry.id}:`, parsed.errors.slice(0, 3));
+  }
+  let rows = parsed.data;
+
+  // Filter 1: NKIS-style non-empty filter (subtotal rows mají prázdný okres_bydliste).
+  if (entry.filter_column) {
+    rows = rows.filter(r => (r[entry.filter_column] || '').toString().trim() !== '');
+  }
+
+  // Filter 2: NOR-style match na konkrétní hodnotu (diagnoza_kod prefix).
+  if (entry.row_match) {
+    const { column, prefix } = entry.row_match;
+    const prefixes = Array.isArray(prefix) ? prefix : [prefix];
+    rows = rows.filter(r => {
+      const val = (r[column] || '').toString();
+      return prefixes.some(p => val.startsWith(p));
+    });
+  }
+
+  // Agregace per rok.
+  const yearCol = entry.year_column;
+  const grouped = {};
+  for (const r of rows) {
+    const yearStr = (r[yearCol] || '').toString().trim();
+    if (!yearStr) continue;
+    const year = parseInt(yearStr, 10);
+    if (!Number.isFinite(year)) continue;
+    if (!(year in grouped)) grouped[year] = 0;
+    if (entry.aggregation === 'sum_column') {
+      const raw = (r[entry.value_column] || '').toString().replace(',', '.');
+      const v = parseFloat(raw);
+      if (Number.isFinite(v)) grouped[year] += v;
+    } else if (entry.aggregation === 'count_rows') {
+      grouped[year] += 1;
+    }
+  }
+  return Object.entries(grouped)
+    .map(([y, v]) => ({ year: parseInt(y, 10), value: entry.aggregation === 'sum_column' ? Math.round(v) : v }))
+    .sort((a, b) => a.year - b.year);
+}
+
+// Spočítá trend/delta/peakYear v %. Mirror logiky z scripts/sync_nor.py compute_meta.
+function computeMeta(series) {
+  if (!series || series.length < 2) return { trend: 'unknown', delta: 0, peakYear: null };
+  const sorted = [...series].sort((a, b) => a.year - b.year);
+  const first = sorted[0];
+  const last = sorted[sorted.length - 1];
+  const peak = sorted.reduce((m, x) => x.value > m.value ? x : m, sorted[0]);
+  if (first.value === 0) return { trend: 'unknown', delta: 0, peakYear: peak.year };
+  const delta = Math.round(((last.value - first.value) / first.value) * 100);
+  let trend = 'flat';
+  if (delta > 10) trend = 'up';
+  else if (delta < -10) trend = 'down';
+  return { trend, delta, peakYear: peak.year };
+}
 
 // ============================================================
 // KONSTANTY
@@ -436,262 +523,74 @@ export default function App() {
   const [step, setStep] = useState(1);
   const [nationalDatasets, setNationalDatasets] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
-  const [selectedIds, setSelectedIds] = useState(['aim', 'cmp', 'eu_cvd_share', 'fh_detection']);
+  // datasetData: Map<id, {loading: bool, error: string|null, series: [{year, value}]|null}>
+  // Populátí se lazy po výběru datasetu — fetch CSV ze zdroje + Papa parse + agregace.
+  const [datasetData, setDatasetData] = useState(() => new Map());
+  const [selectedIds, setSelectedIds] = useState(['aim', 'cmp']);
   const [analysis, setAnalysis] = useState(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState(null);
 
-  // Načti národní datasety ze static JSON souborů (generované GitHub Actions).
-  // JSON už nese všechna pole včetně human_name, description, relevant_for, trend_context —
-  // viz sync_nkis.py / sync_nor.py. Frontend nepřidává nic, jen prochází fetch.
-  // folder = která složka v data/: 'nkis' (kardio z NKIS), 'nor' (onko z NOR).
+  // Krok A — při startu: stáhni catalog.json (metadata pro všechny datasety, žádná data).
   useEffect(() => {
-    async function loadData() {
-      const sources = [
-        { id: 'aim', folder: 'nkis' },
-        { id: 'cmp', folder: 'nkis' },
-        { id: 'hyp', folder: 'nkis' },
-        { id: 'hf', folder: 'nkis' },
-        { id: 'kvo', folder: 'nkis' },
-        { id: 'prsa_incidence', folder: 'nor' },
-        { id: 'plice_incidence', folder: 'nor' },
-        { id: 'prostata_incidence', folder: 'nor' },
-        { id: 'kolorektum_incidence', folder: 'nor' },
-        { id: 'melanom_incidence', folder: 'nor' },
-        { id: 'zaludek_incidence', folder: 'nor' },
-        { id: 'slinivka_incidence', folder: 'nor' },
-        { id: 'mozek_incidence', folder: 'nor' },
-        { id: 'leukemie_incidence', folder: 'nor' },
-        { id: 'lymfomy_incidence', folder: 'nor' },
-        { id: 'ledvina_incidence', folder: 'nor' },
-        { id: 'mocovy_mechyr_incidence', folder: 'nor' },
-        { id: 'stitna_zlaza_incidence', folder: 'nor' },
-        { id: 'jicen_incidence', folder: 'nor' },
-        { id: 'varlata_incidence', folder: 'nor' },
-        { id: 'vajecnik_incidence', folder: 'nor' },
-        { id: 'cipek_incidence', folder: 'nor' },
-        { id: 'deloha_incidence', folder: 'nor' },
-        { id: 'kosti_incidence', folder: 'nor' },
-        { id: 'ustni_dutina_incidence', folder: 'nor' },
-        { id: 'stitna_zlaza_deti_incidence', folder: 'nor' },
-        { id: 'vzacne_nadory_incidence', folder: 'nor' },
-        { id: 'stitna_zlaza_dospeli_incidence', folder: 'nor' },
-        { id: 'myelom_incidence', folder: 'nor' },
-        { id: 'hrtan_incidence', folder: 'nor' },
-        { id: 'kuze_nemelanomove_incidence', folder: 'nor' },
-        { id: 'hodgkin_lymfom_incidence', folder: 'nor' },
-        { id: 'lymfomy_b_bunecne_incidence', folder: 'nor' },
-        { id: 'lymfomy_t_bunecne_incidence', folder: 'nor' },
-        { id: 'kolorektum_mladi_incidence', folder: 'nor' },
-        { id: 'kolorektum_starsi_incidence', folder: 'nor' },
-        { id: 'prsa_mladi_incidence', folder: 'nor' },
-        { id: 'prsa_starsi_incidence', folder: 'nor' },
-        { id: 'plice_mladi_incidence', folder: 'nor' },
-        { id: 'plice_starsi_incidence', folder: 'nor' },
-        { id: 'melanom_mladi_incidence', folder: 'nor' },
-        { id: 'melanom_starsi_incidence', folder: 'nor' },
-        { id: 'varlata_mladi_incidence', folder: 'nor' },
-        { id: 'varlata_starsi_incidence', folder: 'nor' },
-        { id: 'leukemie_deti_incidence', folder: 'nor' },
-        { id: 'leukemie_dospeli_incidence', folder: 'nor' },
-        { id: 'kolorektum_velmi_mladi_incidence', folder: 'nor' },
-        { id: 'kolorektum_stredni_incidence', folder: 'nor' },
-        { id: 'prsa_mortalita', folder: 'nor' },
-        { id: 'plice_mortalita', folder: 'nor' },
-        { id: 'prostata_mortalita', folder: 'nor' },
-        { id: 'kolorektum_mortalita', folder: 'nor' },
-        { id: 'melanom_mortalita', folder: 'nor' },
-        { id: 'zaludek_mortalita', folder: 'nor' },
-        { id: 'slinivka_mortalita', folder: 'nor' },
-        { id: 'jicen_mortalita', folder: 'nor' },
-        { id: 'cipek_mortalita', folder: 'nor' },
-        { id: 'leukemie_mortalita', folder: 'nor' },
-        { id: 'lymfomy_mortalita', folder: 'nor' },
-        { id: 'mozek_mortalita', folder: 'nor' },
-        { id: 'ledvina_mortalita', folder: 'nor' },
-        { id: 'mocovy_mechyr_mortalita', folder: 'nor' },
-        { id: 'stitna_zlaza_mortalita', folder: 'nor' },
-        { id: 'hrtan_mortalita', folder: 'nor' },
-        { id: 'varlata_mortalita', folder: 'nor' },
-        { id: 'vajecnik_mortalita', folder: 'nor' },
-        { id: 'deloha_mortalita', folder: 'nor' },
-        { id: 'kosti_mortalita', folder: 'nor' },
-        { id: 'ustni_dutina_mortalita', folder: 'nor' },
-        { id: 'myelom_mortalita', folder: 'nor' },
-        { id: 'kuze_nemelanomove_mortalita', folder: 'nor' },
-        { id: 'hodgkin_lymfom_mortalita', folder: 'nor' },
-        { id: 'lymfomy_b_bunecne_mortalita', folder: 'nor' },
-        { id: 'lymfomy_t_bunecne_mortalita', folder: 'nor' },
-        { id: 'vzacne_nadory_mortalita', folder: 'nor' },
-        { id: 'prsa_mortalita_kraje_2022', folder: 'nor' },
-        { id: 'plice_mortalita_kraje_2022', folder: 'nor' },
-        { id: 'prostata_mortalita_kraje_2022', folder: 'nor' },
-        { id: 'kolorektum_mortalita_kraje_2022', folder: 'nor' },
-        { id: 'melanom_mortalita_kraje_2022', folder: 'nor' },
-        { id: 'prsa_kraje_2022', folder: 'nor' },
-        { id: 'plice_kraje_2022', folder: 'nor' },
-        { id: 'prostata_kraje_2022', folder: 'nor' },
-        { id: 'kolorektum_kraje_2022', folder: 'nor' },
-        { id: 'melanom_kraje_2022', folder: 'nor' },
-        { id: 'prsa_kraje_timeseries', folder: 'nor' },
-        { id: 'plice_kraje_timeseries', folder: 'nor' },
-        { id: 'prostata_kraje_timeseries', folder: 'nor' },
-        { id: 'kolorektum_kraje_timeseries', folder: 'nor' },
-        { id: 'melanom_kraje_timeseries', folder: 'nor' },
-        { id: 'plice_muzi_mortalita', folder: 'nor' },
-        { id: 'plice_zeny_mortalita', folder: 'nor' },
-        { id: 'kolorektum_muzi_mortalita', folder: 'nor' },
-        { id: 'kolorektum_zeny_mortalita', folder: 'nor' },
-        { id: 'prsa_mladi_mortalita', folder: 'nor' },
-        { id: 'prsa_starsi_mortalita', folder: 'nor' },
-        { id: 'kolorektum_mladi_mortalita', folder: 'nor' },
-        { id: 'kolorektum_starsi_mortalita', folder: 'nor' },
-        { id: 'prsa_mladi_preziti_5y', folder: 'nor' },
-        { id: 'prsa_starsi_preziti_5y', folder: 'nor' },
-        { id: 'kolorektum_mladi_preziti_5y', folder: 'nor' },
-        { id: 'kolorektum_starsi_preziti_5y', folder: 'nor' },
-        { id: 'zaludek_muzi_mortalita', folder: 'nor' },
-        { id: 'zaludek_zeny_mortalita', folder: 'nor' },
-        { id: 'plice_mladi_mortalita', folder: 'nor' },
-        { id: 'plice_starsi_mortalita', folder: 'nor' },
-        { id: 'melanom_muzi_mortalita', folder: 'nor' },
-        { id: 'melanom_zeny_mortalita', folder: 'nor' },
-        { id: 'plice_muzi_preziti_5y', folder: 'nor' },
-        { id: 'plice_zeny_preziti_5y', folder: 'nor' },
-        { id: 'kolorektum_muzi_preziti_5y', folder: 'nor' },
-        { id: 'kolorektum_zeny_preziti_5y', folder: 'nor' },
-        { id: 'hodgkin_muzi_mortalita', folder: 'nor' },
-        { id: 'hodgkin_zeny_mortalita', folder: 'nor' },
-        { id: 'lymfomy_b_bunecne_muzi_mortalita', folder: 'nor' },
-        { id: 'lymfomy_b_bunecne_zeny_mortalita', folder: 'nor' },
-        { id: 'slinivka_muzi_mortalita', folder: 'nor' },
-        { id: 'slinivka_zeny_mortalita', folder: 'nor' },
-        { id: 'mozek_muzi_mortalita', folder: 'nor' },
-        { id: 'mozek_zeny_mortalita', folder: 'nor' },
-        { id: 'leukemie_muzi_mortalita', folder: 'nor' },
-        { id: 'leukemie_zeny_mortalita', folder: 'nor' },
-        { id: 'prsa_preziti_5y', folder: 'nor' },
-        { id: 'plice_preziti_5y', folder: 'nor' },
-        { id: 'prostata_preziti_5y', folder: 'nor' },
-        { id: 'kolorektum_preziti_5y', folder: 'nor' },
-        { id: 'melanom_preziti_5y', folder: 'nor' },
-        { id: 'zaludek_preziti_5y', folder: 'nor' },
-        { id: 'slinivka_preziti_5y', folder: 'nor' },
-        { id: 'cipek_preziti_5y', folder: 'nor' },
-        { id: 'hodgkin_preziti_5y', folder: 'nor' },
-        { id: 'lymfomy_b_bunecne_preziti_5y', folder: 'nor' },
-        { id: 'leukemie_preziti_5y', folder: 'nor' },
-        { id: 'mozek_preziti_5y', folder: 'nor' },
-        { id: 'ustni_dutina_preziti_5y', folder: 'nor' },
-        { id: 'jicen_preziti_5y', folder: 'nor' },
-        { id: 'hrtan_preziti_5y', folder: 'nor' },
-        { id: 'kuze_nemelanomove_preziti_5y', folder: 'nor' },
-        { id: 'deloha_preziti_5y', folder: 'nor' },
-        { id: 'vajecnik_preziti_5y', folder: 'nor' },
-        { id: 'varlata_preziti_5y', folder: 'nor' },
-        { id: 'ledvina_preziti_5y', folder: 'nor' },
-        { id: 'mocovy_mechyr_preziti_5y', folder: 'nor' },
-        { id: 'stitna_zlaza_preziti_5y', folder: 'nor' },
-        { id: 'myelom_preziti_5y', folder: 'nor' },
-        { id: 'prsa_stadium_1_share', folder: 'nor' },
-        { id: 'prsa_stadium_4_share', folder: 'nor' },
-        { id: 'kolorektum_stadium_1_share', folder: 'nor' },
-        { id: 'kolorektum_stadium_4_share', folder: 'nor' },
-        { id: 'plice_stadium_1_share', folder: 'nor' },
-        { id: 'plice_stadium_4_share', folder: 'nor' },
-        { id: 'prostata_stadium_1_share', folder: 'nor' },
-        { id: 'prostata_stadium_4_share', folder: 'nor' },
-        { id: 'melanom_stadium_1_share', folder: 'nor' },
-        { id: 'melanom_stadium_4_share', folder: 'nor' },
-        { id: 'zaludek_stadium_1_share', folder: 'nor' },
-        { id: 'zaludek_stadium_4_share', folder: 'nor' },
-        { id: 'slinivka_stadium_1_share', folder: 'nor' },
-        { id: 'slinivka_stadium_4_share', folder: 'nor' },
-        { id: 'jicen_stadium_1_share', folder: 'nor' },
-        { id: 'jicen_stadium_4_share', folder: 'nor' },
-        { id: 'ledvina_stadium_1_share', folder: 'nor' },
-        { id: 'ledvina_stadium_4_share', folder: 'nor' },
-        { id: 'mocovy_mechyr_stadium_1_share', folder: 'nor' },
-        { id: 'mocovy_mechyr_stadium_4_share', folder: 'nor' },
-        { id: 'stitna_zlaza_stadium_1_share', folder: 'nor' },
-        { id: 'stitna_zlaza_stadium_4_share', folder: 'nor' },
-        { id: 'vajecnik_stadium_1_share', folder: 'nor' },
-        { id: 'vajecnik_stadium_4_share', folder: 'nor' },
-        { id: 'plice_muzi_incidence', folder: 'nor' },
-        { id: 'plice_zeny_incidence', folder: 'nor' },
-        { id: 'kolorektum_muzi_incidence', folder: 'nor' },
-        { id: 'kolorektum_zeny_incidence', folder: 'nor' },
-        { id: 'zaludek_muzi_incidence', folder: 'nor' },
-        { id: 'zaludek_zeny_incidence', folder: 'nor' },
-        { id: 'hrtan_muzi_incidence', folder: 'nor' },
-        { id: 'hrtan_zeny_incidence', folder: 'nor' },
-        { id: 'melanom_muzi_incidence', folder: 'nor' },
-        { id: 'melanom_zeny_incidence', folder: 'nor' },
-        { id: 'mocovy_mechyr_muzi_incidence', folder: 'nor' },
-        { id: 'mocovy_mechyr_zeny_incidence', folder: 'nor' },
-        { id: 'slinivka_mladi_incidence', folder: 'nor' },
-        { id: 'slinivka_starsi_incidence', folder: 'nor' },
-        { id: 'mozek_mladi_incidence', folder: 'nor' },
-        { id: 'mozek_starsi_incidence', folder: 'nor' },
-        { id: 'jicen_mladi_incidence', folder: 'nor' },
-        { id: 'jicen_starsi_incidence', folder: 'nor' },
-        { id: 'stitna_zlaza_male_deti_incidence', folder: 'nor' },
-        { id: 'tuberkuloza_incidence', folder: 'nzip_curated' },
-        { id: 'sebevrazdy_hospitalizace', folder: 'nzip_curated' },
-        { id: 'autismus_deti_incidence', folder: 'nzip_curated' },
-        { id: 'pohlavni_nemoci_incidence', folder: 'nzip_curated' },
-        { id: 'astma_dispenzarizovani', folder: 'nzip_curated' },
-        { id: 'preventivni_prohlidky_pokryti', folder: 'nzip_curated' },
-        { id: 'kolorektum_screening_pokryti', folder: 'nzip_curated' },
-        { id: 'prostata_psa_pokryti', folder: 'nzip_curated' },
-        { id: 'autismus_vcasny_zachyt_pokryti', folder: 'nzip_curated' },
-        { id: 'kycle_screening_pokryti', folder: 'nzip_curated' },
-        { id: 'ocekavatelna_umrti', folder: 'nzip_curated' },
-        { id: 'alergicka_ryma_dispenzarizovani', folder: 'nzip_curated' },
-        { id: 'vrozene_vady', folder: 'nzip_curated' },
-        { id: 'lazenska_pece_pacienti', folder: 'nzip_curated' },
-        { id: 'paliativni_pece_pacienti', folder: 'nzip_curated' },
-        { id: 'mamografie_screening_pokryti', folder: 'nzip_curated' },
-        { id: 'cervix_screening_pokryti', folder: 'nzip_curated' },
-        { id: 'umrti_mkn10_celkem', folder: 'nzip_curated' },
-        { id: 'atopicka_dermatitida', folder: 'nzip_curated' },
-        { id: 'cdz_pacienti', folder: 'nzip_curated' },
-        { id: 'umrti_doma_ocekavatelne', folder: 'nzip_curated' },
-        { id: 'dialyza_nefrolog_pokryti', folder: 'nzip_curated' },
-        { id: 'toks_pozitivni_podil', folder: 'nzip_curated' },
-        { id: 'sluch_screening_pokryti', folder: 'nzip_curated' },
-        { id: 'cervix_cytologie_pocet', folder: 'nzip_curated' },
-        { id: 'cervix_cytologie_abnormalni_podil', folder: 'nzip_curated' },
-        { id: 'kolonoskopie_screening_pocet', folder: 'nzip_curated' },
-        { id: 'toks_pocet', folder: 'nzip_curated' },
-        { id: 'mamografie_pocet', folder: 'nzip_curated' },
-        { id: 'mamografie_doplnujici_podil', folder: 'nzip_curated' },
-        { id: 'mamografie_uz_podil', folder: 'nzip_curated' },
-        { id: 'paliativni_trajektorie_optimalni', folder: 'nzip_curated' },
-      ];
-      const loaded = [];
-
-      for (const { id, folder } of sources) {
-        try {
-          const response = await fetch(`${DATA_BASE}${folder}/${id}.json`);
-          if (response.ok) {
-            loaded.push(await response.json());
-          }
-        } catch (e) {
-          console.warn(`Nelze načíst dataset ${id}:`, e);
-        }
+    async function loadCatalog() {
+      try {
+        const response = await fetch(`${DATA_BASE}catalog.json`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const catalog = await response.json();
+        setNationalDatasets(catalog.datasets || []);
+      } catch (e) {
+        console.error('Nelze načíst catalog.json:', e);
+        setError(`Nelze načíst katalog datasetů: ${e.message}`);
+      } finally {
+        setLoadingData(false);
       }
-
-      setNationalDatasets(loaded);
-      setLoadingData(false);
-
-      // Pokud nemáme klíč, zobraz modal
       if (!apiKey) setShowKeyModal(true);
     }
-    loadData();
+    loadCatalog();
   }, []);
 
-  const allDatasets = useMemo(() => [...nationalDatasets, ...INTL_DATASETS], [nationalDatasets]);
+  // Krok B — když uživatel vybere dataset, kterému ještě nemáme data, spusť lazy fetch CSV.
+  // Cache je per csv_url (csvCache nahoře), takže NOR (sdílené CSV) se stáhne jednou.
+  useEffect(() => {
+    if (nationalDatasets.length === 0) return;
+    for (const id of selectedIds) {
+      if (datasetData.has(id)) continue;
+      const entry = nationalDatasets.find(d => d.id === id);
+      if (!entry) continue;
+      setDatasetData(prev => new Map(prev).set(id, { loading: true, error: null, series: null }));
+      parseDataset(entry).then(series => {
+        setDatasetData(prev => new Map(prev).set(id, { loading: false, error: null, series }));
+      }).catch(e => {
+        console.error(`Fetch failed pro ${id}:`, e);
+        setDatasetData(prev => new Map(prev).set(id, { loading: false, error: e.message, series: null }));
+      });
+    }
+  }, [selectedIds, nationalDatasets]);
+
+  // Krok C — vyrobí "enriched" datasety: metadata + (lazy) data + computed trend/delta/peakYear.
+  // Nevybraný dataset má _hasData=false → karta ukáže skeleton bez grafu.
+  const allDatasets = useMemo(() => nationalDatasets.map(meta => {
+    const state = datasetData.get(meta.id);
+    const baseSourceType = meta.source_type || 'national';
+    if (!state) return { ...meta, source_type: baseSourceType, _loading: false, _hasData: false };
+    if (state.loading) return { ...meta, source_type: baseSourceType, _loading: true, _hasData: false };
+    if (state.error) return { ...meta, source_type: baseSourceType, _loading: false, _hasData: false, _error: state.error };
+    const series = state.series || [];
+    const computed = computeMeta(series);
+    const coverage = series.length > 0 ? `${series[0].year}–${series[series.length - 1].year}` : '';
+    return {
+      ...meta,
+      source_type: baseSourceType,
+      _loading: false,
+      _hasData: true,
+      data: series,
+      coverage,
+      trend: computed.trend,
+      delta: computed.delta,
+      peakYear: computed.peakYear,
+    };
+  }), [nationalDatasets, datasetData]);
   const selectedDatasets = allDatasets.filter(d => selectedIds.includes(d.id));
 
   const toggleDataset = (id) => {
@@ -1251,6 +1150,33 @@ function DatasetCard({ d, selected, onToggle }) {
       {d.description && (
         <div style={{ fontSize: 14, color: '#333', lineHeight: 1.45, marginBottom: 14 }}>
           {d.description}
+        </div>
+      )}
+
+      {/* 4b. Lazy-fetch stavová zpráva — loading / error / nevybraný */}
+      {d._loading && (
+        <div style={{
+          background: '#F2F0EA', padding: '10px 12px', margin: '4px 0 8px',
+          fontSize: 12, color: '#666', display: 'flex', alignItems: 'center', gap: 8,
+        }}>
+          <Loader2 size={14} className="spin" />
+          Načítám data z {d.source || 'zdroje'}…
+        </div>
+      )}
+      {d._error && (
+        <div style={{
+          background: '#FBEFEC', padding: '10px 12px', margin: '4px 0 8px',
+          fontSize: 12, color: '#9A2A1F',
+        }}>
+          Nelze stáhnout data: {d._error}
+        </div>
+      )}
+      {!d._loading && !d._error && !d._hasData && !selected && (
+        <div style={{
+          background: '#F2F0EA', padding: '10px 12px', margin: '4px 0 8px',
+          fontSize: 12, color: '#888', fontStyle: 'italic',
+        }}>
+          Vyber kartu pro načtení dat ze zdroje.
         </div>
       )}
 
