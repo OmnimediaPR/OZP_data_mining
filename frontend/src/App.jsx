@@ -529,6 +529,9 @@ export default function App() {
   const [selectedIds, setSelectedIds] = useState(['aim', 'cmp']);
   const [analysis, setAnalysis] = useState(null);
   const [analyzing, setAnalyzing] = useState(false);
+  const [recommending, setRecommending] = useState(false);
+  // recommendations: [{id, reason}] — návrhy AI po kliknutí "Najít relevantní data".
+  const [recommendations, setRecommendations] = useState(null);
   const [error, setError] = useState(null);
 
   // Krok A — při startu: stáhni catalog.json (metadata pro všechny datasety, žádná data).
@@ -595,6 +598,93 @@ export default function App() {
 
   const toggleDataset = (id) => {
     setSelectedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+  };
+
+  // KROK 4 — AI doporučení datasetů. Pošle téma + zkrácený katalog na Anthropic,
+  // dostane zpět 5–10 ID s důvodem, automaticky je zaškrtne v Section 02 (a tím spustí
+  // lazy fetch CSV přes existující useEffect na selectedIds).
+  const recommendDatasets = async () => {
+    if (!apiKey) {
+      setShowKeyModal(true);
+      return;
+    }
+    if (!topic.trim()) {
+      setError('Zadej téma briefu.');
+      return;
+    }
+    if (nationalDatasets.length === 0) {
+      setError('Katalog datasetů ještě není načtený.');
+      return;
+    }
+
+    setRecommending(true);
+    setError(null);
+
+    let text = '';
+    try {
+      const catalogShort = nationalDatasets.map(d => ({
+        id: d.id,
+        category: d.category || '',
+        human_name: d.human_name || '',
+        description: d.description || '',
+        relevant_for: d.relevant_for || [],
+      }));
+
+      const prompt = `Jsi datový analytik pro českou PR agenturu. Klient připravuje brief na téma: "${topic}".
+
+K dispozici máš tento katalog datasetů z českých zdravotnických registrů a mezinárodních srovnání (každý má id, kategorii, lidský název, popis a oblasti relevance):
+
+${JSON.stringify(catalogShort, null, 2)}
+
+Vyber 5 až 10 datasetů, které jsou pro téma nejrelevantnější. Mysli na to, že PR brief obvykle těží z kombinace národních trendů + mezinárodního kontextu, pokud je k tématu relevantní. Pokud katalog obsahuje méně relevantních datasetů, vyber raději míň (klidně jen 3) než nesedící.
+
+U každého datasetu napiš 1 krátkou větu důvodu, proč se k tématu hodí.
+
+Vrať POUZE platný JSON, žádné markdown, žádný úvod ani závěr:
+{
+  "recommended": [
+    {"id": "id_z_katalogu", "reason": "Krátký důvod, 1 věta česky."}
+  ]
+}
+
+DŮLEŽITÉ: pole "id" musí být přesně jedno z id v katalogu výše. Žádné jiné id nevymýšlej.`;
+
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true',
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 2048,
+          messages: [{ role: 'user', content: prompt }],
+        }),
+      });
+
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`Anthropic API: ${response.status} — ${errText.substring(0, 200)}`);
+      }
+
+      const data = await response.json();
+      text = data.content?.[0]?.text || '';
+      const match = text.match(/\{[\s\S]*\}/);
+      if (!match) throw new Error('Odpověď AI neobsahuje JSON');
+      const parsed = JSON.parse(match[0]);
+      const knownIds = new Set(nationalDatasets.map(d => d.id));
+      const valid = (parsed.recommended || []).filter(r => r.id && knownIds.has(r.id));
+      if (valid.length === 0) throw new Error('AI nevrátila žádný validní dataset z katalogu.');
+      setRecommendations(valid);
+      setSelectedIds(valid.map(r => r.id));
+    } catch (e) {
+      console.error('Recommend raw response:', text?.substring(0, 300));
+      setError(`Nelze získat doporučení datasetů: ${e.message}`);
+    } finally {
+      setRecommending(false);
+    }
   };
 
   const runAnalysis = async () => {
@@ -993,6 +1083,47 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
               />
             </div>
           </div>
+
+          {/* AI doporučení datasetů — KROK 4 nové architektury */}
+          <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+            <button
+              onClick={recommendDatasets}
+              disabled={recommending || !topic.trim() || loadingData}
+              style={{
+                background: '#1F4E8C', color: '#FAFAF7', padding: '10px 20px',
+                border: 'none', fontSize: 14, fontWeight: 600,
+                cursor: (recommending || !topic.trim() || loadingData) ? 'not-allowed' : 'pointer',
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                opacity: (recommending || !topic.trim() || loadingData) ? 0.5 : 1,
+              }}
+            >
+              {recommending ? <Loader2 size={16} className="spin" /> : <Sparkles size={16} />}
+              {recommending ? 'Hledám relevantní data…' : 'Najít relevantní data'}
+            </button>
+            <span style={{ fontSize: 12, color: '#666', flex: 1, minWidth: 200 }}>
+              AI projde katalog a vybere datasety, které se k tématu hodí. Výběr potom můžeš ručně doupravit zaškrtáváním karet níže.
+            </span>
+          </div>
+
+          {recommendations && (
+            <div style={{ marginTop: 16, padding: 16, background: '#EFF4F8', border: '1px solid #C9D6E2' }}>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#1F4E8C', marginBottom: 12 }}>
+                AI doporučila {recommendations.length} {recommendations.length === 1 ? 'dataset' : recommendations.length < 5 ? 'datasety' : 'datasetů'}
+              </div>
+              <div style={{ display: 'grid', gap: 8 }}>
+                {recommendations.map(r => {
+                  const meta = nationalDatasets.find(d => d.id === r.id);
+                  if (!meta) return null;
+                  return (
+                    <div key={r.id} style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 12, fontSize: 13, alignItems: 'baseline' }}>
+                      <div style={{ fontWeight: 600, color: '#1A1A1A' }}>{meta.human_name || meta.label || r.id}</div>
+                      <div style={{ color: '#444', lineHeight: 1.45 }}>{r.reason}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </section>
 
         {/* STEP 2: DATA */}
