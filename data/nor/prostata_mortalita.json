@@ -16,10 +16,6 @@
   ],
   "trend_context": "Úmrtnost roste pomaleji než incidence — odraz toho, že vyšetření krve na prostatický specifický antigen zachytí mnoho pomalu rostoucích nádorů, na které pacient ani nezemře. Modernizace léčby (operativa, ozařování, hormonální a cílená léčba) dál zlepšuje prognózu.",
   "updated": "2026-05-20",
-  "coverage": "1980–2022",
-  "trend": "up",
-  "delta": 113,
-  "peakYear": 2020,
   "data": [
     {
       "year": 1980,
@@ -195,5 +191,9 @@
     }
   ],
   "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
-  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data"
+  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data",
+  "coverage": "1980–2022",
+  "trend": "up",
+  "delta": 113,
+  "peakYear": 2020
 }

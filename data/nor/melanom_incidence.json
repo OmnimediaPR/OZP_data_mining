@@ -16,10 +16,6 @@
   ],
   "trend_context": "Strmý nárůst odráží především lepší záchyt — díky osvětě a preventivním prohlídkám u kožního lékaře — a změnu životního stylu (víc slunění, cestování do teplých zemí, solária). Úmrtnost roste mnohem pomaleji.",
   "updated": "2026-05-20",
-  "coverage": "1977–2022",
-  "trend": "up",
-  "delta": 394,
-  "peakYear": 2022,
   "data": [
     {
       "year": 1977,
@@ -207,5 +203,9 @@
     }
   ],
   "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
-  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data"
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+  "coverage": "1977–2022",
+  "trend": "up",
+  "delta": 394,
+  "peakYear": 2022
 }

@@ -15,10 +15,6 @@
   ],
   "trend_context": "Vývoj odráží modernizaci chirurgické léčby (minimálně invazivní operace), zlepšení chemoterapie a v posledních letech i cílenou léčbu u některých podtypů.",
   "updated": "2026-05-20",
-  "coverage": "1994–2017",
-  "trend": "up",
-  "delta": 8.1,
-  "peakYear": 2017,
   "data": [
     {
       "year": 1994,
@@ -118,5 +114,9 @@
     }
   ],
   "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
-  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data"
+  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+  "coverage": "1994–2017",
+  "trend": "up",
+  "delta": 8.1,
+  "peakYear": 2017
 }

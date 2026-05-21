@@ -16,10 +16,6 @@
   ],
   "trend_context": "U mladších pacientů hraje silnější roli dědičná složka (rodinná anamnéza, mutace v genech BRCA2 a dalších). Vývoj odráží i lepší záchyt díky zobrazovacím metodám u rizikových pacientů.",
   "updated": "2026-05-20",
-  "coverage": "1977–2022",
-  "trend": "up",
-  "delta": 46,
-  "peakYear": 2020,
   "data": [
     {
       "year": 1977,
@@ -207,5 +203,9 @@
     }
   ],
   "data_url": "https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv",
-  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data"
+  "source_url": "https://www.nzip.cz/data/1770-novotvary-incidence-prevalence-regiony-otevrena-data",
+  "coverage": "1977–2022",
+  "trend": "up",
+  "delta": 46,
+  "peakYear": 2020
 }

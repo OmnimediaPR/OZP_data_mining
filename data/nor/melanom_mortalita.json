@@ -16,10 +16,6 @@
   ],
   "trend_context": "Vývoj odráží lepší záchyt v časném stadiu (osvěta, preventivní prohlídky u kožního lékaře) a posun v léčbě — cílená a imunoterapie zlepšily prognózu i u pokročilých melanomů.",
   "updated": "2026-05-20",
-  "coverage": "1980–2022",
-  "trend": "up",
-  "delta": 81,
-  "peakYear": 2022,
   "data": [
     {
       "year": 1980,
@@ -195,5 +191,9 @@
     }
   ],
   "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
-  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data"
+  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data",
+  "coverage": "1980–2022",
+  "trend": "up",
+  "delta": 81,
+  "peakYear": 2022
 }

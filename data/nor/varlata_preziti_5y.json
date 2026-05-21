@@ -15,10 +15,6 @@
   ],
   "trend_context": "Rakovina varlat je modelovým příkladem onkologického úspěchu. Kombinace operace, ozařování a chemoterapie umožňuje vyléčit drtivou většinu pacientů včetně řady případů s metastázami.",
   "updated": "2026-05-20",
-  "coverage": "1994–2017",
-  "trend": "up",
-  "delta": 10.4,
-  "peakYear": 2017,
   "data": [
     {
       "year": 1994,
@@ -118,5 +114,9 @@
     }
   ],
   "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
-  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data"
+  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+  "coverage": "1994–2017",
+  "trend": "up",
+  "delta": 10.4,
+  "peakYear": 2017
 }

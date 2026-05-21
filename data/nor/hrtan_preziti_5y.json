@@ -16,10 +16,6 @@
   ],
   "trend_context": "Vývoj odráží modernizaci chirurgické léčby (záchovné výkony, robotická chirurgie) a ozařování. Důležitá je včasná diagnóza, kterou pomáhají ORL preventivní prohlídky u rizikových pacientů.",
   "updated": "2026-05-20",
-  "coverage": "1994–2017",
-  "trend": "plateau",
-  "delta": 2.3,
-  "peakYear": 2002,
   "data": [
     {
       "year": 1994,
@@ -119,5 +115,9 @@
     }
   ],
   "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
-  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data"
+  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+  "coverage": "1994–2017",
+  "trend": "plateau",
+  "delta": 2.3,
+  "peakYear": 2002
 }

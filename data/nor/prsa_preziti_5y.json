@@ -16,10 +16,6 @@
   ],
   "trend_context": "Hlavní ukazatel pokroku v péči o rakovinu prsu. Vývoj odráží zlepšení časného záchytu (mamografický screening od 2002) a moderní léčby (cílená a hormonální terapie). Česko se postupně dostává k úrovni zemí s nejlepší péčí.",
   "updated": "2026-05-20",
-  "coverage": "1994–2017",
-  "trend": "up",
-  "delta": 17.3,
-  "peakYear": 2015,
   "data": [
     {
       "year": 1994,
@@ -119,5 +115,9 @@
     }
   ],
   "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
-  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data"
+  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+  "coverage": "1994–2017",
+  "trend": "up",
+  "delta": 17.3,
+  "peakYear": 2015
 }

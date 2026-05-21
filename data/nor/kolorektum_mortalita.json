@@ -16,10 +16,6 @@
   ],
   "trend_context": "Vývoj odráží zavedení plošného screeningu (testu na skryté krvácení do stolice v roce 2000 a kolonoskopie v roce 2009) a zlepšení léčby. Česko se z nejhůře postižené země světa postupně dostává k evropskému průměru.",
   "updated": "2026-05-20",
-  "coverage": "1980–2022",
-  "trend": "plateau",
-  "delta": 6,
-  "peakYear": 2003,
   "data": [
     {
       "year": 1980,
@@ -195,5 +191,9 @@
     }
   ],
   "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
-  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data"
+  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data",
+  "coverage": "1980–2022",
+  "trend": "plateau",
+  "delta": 6,
+  "peakYear": 2003
 }

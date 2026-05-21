@@ -16,10 +16,6 @@
   ],
   "trend_context": "Pokles odráží jak ústupek incidence (lepší strava, čistá voda, léčba Helicobacter pylori), tak modernizaci chirurgie a chemoterapie. Záchyt zůstává obtížný — nemoc se často projeví, až když je pokročilá.",
   "updated": "2026-05-20",
-  "coverage": "1980–2022",
-  "trend": "down",
-  "delta": -61,
-  "peakYear": 1980,
   "data": [
     {
       "year": 1980,
@@ -195,5 +191,9 @@
     }
   ],
   "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
-  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data"
+  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data",
+  "coverage": "1980–2022",
+  "trend": "down",
+  "delta": -61,
+  "peakYear": 1980
 }

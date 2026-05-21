@@ -15,10 +15,6 @@
   ],
   "trend_context": "Hodgkinův lymfom byl jednou z prvních rakovin, u kterých medicína dosáhla vysoké léčebné úspěšnosti. Úmrtnost klesá a u většiny pacientů jde dnes o plně vyléčitelné onemocnění.",
   "updated": "2026-05-20",
-  "coverage": "1980–2022",
-  "trend": "down",
-  "delta": -65,
-  "peakYear": 1981,
   "data": [
     {
       "year": 1980,
@@ -194,5 +190,9 @@
     }
   ],
   "data_url": "https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv",
-  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data"
+  "source_url": "https://www.nzip.cz/data/1771-novotvary-mortalita-regiony-otevrena-data",
+  "coverage": "1980–2022",
+  "trend": "down",
+  "delta": -65,
+  "peakYear": 1981
 }

@@ -16,10 +16,6 @@
   ],
   "trend_context": "Vývoj odráží modernizaci chirurgické léčby a chemoterapie. U nositelek mutace v genech BRCA1 a BRCA2 přináší přínos i preventivní operace a cílená léčba (PARP inhibitory).",
   "updated": "2026-05-20",
-  "coverage": "1994–2017",
-  "trend": "plateau",
-  "delta": 5.0,
-  "peakYear": 2015,
   "data": [
     {
       "year": 1994,
@@ -119,5 +115,9 @@
     }
   ],
   "data_url": "https://data.mzcr.cz/data/distribuce/378/Otevrena-data-NR-07-03-preziti-novotvary-cr-2024-01.csv",
-  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data"
+  "source_url": "https://www.nzip.cz/data/1772-novotvary-preziti-otevrena-data",
+  "coverage": "1994–2017",
+  "trend": "plateau",
+  "delta": 5.0,
+  "peakYear": 2015
 }
