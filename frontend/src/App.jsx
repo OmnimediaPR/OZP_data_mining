@@ -672,15 +672,22 @@ DŮLEŽITÉ: pole "id" musí být přesně jedno z id v katalogu výše. Žádn�
       const data = await response.json();
       text = data.content?.[0]?.text || '';
       const match = text.match(/\{[\s\S]*\}/);
-      if (!match) throw new Error('Odpověď AI neobsahuje JSON');
+      if (!match) throw new Error(`Odpověď AI neobsahuje JSON. Začátek odpovědi: "${text.substring(0, 150)}"`);
       const parsed = JSON.parse(match[0]);
       const knownIds = new Set(nationalDatasets.map(d => d.id));
+      const returned = (parsed.recommended || []).map(r => r?.id).filter(Boolean);
       const valid = (parsed.recommended || []).filter(r => r.id && knownIds.has(r.id));
-      if (valid.length === 0) throw new Error('AI nevrátila žádný validní dataset z katalogu.');
+      if (valid.length === 0) {
+        const knownList = [...knownIds].join(', ');
+        if (returned.length === 0) {
+          throw new Error(`AI vrátila prázdný seznam (možná usoudila, že žádný ze ${knownIds.size} datasetů katalogu k tématu nesedí). V katalogu je: ${knownList}`);
+        }
+        throw new Error(`AI vrátila IDs [${returned.join(', ')}], ale žádné nesedí na katalog. V katalogu je: ${knownList}`);
+      }
       setRecommendations(valid);
       setSelectedIds(valid.map(r => r.id));
     } catch (e) {
-      console.error('Recommend raw response:', text?.substring(0, 300));
+      console.error('Recommend raw response (full):', text);
       setError(`Nelze získat doporučení datasetů: ${e.message}`);
     } finally {
       setRecommending(false);
