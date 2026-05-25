@@ -8451,6 +8451,76 @@
       "source_url": "https://www.nzip.cz/data/1701-vakcinace-verejne-zdravotni-pojisteni-otevrena-data",
       "cube_url": "data/cubes/ockovani.json",
       "last_seen": "2026-05-25"
+    },
+    {
+      "id": "urazy_kostka",
+      "kind": "cube",
+      "category": "úrazy",
+      "human_name": "Úrazy — rozpad podle typu poranění, věku a pohlaví",
+      "description": "Interaktivní rozpad hospitalizací pro úraz podle typu poranění (část těla, popáleniny, otravy…), věku a pohlaví. Nástroj upozorní na anomálie (strmé trendy, posun k mladším/starším).",
+      "relevant_for": [
+        "úrazy",
+        "poranění",
+        "hospitalizace",
+        "popáleniny",
+        "otravy",
+        "věkové skupiny",
+        "trendy",
+        "prevence úrazů"
+      ],
+      "trend_context": "Národní registr úrazů, typ poranění dle bloků MKN S00–T98, 2010 dál.",
+      "source_type": "national",
+      "source": "Národní registr úrazů (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1786-urazy-otevrena-data",
+      "cube_url": "data/cubes/urazy.json",
+      "last_seen": "2026-05-25"
+    },
+    {
+      "id": "diabetes_kostka",
+      "kind": "cube",
+      "category": "ostatní",
+      "human_name": "Diabetes — rozpad podle typu léčby, věku a pohlaví",
+      "description": "Interaktivní rozpad pacientů s diabetem podle typu léčby a prostředků (antidiabetika, inzulínová pumpa, glukózové senzory CGM/FGM), věku a pohlaví. Nástroj upozorní na anomálie.",
+      "relevant_for": [
+        "diabetes",
+        "cukrovka",
+        "léčba",
+        "glukózové senzory",
+        "inzulínová pumpa",
+        "věkové skupiny",
+        "trendy"
+      ],
+      "trend_context": "Registr hrazených služeb, diabetes podle typu léčby, 2013 dál. Pacient-roky.",
+      "source_type": "national",
+      "source": "Národní registr hrazených zdravotních služeb (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1768-diabetes-mellitus-epidemiologie-otevrena-data",
+      "cube_url": "data/cubes/diabetes.json",
+      "last_seen": "2026-05-25"
+    },
+    {
+      "id": "leky_atc_kostka",
+      "kind": "cube",
+      "category": "léky",
+      "human_name": "Spotřeba léků podle skupiny (ATC) — rozpad podle skupiny, věku a pohlaví",
+      "description": "Popisná data o spotřebě léků: počet pacientů s vydaným lékem dané skupiny ATC, podle skupiny léků, věku a pohlaví. Slouží k odečtu počtů, ne k trendům (spotřebu ovlivňuje úhradová politika).",
+      "relevant_for": [
+        "léky",
+        "spotřeba léků",
+        "předepisování",
+        "antibiotika",
+        "antidepresiva",
+        "popisná data",
+        "počty"
+      ],
+      "trend_context": "Hromadně vyráběné léčivé přípravky, 2. úroveň ATC, 2018 dál. Popisná data bez skenu trendů.",
+      "source_type": "national",
+      "source": "Národní registr hrazených zdravotních služeb (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/2759-hromadne-vyrabene-lecive-pripravky-2-uroven-atc-otevrena-data",
+      "cube_url": "data/cubes/leky_atc.json",
+      "last_seen": "2026-05-25"
     }
   ]
 }

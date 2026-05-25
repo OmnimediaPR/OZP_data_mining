@@ -7,6 +7,7 @@
 //
 // Spuštění:  node --max-old-space-size=4096 scripts/bake_cube.mjs
 import { Readable } from 'node:stream';
+import { createGunzip } from 'node:zlib';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
@@ -84,7 +85,14 @@ function extractor(dim) {
   if (dim.map === 'STAGE') return (r) => STAGE(r[col]);
   if (dim.valueMap) return (r) => dim.valueMap[(r[col] ?? '').toString().trim()] || null; // číselník kód→název
   // plain category — hodnota přímo ze sloupce (volitelně očištěná o prefix a přeložená přes relabel)
-  return (r) => { let v = (r[col] ?? '').toString().trim(); if (dim.clean === 'stripNumPrefix') v = v.replace(/^\d+[.\s]*/, ''); if (v === '') return null; if (dim.relabel) v = dim.relabel[v] || v; return v; };
+  return (r) => {
+    let v = (r[col] ?? '').toString().trim();
+    if (dim.clean === 'stripNumPrefix') v = v.replace(/^\d+[.\s]*/, '');
+    if (v === '') return null;
+    if (dim.clean === 'lower') v = v.charAt(0).toUpperCase() + v.slice(1).toLowerCase();
+    if (dim.relabel) v = dim.relabel[v] || v;
+    return v;
+  };
 }
 
 async function bakeOne(cfg) {
@@ -94,9 +102,21 @@ async function bakeOne(cfg) {
   const dimSeen = cfg.dims.map(() => new Map()); // dim → Map(value → total) pro řazení
   const yearsSeen = new Set();
   let nRows = 0, nUsed = 0;
-  const r = await fetch(cfg.src, { headers: { 'User-Agent': UA } });
-  if (!r.ok) throw new Error(`${cfg.id}: HTTP ${r.status}`);
-  const ns = Readable.fromWeb(r.body); ns.setEncoding(cfg.encoding === 'windows-1250' ? 'latin1' : 'utf8');
+  // Zdroj lze přepsat lokálním souborem přes env (CUBESRC_<id>) — pro velké soubory, které
+  // se přes fetch utrhávají, je stáhneme robustně curl-em do /tmp a zpracujeme lokálně.
+  const srcUrl = process.env['CUBESRC_' + cfg.id] || cfg.src;
+  const isLocal = !/^https?:/.test(srcUrl);
+  let src;
+  if (isLocal) {
+    src = (await import('node:fs')).createReadStream(srcUrl);
+  } else {
+    const r = await fetch(srcUrl, { headers: { 'User-Agent': UA } });
+    if (!r.ok) throw new Error(`${cfg.id}: HTTP ${r.status}`);
+    src = Readable.fromWeb(r.body);
+  }
+  let ns = src;
+  if (srcUrl.endsWith('.gz')) ns = src.pipe(createGunzip()); // gzipované zdroje (.csv.gz)
+  ns.setEncoding(cfg.encoding === 'windows-1250' ? 'latin1' : 'utf8');
   const t0 = Date.now();
   const addCell = (y, vals, amount) => {
     const key = y + SEP + vals.join(SEP);
@@ -105,7 +125,10 @@ async function bakeOne(cfg) {
     for (let i = 0; i < vals.length; i++) dimSeen[i].set(vals[i], (dimSeen[i].get(vals[i]) || 0) + amount);
     nUsed++;
   };
-  await new Promise((res, rej) => Papa.parse(ns, {
+  await new Promise((res, rej) => {
+    src.on('error', rej);            // chyba zdrojového streamu (výpadek socketu)
+    if (ns !== src) ns.on('error', rej); // chyba rozbalování
+    Papa.parse(ns, {
     header: true, skipEmptyLines: true,
     step: ({ data: x }) => {
       nRows++;
@@ -127,7 +150,8 @@ async function bakeOne(cfg) {
         addCell(y, vals, amount);
       }
     }, complete: res, error: rej,
-  }));
+    });
+  });
 
   // sestav dimenze
   const years = [...yearsSeen].sort((a, b) => a - b);
@@ -324,6 +348,65 @@ const CONFIGS = [
     ],
   },
   {
+    id: 'urazy', src: 'https://data.mzcr.cz/data/distribuce/381/Otevrena-data-NR-16-01-urazy.csv.gz',
+    source: 'Národní registr úrazů (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1786-urazy-otevrena-data',
+    human_name: 'Úrazy — hospitalizační případy',
+    description: 'Počty hospitalizací pro úraz, rozpadnutelné podle typu poranění (část těla, popáleniny, otravy…), věku a pohlaví. Jeden úraz může mít více typů poranění.',
+    metric_label: 'Úrazy (hospitalizace)', metric: { type: 'wide' }, yearCol: 'rok', year_from: 2010,
+    note: 'Typ poranění z příznakových sloupců MKN S00–T98. Jeden úraz může spadat do více typů (polytrauma).',
+    wideCauses: [
+      { col: 'S00_S09', name: 'poranění hlavy' }, { col: 'S10_S19', name: 'poranění krku' },
+      { col: 'S20_S29', name: 'poranění hrudníku' }, { col: 'S30_S39', name: 'poranění břicha, zad a pánve' },
+      { col: 'S40_S49', name: 'poranění ramene a paže' }, { col: 'S50_S59', name: 'poranění lokte a předloktí' },
+      { col: 'S60_S69', name: 'poranění zápěstí a ruky' }, { col: 'S70_S79', name: 'poranění kyčle a stehna' },
+      { col: 'S80_S89', name: 'poranění kolena a bérce' }, { col: 'S90_S99', name: 'poranění kotníku a nohy' },
+      { col: 'T00_T07', name: 'mnohočetná poranění' }, { col: 'T08_T14', name: 'poranění neurčené části těla' },
+      { col: 'T15_T19', name: 'cizí těleso v tělním otvoru' },
+      { col: 'T20_T25', name: 'popáleniny' }, { col: 'T26_T28', name: 'popáleniny' }, { col: 'T29_T32', name: 'popáleniny' },
+      { col: 'T33_T35', name: 'omrzliny' }, { col: 'T36_T50', name: 'otrava léky a návykovými látkami' },
+      { col: 'T51_T65', name: 'toxické účinky nelékových látek' }, { col: 'T66_T78', name: 'jiné účinky vnějších příčin' },
+      { col: 'T80_T88', name: 'komplikace zdravotní péče' }, { col: 'T90_T98', name: 'následky poranění a otrav' },
+    ],
+    dims: [
+      { key: 'typ', label: 'Typ poranění', kind: 'category', primary: true, wide: true },
+      { key: 'age', label: 'Věk', kind: 'age', col: 'vek_kod', decode: 'nor5' },
+      { key: 'sex', label: 'Pohlaví', kind: 'category', col: 'pohlavi', map: 'SEX' },
+    ],
+  },
+  {
+    id: 'diabetes', src: 'https://data.mzcr.cz/data/distribuce/362/Otevrena-data-NR-18-01-diabetes-mellitus.csv.gz',
+    source: 'Národní registr hrazených zdravotních služeb (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1768-diabetes-mellitus-epidemiologie-otevrena-data',
+    human_name: 'Diabetes — pacienti podle typu léčby',
+    description: 'Počty pacientů s diabetem podle typu léčby a používaných prostředků (antidiabetika, inzulínová pumpa, glukózové senzory), rozpadnutelné podle věku a pohlaví.',
+    metric_label: 'Pacienti (case-years)', metric: { type: 'wide' }, yearCol: 'rok', year_from: 2013,
+    note: 'Typy léčby z příznakových sloupců (pacient může mít více). Počítají se pacient-roky.',
+    wideCauses: [
+      { col: 'DM_antidiabetika', name: 'antidiabetika (léky)' },
+      { col: 'DM_prostredky_IP', name: 'inzulínová pumpa' },
+      { col: 'DM_prostredky_CGM', name: 'kontinuální monitor glykémie (CGM)' },
+      { col: 'DM_prostredky_FGM', name: 'okamžitý monitor glykémie (FGM)' },
+    ],
+    dims: [
+      { key: 'lecba', label: 'Typ léčby', kind: 'category', primary: true, wide: true },
+      { key: 'age', label: 'Věk', kind: 'age', col: 'vek_kod', decode: 'nor5' },
+      { key: 'sex', label: 'Pohlaví', kind: 'category', col: 'pohlavi', map: 'SEX' },
+    ],
+  },
+  {
+    id: 'leky_atc', src: 'https://datanzis.uzis.gov.cz/data/NR-04-NRHZS/NR-04-96/Otevrena-data-NR-04-96-hromadne-vyrabene-lecive-pripravky-2-uroven-atc.csv.gz',
+    source: 'Národní registr hrazených zdravotních služeb (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/2759-hromadne-vyrabene-lecive-pripravky-2-uroven-atc-otevrena-data',
+    human_name: 'Spotřeba léků podle skupiny (ATC)',
+    description: 'Počty pacientů, kterým byl vydán hromadně vyráběný léčivý přípravek dané skupiny ATC (2. úroveň), rozpadnutelné podle skupiny léků, věku a pohlaví.',
+    metric_label: 'Pacienti s vydaným lékem', metric: { type: 'sum', col: 'pocet_UOP' }, yearCol: 'rok', year_from: 2018,
+    noAnomalies: true,
+    note: 'Popisná data — bez skenu trendů (spotřebu léků silně ovlivňuje úhradová politika a kódování). Skupiny dle 2. úrovně ATC, metrika: počet unikátních ošetřených pacientů.',
+    dims: [
+      { key: 'skupina', label: 'Skupina léků', kind: 'category', primary: true, col: 'ATC_nazev', clean: 'lower', maxValues: 40 },
+      { key: 'age', label: 'Věk', kind: 'age', col: 'vek', decode: 'nor5' },
+      { key: 'sex', label: 'Pohlaví', kind: 'category', col: 'pohlavi', map: 'SEX' },
+    ],
+  },
+  {
     id: 'ockovani', src: 'https://data.mzcr.cz/data/distribuce/342/vakcinace-verejne-zdravotni-pojisteni.csv',
     source: 'Vykázané očkování z veřejného zdravotního pojištění (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1701-vakcinace-verejne-zdravotni-pojisteni-otevrena-data',
     human_name: 'Očkování — vykázané dávky',
@@ -349,4 +432,13 @@ const CONFIGS = [
 ];
 
 const only = process.argv.slice(2);
-for (const cfg of CONFIGS) { if (only.length && !only.includes(cfg.id)) continue; await bakeOne(cfg); }
+for (const cfg of CONFIGS) {
+  if (only.length && !only.includes(cfg.id)) continue;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try { await bakeOne(cfg); break; }
+    catch (e) {
+      console.log(`✗ ${cfg.id}: ${e.message}${attempt < 3 ? ' — zkouším znovu za 3 s' : ' — VZDÁVÁM po 3 pokusech'}`);
+      if (attempt < 3) await new Promise(r => setTimeout(r, 3000));
+    }
+  }
+}
