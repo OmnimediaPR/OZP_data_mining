@@ -32,6 +32,7 @@ const DG_ONKO = {
   C90: { key: 'C90', name: 'mnohočetný myelom' }, C91: { key: 'C91', name: 'lymfatická leukémie' }, C92: { key: 'C92', name: 'myeloidní leukémie' },
 };
 const SEX = (v) => (v === '1' ? 'muž' : v === '2' ? 'žena' : null);
+const SEX_MZ = (v) => (v === 'M' ? 'muž' : v === 'Z' ? 'žena' : null);
 const STAGE = (v) => { const s = (v || '').toString().replace(/"/g, '').trim(); return ['1', '2', '3', '4'].includes(s) ? ['', 'I', 'II', 'III', 'IV'][+s] : 'neuvedeno'; };
 const nor5 = (code) => { const low = parseInt((code || '').toString().slice(2, 5), 10); return Number.isFinite(low) ? Math.floor(low / 5) * 5 : null; };
 const ageLabel = (s) => (s >= 85 ? '85 a více' : `${s}–${s + 4}`);
@@ -42,13 +43,15 @@ function extractor(dim) {
   const col = dim.col;
   if (dim.kind === 'age') {
     if (dim.decode === 'nor5') return (r) => nor5(r[col]);
+    if (dim.decode === 'range') return (r) => { const m = (r[col] || '').toString().match(/(\d+)/); return m ? parseInt(m[1], 10) : null; }; // "65-69"→65, "00-04"→0
     throw new Error(`neznámý decode věku: ${dim.decode}`);
   }
   if (dim.map === 'DG_ONKO') return (r) => { const m = DG_ONKO[(r[col] || '').toString().slice(0, 3)]; return m ? m.key : null; };
   if (dim.map === 'SEX') return (r) => SEX((r[col] || '').toString());
+  if (dim.map === 'SEX_MZ') return (r) => SEX_MZ((r[col] || '').toString());
   if (dim.map === 'STAGE') return (r) => STAGE(r[col]);
-  // plain category — hodnota přímo ze sloupce (volitelně oříznutá / s mapou názvů)
-  return (r) => { const v = (r[col] ?? '').toString().trim(); return v === '' ? null : v; };
+  // plain category — hodnota přímo ze sloupce (volitelně očištěná o číselný prefix)
+  return (r) => { let v = (r[col] ?? '').toString().trim(); if (dim.clean === 'stripNumPrefix') v = v.replace(/^\d+[.\s]*/, ''); return v === '' ? null : v; };
 }
 
 async function bakeOne(cfg) {
@@ -85,7 +88,7 @@ async function bakeOne(cfg) {
     let values;
     if (d.kind === 'age') values = [...dimSeen[i].keys()].sort((a, b) => a - b);
     else if (d.order === 'fixed') values = d.fixed.filter(v => dimSeen[i].has(v));
-    else values = [...dimSeen[i].keys()].sort((a, b) => (dimSeen[i].get(b) - dimSeen[i].get(a))); // podle objemu
+    else { values = [...dimSeen[i].keys()].sort((a, b) => (dimSeen[i].get(b) - dimSeen[i].get(a))); if (d.maxValues) values = values.slice(0, d.maxValues); } // podle objemu, příp. strop
     // názvy: pro DG_ONKO doplň lidský název
     let outValues = values;
     if (d.map === 'DG_ONKO') { const nm = {}; for (const v of Object.values(DG_ONKO)) nm[v.key] = v.name; outValues = values.map(k => ({ key: k, name: nm[k] })); }
@@ -130,11 +133,14 @@ function scanAnomalies(cfg, dims, years, counts) {
   const ageIdx = dims.findIndex(d => d.kind === 'age');
   const stageIdx = dims.findIndex(d => d.values.includes && d.values.includes('III') && d.values.includes('IV'));
   const pVals = dims[pIdx].values; const pName = (k) => { const v = pVals.find(x => ((x && typeof x === 'object') ? x.key : x) === k); return (v && typeof v === 'object') ? v.name : k; };
+  // Adaptivní období: první 3 a poslední 3 roky, které registr má (ne napevno) — jinak vznikají
+  // falešné skoky u registrů s jiným pokrytím (covid, očkování).
+  const BASE = years.slice(0, 3), REC = years.slice(-3);
   const byPYear = {}, byPYoung = {}, byPLate = {};
   for (const [key, n] of counts) {
     const parts = key.split(SEP); const Y = +parts[0]; const pv = parts[pIdx + 1];
     (byPYear[pv] = byPYear[pv] || {})[Y] = (byPYear[pv][Y] || 0) + n;
-    const per = [2011, 2012, 2013].includes(Y) ? 'b' : [2020, 2021, 2022].includes(Y) ? 'r' : null;
+    const per = BASE.includes(Y) ? 'b' : REC.includes(Y) ? 'r' : null;
     if (per && ageIdx >= 0) { const a = +parts[ageIdx + 1]; const yo = byPYoung[pv] = byPYoung[pv] || { b: { t: 0, y: 0 }, r: { t: 0, y: 0 } }; yo[per].t += n; if (a < 50) yo[per].y += n; }
     if (per && stageIdx >= 0) { const st = parts[stageIdx + 1]; const la = byPLate[pv] = byPLate[pv] || { b: { s: 0, l: 0 }, r: { s: 0, l: 0 } }; if (st === 'III' || st === 'IV') { la[per].s += n; la[per].l += n; } else if (st === 'I' || st === 'II') la[per].s += n; }
   }
@@ -142,12 +148,12 @@ function scanAnomalies(cfg, dims, years, counts) {
   const maxJump = (o) => { let m = 0; for (let i = 1; i < years.length; i++) { const a = o[years[i - 1]] || 0, b = o[years[i]] || 0; if (a >= 30) m = Math.max(m, Math.abs((b - a) / a)); } return m; };
   const out = [];
   for (const pv of Object.keys(byPYear)) {
-    const b = avg(byPYear[pv], [2011, 2012, 2013]), rc = avg(byPYear[pv], [2020, 2021, 2022]);
-    if (rc >= 150 && b > 0) { const pct = Math.round((rc - b) / b * 100); if (Math.abs(pct) >= 15) out.push({ type: 'trend', dg: pv, name: pName(pv), pct, from: Math.round(b), to: Math.round(rc), artifact_risk: maxJump(byPYear[pv]) > 0.35 }); }
+    const b = avg(byPYear[pv], BASE), rc = avg(byPYear[pv], REC);
+    if (rc >= 150 && b >= 30) { const pct = Math.round((rc - b) / b * 100); if (Math.abs(pct) >= 15) out.push({ type: 'trend', dg: pv, name: pName(pv), pct, from: Math.round(b), to: Math.round(rc), artifact_risk: maxJump(byPYear[pv]) > 0.35 }); }
     const yo = byPYoung[pv];
-    if (yo && yo.r.t >= 800) { const sb = yo.b.t ? yo.b.y / yo.b.t * 100 : 0, sr = yo.r.t ? yo.r.y / yo.r.t * 100 : 0; if (Math.abs(sr - sb) >= 2.5) out.push({ type: 'vek_posun', dg: pv, name: pName(pv), from_pct: +sb.toFixed(1), to_pct: +sr.toFixed(1), diff: +(sr - sb).toFixed(1) }); }
+    if (yo && yo.r.t >= 800 && yo.b.t >= 200) { const sb = yo.b.y / yo.b.t * 100, sr = yo.r.y / yo.r.t * 100; if (Math.abs(sr - sb) >= 2.5) out.push({ type: 'vek_posun', dg: pv, name: pName(pv), from_pct: +sb.toFixed(1), to_pct: +sr.toFixed(1), diff: +(sr - sb).toFixed(1) }); }
     const la = byPLate[pv];
-    if (la && la.r.s >= 400) { const lb = la.b.s ? la.b.l / la.b.s * 100 : 0, lr = la.r.s ? la.r.l / la.r.s * 100 : 0; if (Math.abs(lr - lb) >= 3) out.push({ type: 'stadium_posun', dg: pv, name: pName(pv), from_pct: +lb.toFixed(1), to_pct: +lr.toFixed(1), diff: +(lr - lb).toFixed(1) }); }
+    if (la && la.r.s >= 400 && la.b.s >= 200) { const lb = la.b.l / la.b.s * 100, lr = la.r.l / la.r.s * 100; if (Math.abs(lr - lb) >= 3) out.push({ type: 'stadium_posun', dg: pv, name: pName(pv), from_pct: +lb.toFixed(1), to_pct: +lr.toFixed(1), diff: +(lr - lb).toFixed(1) }); }
   }
   const byType = (t) => out.filter(a => a.type === t).sort((a, b) => Math.abs(b.diff ?? b.pct) - Math.abs(a.diff ?? a.pct));
   const tr = byType('trend'), ve = byType('vek_posun'), st = byType('stadium_posun'), mixed = [];
@@ -186,6 +192,21 @@ const CONFIGS = [
       { key: 'sex', label: 'Pohlaví', kind: 'category', col: 'pohlavi', map: 'SEX' },
     ],
   },
+  {
+    id: 'infekcni_nemoci', src: 'https://datanzis.uzis.gov.cz/data/NR-27-ISIN/NR-27-01/Otevrena-data-NR-27-01-infekcni-nemoci.csv',
+    source: 'Informační systém infekčních nemocí (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/2621-infekcni-nemoci-otevrena-data',
+    human_name: 'Infekční nemoci — hlášené případy',
+    description: 'Počty hlášených případů infekčních nemocí v Česku, rozpadnutelné podle nemoci, věku a pohlaví.',
+    metric_label: 'Hlášené případy', metric: { type: 'sum', col: 'pocet_pripadu' }, yearCol: 'rok', year_from: 2010,
+    note: 'Zobrazeno 40 nejčastějších nemocí. Velké meziroční skoky bývají epidemie (chřipka, covid) — ne chyba.',
+    dims: [
+      { key: 'nemoc', label: 'Nemoc', kind: 'category', primary: true, col: 'diagnoza_nazev', maxValues: 40 },
+      { key: 'age', label: 'Věk', kind: 'age', col: 'vek_kod', decode: 'nor5' },
+      { key: 'sex', label: 'Pohlaví', kind: 'category', col: 'pohlavi', map: 'SEX_MZ' },
+    ],
+  },
+  // Pozn.: očkování (vakcinace) zatím vynecháno — „trendy" jsou hlavně spouštění/rozšiřování
+  // očkovacích programů (0 → plošně), takže auto-anomálie klamou. Vrátit se k němu jinak (proočkovanost).
 ];
 
 const only = process.argv.slice(2);

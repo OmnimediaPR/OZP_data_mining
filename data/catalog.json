@@ -9358,6 +9358,29 @@
       "source_url": "https://www.nzip.cz/data/2056-mortalita-zhoubne-nadory",
       "cube_url": "data/cubes/onkologie_umrti.json",
       "last_seen": "2026-05-25"
+    },
+    {
+      "id": "infekce_kostka",
+      "kind": "cube",
+      "category": "infekce",
+      "human_name": "Infekční nemoci — rozpad podle nemoci, věku a pohlaví",
+      "description": "Interaktivní rozpad hlášených případů infekčních nemocí z informačního systému ISIN. Lze zvolit konkrétní nemoc, věkovou skupinu a pohlaví. Nástroj sám upozorní na anomálie — strmé trendy (epidemie) a posun k mladším.",
+      "relevant_for": [
+        "infekce",
+        "infekční nemoci",
+        "epidemie",
+        "očkování preventabilní nemoci",
+        "věkové skupiny",
+        "trendy",
+        "konkrétní nemoc"
+      ],
+      "trend_context": "Informační systém infekčních nemocí ISIN, 40 nejčastějších nemocí. Velké meziroční skoky bývají epidemie (chřipka, covid, černý kašel) — ne chyba.",
+      "source_type": "national",
+      "source": "Informační systém infekčních nemocí (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/2621-infekcni-nemoci-otevrena-data",
+      "cube_url": "data/cubes/infekcni_nemoci.json",
+      "last_seen": "2026-05-25"
     }
   ]
 }

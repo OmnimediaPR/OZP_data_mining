@@ -1524,7 +1524,7 @@ function CubeCard({ d, selected, onToggle, filter, onFilter }) {
       boxShadow: selected ? '0 6px 22px rgba(112,32,130,0.18)' : '0 1px 6px rgba(112,32,130,0.06)',
     }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 10 }}>
-        <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '2px 6px', background: '#702082', color: '#FFFFFF' }}>Rozpad • NOR</span>
+        <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '2px 6px', background: '#702082', color: '#FFFFFF' }}>Rozpad dat</span>
         <div style={{ width: 22, height: 22, border: '1.5px solid #702082', display: 'flex', alignItems: 'center', justifyContent: 'center', background: selected ? '#702082' : 'transparent', flexShrink: 0, borderRadius: 6 }}>
           {selected && <Check size={14} color="#FFFFFF" />}
         </div>
