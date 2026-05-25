@@ -3,15 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Datový brief — Omnimedia PR</title>
+    <title>Datový brief — OZP</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
       * { box-sizing: border-box; }
-      body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; background: #FAFAF7; color: #1A1A1A; }
-      .serif { font-family: 'Source Serif 4', Georgia, serif; }
+      body { margin: 0; font-family: 'Source Sans 3', system-ui, sans-serif; background: #FFFFFF; color: #333; }
+      /* OZP používá bezpatkové písmo; třídu .serif zachováváme kvůli stávajícím nadpisům,
+         ale renderujeme ji bezpatkově, ať vzhled sedí s grafikou OZP. */
+      .serif { font-family: 'Source Sans 3', system-ui, sans-serif; }
       .num { font-variant-numeric: tabular-nums; }
+      /* Zaoblené ovládací prvky v duchu OZP (web ozp.cz používá border-radius). */
+      button { border-radius: 10px; }
+      input, select, textarea { border-radius: 10px; }
+      a { color: #702082; }
     </style>
   </head>
   <body>

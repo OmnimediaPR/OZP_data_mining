@@ -7,6 +7,7 @@ import {
 } from 'docx';
 import { saveAs } from 'file-saver';
 import Papa from 'papaparse';
+import ozpLogo from './assets/ozp-logo.svg';
 
 // ============================================================
 // ON-DEMAND DATA FETCH (KROK 3 nové architektury)
@@ -135,10 +136,9 @@ function computeMeta(series) {
 // KONSTANTY
 // ============================================================
 
-const CLIENTS = [
-  { id: 'ozp', name: 'OZP', full: 'Oborová zdravotní pojišťovna', sector: 'Zdravotní pojištění' },
-  { id: 'demo', name: 'Demo klient', full: 'Pro účely ukázky', sector: '—' },
-];
+// Nástroj je pro jednoho klienta — OZP. Dřív tu bylo vybírací menu klientů, ale nemělo
+// žádnou funkci. Hodnotu držíme napevno (potřebuje ji text briefu, hlavička .docx i název souboru).
+const CLIENT = { id: 'ozp', full: 'Oborová zdravotní pojišťovna' };
 
 // Mezinárodní datasety jsou statické (data pomalu se měnící, ukládáme rovnou).
 // Národní (NKIS) se načítají z /data/nkis/*.json soubory generované GitHub Actions.
@@ -478,8 +478,8 @@ function ApiKeyModal({ onSave, onClose, currentKey }) {
       display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000,
     }}>
       <div style={{
-        background: '#FAFAF7', padding: 32, maxWidth: 540, width: '90%',
-        border: '2px solid #1A1A1A', boxShadow: '8px 8px 0 #1A1A1A',
+        background: '#FFFFFF', padding: 32, maxWidth: 540, width: '90%',
+        border: '1px solid #E0D6EA', borderRadius: 16, boxShadow: '0 12px 40px rgba(112,32,130,0.22)',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
           <h2 className="serif" style={{ margin: 0, fontSize: 24, fontWeight: 700 }}>Anthropic API klíč</h2>
@@ -491,7 +491,7 @@ function ApiKeyModal({ onSave, onClose, currentKey }) {
         </div>
 
         <p style={{ fontSize: 14, color: '#555', lineHeight: 1.5, marginBottom: 16 }}>
-          Klíč si vygeneruj v <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noreferrer" style={{ color: '#C9302C' }}>console.anthropic.com/settings/keys</a>.
+          Klíč si vygeneruj v <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noreferrer" style={{ color: '#ed8b00' }}>console.anthropic.com/settings/keys</a>.
           Uloží se výhradně do tvého prohlížeče (localStorage), nikam se neodesílá kromě přímého volání Anthropic API.
         </p>
 
@@ -503,7 +503,7 @@ function ApiKeyModal({ onSave, onClose, currentKey }) {
             placeholder="sk-ant-api03-..."
             style={{
               width: '100%', padding: '10px 70px 10px 12px', fontSize: 14,
-              fontFamily: 'monospace', border: '1.5px solid #1A1A1A',
+              fontFamily: 'monospace', border: '1.5px solid #702082',
               background: '#FFFFFF',
             }}
           />
@@ -535,7 +535,7 @@ function ApiKeyModal({ onSave, onClose, currentKey }) {
             onClick={() => { setStoredKey(input); onSave(input); }}
             disabled={!input || input.length < 20}
             style={{
-              padding: '10px 20px', background: '#1A1A1A', color: '#FAFAF7',
+              padding: '10px 20px', background: '#702082', color: '#FFFFFF',
               border: 'none', cursor: input ? 'pointer' : 'not-allowed',
               fontSize: 14, fontWeight: 600, opacity: input ? 1 : 0.5,
             }}
@@ -555,8 +555,7 @@ function ApiKeyModal({ onSave, onClose, currentKey }) {
 export default function App() {
   const [apiKey, setApiKey] = useState(getStoredKey());
   const [showKeyModal, setShowKeyModal] = useState(false);
-  const [client, setClient] = useState(CLIENTS[0]);
-  const [topic, setTopic] = useState('Moderní léčba a genetika: proč se cholesterol týká i mladých');
+  const [topic, setTopic] = useState('');
   const [step, setStep] = useState(1);
   const [nationalDatasets, setNationalDatasets] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
@@ -818,7 +817,7 @@ DŮLEŽITÉ: pole "id" musí být přesně jedno z id v katalogu výše. Žádn�
 
       const prompt = `Jsi datový analytik pro českou PR agenturu. NEPÍŠEŠ tiskové zprávy. Tvoje práce je z dat vytáhnout zjištění a doporučit úhly — PR manažer si text napíše sám.
 
-KLIENT: ${client.full}
+KLIENT: ${CLIENT.full}
 TÉMA BRIEFU: "${topic}"
 
 NÁRODNÍ DATA Z NKIS / ÚZIS ČR:
@@ -918,7 +917,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
 
     // 1. Hlavička
     children.push(p(
-      t(`DATOVÝ PODKLAD • Klient: ${client.full} • Téma: ${topic} • ${formatDateCS(new Date())}`, { size: 16, color: '666666' }),
+      t(`DATOVÝ PODKLAD • Klient: ${CLIENT.full} • Téma: ${topic} • ${formatDateCS(new Date())}`, { size: 16, color: '666666' }),
       { spacing: { after: 200 } }
     ));
 
@@ -1094,7 +1093,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
     });
 
     const blob = await Packer.toBlob(doc);
-    const filename = `Brief_${client.id}_${slug(topic)}_${formatDateISO(new Date())}.docx`;
+    const filename = `Brief_${CLIENT.id}_${slug(topic)}_${formatDateISO(new Date())}.docx`;
     saveAs(blob, filename);
   };
 
@@ -1107,55 +1106,59 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#FAFAF7' }}>
-      {/* TOP BAR */}
+    <div style={{ minHeight: '100vh', background: '#FFFFFF' }}>
+      {/* TOP BAR — fialová lišta OZP: vlevo logo + název nástroje, vpravo autor + API klíč */}
       <div style={{
-        background: '#1A1A1A', color: '#FAFAF7', padding: '14px 24px',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        background: '#702082', color: '#FFFFFF', padding: '14px 24px',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap',
       }}>
-        <div style={{ fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600 }}>
-          Datový brief · Omnimedia PR · v0.3
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <img src={ozpLogo} alt="OZP" style={{ height: 26, display: 'block' }} />
+          <span style={{ width: 1, height: 22, background: 'rgba(255,255,255,0.4)' }} />
+          <span style={{ fontSize: 13, letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600 }}>
+            Datový brief
+          </span>
         </div>
-        <button
-          onClick={() => setShowKeyModal(true)}
-          style={{
-            background: 'transparent', border: '1px solid #555', color: '#FAFAF7',
-            padding: '4px 10px', fontSize: 11, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6,
-          }}
-        >
-          <Key size={12} />
-          {apiKey ? 'API klíč nastaven' : 'Zadat API klíč'}
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <span style={{ fontSize: 11, opacity: 0.75 }}>by Omnimedia PR</span>
+          <button
+            onClick={() => setShowKeyModal(true)}
+            style={{
+              background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.4)', color: '#FFFFFF',
+              padding: '5px 12px', fontSize: 11, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6,
+            }}
+          >
+            <Key size={12} />
+            {apiKey ? 'API klíč nastaven' : 'Zadat API klíč'}
+          </button>
+        </div>
       </div>
 
       <div style={{ maxWidth: 1100, margin: '0 auto', padding: '32px 24px' }}>
         {error && (
-          <div style={{ background: '#FBE9E6', color: '#5A1812', padding: 12, marginBottom: 16, fontSize: 14 }}>
+          <div style={{ background: '#FBE9E6', color: '#5A1812', padding: 12, marginBottom: 16, fontSize: 14, borderRadius: 10 }}>
             Chyba: {error}
           </div>
         )}
 
         {/* STEP 1: ZADÁNÍ */}
         <section style={{ marginBottom: 48 }}>
-          <SectionHeader number="01" title="Zadání briefu" subtitle="Co tvoříme a pro koho" />
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 24, marginTop: 16 }}>
-            <div>
-              <Label>Klient</Label>
-              <select
-                value={client.id}
-                onChange={(e) => setClient(CLIENTS.find(c => c.id === e.target.value))}
-                style={inputStyle}
-              >
-                {CLIENTS.map(c => <option key={c.id} value={c.id}>{c.name} — {c.full}</option>)}
-              </select>
-            </div>
-            <div>
-              <Label>Téma briefu</Label>
-              <input
-                type="text"
+          <SectionHeader number="01" title="Zadání briefu" subtitle="Napiš, o čem má být brief" />
+          <div style={{ marginTop: 16 }}>
+            <div style={{
+              background: '#FFFFFF', border: '1.5px solid #E0D6EA', borderRadius: 16,
+              boxShadow: '0 2px 14px rgba(112,32,130,0.07)',
+            }}>
+              <textarea
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
-                style={inputStyle}
+                rows={3}
+                placeholder="Napiš, o čem má být brief — třeba „trendy v české onkologii“ nebo „prevence srdečních a cévních onemocnění“…"
+                style={{
+                  width: '100%', resize: 'vertical', minHeight: 88, padding: '16px 18px',
+                  fontSize: 16, lineHeight: 1.5, border: 'none', outline: 'none',
+                  background: 'transparent', fontFamily: 'inherit', color: '#333', borderRadius: 16,
+                }}
               />
             </div>
           </div>
@@ -1177,7 +1180,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
               onClick={recommendDatasets}
               disabled={recommending || !topic.trim() || loadingData}
               style={{
-                background: '#1F4E8C', color: '#FAFAF7', padding: '10px 20px',
+                background: '#702082', color: '#FFFFFF', padding: '10px 20px',
                 border: 'none', fontSize: 14, fontWeight: 600,
                 cursor: (recommending || !topic.trim() || loadingData) ? 'not-allowed' : 'pointer',
                 display: 'inline-flex', alignItems: 'center', gap: 8,
@@ -1191,7 +1194,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
               onClick={() => setBrowseAll(true)}
               disabled={loadingData}
               style={{
-                background: 'transparent', border: '1px solid #1F4E8C', color: '#1F4E8C',
+                background: 'transparent', border: '1px solid #702082', color: '#702082',
                 padding: '10px 16px', fontSize: 13, fontWeight: 600,
                 cursor: loadingData ? 'not-allowed' : 'pointer', opacity: loadingData ? 0.5 : 1,
               }}
@@ -1204,8 +1207,8 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
           </div>
 
           {recommendations && (
-            <div style={{ marginTop: 16, padding: 16, background: '#EFF4F8', border: '1px solid #C9D6E2' }}>
-              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#1F4E8C', marginBottom: 12 }}>
+            <div style={{ marginTop: 16, padding: 16, background: '#F4F1F8', border: '1px solid #E0D6EA', borderRadius: 12 }}>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#702082', marginBottom: 12 }}>
                 AI doporučila {recommendations.length} {recommendations.length === 1 ? 'dataset' : recommendations.length < 5 ? 'datasety' : 'datasetů'}
               </div>
               <div style={{ display: 'grid', gap: 8 }}>
@@ -1214,7 +1217,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
                   if (!meta) return null;
                   return (
                     <div key={r.id} style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 12, fontSize: 13, alignItems: 'baseline' }}>
-                      <div style={{ fontWeight: 600, color: '#1A1A1A' }}>{meta.human_name || meta.label || r.id}</div>
+                      <div style={{ fontWeight: 600, color: '#702082' }}>{meta.human_name || meta.label || r.id}</div>
                       <div style={{ color: '#444', lineHeight: 1.45 }}>{r.reason}</div>
                     </div>
                   );
@@ -1225,7 +1228,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
 
           {/* Klidná hláška, když k tématu nejsou vhodná data (bod 1) — žádná červená lišta */}
           {noResults && (
-            <div style={{ marginTop: 16, padding: 16, background: '#FBF6E9', border: '1px solid #E4D8B0', color: '#5A4A12', fontSize: 14, lineHeight: 1.5 }}>
+            <div style={{ marginTop: 16, padding: 16, background: '#FBF6E9', border: '1px solid #E4D8B0', color: '#5A4A12', fontSize: 14, lineHeight: 1.5, borderRadius: 10 }}>
               {noResults}
             </div>
           )}
@@ -1273,7 +1276,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
                 onClick={runAnalysis}
                 disabled={analyzing || selectedDatasets.length === 0}
                 style={{
-                  background: '#1A1A1A', color: '#FAFAF7', padding: '12px 24px',
+                  background: '#702082', color: '#FFFFFF', padding: '12px 24px',
                   border: 'none', fontSize: 15, fontWeight: 600, cursor: 'pointer',
                   display: 'flex', alignItems: 'center', gap: 8,
                   opacity: (analyzing || selectedDatasets.length === 0) ? 0.5 : 1,
@@ -1290,7 +1293,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
                 <button
                   onClick={exportToDocx}
                   style={{
-                    background: '#1F4E8C', color: '#FAFAF7', padding: '10px 20px',
+                    background: '#702082', color: '#FFFFFF', padding: '10px 20px',
                     border: 'none', fontSize: 14, fontWeight: 600, cursor: 'pointer',
                     display: 'inline-flex', alignItems: 'center', gap: 8,
                   }}
@@ -1327,7 +1330,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
 
 const inputStyle = {
   width: '100%', padding: '10px 12px', fontSize: 15,
-  border: '1.5px solid #1A1A1A', background: '#FFFFFF', fontFamily: 'inherit',
+  border: '1.5px solid #702082', background: '#FFFFFF', fontFamily: 'inherit',
 };
 
 function Label({ children }) {
@@ -1342,7 +1345,7 @@ function Label({ children }) {
 function SectionHeader({ number, title, subtitle }) {
   return (
     <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 8 }}>
-      <span className="num serif" style={{ fontSize: 32, fontWeight: 700, color: '#1A1A1A' }}>{number}</span>
+      <span className="num serif" style={{ fontSize: 32, fontWeight: 700, color: '#702082' }}>{number}</span>
       <div>
         <h2 className="serif" style={{ margin: 0, fontSize: 24, fontWeight: 700 }}>{title}</h2>
         {subtitle && <div style={{ fontSize: 13, color: '#666', marginTop: 2 }}>{subtitle}</div>}
@@ -1367,23 +1370,23 @@ function DatasetCard({ d, selected, onToggle }) {
 
   return (
     <div onClick={onToggle} style={{
-      background: '#FFFFFF', border: selected ? '2px solid #1A1A1A' : '1px solid #DDD8C8',
-      padding: 20, cursor: 'pointer', position: 'relative',
-      boxShadow: selected ? '4px 4px 0 #1A1A1A' : 'none',
+      background: '#FFFFFF', border: selected ? '2px solid #702082' : '1px solid #E0D6EA',
+      padding: 20, cursor: 'pointer', position: 'relative', borderRadius: 14,
+      boxShadow: selected ? '0 6px 22px rgba(112,32,130,0.18)' : '0 1px 6px rgba(112,32,130,0.06)',
     }}>
       {/* 1. Badge + checkbox */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 12 }}>
         <span style={{
           fontSize: 9, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase',
           padding: '2px 6px',
-          background: isInternational ? '#1F4E8C' : '#444', color: '#FFFFFF',
+          background: isInternational ? '#702082' : '#444', color: '#FFFFFF',
         }}>{isInternational ? 'EU/OECD' : 'Česká data'}</span>
         <div style={{
-          width: 22, height: 22, border: '1.5px solid #1A1A1A',
+          width: 22, height: 22, border: '1.5px solid #702082',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: selected ? '#1A1A1A' : 'transparent', flexShrink: 0,
+          background: selected ? '#702082' : 'transparent', flexShrink: 0,
         }}>
-          {selected && <Check size={14} color="#FAFAF7" />}
+          {selected && <Check size={14} color="#FFFFFF" />}
         </div>
       </div>
 
@@ -1411,7 +1414,7 @@ function DatasetCard({ d, selected, onToggle }) {
       {/* 4b. Lazy-fetch stavová zpráva — loading / error / nevybraný */}
       {d._loading && (
         <div style={{
-          background: '#F2F0EA', padding: '10px 12px', margin: '4px 0 8px',
+          background: '#F4F1F8', padding: '10px 12px', margin: '4px 0 8px',
           fontSize: 12, color: '#666', display: 'flex', alignItems: 'center', gap: 8,
         }}>
           <Loader2 size={14} className="spin" />
@@ -1428,7 +1431,7 @@ function DatasetCard({ d, selected, onToggle }) {
       )}
       {!d._loading && !d._error && !d._hasData && !selected && (
         <div style={{
-          background: '#F2F0EA', padding: '10px 12px', margin: '4px 0 8px',
+          background: '#F4F1F8', padding: '10px 12px', margin: '4px 0 8px',
           fontSize: 12, color: '#888', fontStyle: 'italic',
         }}>
           Vyber kartu pro načtení dat ze zdroje.
@@ -1462,7 +1465,7 @@ function DatasetCard({ d, selected, onToggle }) {
       {!isInternational && !isRegional && !isRegionalTS && first && last && (
         <>
           {d.metric_label && (
-            <div style={{ fontSize: 13, color: '#1A1A1A', marginBottom: 4 }}>
+            <div style={{ fontSize: 13, color: '#702082', marginBottom: 4 }}>
               {d.metric_label}: <strong className="num">{fmtNum(first.value)} → {fmtNum(last.value)}</strong> případů
             </div>
           )}
@@ -1495,7 +1498,7 @@ function DatasetCard({ d, selected, onToggle }) {
       {/* 7. Šedý box "Užitečné pro:" */}
       {d.relevant_for && d.relevant_for.length > 0 && (
         <div style={{
-          background: isInternational ? '#EFF4F8' : '#F2F0EA',
+          background: isInternational ? '#F4F1F8' : '#F4F1F8',
           padding: '10px 12px', marginTop: 12,
         }}>
           <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#666', marginBottom: 6 }}>
@@ -1505,7 +1508,7 @@ function DatasetCard({ d, selected, onToggle }) {
             {d.relevant_for.map((t, i) => (
               <span key={i} style={{
                 fontSize: 11, padding: '2px 8px', background: '#FFFFFF',
-                border: '1px solid #DDD8C8', color: '#333',
+                border: '1px solid #E0D6EA', color: '#333',
               }}>{t}</span>
             ))}
           </div>
@@ -1526,7 +1529,7 @@ function DatasetCard({ d, selected, onToggle }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                style={{ color: '#1F4E8C', textDecoration: 'underline' }}
+                style={{ color: '#702082', textDecoration: 'underline' }}
               >{d.code}</a>
             ) : d.code}
           </>
@@ -1574,8 +1577,8 @@ function RegionalMap({ data, peakRegion }) {
         const intensity = maxVal > 0 ? r.value / maxVal : 0;
         const isPeak = r.kraj_nazev === peakRegion;
         const bgColor = isPeak
-          ? '#C9302C'
-          : `rgba(31, 78, 140, ${0.15 + intensity * 0.75})`;
+          ? '#ed8b00'
+          : `rgba(112, 32, 130, ${0.15 + intensity * 0.75})`;
         return (
           <div
             key={r.kraj_kod}
@@ -1638,7 +1641,7 @@ function RegionalHeatmap({ data }) {
                 key={y}
                 title={`${k.kraj_nazev}, ${y}: ${val.toLocaleString('cs-CZ')}`}
                 style={{
-                  background: `rgba(31, 78, 140, ${0.1 + intensity * 0.85})`,
+                  background: `rgba(112, 32, 130, ${0.1 + intensity * 0.85})`,
                   height: 22,
                   color: intensity > 0.5 ? '#FFF' : '#444',
                   fontSize: 9,
@@ -1667,11 +1670,11 @@ function RegionalBars({ data, peakRegion }) {
       {sorted.map((r, i) => {
         const width = maxVal > 0 ? (r.value / maxVal) * 100 : 0;
         const isPeak = r.kraj_nazev === peakRegion;
-        const color = isPeak ? '#C9302C' : '#1F4E8C88';
+        const color = isPeak ? '#ed8b00' : '#70208288';
         return (
           <div key={r.kraj_kod} style={{ display: 'grid', gridTemplateColumns: '140px 1fr 60px', gap: 8, alignItems: 'center', fontSize: 11 }}>
-            <span style={{ fontWeight: isPeak ? 700 : 400, color: isPeak ? '#1A1A1A' : '#444' }}>{r.kraj_nazev}</span>
-            <div style={{ height: 12, background: '#F0EEE6', position: 'relative' }}>
+            <span style={{ fontWeight: isPeak ? 700 : 400, color: isPeak ? '#702082' : '#444' }}>{r.kraj_nazev}</span>
+            <div style={{ height: 12, background: '#F0ECF5', position: 'relative' }}>
               <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: `${width}%`, background: color }} />
             </div>
             <span className="num" style={{ textAlign: 'right', fontWeight: isPeak ? 700 : 400 }}>
@@ -1690,11 +1693,11 @@ function ComparisonBars({ rows }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
       {rows.map((r, i) => {
         const width = (Math.abs(r.value) / maxVal) * 100;
-        const color = r.isUs ? '#C9302C' : (r.hi ? '#9A2A1F88' : '#1F4E8C88');
+        const color = r.isUs ? '#ed8b00' : (r.hi ? '#9A2A1F88' : '#70208288');
         return (
           <div key={i} style={{ display: 'grid', gridTemplateColumns: '140px 1fr 50px', gap: 8, alignItems: 'center', fontSize: 11 }}>
-            <span style={{ fontWeight: r.isUs ? 700 : 400, color: r.isUs ? '#1A1A1A' : '#444' }}>{r.country}</span>
-            <div style={{ height: 12, background: '#F0EEE6', position: 'relative' }}>
+            <span style={{ fontWeight: r.isUs ? 700 : 400, color: r.isUs ? '#702082' : '#444' }}>{r.country}</span>
+            <div style={{ height: 12, background: '#F0ECF5', position: 'relative' }}>
               <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: `${width}%`, background: color }}/>
             </div>
             <span className="num" style={{ textAlign: 'right', fontWeight: r.isUs ? 700 : 400 }}>
@@ -1720,7 +1723,7 @@ function AnalysisView({ analysis, datasets, onRerun }) {
   return (
     <div style={{ marginTop: 16 }}>
       {analysis.meta_pattern && (
-        <div style={{ background: '#1A1A1A', color: '#FAFAF7', padding: 20, marginBottom: 24 }}>
+        <div style={{ background: '#702082', color: '#FFFFFF', padding: 20, marginBottom: 24, borderRadius: 14 }}>
           <div style={{ fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8, opacity: 0.7 }}>
             Co data dohromady říkají
           </div>
@@ -1736,15 +1739,15 @@ function AnalysisView({ analysis, datasets, onRerun }) {
           const ds = findDatasetById(f.dataset, datasets);
           const dsName = ds ? (ds.human_name || ds.label) : null;
           return (
-            <div key={i} style={{ display: 'grid', gridTemplateColumns: '100px 1fr', gap: 12, padding: 12, background: '#FFFFFF', border: '1px solid #DDD8C8' }}>
-              <div className="num serif" style={{ fontSize: 24, fontWeight: 700, color: '#C9302C' }}>{f.number}</div>
+            <div key={i} style={{ display: 'grid', gridTemplateColumns: '100px 1fr', gap: 12, padding: 12, background: '#FFFFFF', border: '1px solid #E0D6EA', borderRadius: 12 }}>
+              <div className="num serif" style={{ fontSize: 24, fontWeight: 700, color: '#ed8b00' }}>{f.number}</div>
               <div>
                 <div style={{ fontWeight: 600, marginBottom: 2 }}>{f.label}</div>
                 <div style={{ fontSize: 13, color: '#555' }}>{f.explanation}</div>
                 {dsName && (
                   <div style={{ fontSize: 11, color: '#888', marginTop: 6 }}>
                     Zdroj: {ds.source_url ? (
-                      <a href={ds.source_url} target="_blank" rel="noopener noreferrer" style={{ color: '#1F4E8C' }}>{dsName}</a>
+                      <a href={ds.source_url} target="_blank" rel="noopener noreferrer" style={{ color: '#702082' }}>{dsName}</a>
                     ) : dsName}
                   </div>
                 )}
@@ -1757,14 +1760,14 @@ function AnalysisView({ analysis, datasets, onRerun }) {
       <h3 className="serif" style={{ fontSize: 20, marginBottom: 12 }}>Doporučené úhly</h3>
       <div style={{ display: 'grid', gap: 12, marginBottom: 24 }}>
         {analysis.angles?.map((a, i) => (
-          <div key={i} style={{ padding: 16, background: '#FFFFFF', border: '1px solid #DDD8C8' }}>
+          <div key={i} style={{ padding: 16, background: '#FFFFFF', border: '1px solid #E0D6EA', borderRadius: 12 }}>
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#666', marginBottom: 4 }}>
               Úhel {String.fromCharCode(65 + i)}
             </div>
             <div className="serif" style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>{a.label}</div>
             <div style={{ fontSize: 14, color: '#333', lineHeight: 1.5, marginBottom: 8 }}>{a.observation}</div>
             {a.risk && (
-              <div style={{ fontSize: 12, color: '#5A1812', background: '#FBE9E6', padding: 8, marginTop: 8 }}>
+              <div style={{ fontSize: 12, color: '#5A1812', background: '#FBE9E6', padding: 8, marginTop: 8, borderRadius: 8 }}>
                 <strong>Riziko v tezi:</strong> {a.risk}
               </div>
             )}
@@ -1774,10 +1777,10 @@ function AnalysisView({ analysis, datasets, onRerun }) {
 
       {analysis.cannot_claim?.length > 0 && (
         <>
-          <h3 className="serif" style={{ fontSize: 20, marginBottom: 12, color: '#C9302C' }}>Co data NEPODPORUJÍ</h3>
+          <h3 className="serif" style={{ fontSize: 20, marginBottom: 12, color: '#ed8b00' }}>Co data NEPODPORUJÍ</h3>
           <div style={{ display: 'grid', gap: 8, marginBottom: 24 }}>
             {analysis.cannot_claim.map((c, i) => (
-              <div key={i} style={{ padding: 12, background: '#FBE9E6' }}>
+              <div key={i} style={{ padding: 12, background: '#FBE9E6', borderRadius: 10 }}>
                 <div style={{ fontWeight: 600, marginBottom: 4 }}>„{c.claim}"</div>
                 <div style={{ fontSize: 13, color: '#5A1812' }}>{c.why}</div>
               </div>
@@ -1789,8 +1792,8 @@ function AnalysisView({ analysis, datasets, onRerun }) {
       <button
         onClick={onRerun}
         style={{
-          background: 'transparent', color: '#1A1A1A', padding: '8px 16px',
-          border: '1.5px solid #1A1A1A', fontSize: 14, cursor: 'pointer',
+          background: 'transparent', color: '#702082', padding: '8px 16px',
+          border: '1.5px solid #702082', fontSize: 14, cursor: 'pointer',
         }}
       >
         Znovu analyzovat
