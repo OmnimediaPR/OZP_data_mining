@@ -563,13 +563,19 @@ export default function App() {
   // datasetData: Map<id, {loading: bool, error: string|null, series: [{year, value}]|null}>
   // Populátí se lazy po výběru datasetu — fetch CSV ze zdroje + Papa parse + agregace.
   const [datasetData, setDatasetData] = useState(() => new Map());
-  const [selectedIds, setSelectedIds] = useState(['aim', 'cmp']);
+  const [selectedIds, setSelectedIds] = useState([]);
   const [analysis, setAnalysis] = useState(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [recommending, setRecommending] = useState(false);
   // recommendations: [{id, reason}] — návrhy AI po kliknutí "Najít relevantní data".
   const [recommendations, setRecommendations] = useState(null);
   const [error, setError] = useState(null);
+  // includeIntl: zařadit i mezinárodní srovnání (EU/OECD). Default jen česká data.
+  const [includeIntl, setIncludeIntl] = useState(false);
+  // browseAll: zobrazit celý katalog karet (jinak jen AI-doporučené + vybrané).
+  const [browseAll, setBrowseAll] = useState(false);
+  // noResults: klidná informační hláška, když k tématu nejsou vhodná data (ne chyba).
+  const [noResults, setNoResults] = useState(null);
 
   // Krok A — při startu: stáhni catalog.json (metadata pro všechny datasety, žádná data).
   useEffect(() => {
@@ -610,28 +616,43 @@ export default function App() {
 
   // Krok C — vyrobí "enriched" datasety: metadata + (lazy) data + computed trend/delta/peakYear.
   // Nevybraný dataset má _hasData=false → karta ukáže skeleton bez grafu.
-  const allDatasets = useMemo(() => nationalDatasets.map(meta => {
-    const state = datasetData.get(meta.id);
-    const baseSourceType = meta.source_type || 'national';
-    if (!state) return { ...meta, source_type: baseSourceType, _loading: false, _hasData: false };
-    if (state.loading) return { ...meta, source_type: baseSourceType, _loading: true, _hasData: false };
-    if (state.error) return { ...meta, source_type: baseSourceType, _loading: false, _hasData: false, _error: state.error };
-    const series = state.series || [];
-    const computed = computeMeta(series);
-    const coverage = series.length > 0 ? `${series[0].year}–${series[series.length - 1].year}` : '';
-    return {
-      ...meta,
-      source_type: baseSourceType,
-      _loading: false,
-      _hasData: true,
-      data: series,
-      coverage,
-      trend: computed.trend,
-      delta: computed.delta,
-      peakYear: computed.peakYear,
-    };
-  }), [nationalDatasets, datasetData]);
+  const allDatasets = useMemo(() => {
+    const national = nationalDatasets.map(meta => {
+      const state = datasetData.get(meta.id);
+      const baseSourceType = meta.source_type || 'national';
+      if (!state) return { ...meta, source_type: baseSourceType, _loading: false, _hasData: false };
+      if (state.loading) return { ...meta, source_type: baseSourceType, _loading: true, _hasData: false };
+      if (state.error) return { ...meta, source_type: baseSourceType, _loading: false, _hasData: false, _error: state.error };
+      const series = state.series || [];
+      const computed = computeMeta(series);
+      const coverage = series.length > 0 ? `${series[0].year}–${series[series.length - 1].year}` : '';
+      return {
+        ...meta,
+        source_type: baseSourceType,
+        _loading: false,
+        _hasData: true,
+        data: series,
+        coverage,
+        trend: computed.trend,
+        delta: computed.delta,
+        peakYear: computed.peakYear,
+      };
+    });
+    if (!includeIntl) return national;
+    // Mezinárodní datasety mají data napevno (žádný fetch) — přidáme je jen když je checkbox zapnutý.
+    const intl = INTL_DATASETS.map(meta => ({ ...meta, _loading: false, _hasData: true }));
+    return [...national, ...intl];
+  }, [nationalDatasets, datasetData, includeIntl]);
   const selectedDatasets = allDatasets.filter(d => selectedIds.includes(d.id));
+
+  // Karty k zobrazení v Section 02: dokud uživatel nespustí doporučení ani neotevře
+  // celý katalog, sekce se vůbec nezobrazí. Pak ukazujeme jen doporučené + ručně vybrané,
+  // nebo (po kliknutí na „Procházet celý katalog") všechny.
+  const recommendedIds = recommendations ? recommendations.map(r => r.id) : [];
+  const displayedDatasets = browseAll
+    ? allDatasets
+    : allDatasets.filter(d => recommendedIds.includes(d.id) || selectedIds.includes(d.id));
+  const showDataSection = recommendations !== null || browseAll;
 
   const toggleDataset = (id) => {
     setSelectedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
@@ -656,10 +677,12 @@ export default function App() {
 
     setRecommending(true);
     setError(null);
+    setNoResults(null);
 
     let text = '';
     try {
-      const catalogShort = nationalDatasets.map(d => ({
+      const pool = includeIntl ? [...nationalDatasets, ...INTL_DATASETS] : nationalDatasets;
+      const catalogShort = pool.map(d => ({
         id: d.id,
         category: d.category || '',
         human_name: d.human_name || '',
@@ -667,13 +690,19 @@ export default function App() {
         relevant_for: d.relevant_for || [],
       }));
 
+      const intlHint = includeIntl
+        ? 'Katalog obsahuje národní česká data i mezinárodní srovnání (EU/OECD). PR brief obvykle těží z kombinace národních trendů a mezinárodního kontextu — pokud je mezinárodní srovnání k tématu relevantní, zařaď ho.'
+        : 'Katalog obsahuje jen národní česká data. Vybírej pouze z něj, mezinárodní srovnání teď uživatel nechce.';
+
       const prompt = `Jsi datový analytik pro českou PR agenturu. Klient připravuje brief na téma: "${topic}".
 
-K dispozici máš tento katalog datasetů z českých zdravotnických registrů a mezinárodních srovnání (každý má id, kategorii, lidský název, popis a oblasti relevance):
+K dispozici máš tento katalog datasetů (každý má id, kategorii, lidský název, popis a oblasti relevance):
 
 ${JSON.stringify(catalogShort, null, 2)}
 
-Vyber 5 až 10 datasetů, které jsou pro téma nejrelevantnější. Mysli na to, že PR brief obvykle těží z kombinace národních trendů + mezinárodního kontextu, pokud je k tématu relevantní. Pokud katalog obsahuje méně relevantních datasetů, vyber raději míň (klidně jen 3) než nesedící.
+${intlHint}
+
+Vyber 5 až 10 datasetů, které jsou pro téma nejrelevantnější. Pokud katalog obsahuje méně relevantních datasetů, vyber raději míň (klidně jen 3) než nesedící. Pokud k tématu nesedí vůbec nic, vrať prázdné pole.
 
 U každého datasetu napiš 1 krátkou větu důvodu, proč se k tématu hodí.
 
@@ -711,15 +740,18 @@ DŮLEŽITÉ: pole "id" musí být přesně jedno z id v katalogu výše. Žádn�
       const match = text.match(/\{[\s\S]*\}/);
       if (!match) throw new Error(`Odpověď AI neobsahuje JSON. Začátek odpovědi: "${text.substring(0, 150)}"`);
       const parsed = JSON.parse(match[0]);
-      const knownIds = new Set(nationalDatasets.map(d => d.id));
-      const returned = (parsed.recommended || []).map(r => r?.id).filter(Boolean);
+      const knownIds = new Set(pool.map(d => d.id));
       const valid = (parsed.recommended || []).filter(r => r.id && knownIds.has(r.id));
       if (valid.length === 0) {
-        const knownList = [...knownIds].join(', ');
-        if (returned.length === 0) {
-          throw new Error(`AI vrátila prázdný seznam (možná usoudila, že žádný ze ${knownIds.size} datasetů katalogu k tématu nesedí). V katalogu je: ${knownList}`);
-        }
-        throw new Error(`AI vrátila IDs [${returned.join(', ')}], ale žádné nesedí na katalog. V katalogu je: ${knownList}`);
+        // Není to chyba — jen pro dané téma nemáme vhodná data. Klidná hláška, ne červená lišta.
+        setRecommendations(null);
+        setSelectedIds([]);
+        setNoResults(
+          `Pro téma „${topic}" jsme v dostupných datech${includeIntl ? '' : ' (jen česká)'} nenašli vhodné datasety. ` +
+          `Zkus formulaci upravit, zvolit obecnější téma${includeIntl ? '' : ', nebo zapnout mezinárodní srovnání'}, ` +
+          `případně si datasety vyber ručně přes „Procházet celý katalog".`
+        );
+        return;
       }
       setRecommendations(valid);
       setSelectedIds(valid.map(r => r.id));
@@ -753,13 +785,13 @@ DŮLEŽITÉ: pole "id" musí být přesně jedno z id v katalogu výše. Žádn�
 
       const nationalSummary = nationalDs.map(d => {
         const first = d.data[0], last = d.data[d.data.length - 1];
-        return `- [id: ${d.id}] ${d.label} (MKN ${d.code}): ${first.value.toLocaleString('cs-CZ')} v ${first.year} → ${last.value.toLocaleString('cs-CZ')} v ${last.year} (Δ ${d.delta > 0 ? '+' : ''}${d.delta} %). Trend: ${d.trend === 'up' ? 'rostoucí' : d.trend === 'down' ? 'klesající' : 'plateau'}, peak ${d.peakYear}. Kontext: ${d.trend_context || ''}`;
+        return `- [id: ${d.id}] ${d.human_name || d.label} (MKN ${d.code}): ${first.value.toLocaleString('cs-CZ')} v ${first.year} → ${last.value.toLocaleString('cs-CZ')} v ${last.year} (Δ ${d.delta > 0 ? '+' : ''}${d.delta} %). Trend: ${d.trend === 'up' ? 'rostoucí' : d.trend === 'down' ? 'klesající' : 'plateau'}, peak ${d.peakYear}. Kontext: ${d.trend_context || ''}`;
       }).join('\n');
 
       const regionalSummary = regionalDs.map(d => {
         const sorted = [...d.data].sort((a, b) => b.value - a.value);
         const breakdown = sorted.map(r => `${r.kraj_nazev}: ${r.value.toLocaleString('cs-CZ')}`).join('; ');
-        return `- [id: ${d.id}] ${d.label} (MKN ${d.code}, rok ${d.snapshot_year}): ${breakdown}. Peak kraj: ${d.peakRegion}. Kontext: ${d.trend_context || ''}`;
+        return `- [id: ${d.id}] ${d.human_name || d.label} (MKN ${d.code}, rok ${d.snapshot_year}): ${breakdown}. Peak kraj: ${d.peakRegion}. Kontext: ${d.trend_context || ''}`;
       }).join('\n');
 
       const regionalTSSummary = regionalTSDs.map(d => {
@@ -776,12 +808,12 @@ DŮLEŽITÉ: pole "id" musí být přesně jedno z id v katalogu výše. Žádn�
           .sort((a, b) => b.last - a.last)
           .map(k => `${k.kraj}: ${k.first}→${k.last} (Δ ${k.first ? Math.round((k.last - k.first) / k.first * 100) : 0}%)`)
           .join('; ');
-        return `- [id: ${d.id}] ${d.label} (MKN ${d.code}, ${firstYr}-${lastYr} per kraj): ${breakdown}. Kontext: ${d.trend_context || ''}`;
+        return `- [id: ${d.id}] ${d.human_name || d.label} (MKN ${d.code}, ${firstYr}-${lastYr} per kraj): ${breakdown}. Kontext: ${d.trend_context || ''}`;
       }).join('\n');
 
       const intlSummary = intlDs.map(d => {
         const comp = d.comparison ? d.comparison.map(c => `${c.country}: ${c.value}${typeof c.value === 'number' && Math.abs(c.value) < 200 ? ' %' : ''}`).join('; ') : '';
-        return `- [id: ${d.id}] ${d.label} (zdroj: ${d.source} ${d.code}, ${d.coverage}): ${comp}. Pozn. ke srovnatelnosti: ${d.trend_context || ''}`;
+        return `- [id: ${d.id}] ${d.human_name || d.label} (zdroj: ${d.source} ${d.code}, ${d.coverage}): ${comp}. Pozn. ke srovnatelnosti: ${d.trend_context || ''}`;
       }).join('\n');
 
       const prompt = `Jsi datový analytik pro českou PR agenturu. NEPÍŠEŠ tiskové zprávy. Tvoje práce je z dat vytáhnout zjištění a doporučit úhly — PR manažer si text napíše sám.
@@ -1128,8 +1160,19 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
             </div>
           </div>
 
-          {/* AI doporučení datasetů — KROK 4 nové architektury */}
-          <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+          {/* Volba rozsahu dat — jen ČR vs. i mezinárodní srovnání (bod 3) */}
+          <label style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, cursor: 'pointer' }}>
+            <input
+              type="checkbox"
+              checked={includeIntl}
+              onChange={(e) => setIncludeIntl(e.target.checked)}
+              style={{ width: 16, height: 16, cursor: 'pointer' }}
+            />
+            <span>Zahrnout mezinárodní srovnání (EU/OECD) — jinak nástroj pracuje jen s českými daty</span>
+          </label>
+
+          {/* AI doporučení datasetů */}
+          <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
             <button
               onClick={recommendDatasets}
               disabled={recommending || !topic.trim() || loadingData}
@@ -1144,8 +1187,19 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
               {recommending ? <Loader2 size={16} className="spin" /> : <Sparkles size={16} />}
               {recommending ? 'Hledám relevantní data…' : 'Najít relevantní data'}
             </button>
-            <span style={{ fontSize: 12, color: '#666', flex: 1, minWidth: 200 }}>
-              AI projde katalog a vybere datasety, které se k tématu hodí. Výběr potom můžeš ručně doupravit zaškrtáváním karet níže.
+            <button
+              onClick={() => setBrowseAll(true)}
+              disabled={loadingData}
+              style={{
+                background: 'transparent', border: '1px solid #1F4E8C', color: '#1F4E8C',
+                padding: '10px 16px', fontSize: 13, fontWeight: 600,
+                cursor: loadingData ? 'not-allowed' : 'pointer', opacity: loadingData ? 0.5 : 1,
+              }}
+            >
+              Procházet celý katalog ručně
+            </button>
+            <span style={{ fontSize: 12, color: '#666', flex: 1, minWidth: 180 }}>
+              AI projde katalog a vybere datasety k tématu. Výběr pak zúžíš odškrtáním karet níže.
             </span>
           </div>
 
@@ -1156,7 +1210,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
               </div>
               <div style={{ display: 'grid', gap: 8 }}>
                 {recommendations.map(r => {
-                  const meta = nationalDatasets.find(d => d.id === r.id);
+                  const meta = allDatasets.find(d => d.id === r.id);
                   if (!meta) return null;
                   return (
                     <div key={r.id} style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 12, fontSize: 13, alignItems: 'baseline' }}>
@@ -1168,24 +1222,49 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
               </div>
             </div>
           )}
+
+          {/* Klidná hláška, když k tématu nejsou vhodná data (bod 1) — žádná červená lišta */}
+          {noResults && (
+            <div style={{ marginTop: 16, padding: 16, background: '#FBF6E9', border: '1px solid #E4D8B0', color: '#5A4A12', fontSize: 14, lineHeight: 1.5 }}>
+              {noResults}
+            </div>
+          )}
         </section>
 
-        {/* STEP 2: DATA */}
-        <section style={{ marginBottom: 48 }}>
-          <SectionHeader number="02" title="Datová opora" subtitle="Šedý badge NKIS = národní data, modrý EU/OECD = mezinárodní srovnání" />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 16, marginTop: 16 }}>
-            {allDatasets.map(d => (
-              <DatasetCard
-                key={d.id}
-                d={d}
-                selected={selectedIds.includes(d.id)}
-                onToggle={() => toggleDataset(d.id)}
-              />
-            ))}
-          </div>
-        </section>
+        {/* STEP 2: DATA — zobrazí se až po doporučení nebo otevření katalogu (bod 2) */}
+        {showDataSection && (
+          <section style={{ marginBottom: 48 }}>
+            <SectionHeader number="02" title="Datová opora" subtitle="Šedý badge = česká data, modrý EU/OECD = mezinárodní srovnání. Odškrtnutím karty dataset z briefu vyřadíš." />
+            <div style={{ marginTop: 12, marginBottom: 4, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 13, color: '#444' }}>
+                Vybráno {selectedIds.length} {selectedIds.length === 1 ? 'dataset' : selectedIds.length < 5 ? 'datasety' : 'datasetů'}
+                {!browseAll && recommendations ? ` z ${recommendations.length} doporučených` : ''}.
+              </span>
+              <button
+                onClick={() => setBrowseAll(v => !v)}
+                style={{
+                  background: 'transparent', border: '1px solid #999', color: '#444',
+                  padding: '6px 12px', fontSize: 12, cursor: 'pointer',
+                }}
+              >
+                {browseAll ? 'Zobrazit jen doporučené' : `Procházet celý katalog (${allDatasets.length})`}
+              </button>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 16, marginTop: 12 }}>
+              {displayedDatasets.map(d => (
+                <DatasetCard
+                  key={d.id}
+                  d={d}
+                  selected={selectedIds.includes(d.id)}
+                  onToggle={() => toggleDataset(d.id)}
+                />
+              ))}
+            </div>
+          </section>
+        )}
 
-        {/* STEP 3: ANALÝZA */}
+        {/* STEP 3: ANALÝZA — zobrazí se, až je vybraný aspoň jeden dataset */}
+        {(selectedDatasets.length > 0 || analysis) && (
         <section style={{ marginBottom: 48 }}>
           <SectionHeader number="03" title="Analýza" subtitle="Strukturovaná zjištění a doporučené úhly" />
           {!analysis ? (
@@ -1223,6 +1302,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
             </>
           )}
         </section>
+        )}
       </div>
 
       {showKeyModal && (
