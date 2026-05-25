@@ -83,8 +83,8 @@ function extractor(dim) {
   if (dim.map === 'SEX_MZ') return (r) => SEX_MZ((r[col] || '').toString());
   if (dim.map === 'STAGE') return (r) => STAGE(r[col]);
   if (dim.valueMap) return (r) => dim.valueMap[(r[col] ?? '').toString().trim()] || null; // číselník kód→název
-  // plain category — hodnota přímo ze sloupce (volitelně očištěná o číselný prefix)
-  return (r) => { let v = (r[col] ?? '').toString().trim(); if (dim.clean === 'stripNumPrefix') v = v.replace(/^\d+[.\s]*/, ''); return v === '' ? null : v; };
+  // plain category — hodnota přímo ze sloupce (volitelně očištěná o prefix a přeložená přes relabel)
+  return (r) => { let v = (r[col] ?? '').toString().trim(); if (dim.clean === 'stripNumPrefix') v = v.replace(/^\d+[.\s]*/, ''); if (v === '') return null; if (dim.relabel) v = dim.relabel[v] || v; return v; };
 }
 
 async function bakeOne(cfg) {
@@ -156,7 +156,9 @@ async function bakeOne(cfg) {
     if (ok) { tuple.push(cfg.metric.type === 'sum' ? Math.round(n) : n); cells.push(tuple); }
   }
 
-  const anomalies = scanAnomalies(cfg, dims, years, counts);
+  // U některých registrů (očkování) jsou „trendy" jen spouštění programů → anomálie klamou.
+  // Takové kostky slouží čistě popisně (zužovátka + čísla), sken se vypne.
+  const anomalies = cfg.noAnomalies ? [] : scanAnomalies(cfg, dims, years, counts);
   const cube = {
     id: cfg.id, human_name: cfg.human_name, description: cfg.description,
     source: cfg.source, source_url: cfg.source_url, metric_label: cfg.metric_label,
@@ -321,8 +323,29 @@ const CONFIGS = [
       { key: 'vek_matky', label: 'Věk matky', kind: 'category', col: 'vek_matky', valueMap: { '1': 'do 19 let', '2': '20–24 let', '3': '25–29 let', '4': '30–34 let', '5': '35–39 let', '6': '40 a více let' } },
     ],
   },
-  // Pozn.: očkování (vakcinace) zatím vynecháno — „trendy" jsou hlavně spouštění/rozšiřování
-  // očkovacích programů (0 → plošně), takže auto-anomálie klamou. Vrátit se k němu jinak (proočkovanost).
+  {
+    id: 'ockovani', src: 'https://data.mzcr.cz/data/distribuce/342/vakcinace-verejne-zdravotni-pojisteni.csv',
+    source: 'Vykázané očkování z veřejného zdravotního pojištění (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1701-vakcinace-verejne-zdravotni-pojisteni-otevrena-data',
+    human_name: 'Očkování — vykázané dávky',
+    description: 'Počty vykázaných očkovacích dávek hrazených z veřejného zdravotního pojištění, rozpadnutelné podle skupiny vakcíny, věku a pohlaví. Popisná data o stavu — slouží k odečtu počtů, ne k hledání trendů (počty silně ovlivňuje spouštění a rozšiřování očkovacích programů).',
+    metric_label: 'Vykázané dávky', metric: { type: 'sum', col: 'pocet' }, yearCol: 'rok_vakcinace', year_from: 2011,
+    noAnomalies: true,
+    note: 'Bez skenu anomálií — počty dávek určuje hlavně spouštění programů, ne epidemiologie. Skupina vakcíny dle číselníku ÚZIS (číselný prefix odstraněn).',
+    dims: [
+      {
+        key: 'vakcina', label: 'Skupina vakcíny', kind: 'category', primary: true, col: 'vakcina_skupina', clean: 'stripNumPrefix', maxValues: 40,
+        relabel: {
+          Chripka: 'chřipka', Tetanus: 'tetanus', Pneumokok: 'pneumokok', HPV: 'lidský papilomavirus (HPV)',
+          MMR: 'spalničky, příušnice a zarděnky', Encefalitida: 'klíšťová encefalitida', Vzteklina: 'vzteklina',
+          HepB: 'žloutenka typu B', HepA: 'žloutenka typu A', TBC: 'tuberkulóza',
+          MeningokokB: 'meningokok skupiny B', MeningokokACWY: 'meningokok skupin A, C, W, Y',
+          'InfluenzaB': 'hemofilus influenzae typu B', HEXA: 'hexavakcína (6 nemocí)', HEXA5: 'hexavakcína (6 nemocí)', HEXA10: 'hexavakcína (6 nemocí)',
+        },
+      },
+      { key: 'age', label: 'Věk', kind: 'age', col: 'vekova_kategorie', decode: 'range' },
+      { key: 'sex', label: 'Pohlaví', kind: 'category', col: 'pohlavi', map: 'SEX_MZ' },
+    ],
+  },
 ];
 
 const only = process.argv.slice(2);

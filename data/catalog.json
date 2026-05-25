@@ -8426,6 +8426,31 @@
       "source_url": "https://www.nzip.cz/data/1622-rodicky-zpusob-porodu-otevrena-data",
       "cube_url": "data/cubes/porody_zpusob.json",
       "last_seen": "2026-05-25"
+    },
+    {
+      "id": "ockovani_kostka",
+      "kind": "cube",
+      "category": "prevence",
+      "human_name": "Očkování — vykázané dávky podle vakcíny, věku a pohlaví",
+      "description": "Popisná data o vykázaných očkovacích dávkách z veřejného zdravotního pojištění. Lze zvolit skupinu vakcíny (chřipka, HPV, klíšťová encefalitida…), věkovou skupinu a pohlaví a odečíst počty. Slouží k popisu stavu, ne k hledání trendů (počty určuje hlavně spouštění a rozšiřování očkovacích programů).",
+      "relevant_for": [
+        "očkování",
+        "vakcíny",
+        "prevence",
+        "proočkovanost",
+        "HPV",
+        "chřipka",
+        "klíšťová encefalitida",
+        "popisná data",
+        "počty"
+      ],
+      "trend_context": "Vykázané dávky z veřejného zdravotního pojištění, 2011 dál. Popisná data — bez automatického skenu trendů.",
+      "source_type": "national",
+      "source": "Vykázané očkování z veřejného zdravotního pojištění (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1701-vakcinace-verejne-zdravotni-pojisteni-otevrena-data",
+      "cube_url": "data/cubes/ockovani.json",
+      "last_seen": "2026-05-25"
     }
   ]
 }
