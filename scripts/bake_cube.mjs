@@ -82,12 +82,14 @@ function extractor(dim) {
   if (dim.map === 'SEX') return (r) => SEX((r[col] || '').toString());
   if (dim.map === 'SEX_MZ') return (r) => SEX_MZ((r[col] || '').toString());
   if (dim.map === 'STAGE') return (r) => STAGE(r[col]);
+  if (dim.valueMap) return (r) => dim.valueMap[(r[col] ?? '').toString().trim()] || null; // číselník kód→název
   // plain category — hodnota přímo ze sloupce (volitelně očištěná o číselný prefix)
   return (r) => { let v = (r[col] ?? '').toString().trim(); if (dim.clean === 'stripNumPrefix') v = v.replace(/^\d+[.\s]*/, ''); return v === '' ? null : v; };
 }
 
 async function bakeOne(cfg) {
-  const exs = cfg.dims.map(extractor);
+  const wideIdx = cfg.dims.findIndex(d => d.wide); // „široký" formát: primární dim z příčinových sloupců
+  const exs = cfg.dims.map(d => d.wide ? null : extractor(d));
   const counts = new Map();        // klíč: year SEP v0 SEP v1 ... → metrika
   const dimSeen = cfg.dims.map(() => new Map()); // dim → Map(value → total) pro řazení
   const yearsSeen = new Set();
@@ -96,6 +98,13 @@ async function bakeOne(cfg) {
   if (!r.ok) throw new Error(`${cfg.id}: HTTP ${r.status}`);
   const ns = Readable.fromWeb(r.body); ns.setEncoding(cfg.encoding === 'windows-1250' ? 'latin1' : 'utf8');
   const t0 = Date.now();
+  const addCell = (y, vals, amount) => {
+    const key = y + SEP + vals.join(SEP);
+    counts.set(key, (counts.get(key) || 0) + amount);
+    yearsSeen.add(y);
+    for (let i = 0; i < vals.length; i++) dimSeen[i].set(vals[i], (dimSeen[i].get(vals[i]) || 0) + amount);
+    nUsed++;
+  };
   await new Promise((res, rej) => Papa.parse(ns, {
     header: true, skipEmptyLines: true,
     step: ({ data: x }) => {
@@ -103,14 +112,20 @@ async function bakeOne(cfg) {
       const y = parseInt((x[cfg.yearCol] || '').toString(), 10);
       if (!Number.isFinite(y) || y < cfg.year_from) return;
       const vals = [];
-      for (let i = 0; i < exs.length; i++) { const v = exs[i](x); if (v == null) return; vals.push(v); }
-      let amount = 1;
-      if (cfg.metric.type === 'sum') { amount = parseFloat((x[cfg.metric.col] || '').toString().replace(',', '.')); if (!Number.isFinite(amount)) return; }
-      const key = y + SEP + vals.join(SEP);
-      counts.set(key, (counts.get(key) || 0) + amount);
-      yearsSeen.add(y);
-      for (let i = 0; i < vals.length; i++) dimSeen[i].set(vals[i], (dimSeen[i].get(vals[i]) || 0) + amount);
-      nUsed++;
+      for (let i = 0; i < exs.length; i++) { if (i === wideIdx) { vals.push(null); continue; } const v = exs[i](x); if (v == null) return; vals.push(v); }
+      if (wideIdx >= 0) {
+        // jeden řádek → po jedné buňce za každou příčinu se zápornou/nenulovou hodnotou
+        for (const cause of cfg.wideCauses) {
+          const amt = parseFloat((x[cause.col] || '').toString().replace(',', '.'));
+          if (!Number.isFinite(amt) || amt <= 0) continue;
+          const vv = vals.slice(); vv[wideIdx] = cause.name;
+          addCell(y, vv, amt);
+        }
+      } else {
+        let amount = 1;
+        if (cfg.metric.type === 'sum') { amount = parseFloat((x[cfg.metric.col] || '').toString().replace(',', '.')); if (!Number.isFinite(amount)) return; }
+        addCell(y, vals, amount);
+      }
     }, complete: res, error: rej,
   }));
 
@@ -248,6 +263,62 @@ const CONFIGS = [
       { key: 'skupina', label: 'Skupina diagnóz', kind: 'category', primary: true, col: 'ZDG', map: 'MKN_CHAPTER' },
       { key: 'age', label: 'Věk', kind: 'age', col: 'vek_kod', decode: 'nor5' },
       { key: 'sex', label: 'Pohlaví', kind: 'category', col: 'pohlavi', map: 'SEX' },
+    ],
+  },
+  {
+    id: 'umrti_priciny', src: 'https://data.mzcr.cz/data/distribuce/467/Otevrena-data-NR-06-33-denni-umrti-vek-pohlavi-pricina.csv',
+    source: 'Národní registr úmrtí (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/2516-denni-umrti-vek-pohlavi-pricina-otevrena-data',
+    human_name: 'Úmrtí podle příčiny',
+    description: 'Počty úmrtí v Česku podle hlavní skupiny příčin (kapitola MKN), rozpadnutelné podle příčiny, věku a pohlaví. Ukazuje, na co Češi umírají a jak se to v čase mění.',
+    metric_label: 'Úmrtí', metric: { type: 'wide' }, yearCol: 'rok_umrti', year_from: 2010,
+    note: 'Příčiny dle hlavních kapitol MKN-10 (sloupce zem_*). Celkový součet (zem_celkem) nezahrnut, aby se příčiny nedvojily.',
+    wideCauses: [
+      { col: 'zem_obehova', name: 'nemoci oběhové soustavy' },
+      { col: 'zem_novotvary', name: 'novotvary (nádory)' },
+      { col: 'zem_dychaci', name: 'nemoci dýchací soustavy' },
+      { col: 'zem_travici', name: 'nemoci trávicí soustavy' },
+      { col: 'zem_vnejsi', name: 'vnější příčiny (úrazy, otravy)' },
+      { col: 'zem_nervova', name: 'nemoci nervové soustavy' },
+      { col: 'zem_endokrinni', name: 'nemoci endokrinní a látkové přeměny' },
+      { col: 'zem_dusevni', name: 'duševní poruchy' },
+      { col: 'zem_infekcni', name: 'infekční nemoci' },
+      { col: 'zem_mocova', name: 'nemoci močové a pohlavní soustavy' },
+    ],
+    dims: [
+      { key: 'pricina', label: 'Příčina úmrtí', kind: 'category', primary: true, wide: true },
+      { key: 'age', label: 'Věk', kind: 'age', col: 'vek_kat', decode: 'nor5' },
+      { key: 'sex', label: 'Pohlaví', kind: 'category', col: 'pohlavi', map: 'SEX' },
+    ],
+  },
+  {
+    id: 'srdecni_selhani', src: 'https://data.mzcr.cz/data/distribuce/332/Otevrena-data-OIS-01-03-epidemiologie-srdecni-selhani.csv',
+    source: 'Národní zdravotnický informační systém (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1664-srdecni-selhani-epidemiologie-otevrena-data',
+    human_name: 'Srdeční selhání — pacienti podle typu péče',
+    description: 'Počty pacientů se srdečním selháním podle typu poskytnuté péče, rozpadnutelné podle typu péče, věku a pohlaví. Jeden pacient se může objevit ve více typech péče.',
+    metric_label: 'Pacienti (case-years)', metric: { type: 'wide' }, yearCol: 'rok', year_from: 2015,
+    note: 'Typy péče z příznakových sloupců (pacient může mít více). Počítají se pacient-roky.',
+    wideCauses: [
+      { col: 'lecba_ambulantni', name: 'ambulantní léčba' },
+      { col: 'lecba_hospitalizacni_primarni', name: 'hospitalizace (srdeční selhání hlavní diagnóza)' },
+      { col: 'lecba_hospitalizacni_sekundarni', name: 'hospitalizace (srdeční selhání vedlejší diagnóza)' },
+      { col: 'lecba_implantace_transplantace', name: 'implantace přístroje nebo transplantace' },
+    ],
+    dims: [
+      { key: 'pece', label: 'Typ péče', kind: 'category', primary: true, wide: true },
+      { key: 'age', label: 'Věk', kind: 'age', col: 'vek_kod', decode: 'nor5' },
+      { key: 'sex', label: 'Pohlaví', kind: 'category', col: 'pohlavi', map: 'SEX' },
+    ],
+  },
+  {
+    id: 'porody_zpusob', src: 'https://data.mzcr.cz/data/distribuce/322/rodicky-zpusob-porodu.csv',
+    source: 'Národní registr reprodukčního zdraví (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1622-rodicky-zpusob-porodu-otevrena-data',
+    human_name: 'Porody — způsob porodu',
+    description: 'Počty porodů podle způsobu porodu (vaginální porod nebo císařský řez) a věku matky. Ukazuje mimo jiné trend míry císařských řezů a porodů u starších matek.',
+    metric_label: 'Porody', metric: { type: 'count' }, yearCol: 'rok_porodu', year_from: 2000,
+    note: 'Věkové skupiny matek dle standardního pětiletého členění ÚZIS (kódy 1–6).',
+    dims: [
+      { key: 'zpusob', label: 'Způsob porodu', kind: 'category', primary: true, col: 'zpusob_porodu', valueMap: { '1': 'vaginální porod', '2': 'císařský řez' } },
+      { key: 'vek_matky', label: 'Věk matky', kind: 'category', col: 'vek_matky', valueMap: { '1': 'do 19 let', '2': '20–24 let', '3': '25–29 let', '4': '30–34 let', '5': '35–39 let', '6': '40 a více let' } },
     ],
   },
   // Pozn.: očkování (vakcinace) zatím vynecháno — „trendy" jsou hlavně spouštění/rozšiřování

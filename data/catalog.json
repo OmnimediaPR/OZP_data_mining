@@ -9404,6 +9404,73 @@
       "source_url": "https://www.nzip.cz/data/1751-hospitalizacni-pripady-akutni-pece-otevrena-data",
       "cube_url": "data/cubes/hospitalizace_akutni.json",
       "last_seen": "2026-05-25"
+    },
+    {
+      "id": "umrti_priciny_kostka",
+      "kind": "cube",
+      "category": "mortalita",
+      "human_name": "Úmrtí podle příčiny — rozpad podle příčiny, věku a pohlaví",
+      "description": "Interaktivní rozpad úmrtí v Česku podle hlavní skupiny příčin (kapitola MKN — oběhové nemoci, nádory, vnější příčiny…), věku a pohlaví. Ukazuje, na co Češi umírají a jak se to mění. Nástroj sám upozorní na anomálie.",
+      "relevant_for": [
+        "mortalita",
+        "úmrtnost",
+        "příčiny úmrtí",
+        "na co Češi umírají",
+        "věkové skupiny",
+        "trendy"
+      ],
+      "trend_context": "Národní registr úmrtí, příčiny dle hlavních kapitol MKN-10, 2010 dál.",
+      "source_type": "national",
+      "source": "Národní registr úmrtí (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/2516-denni-umrti-vek-pohlavi-pricina-otevrena-data",
+      "cube_url": "data/cubes/umrti_priciny.json",
+      "last_seen": "2026-05-25"
+    },
+    {
+      "id": "srdecni_selhani_kostka",
+      "kind": "cube",
+      "category": "kardio",
+      "human_name": "Srdeční selhání — rozpad podle typu péče, věku a pohlaví",
+      "description": "Interaktivní rozpad pacientů se srdečním selháním podle typu poskytnuté péče (ambulantní, hospitalizace, implantace přístroje či transplantace), věku a pohlaví. Nástroj upozorní na anomálie.",
+      "relevant_for": [
+        "srdeční selhání",
+        "kardiologie",
+        "typ péče",
+        "implantace",
+        "transplantace",
+        "věkové skupiny",
+        "trendy"
+      ],
+      "trend_context": "Epidemiologie srdečního selhání, pacient-roky podle typu péče, 2015 dál.",
+      "source_type": "national",
+      "source": "Národní zdravotnický informační systém (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1664-srdecni-selhani-epidemiologie-otevrena-data",
+      "cube_url": "data/cubes/srdecni_selhani.json",
+      "last_seen": "2026-05-25"
+    },
+    {
+      "id": "porody_kostka",
+      "kind": "cube",
+      "category": "reprodukce",
+      "human_name": "Porody — rozpad podle způsobu porodu a věku matky",
+      "description": "Interaktivní rozpad porodů podle způsobu porodu (vaginální porod nebo císařský řez) a věku matky. Ukazuje trend míry císařských řezů a porodů u starších matek.",
+      "relevant_for": [
+        "porody",
+        "reprodukce",
+        "císařský řez",
+        "věk matky",
+        "mateřství",
+        "trendy"
+      ],
+      "trend_context": "Národní registr reprodukčního zdraví, způsob porodu a věk matky, 2000 dál.",
+      "source_type": "national",
+      "source": "Národní registr reprodukčního zdraví (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1622-rodicky-zpusob-porodu-otevrena-data",
+      "cube_url": "data/cubes/porody_zpusob.json",
+      "last_seen": "2026-05-25"
     }
   ]
 }
