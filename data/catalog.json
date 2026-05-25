@@ -8521,6 +8521,71 @@
       "source_url": "https://www.nzip.cz/data/2759-hromadne-vyrabene-lecive-pripravky-2-uroven-atc-otevrena-data",
       "cube_url": "data/cubes/leky_atc.json",
       "last_seen": "2026-05-25"
+    },
+    {
+      "id": "covid_souhrn",
+      "kind": "snapshot",
+      "category": "infekce",
+      "human_name": "COVID-19 — souhrnná čísla za celou pandemii",
+      "description": "Kumulativní souhrn pandemie COVID-19 v Česku — celkové počty případů, úmrtí, vyléčených, testů a očkování. Popisná data o stavu (snímek), ne časová řada.",
+      "relevant_for": [
+        "covid",
+        "pandemie",
+        "souhrnná čísla",
+        "úmrtí",
+        "očkování",
+        "popisná data",
+        "stav"
+      ],
+      "trend_context": "Kumulativní čísla od začátku pandemie k datu snímku.",
+      "source_type": "national",
+      "source": "Ministerstvo zdravotnictví ČR (onemocneni-aktualne.mzcr.cz)",
+      "code": null,
+      "source_url": "https://onemocneni-aktualne.mzcr.cz/covid-19",
+      "snapshot_date": "2026-05-25",
+      "snapshot": [
+        {
+          "label": "Potvrzené případy celkem",
+          "value": 4887010
+        },
+        {
+          "label": "z toho u osob 65+",
+          "value": 715824
+        },
+        {
+          "label": "Úmrtí celkem",
+          "value": 44035
+        },
+        {
+          "label": "Vyléčení celkem",
+          "value": 4842960
+        },
+        {
+          "label": "Reinfekce celkem",
+          "value": 815
+        },
+        {
+          "label": "Provedené testy celkem",
+          "value": 22852540
+        },
+        {
+          "label": "Očkované osoby",
+          "value": 6978112
+        },
+        {
+          "label": "Vykázané dávky očkování",
+          "value": 19550064
+        },
+        {
+          "label": "Aktivní případy (aktuálně)",
+          "value": 15
+        },
+        {
+          "label": "Aktuálně hospitalizovaní",
+          "value": 3
+        }
+      ],
+      "last_seen": "2026-05-25"
     }
   ]
 }

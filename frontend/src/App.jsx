@@ -689,6 +689,7 @@ export default function App() {
       if (datasetData.has(id)) continue;
       const entry = nationalDatasets.find(d => d.id === id);
       if (!entry) continue;
+      if (entry.kind === 'snapshot') continue; // souhrn má hodnoty rovnou v katalogu, nestahuje se
       setDatasetData(prev => new Map(prev).set(id, { loading: true, error: null, series: null }));
       const loader = entry.kind === 'cube'
         ? fetchCubeCached(entry).then(cube => setDatasetData(prev => new Map(prev).set(id, { loading: false, error: null, cube })))
@@ -704,8 +705,10 @@ export default function App() {
   // Nevybraný dataset má _hasData=false → karta ukáže skeleton bez grafu.
   const allDatasets = useMemo(() => {
     const national = nationalDatasets.map(meta => {
-      const state = datasetData.get(meta.id);
       const baseSourceType = meta.source_type || 'national';
+      // Souhrn (snapshot) má hodnoty rovnou v katalogu — vždy připravený, žádný fetch.
+      if (meta.kind === 'snapshot') return { ...meta, source_type: baseSourceType, _loading: false, _hasData: true };
+      const state = datasetData.get(meta.id);
       if (!state) return { ...meta, source_type: baseSourceType, _loading: false, _hasData: false };
       if (state.loading) return { ...meta, source_type: baseSourceType, _loading: true, _hasData: false };
       if (state.error) return { ...meta, source_type: baseSourceType, _loading: false, _hasData: false, _error: state.error };
@@ -891,7 +894,8 @@ DŮLEŽITÉ: pole "id" musí být přesně jedno z id v katalogu výše. Žádn�
       // ať analýza nespadne na čtení prázdné časové řady (d.data[0]).
       const fetchedDs = selectedDatasets.filter(d => d.source_type !== 'international');
       const readyDs = fetchedDs.filter(d => Array.isArray(d.data) && d.data.length > 0);
-      if (readyDs.length === 0 && intlDs.length === 0) {
+      const snapshotDs = selectedDatasets.filter(d => d.kind === 'snapshot' && Array.isArray(d.snapshot));
+      if (readyDs.length === 0 && intlDs.length === 0 && snapshotDs.length === 0) {
         setAnalyzing(false);
         setError('Data se ještě načítají nebo se je nepodařilo stáhnout. Počkej, až karty dočtou data (zmizí „Načítám…"), nebo odškrtni karty, u kterých svítí hláška o chybě stahování.');
         return;
@@ -942,6 +946,11 @@ DŮLEŽITÉ: pole "id" musí být přesně jedno z id v katalogu výše. Žádn�
         return '';
       })).filter(Boolean).join('\n');
 
+      // Souhrnná (snapshot) data — popisná fakta o stavu.
+      const snapshotSummary = snapshotDs.map(d =>
+        `- ${d.human_name}${d.snapshot_date ? ` (stav k ${d.snapshot_date})` : ''}: ${d.snapshot.map(s => `${s.label}: ${typeof s.value === 'number' ? s.value.toLocaleString('cs-CZ') : s.value}`).join('; ')}`
+      ).join('\n');
+
       const prompt = `Jsi datový analytik pro českou PR agenturu. NEPÍŠEŠ tiskové zprávy. Tvoje práce je z dat vytáhnout zjištění a doporučit úhly — PR manažer si text napíše sám.
 
 KLIENT: ${CLIENT.full}
@@ -960,6 +969,9 @@ ${regionalTSSummary}
 ${intlSummary}
 
 DŮLEŽITÉ: vždy zmiň rok dat a metodiku. Pokud roky nesedí, uveď orientačnost. NEPOUŽÍVEJ OECD ukazatel "30denní mortalita po AIM" — není srovnatelný (Stolpe et al. 2023).
+` : ''}${snapshotSummary ? `SOUHRNNÁ POPISNÁ DATA (stav, ne časová řada — použij jako fakta/čísla do briefu):
+${snapshotSummary}
+
 ` : ''}${cubeAnomSummary ? `AUTOMATICKY NALEZENÉ ANOMÁLIE V ONKOLOGICKÉ ROZPADOVÉ KOSTCE (silní kandidáti na úhly — ber je jako tipy z dat, ne hotová tvrzení):
 ${cubeAnomSummary}
 
@@ -1386,7 +1398,14 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 16, marginTop: 12 }}>
               {displayedDatasets.map(d => (
-                d.kind === 'cube' ? (
+                d.kind === 'snapshot' ? (
+                  <SnapshotCard
+                    key={d.id}
+                    d={d}
+                    selected={selectedIds.includes(d.id)}
+                    onToggle={() => toggleDataset(d.id)}
+                  />
+                ) : d.kind === 'cube' ? (
                   <CubeCard
                     key={d.id}
                     d={d}
@@ -1492,6 +1511,38 @@ function SectionHeader({ number, title, subtitle }) {
       <div>
         <h2 className="serif" style={{ margin: 0, fontSize: 24, fontWeight: 700 }}>{title}</h2>
         {subtitle && <div style={{ fontSize: 13, color: '#666', marginTop: 2 }}>{subtitle}</div>}
+      </div>
+    </div>
+  );
+}
+
+// Karta souhrnu (snapshot) — popisná čísla o stavu, žádná časová řada ani anomálie.
+function SnapshotCard({ d, selected, onToggle }) {
+  const fmt = (n) => (typeof n === 'number' ? n.toLocaleString('cs-CZ') : n);
+  return (
+    <div onClick={onToggle} style={{
+      background: '#FFFFFF', border: selected ? '2px solid #702082' : '1px solid #E0D6EA',
+      padding: 20, cursor: 'pointer', position: 'relative', borderRadius: 14, gridColumn: '1 / -1',
+      boxShadow: selected ? '0 6px 22px rgba(112,32,130,0.18)' : '0 1px 6px rgba(112,32,130,0.06)',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 8 }}>
+        <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '2px 6px', background: '#702082', color: '#FFFFFF' }}>Souhrn</span>
+        <div style={{ width: 22, height: 22, border: '1.5px solid #702082', display: 'flex', alignItems: 'center', justifyContent: 'center', background: selected ? '#702082' : 'transparent', flexShrink: 0, borderRadius: 6 }}>
+          {selected && <Check size={14} color="#FFFFFF" />}
+        </div>
+      </div>
+      <div className="serif" style={{ fontSize: 22, fontWeight: 700, lineHeight: 1.2, marginBottom: 4 }}>{d.human_name}</div>
+      {d.description && <div style={{ fontSize: 13, color: '#555', lineHeight: 1.45, marginBottom: 12 }}>{d.description}</div>}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(190px, 1fr))', gap: 10 }}>
+        {(d.snapshot || []).map((s, i) => (
+          <div key={i} style={{ background: '#F4F1F8', borderRadius: 10, padding: '10px 12px' }}>
+            <div className="num" style={{ fontSize: 22, fontWeight: 700, color: '#702082' }}>{fmt(s.value)}</div>
+            <div style={{ fontSize: 12, color: '#555', marginTop: 2, lineHeight: 1.3 }}>{s.label}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ fontSize: 10, color: '#888', marginTop: 12 }}>
+        Data: {d.source}{d.snapshot_date ? ` · stav k ${d.snapshot_date}` : ''}
       </div>
     </div>
   );
