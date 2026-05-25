@@ -643,6 +643,8 @@ export default function App() {
     return [...national, ...intl];
   }, [nationalDatasets, datasetData, includeIntl]);
   const selectedDatasets = allDatasets.filter(d => selectedIds.includes(d.id));
+  // Některý vybraný dataset ještě stahuje/parsuje data ze zdroje — dokud běží, analýzu nepouštíme.
+  const selectedLoading = selectedDatasets.some(d => d._loading);
 
   // Karty k zobrazení v Section 02: dokud uživatel nespustí doporučení ani neotevře
   // celý katalog, sekce se vůbec nezobrazí. Pak ukazujeme jen doporučené + ručně vybrané,
@@ -777,10 +779,20 @@ DŮLEŽITÉ: pole "id" musí být přesně jedno z id v katalogu výše. Žádn�
 
     let text = '';
     try {
-      const nationalDs = selectedDatasets.filter(d => !['international', 'regional_snapshot', 'regional_timeseries'].includes(d.source_type));
-      const regionalDs = selectedDatasets.filter(d => d.source_type === 'regional_snapshot');
-      const regionalTSDs = selectedDatasets.filter(d => d.source_type === 'regional_timeseries');
       const intlDs = selectedDatasets.filter(d => d.source_type === 'international');
+      // Národní/krajové datasety musí mít stažená a zparsovaná data. Když se analýza spustí dřív,
+      // než CSV dotáhne (nebo se stahování nepovede), pole data chybí — takové datasety vyřadíme,
+      // ať analýza nespadne na čtení prázdné časové řady (d.data[0]).
+      const fetchedDs = selectedDatasets.filter(d => d.source_type !== 'international');
+      const readyDs = fetchedDs.filter(d => Array.isArray(d.data) && d.data.length > 0);
+      if (readyDs.length === 0 && intlDs.length === 0) {
+        setAnalyzing(false);
+        setError('Data se ještě načítají nebo se je nepodařilo stáhnout. Počkej, až karty dočtou data (zmizí „Načítám…"), nebo odškrtni karty, u kterých svítí hláška o chybě stahování.');
+        return;
+      }
+      const nationalDs = readyDs.filter(d => !['regional_snapshot', 'regional_timeseries'].includes(d.source_type));
+      const regionalDs = readyDs.filter(d => d.source_type === 'regional_snapshot');
+      const regionalTSDs = readyDs.filter(d => d.source_type === 'regional_timeseries');
 
       const nationalSummary = nationalDs.map(d => {
         const first = d.data[0], last = d.data[d.data.length - 1];
@@ -1274,16 +1286,17 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
             <div style={{ marginTop: 16 }}>
               <button
                 onClick={runAnalysis}
-                disabled={analyzing || selectedDatasets.length === 0}
+                disabled={analyzing || selectedDatasets.length === 0 || selectedLoading}
                 style={{
                   background: '#702082', color: '#FFFFFF', padding: '12px 24px',
-                  border: 'none', fontSize: 15, fontWeight: 600, cursor: 'pointer',
+                  border: 'none', fontSize: 15, fontWeight: 600,
+                  cursor: (analyzing || selectedDatasets.length === 0 || selectedLoading) ? 'not-allowed' : 'pointer',
                   display: 'flex', alignItems: 'center', gap: 8,
-                  opacity: (analyzing || selectedDatasets.length === 0) ? 0.5 : 1,
+                  opacity: (analyzing || selectedDatasets.length === 0 || selectedLoading) ? 0.5 : 1,
                 }}
               >
-                {analyzing ? <Loader2 size={16} className="spin" /> : <Sparkles size={16} />}
-                {analyzing ? 'Analyzuji...' : `Analyzovat ${selectedDatasets.length} datasety`}
+                {(analyzing || selectedLoading) ? <Loader2 size={16} className="spin" /> : <Sparkles size={16} />}
+                {analyzing ? 'Analyzuji…' : selectedLoading ? 'Data se načítají…' : `Analyzovat ${selectedDatasets.length} datasety`}
               </button>
             </div>
           ) : (
