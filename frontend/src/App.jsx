@@ -804,7 +804,10 @@ export default function App() {
         ? 'Katalog obsahuje národní česká data i mezinárodní srovnání (EU/OECD). PR brief obvykle těží z kombinace národních trendů a mezinárodního kontextu — pokud je mezinárodní srovnání k tématu relevantní, zařaď ho.'
         : 'Katalog obsahuje jen národní česká data. Vybírej pouze z něj, mezinárodní srovnání teď uživatel nechce.';
 
-      const prompt = `Jsi datový analytik pro českou PR agenturu. Klient připravuje brief na téma: "${topic}".
+      // Stabilní část (instrukce + celý katalog) je stejná napříč voláními → dáme ji do prompt cache.
+      // Mění se jen téma (variabilní blok na konci), takže opakované „Najít data" do 5 min platí
+      // katalog jen ~10 %. Doporučování je filtrování katalogu → stačí Haiku (~10× levnější než Sonnet).
+      const cachedPrompt = `Jsi datový analytik pro českou PR agenturu. Z katalogu datasetů vybíráš ty nejrelevantnější k zadanému tématu briefu.
 
 K dispozici máš tento katalog datasetů (každý má id, kategorii, lidský název, popis a oblasti relevance):
 
@@ -812,16 +815,10 @@ ${JSON.stringify(catalogShort, null, 2)}
 
 ${intlHint}
 
-Vyber 5 až 10 datasetů, které jsou pro téma nejrelevantnější. Pokud katalog obsahuje méně relevantních datasetů, vyber raději míň (klidně jen 3) než nesedící. Pokud k tématu nesedí vůbec nic, vrať prázdné pole.
-
-U každého datasetu napiš 1 krátkou větu důvodu, proč se k tématu hodí.
+Vyber 5 až 10 datasetů, které jsou pro téma nejrelevantnější. Pokud katalog obsahuje méně relevantních datasetů, vyber raději míň (klidně jen 3) než nesedící. Pokud k tématu nesedí vůbec nic, vrať prázdné pole. U každého datasetu napiš 1 krátkou větu důvodu, proč se k tématu hodí.
 
 Vrať POUZE platný JSON, žádné markdown, žádný úvod ani závěr:
-{
-  "recommended": [
-    {"id": "id_z_katalogu", "reason": "Krátký důvod, 1 věta česky."}
-  ]
-}
+{"recommended": [{"id": "id_z_katalogu", "reason": "Krátký důvod, 1 věta česky."}]}
 
 DŮLEŽITÉ: pole "id" musí být přesně jedno z id v katalogu výše. Žádné jiné id nevymýšlej.`;
 
@@ -834,9 +831,15 @@ DŮLEŽITÉ: pole "id" musí být přesně jedno z id v katalogu výše. Žádn�
           'anthropic-dangerous-direct-browser-access': 'true',
         },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
+          model: 'claude-haiku-4-5-20251001',
           max_tokens: 2048,
-          messages: [{ role: 'user', content: prompt }],
+          messages: [{
+            role: 'user',
+            content: [
+              { type: 'text', text: cachedPrompt, cache_control: { type: 'ephemeral' } },
+              { type: 'text', text: `Téma briefu: "${topic}"` },
+            ],
+          }],
         }),
       });
 
