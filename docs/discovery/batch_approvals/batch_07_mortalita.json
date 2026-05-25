@@ -1,7 +1,7 @@
 {
   "batch_id": "batch_07_mortalita",
   "approved_at": "2026-05-25",
-  "count": 12,
+  "count": 11,
   "entries": [
     {
       "id": "umrti_pocet_rok_vek_pohlavi_kapitola_mkn_10",
@@ -107,34 +107,6 @@
       "value_column": "zem_celkem",
       "metric_label": "Roční počet zemřelých v ČR (z denních dat)",
       "last_seen": "2026-05-25"
-    },
-    {
-      "id": "jednotliva_umrti_sociodemo_charakteristiky_priciny",
-      "category": "mortalita",
-      "human_name": "Jednotlivá úmrtí – sociodemografické charakteristiky a příčiny smrti",
-      "description": "Individuální anonymizované záznamy o úmrtích v ČR od roku 1994 podle evidence ČSÚ. Každý záznam obsahuje datum úmrtí, sociodemografické údaje (pohlaví, věk, vzdělání, rodinný stav, občanství, okres bydliště) a prvotní i vnější příčinu smrti.",
-      "relevant_for": [
-        "mortalita",
-        "úmrtí",
-        "příčiny smrti",
-        "vzdělání",
-        "sociodemografie"
-      ],
-      "trend_context": "Nejpodrobnější sada — jeden řádek je jedno úmrtí, takže umožňuje skládat libovolné průřezy (třeba úmrtnost podle vzdělání nebo rodinného stavu). Je velká a každý řádek je jedna událost, počítá se proto počtem záznamů za rok. Pro srovnání skupin je nutné zohlednit jejich velikost a věkovou strukturu.",
-      "source_type": "national",
-      "source": "List o prohlídce zemřelého (ÚZIS)",
-      "code": null,
-      "csv_url": "https://datanzis.uzis.gov.cz/data/NR-06-LPZ/NR-06-34/Otevrena-data-NR-06-34-jednotliva-umrti-sociodemo-charakteristiky-priciny.csv.gz",
-      "source_url": "https://www.nzip.cz/data/2517-jednotliva-umrti-sociodemo-charakteristiky-priciny-otevrena-data",
-      "year_column": null,
-      "date_column": "datum_umrti",
-      "filter_column": null,
-      "row_match": null,
-      "aggregation": "date_to_year",
-      "value_column": null,
-      "metric_label": "Roční počet úmrtí v ČR",
-      "last_seen": "2026-05-25",
-      "csv_format": "gzip"
     },
     {
       "id": "predcasne_umrti_vek_pohlavi_kraje_casovy_trend",
@@ -318,5 +290,6 @@
       "metric_label": "Roční počet očekávatelně zemřelých v hodnocení trajektorií",
       "last_seen": "2026-05-25"
     }
-  ]
+  ],
+  "note": "Dataset jednotlivých úmrtí vyřazen: 3,46 mil. řádků, riziko pádu prohlížeče."
 }

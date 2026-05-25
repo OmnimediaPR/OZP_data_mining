@@ -488,33 +488,6 @@
       "csv_format": "gzip"
     },
     {
-      "id": "hospitalizacni_pripady_dlouhodoba_casova_rada",
-      "category": "hospitalizace",
-      "human_name": "Hospitalizace — dlouhodobá časová řada od roku 1994",
-      "description": "Datová sada poskytuje agregované údaje o hospitalizačních případech v ČR od roku 1994 dle metodiky CZ-DRG. Obsahuje informace o pacientech (věk, pohlaví , kraj bydliště), diagnózách , druhu přijetí, operacích a úmrtích během hospitalizace .",
-      "relevant_for": [
-        "hospitalizace",
-        "NRHOSP",
-        "Národní registr hospitalizovaných",
-        "hospitalizační případy",
-        "hlavní diagnóza hospitalizačního případu"
-      ],
-      "trend_context": "Hospitalizace v Česku dlouhodobě klesají díky posunu péče do jednodenní chirurgie, ambulantní péče a denních stacionářů. Nárůst se objevuje v letech pandemie COVID-19 a u stárnoucí populace pro chronická onemocnění.",
-      "source_type": "national",
-      "source": "Národní registr hospitalizovaných (ÚZIS)",
-      "code": null,
-      "csv_url": "https://data.mzcr.cz/data/distribuce/469/Otevrena-data-NR-05-01-hospitalizacni-pripady-dlouhodoba-casova-rada.csv.gz",
-      "source_url": "https://www.nzip.cz/data/2521-hospitalizacni-pripady-dlouhodoba-casova-rada-otevrena-data",
-      "year_column": "rok",
-      "filter_column": null,
-      "row_match": null,
-      "aggregation": "sum_column",
-      "value_column": "pocet_hosp",
-      "metric_label": "Roční počet hospitalizací v ČR",
-      "last_seen": "2026-05-25",
-      "csv_format": "gzip"
-    },
-    {
       "id": "luzkovy_fond_vyuziti",
       "category": "hospitalizace",
       "human_name": "Lůžkový fond ČR — využití",
@@ -566,29 +539,6 @@
       "value_column": "NU_absolutni_pocet",
       "metric_label": "Roční počet hlášených nežádoucích událostí v lůžkové péči",
       "last_seen": "2026-05-25"
-    },
-    {
-      "id": "covid_19_zakladni_prehled",
-      "category": "infekce",
-      "human_name": "COVID-19: Základní přehled",
-      "description": "Stručný náhled na základní epidemiologická data o pandemii COVID-19 v ČR.",
-      "relevant_for": [
-        "infekce"
-      ],
-      "trend_context": "Denní přehled základních indikátorů pandemie COVID-19 v Česku — testování, potvrzené případy, hospitalizace, úmrtí, očkování. Kumulativní hodnoty rostou monotónně, hlavní dynamika byla v letech 2020–2022.",
-      "source_type": "national",
-      "source": "Informační systém infekční nemoci COVID-19 (ÚZIS)",
-      "code": null,
-      "csv_url": "https://onemocneni-aktualne.mzcr.cz/api/v2/covid-19/zakladni-prehled.csv",
-      "source_url": "https://www.nzip.cz/data/2072-covid-19-zakladni-prehled",
-      "year_column": null,
-      "filter_column": null,
-      "row_match": null,
-      "aggregation": "last_in_year",
-      "value_column": "provedene_testy_celkem",
-      "metric_label": "Kumulativní počet provedených COVID-19 testů (stav k poslednímu dni v roce)",
-      "last_seen": "2026-05-25",
-      "date_column": "﻿datum"
     },
     {
       "id": "covid_19_prehled_populace",
@@ -1093,32 +1043,6 @@
       "last_seen": "2026-05-25"
     },
     {
-      "id": "urazy",
-      "category": "úrazy",
-      "human_name": "Úrazy – charakteristika úrazu",
-      "description": "Datová sada s anonymizovanými individuálními záznamy o úrazech v ČR. Umožňuje sčítat počet úrazů na úrovni celé republiky i ve stratifikaci podle věkových kategorií, pohlaví, kraje bydliště, kraje zdravotnického zařízení, typu a tíže úrazu.",
-      "relevant_for": [
-        "úrazy",
-        "Národní registr úrazů",
-        "tíže úrazu",
-        "kraje"
-      ],
-      "trend_context": "Sledování úrazovosti v Česku napříč kraji, věkem a pohlavím. Počet zachycených úrazů ovlivňuje jednak skutečný výskyt, jednak úplnost vykazování zdravotnických zařízení — meziroční srovnání proto vypovídá o úrazech ošetřených ve zdravotnictví, ne o všech úrazech v populaci. Data umožňují rozlišit tíži úrazu a zasaženou část těla podle diagnóz.",
-      "source_type": "national",
-      "source": "Národní registr úrazů (ÚZIS)",
-      "code": "S00–T98",
-      "csv_url": "https://data.mzcr.cz/data/distribuce/381/Otevrena-data-NR-16-01-urazy.csv.gz",
-      "source_url": "https://www.nzip.cz/data/1786-urazy-otevrena-data",
-      "year_column": "rok",
-      "filter_column": null,
-      "row_match": null,
-      "aggregation": "count_rows",
-      "value_column": null,
-      "metric_label": "Roční počet úrazů ošetřených ve zdravotnictví v ČR",
-      "last_seen": "2026-05-25",
-      "csv_format": "gzip"
-    },
-    {
       "id": "dopravni_urazy",
       "category": "úrazy",
       "human_name": "Úrazy při dopravních nehodách – charakteristika úrazu",
@@ -1276,34 +1200,6 @@
       "value_column": "zem_celkem",
       "metric_label": "Roční počet zemřelých v ČR (z denních dat)",
       "last_seen": "2026-05-25"
-    },
-    {
-      "id": "jednotliva_umrti_sociodemo_charakteristiky_priciny",
-      "category": "mortalita",
-      "human_name": "Jednotlivá úmrtí – sociodemografické charakteristiky a příčiny smrti",
-      "description": "Individuální anonymizované záznamy o úmrtích v ČR od roku 1994 podle evidence ČSÚ. Každý záznam obsahuje datum úmrtí, sociodemografické údaje (pohlaví, věk, vzdělání, rodinný stav, občanství, okres bydliště) a prvotní i vnější příčinu smrti.",
-      "relevant_for": [
-        "mortalita",
-        "úmrtí",
-        "příčiny smrti",
-        "vzdělání",
-        "sociodemografie"
-      ],
-      "trend_context": "Nejpodrobnější sada — jeden řádek je jedno úmrtí, takže umožňuje skládat libovolné průřezy (třeba úmrtnost podle vzdělání nebo rodinného stavu). Je velká a každý řádek je jedna událost, počítá se proto počtem záznamů za rok. Pro srovnání skupin je nutné zohlednit jejich velikost a věkovou strukturu.",
-      "source_type": "national",
-      "source": "List o prohlídce zemřelého (ÚZIS)",
-      "code": null,
-      "csv_url": "https://datanzis.uzis.gov.cz/data/NR-06-LPZ/NR-06-34/Otevrena-data-NR-06-34-jednotliva-umrti-sociodemo-charakteristiky-priciny.csv.gz",
-      "source_url": "https://www.nzip.cz/data/2517-jednotliva-umrti-sociodemo-charakteristiky-priciny-otevrena-data",
-      "year_column": null,
-      "date_column": "datum_umrti",
-      "filter_column": null,
-      "row_match": null,
-      "aggregation": "date_to_year",
-      "value_column": null,
-      "metric_label": "Roční počet úmrtí v ČR",
-      "last_seen": "2026-05-25",
-      "csv_format": "gzip"
     },
     {
       "id": "predcasne_umrti_vek_pohlavi_kraje_casovy_trend",

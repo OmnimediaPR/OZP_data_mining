@@ -1,7 +1,7 @@
 {
   "batch_id": "batch_03_hospitalizace",
   "approved_at": "2026-05-25",
-  "count": 5,
+  "count": 4,
   "entries": [
     {
       "id": "anesteziologicka_pece",
@@ -59,33 +59,6 @@
       "csv_format": "gzip"
     },
     {
-      "id": "hospitalizacni_pripady_dlouhodoba_casova_rada",
-      "category": "hospitalizace",
-      "human_name": "Hospitalizace — dlouhodobá časová řada od roku 1994",
-      "description": "Datová sada poskytuje agregované údaje o hospitalizačních případech v ČR od roku 1994 dle metodiky CZ-DRG. Obsahuje informace o pacientech (věk, pohlaví , kraj bydliště), diagnózách , druhu přijetí, operacích a úmrtích během hospitalizace .",
-      "relevant_for": [
-        "hospitalizace",
-        "NRHOSP",
-        "Národní registr hospitalizovaných",
-        "hospitalizační případy",
-        "hlavní diagnóza hospitalizačního případu"
-      ],
-      "trend_context": "Hospitalizace v Česku dlouhodobě klesají díky posunu péče do jednodenní chirurgie, ambulantní péče a denních stacionářů. Nárůst se objevuje v letech pandemie COVID-19 a u stárnoucí populace pro chronická onemocnění.",
-      "source_type": "national",
-      "source": "Národní registr hospitalizovaných (ÚZIS)",
-      "code": null,
-      "csv_url": "https://data.mzcr.cz/data/distribuce/469/Otevrena-data-NR-05-01-hospitalizacni-pripady-dlouhodoba-casova-rada.csv.gz",
-      "source_url": "https://www.nzip.cz/data/2521-hospitalizacni-pripady-dlouhodoba-casova-rada-otevrena-data",
-      "year_column": "rok",
-      "filter_column": null,
-      "row_match": null,
-      "aggregation": "sum_column",
-      "value_column": "pocet_hosp",
-      "metric_label": "Roční počet hospitalizací v ČR",
-      "last_seen": "2026-05-25",
-      "csv_format": "gzip"
-    },
-    {
       "id": "luzkovy_fond_vyuziti",
       "category": "hospitalizace",
       "human_name": "Lůžkový fond ČR — využití",
@@ -138,5 +111,6 @@
       "metric_label": "Roční počet hlášených nežádoucích událostí v lůžkové péči",
       "last_seen": "2026-05-25"
     }
-  ]
+  ],
+  "note": "Dataset dlouhodobé hospitalizace vyřazen: 11,3 mil. řádků / >700 MB, v prohlížeči se nenačte."
 }

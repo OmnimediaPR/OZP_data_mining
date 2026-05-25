@@ -16,12 +16,26 @@ import Papa from 'papaparse';
 
 const csvCache = new Map(); // url → Promise<csvText>
 
-function fetchCsvCached(url) {
+// Stáhne a dekóduje CSV. Rozbalí gzip (server posílá .csv.gz bez hlavičky
+// Content-Encoding, prohlížeč ho proto sám nerozbalí) a dekóduje podle
+// csv_encoding (default UTF-8, u některých sad windows-1250). TextDecoder
+// zároveň odstraní případný BOM na začátku hlavičky.
+async function fetchAndDecode(entry) {
+  const r = await fetch(entry.csv_url);
+  if (!r.ok) throw new Error(`HTTP ${r.status} pro ${entry.csv_url}`);
+  let buf = await r.arrayBuffer();
+  if (entry.csv_format === 'gzip') {
+    const stream = new Response(buf).body.pipeThrough(new DecompressionStream('gzip'));
+    buf = await new Response(stream).arrayBuffer();
+  }
+  const encoding = entry.csv_encoding === 'windows-1250' ? 'windows-1250' : 'utf-8';
+  return new TextDecoder(encoding).decode(buf);
+}
+
+function fetchCsvCached(entry) {
+  const url = entry.csv_url;
   if (csvCache.has(url)) return csvCache.get(url);
-  const promise = fetch(url).then(r => {
-    if (!r.ok) throw new Error(`HTTP ${r.status} pro ${url}`);
-    return r.text();
-  }).catch(e => {
+  const promise = fetchAndDecode(entry).catch(e => {
     csvCache.delete(url); // umožni retry po chybě
     throw e;
   });
@@ -31,7 +45,7 @@ function fetchCsvCached(url) {
 
 // Postaví časovou řadu [{year, value}] z catalog metadata + raw CSV.
 async function parseDataset(entry) {
-  const csvText = await fetchCsvCached(entry.csv_url);
+  const csvText = await fetchCsvCached(entry);
   const parsed = Papa.parse(csvText, {
     header: true,
     skipEmptyLines: true,
@@ -57,25 +71,48 @@ async function parseDataset(entry) {
     });
   }
 
-  // Agregace per rok.
-  const yearCol = entry.year_column;
+  // Agregace per rok. Rok bereme z year_column, u date_* agregací z date_column.
+  // stripBom: katalog má u některých sloupců BOM (např. covid "﻿datum"), ale
+  // TextDecoder ho z hlaviček odstraní — názvy z katalogu proto taky očistíme.
+  const stripBom = s => (s == null ? s : s.toString().replace(/^﻿/, ''));
+  const yearCol = stripBom(entry.year_column);
+  const dateCol = stripBom(entry.date_column);
+  const valueCol = stripBom(entry.value_column);
+  const agg = entry.aggregation;
+  const dateBased = agg === 'date_to_year' || agg === 'last_in_year';
+
+  const yearOf = (r) => {
+    if (dateBased) {
+      const m = (r[dateCol] || '').toString().match(/(\d{4})/);
+      return m ? parseInt(m[1], 10) : NaN;
+    }
+    return parseInt((r[yearCol] || '').toString().trim(), 10);
+  };
+  const numOf = (r) => parseFloat((r[valueCol] || '').toString().replace(',', '.'));
+
   const grouped = {};
+  const lastDate = {}; // pro last_in_year: nejpozdější datum v daném roce
   for (const r of rows) {
-    const yearStr = (r[yearCol] || '').toString().trim();
-    if (!yearStr) continue;
-    const year = parseInt(yearStr, 10);
+    const year = yearOf(r);
     if (!Number.isFinite(year)) continue;
-    if (!(year in grouped)) grouped[year] = 0;
-    if (entry.aggregation === 'sum_column') {
-      const raw = (r[entry.value_column] || '').toString().replace(',', '.');
-      const v = parseFloat(raw);
-      if (Number.isFinite(v)) grouped[year] += v;
-    } else if (entry.aggregation === 'count_rows') {
-      grouped[year] += 1;
+
+    if (agg === 'sum_column' || (agg === 'date_to_year' && valueCol)) {
+      const v = numOf(r);
+      if (Number.isFinite(v)) grouped[year] = (grouped[year] || 0) + v;
+    } else if (agg === 'count_rows' || agg === 'date_to_year') {
+      grouped[year] = (grouped[year] || 0) + 1;
+    } else if (agg === 'last_in_year') {
+      const v = numOf(r);
+      if (!Number.isFinite(v)) continue;
+      const d = (r[dateCol] || '').toString().trim();
+      if (!(year in lastDate) || d > lastDate[year]) {
+        lastDate[year] = d;
+        grouped[year] = v;
+      }
     }
   }
   return Object.entries(grouped)
-    .map(([y, v]) => ({ year: parseInt(y, 10), value: entry.aggregation === 'sum_column' ? Math.round(v) : v }))
+    .map(([y, v]) => ({ year: parseInt(y, 10), value: agg === 'sum_column' ? Math.round(v) : v }))
     .sort((a, b) => a.year - b.year);
 }
 

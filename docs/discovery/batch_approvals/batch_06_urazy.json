@@ -1,34 +1,8 @@
 {
   "batch_id": "batch_06_urazy",
   "approved_at": "2026-05-25",
-  "count": 3,
+  "count": 2,
   "entries": [
-    {
-      "id": "urazy",
-      "category": "úrazy",
-      "human_name": "Úrazy – charakteristika úrazu",
-      "description": "Datová sada s anonymizovanými individuálními záznamy o úrazech v ČR. Umožňuje sčítat počet úrazů na úrovni celé republiky i ve stratifikaci podle věkových kategorií, pohlaví, kraje bydliště, kraje zdravotnického zařízení, typu a tíže úrazu.",
-      "relevant_for": [
-        "úrazy",
-        "Národní registr úrazů",
-        "tíže úrazu",
-        "kraje"
-      ],
-      "trend_context": "Sledování úrazovosti v Česku napříč kraji, věkem a pohlavím. Počet zachycených úrazů ovlivňuje jednak skutečný výskyt, jednak úplnost vykazování zdravotnických zařízení — meziroční srovnání proto vypovídá o úrazech ošetřených ve zdravotnictví, ne o všech úrazech v populaci. Data umožňují rozlišit tíži úrazu a zasaženou část těla podle diagnóz.",
-      "source_type": "national",
-      "source": "Národní registr úrazů (ÚZIS)",
-      "code": "S00–T98",
-      "csv_url": "https://data.mzcr.cz/data/distribuce/381/Otevrena-data-NR-16-01-urazy.csv.gz",
-      "source_url": "https://www.nzip.cz/data/1786-urazy-otevrena-data",
-      "year_column": "rok",
-      "filter_column": null,
-      "row_match": null,
-      "aggregation": "count_rows",
-      "value_column": null,
-      "metric_label": "Roční počet úrazů ošetřených ve zdravotnictví v ČR",
-      "last_seen": "2026-05-25",
-      "csv_format": "gzip"
-    },
     {
       "id": "dopravni_urazy",
       "category": "úrazy",
@@ -83,5 +57,6 @@
       "last_seen": "2026-05-25",
       "csv_format": "gzip"
     }
-  ]
+  ],
+  "note": "Dataset \"urazy\" vyřazen: zdrojový .csv.gz má 435 MB, v prohlížeči se nenačte."
 }
