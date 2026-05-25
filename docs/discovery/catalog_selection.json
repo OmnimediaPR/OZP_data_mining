@@ -1,0 +1,41 @@
+{
+  "comment": "Seznam dataset IDs (NZIP slug), které se zahrnou do data/catalog.json. Vyřazeno: 5 .7z souborů (browser nedekomprimuje), 4 úrazy detail (1787/1788/1819/1820, jsou jen join tabulky bez roku), 53 NRHZS technických rozpisů. Schváleno Danem 2026-05-25.",
+  "generated_at": "2026-05-25",
+  "exclude_ids": [
+    "1787-urazy-diagnozy-s-otevrena-data",
+    "1788-urazy-diagnozy-t-otevrena-data",
+    "1819-dopravni-urazy-diagnozy-s-otevrena-data",
+    "1820-dopravni-urazy-diagnozy-t-otevrena-data",
+    "2593-poskytovatele-cvsop-otevrena-data",
+    "2189-recepty-hvlp-kod-sukl-mesic-misto-vydani-atc-vykazani-otevrena-data",
+    "2190-recepty-hvlp-kod-sukl-mesic-misto-vydani-atc-aktualni-otevrena-data",
+    "2202-hromadne-vyrabene-lecive-pripravky-sukl-atc-vykazani-mesic-icz-otevrena-data",
+    "2204-hromadne-vyrabene-lecive-pripravky-sukl-atc-aktualni-mesic-icz-otevrena-data",
+    "2418-polymorbidita-obyvatel-okres-bydliste-pricina-umrti-otevrena-data",
+    "2704-akutni-infarkt-myokardu-otevrena-data",
+    "2705-cevni-mozkova-prihoda-otevrena-data",
+    "2664-hospitalizace-pacientu-pokus-o-sebevrazdu-otevrena-data"
+  ],
+  "exclude_ids_comment": "Posledních 3 (2704, 2705, 2664) jsou duplikáty stávajících datasetů aim/cmp/sebevrazdy_hospitalizace — zachováváme ručně psané verze.",
+  "id_rename": {
+    "1770-novotvary-incidence-prevalence-regiony-otevrena-data": "novotvary_incidence_vse",
+    "1771-novotvary-mortalita-regiony-otevrena-data": "novotvary_mortalita_vse"
+  },
+  "id_rename_comment": "1770/1771 (souhrnné NOR datasety) přejmenujeme, protože stávající prsa_incidence/kolorektum_incidence/prsa_mortalita už používají filtrované verze stejných CSV pro konkrétní diagnozy.",
+  "nrhzs_keep_ids": [
+    "2760-hromadne-vyrabene-lecive-pripravky-1-uroven-atc-otevrena-data",
+    "2759-hromadne-vyrabene-lecive-pripravky-2-uroven-atc-otevrena-data",
+    "2758-hromadne-vyrabene-lecive-pripravky-3-uroven-atc-otevrena-data",
+    "1751-hospitalizacni-pripady-akutni-pece-otevrena-data",
+    "1951-hospitalizacni-pripady-nasledna-dlouhodoba-pece-otevrena-data",
+    "2455-asthma-bronchiale-otevrena-data",
+    "2454-atopicka-dermatitida-otevrena-data",
+    "2646-alergicka-ryma-otevrena-data",
+    "2195-polymorbidita-obyvatel-kraj-bydliste-otevrena-data",
+    "2320-pacienti-zdravotnicka-zachranna-sluzba-otevrena-data",
+    "2347-zvlast-uctovane-lecive-pripravky-sukl-atc-aktualni-otevrena-data",
+    "1922-migrace-luzkova-pece-otevrena-data",
+    "2287-vykony-zdravotni-pece-forma-odbornost-otevrena-data"
+  ],
+  "nrhzs_drop_category_note": "Všechny ostatní NRHZS datasety (Národní registr hrazených zdravotních služeb) jsou technické rozpisy per IČP/IČZ/SÚKL/měsíc/pojišťovna — pro PR brief nepoužitelné. Pokud bys je v budoucnu chtěl, jsou v docs/discovery/discovered_datasets.json."
+}

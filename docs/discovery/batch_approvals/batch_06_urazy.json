@@ -1,0 +1,87 @@
+{
+  "batch_id": "batch_06_urazy",
+  "approved_at": "2026-05-25",
+  "count": 3,
+  "entries": [
+    {
+      "id": "urazy",
+      "category": "úrazy",
+      "human_name": "Úrazy – charakteristika úrazu",
+      "description": "Datová sada s anonymizovanými individuálními záznamy o úrazech v ČR. Umožňuje sčítat počet úrazů na úrovni celé republiky i ve stratifikaci podle věkových kategorií, pohlaví, kraje bydliště, kraje zdravotnického zařízení, typu a tíže úrazu.",
+      "relevant_for": [
+        "úrazy",
+        "Národní registr úrazů",
+        "tíže úrazu",
+        "kraje"
+      ],
+      "trend_context": "Sledování úrazovosti v Česku napříč kraji, věkem a pohlavím. Počet zachycených úrazů ovlivňuje jednak skutečný výskyt, jednak úplnost vykazování zdravotnických zařízení — meziroční srovnání proto vypovídá o úrazech ošetřených ve zdravotnictví, ne o všech úrazech v populaci. Data umožňují rozlišit tíži úrazu a zasaženou část těla podle diagnóz.",
+      "source_type": "national",
+      "source": "Národní registr úrazů (ÚZIS)",
+      "code": "S00–T98",
+      "csv_url": "https://data.mzcr.cz/data/distribuce/381/Otevrena-data-NR-16-01-urazy.csv.gz",
+      "source_url": "https://www.nzip.cz/data/1786-urazy-otevrena-data",
+      "year_column": "rok",
+      "filter_column": null,
+      "row_match": null,
+      "aggregation": "count_rows",
+      "value_column": null,
+      "metric_label": "Roční počet úrazů ošetřených ve zdravotnictví v ČR",
+      "last_seen": "2026-05-25",
+      "csv_format": "gzip"
+    },
+    {
+      "id": "dopravni_urazy",
+      "category": "úrazy",
+      "human_name": "Úrazy při dopravních nehodách – charakteristika úrazu",
+      "description": "Datová sada s anonymizovanými individuálními záznamy o úrazech při dopravních nehodách v ČR. Umožňuje sčítat počet úrazů podle roku, měsíce, pohlaví, věku, kraje bydliště i kraje zdravotnického zařízení, typu a tíže úrazu a charakteristik poskytnuté péče.",
+      "relevant_for": [
+        "úrazy",
+        "dopravní úrazy",
+        "Národní registr úrazů",
+        "dopravní nehody",
+        "tíže úrazu"
+      ],
+      "trend_context": "Úrazy z dopravních nehod jsou z velké části preventabilní zátěž zdravotního systému. Jejich vývoj odráží bezpečnost vozidel a silnic, dopravní legislativu i objem provozu. Při interpretaci je dobré sledovat zvlášť tíži úrazu a podíl úmrtí — celkový počet ošetřených úrazů a počet těch nejzávažnějších se nemusí vyvíjet stejně.",
+      "source_type": "national",
+      "source": "Národní registr úrazů (ÚZIS)",
+      "code": "V01–V99, S00–T98",
+      "csv_url": "https://datanzis.uzis.gov.cz/data/NR-17-NRU-MDU/NR-17-01/Otevrena-data-NR-17-01-dopravni-urazy-charakteristika.csv.gz",
+      "source_url": "https://www.nzip.cz/data/1818-dopravni-urazy-otevrena-data",
+      "year_column": "rok",
+      "filter_column": null,
+      "row_match": null,
+      "aggregation": "count_rows",
+      "value_column": null,
+      "metric_label": "Roční počet úrazů z dopravních nehod ošetřených ve zdravotnictví v ČR",
+      "last_seen": "2026-05-25",
+      "csv_format": "gzip"
+    },
+    {
+      "id": "dopravni_urazy_charakteristika_okres_zarizeni",
+      "category": "úrazy",
+      "human_name": "Úrazy při dopravních nehodách – charakteristika podle okresu zařízení",
+      "description": "Datová sada s anonymizovanými individuálními záznamy o úrazech při dopravních nehodách v ČR, členěná podle okresu zdravotnického zařízení. Umožňuje sčítat počet úrazů podle roku, měsíce, pohlaví, věku, typu a tíže úrazu a charakteristik poskytnuté péče (například operace, dlouhodobá intenzivní péče, úmrtí).",
+      "relevant_for": [
+        "úrazy",
+        "dopravní úrazy",
+        "Národní registr úrazů",
+        "dopravní nehody",
+        "okresy"
+      ],
+      "trend_context": "Stejná data o úrazech z dopravních nehod jako základní sada, ale členěná podle okresu zdravotnického zařízení místo kraje bydliště. Hodí se pro regionální pohled na to, kde se obětí dopravních nehod ošetřuje nejvíc — místo ošetření ale nemusí odpovídat místu nehody ani bydlišti pacienta.",
+      "source_type": "national",
+      "source": "Národní registr úrazů (ÚZIS)",
+      "code": "V01–V99, S00–T98",
+      "csv_url": "https://datanzis.uzis.gov.cz/data/NR-17-NRU-MDU/NR-17-06/Otevrena-data-NR-17-06-dopravni-urazy-charakteristika-okres-zarizeni.csv.gz",
+      "source_url": "https://www.nzip.cz/data/2625-dopravni-urazy-charakteristika-okres-zarizeni-otevrena-data",
+      "year_column": "rok",
+      "filter_column": null,
+      "row_match": null,
+      "aggregation": "count_rows",
+      "value_column": null,
+      "metric_label": "Roční počet úrazů z dopravních nehod podle okresu zdravotnického zařízení",
+      "last_seen": "2026-05-25",
+      "csv_format": "gzip"
+    }
+  ]
+}
