@@ -41,8 +41,9 @@ jobs:
 
       - name: Copy catalog into frontend public directory
         run: |
-          mkdir -p frontend/public/data
+          mkdir -p frontend/public/data/cubes
           cp data/catalog.json frontend/public/data/catalog.json
+          cp -r data/cubes/. frontend/public/data/cubes/
 
       - name: Build
         working-directory: frontend

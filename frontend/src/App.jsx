@@ -136,6 +136,73 @@ function computeMeta(series) {
 }
 
 // ============================================================
+// ROZPADOVÁ KOSTKA (kind: 'cube')
+// Kostka drží řídké buňky [yearIdx, dgIdx, ageIdx, sexIdx, stageIdx, count] + metadata
+// dimenzí + předpočítaný sken anomálií (scripts/bake_cube.mjs). Stáhne se až po výběru,
+// pak se "krájí" lokálně podle filtru bez dalšího stahování.
+// ============================================================
+
+const cubeCache = new Map(); // url → Promise<cube>
+function fetchCubeCached(entry) {
+  const url = import.meta.env.BASE_URL + entry.cube_url;
+  if (cubeCache.has(url)) return cubeCache.get(url);
+  const p = fetch(url)
+    .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+    .catch(e => { cubeCache.delete(url); throw e; });
+  cubeCache.set(url, p);
+  return p;
+}
+
+const DEFAULT_CUBE_FILTER = { diagnosis: '__vše__', age: 'vše', sex: 'vše', stage: 'vše' };
+const ageLow = (label) => parseInt(label, 10); // "45–49" → 45, "85 a více" → 85
+function ageMatch(mode, low) {
+  if (mode === 'do 50') return low < 50;
+  if (mode === '50–64') return low >= 50 && low < 65;
+  if (mode === '65+') return low >= 65;
+  return true; // 'vše'
+}
+
+// Sečte buňky odpovídající filtru → časová řada [{year, value}].
+function sliceCube(cube, f = DEFAULT_CUBE_FILTER) {
+  const D = cube.dims;
+  const dgIdx = f.diagnosis && f.diagnosis !== '__vše__' ? D.diagnosis.findIndex(d => d.key === f.diagnosis) : -1;
+  const sexIdx = f.sex && f.sex !== 'vše' ? D.sex.indexOf(f.sex) : -1;
+  let stageIdxs = null;
+  if (f.stage === 'pozdní (III+IV)') stageIdxs = ['III', 'IV'].map(s => D.stage.indexOf(s));
+  else if (f.stage && f.stage !== 'vše') stageIdxs = [D.stage.indexOf(f.stage)];
+  const byYear = {};
+  for (const [yi, di, ai, si, sti, n] of cube.cells) {
+    if (dgIdx >= 0 && di !== dgIdx) continue;
+    if (sexIdx >= 0 && si !== sexIdx) continue;
+    if (stageIdxs && !stageIdxs.includes(sti)) continue;
+    if (f.age !== 'vše' && !ageMatch(f.age, ageLow(D.age[ai]))) continue;
+    const y = D.years[yi];
+    byYear[y] = (byYear[y] || 0) + n;
+  }
+  return D.years.filter(y => y in byYear).map(y => ({ year: y, value: byYear[y] }));
+}
+
+// Lidský popis filtru — pro nadpis karty, analýzu i brief.
+function cubeFilterLabel(cube, f) {
+  const parts = [];
+  if (f.diagnosis && f.diagnosis !== '__vše__') {
+    const d = cube.dims.diagnosis.find(x => x.key === f.diagnosis);
+    parts.push(d ? d.name : f.diagnosis);
+  } else parts.push('všechny sledované diagnózy');
+  if (f.age && f.age !== 'vše') parts.push(f.age === 'do 50' ? 'mladší 50 let' : `${f.age} let`);
+  if (f.sex && f.sex !== 'vše') parts.push(f.sex === 'muž' ? 'muži' : 'ženy');
+  if (f.stage && f.stage !== 'vše') parts.push(f.stage === 'pozdní (III+IV)' ? 'pozdní záchyt (stadium III+IV)' : `stadium ${f.stage}`);
+  return parts.join(', ');
+}
+
+// Filtr, který demonstruje danou anomálii (klik na anomálii ho nastaví).
+function anomalyToFilter(a) {
+  if (a.type === 'vek_posun') return { diagnosis: a.dg, age: 'do 50', sex: 'vše', stage: 'vše' };
+  if (a.type === 'stadium_posun') return { diagnosis: a.dg, age: 'vše', sex: 'vše', stage: 'pozdní (III+IV)' };
+  return { diagnosis: a.dg, age: 'vše', sex: 'vše', stage: 'vše' }; // trend
+}
+
+// ============================================================
 // KONSTANTY
 // ============================================================
 
@@ -578,6 +645,10 @@ export default function App() {
   const [browseAll, setBrowseAll] = useState(false);
   // noResults: klidná informační hláška, když k tématu nejsou vhodná data (ne chyba).
   const [noResults, setNoResults] = useState(null);
+  // cubeFilters: { [cubeId]: {diagnosis, age, sex, stage} } — stav zužování každé kostky.
+  const [cubeFilters, setCubeFilters] = useState({});
+  const cubeFilterOf = (id) => cubeFilters[id] || DEFAULT_CUBE_FILTER;
+  const setCubeFilter = (id, f) => setCubeFilters(prev => ({ ...prev, [id]: f }));
 
   // Krok A — při startu: stáhni catalog.json (metadata pro všechny datasety, žádná data).
   useEffect(() => {
@@ -607,9 +678,10 @@ export default function App() {
       const entry = nationalDatasets.find(d => d.id === id);
       if (!entry) continue;
       setDatasetData(prev => new Map(prev).set(id, { loading: true, error: null, series: null }));
-      parseDataset(entry).then(series => {
-        setDatasetData(prev => new Map(prev).set(id, { loading: false, error: null, series }));
-      }).catch(e => {
+      const loader = entry.kind === 'cube'
+        ? fetchCubeCached(entry).then(cube => setDatasetData(prev => new Map(prev).set(id, { loading: false, error: null, cube })))
+        : parseDataset(entry).then(series => setDatasetData(prev => new Map(prev).set(id, { loading: false, error: null, series })));
+      loader.catch(e => {
         console.error(`Fetch failed pro ${id}:`, e);
         setDatasetData(prev => new Map(prev).set(id, { loading: false, error: e.message, series: null }));
       });
@@ -625,7 +697,23 @@ export default function App() {
       if (!state) return { ...meta, source_type: baseSourceType, _loading: false, _hasData: false };
       if (state.loading) return { ...meta, source_type: baseSourceType, _loading: true, _hasData: false };
       if (state.error) return { ...meta, source_type: baseSourceType, _loading: false, _hasData: false, _error: state.error };
-      const series = state.series || [];
+      // Kostka: řez podle aktuálního filtru → časová řada jako u běžného datasetu.
+      let series, extra = {};
+      if (meta.kind === 'cube' && state.cube) {
+        const f = cubeFilterOf(meta.id);
+        series = sliceCube(state.cube, f);
+        const label = cubeFilterLabel(state.cube, f);
+        extra = {
+          cube: state.cube,
+          cubeFilter: f,
+          human_name: `${meta.human_name}: ${label}`,
+          metric_label: 'Nově diagnostikované případy',
+          code: f.diagnosis !== '__vše__' ? f.diagnosis : null,
+          trend_context: `${meta.trend_context} Aktuální výřez: ${label}.`,
+        };
+      } else {
+        series = state.series || [];
+      }
       const computed = computeMeta(series);
       const coverage = series.length > 0 ? `${series[0].year}–${series[series.length - 1].year}` : '';
       return {
@@ -638,13 +726,14 @@ export default function App() {
         trend: computed.trend,
         delta: computed.delta,
         peakYear: computed.peakYear,
+        ...extra,
       };
     });
     if (!includeIntl) return national;
     // Mezinárodní datasety mají data napevno (žádný fetch) — přidáme je jen když je checkbox zapnutý.
     const intl = INTL_DATASETS.map(meta => ({ ...meta, _loading: false, _hasData: true }));
     return [...national, ...intl];
-  }, [nationalDatasets, datasetData, includeIntl]);
+  }, [nationalDatasets, datasetData, includeIntl, cubeFilters]);
   const selectedDatasets = allDatasets.filter(d => selectedIds.includes(d.id));
   // Některý vybraný dataset ještě stahuje/parsuje data ze zdroje — dokud běží, analýzu nepouštíme.
   const selectedLoading = selectedDatasets.some(d => d._loading);
@@ -830,6 +919,15 @@ DŮLEŽITÉ: pole "id" musí být přesně jedno z id v katalogu výše. Žádn�
         return `- [id: ${d.id}] ${d.human_name || d.label} (zdroj: ${d.source} ${d.code}, ${d.coverage}): ${comp}. Pozn. ke srovnatelnosti: ${d.trend_context || ''}`;
       }).join('\n');
 
+      // Anomálie z rozpadových kostek — silní kandidáti na úhly.
+      const cubeDs = readyDs.filter(d => d.kind === 'cube' && d.cube);
+      const cubeAnomSummary = cubeDs.flatMap(d => (d.cube.anomalies || []).slice(0, 14).map(a => {
+        if (a.type === 'trend') return `- [${a.dg}] ${a.name}: výskyt ${a.pct > 0 ? '+' : ''}${a.pct} % (${a.from}→${a.to}/rok, 2011–13 vs 2020–22)${a.artifact_risk ? ' ⚠ POZOR: možná změna kódování, ne reálný trend' : ''}`;
+        if (a.type === 'vek_posun') return `- [${a.dg}] ${a.name}: podíl mladších 50 let ${a.from_pct} % → ${a.to_pct} % (${a.diff > 0 ? '+' : ''}${a.diff} b.b.)`;
+        if (a.type === 'stadium_posun') return `- [${a.dg}] ${a.name}: pozdní záchyt (stadium III+IV) ${a.from_pct} % → ${a.to_pct} % (${a.diff > 0 ? '+' : ''}${a.diff} b.b.)`;
+        return '';
+      })).filter(Boolean).join('\n');
+
       const prompt = `Jsi datový analytik pro českou PR agenturu. NEPÍŠEŠ tiskové zprávy. Tvoje práce je z dat vytáhnout zjištění a doporučit úhly — PR manažer si text napíše sám.
 
 KLIENT: ${CLIENT.full}
@@ -848,6 +946,10 @@ ${regionalTSSummary}
 ${intlSummary}
 
 DŮLEŽITÉ: vždy zmiň rok dat a metodiku. Pokud roky nesedí, uveď orientačnost. NEPOUŽÍVEJ OECD ukazatel "30denní mortalita po AIM" — není srovnatelný (Stolpe et al. 2023).
+` : ''}${cubeAnomSummary ? `AUTOMATICKY NALEZENÉ ANOMÁLIE V ONKOLOGICKÉ ROZPADOVÉ KOSTCE (silní kandidáti na úhly — ber je jako tipy z dat, ne hotová tvrzení):
+${cubeAnomSummary}
+
+POZOR: u položek označených ⚠ zařaď do "cannot_claim" upozornění, že prudký pohyb může být změnou kódování diagnóz v čase, ne reálným vývojem.
 ` : ''}
 
 PRAVIDLO PRO ZKRATKY V ANALÝZE:
@@ -1270,12 +1372,23 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 16, marginTop: 12 }}>
               {displayedDatasets.map(d => (
-                <DatasetCard
-                  key={d.id}
-                  d={d}
-                  selected={selectedIds.includes(d.id)}
-                  onToggle={() => toggleDataset(d.id)}
-                />
+                d.kind === 'cube' ? (
+                  <CubeCard
+                    key={d.id}
+                    d={d}
+                    selected={selectedIds.includes(d.id)}
+                    onToggle={() => toggleDataset(d.id)}
+                    filter={cubeFilterOf(d.id)}
+                    onFilter={(f) => setCubeFilter(d.id, f)}
+                  />
+                ) : (
+                  <DatasetCard
+                    key={d.id}
+                    d={d}
+                    selected={selectedIds.includes(d.id)}
+                    onToggle={() => toggleDataset(d.id)}
+                  />
+                )
               ))}
             </div>
           </section>
@@ -1366,6 +1479,131 @@ function SectionHeader({ number, title, subtitle }) {
         <h2 className="serif" style={{ margin: 0, fontSize: 24, fontWeight: 700 }}>{title}</h2>
         {subtitle && <div style={{ fontSize: 13, color: '#666', marginTop: 2 }}>{subtitle}</div>}
       </div>
+    </div>
+  );
+}
+
+// Karta rozpadové kostky — zužovátka (diagnóza/věk/pohlaví/stadium), graf řezu a panel anomálií.
+function CubeCard({ d, selected, onToggle, filter, onFilter }) {
+  const cube = d.cube;
+  const series = d.data || [];
+  const first = series[0], last = series[series.length - 1];
+  const trendColor = d.trend === 'up' ? '#1F6F47' : d.trend === 'down' ? '#9A2A1F' : '#7A6F2A';
+  const trendWord = d.trend === 'up' ? 'Růst' : d.trend === 'down' ? 'Pokles' : 'Změna';
+  const fmt = (n) => n.toLocaleString('cs-CZ');
+  const stop = (e) => e.stopPropagation();
+  const set = (key, val) => onFilter({ ...filter, [key]: val });
+  const selStyle = { padding: '6px 8px', fontSize: 13, border: '1.5px solid #E0D6EA', background: '#FFFFFF', fontFamily: 'inherit', color: '#333', maxWidth: '100%' };
+  const lbl = { fontSize: 10, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#702082', marginBottom: 4 };
+
+  const anomLabel = (a) => {
+    if (a.type === 'trend') return `${a.pct > 0 ? '▲' : '▼'} ${a.name} ${a.pct > 0 ? '+' : ''}${a.pct} %${a.artifact_risk ? ' ⚠' : ''}`;
+    if (a.type === 'vek_posun') return `mladší 50: ${a.name} ${a.diff > 0 ? '+' : ''}${a.diff} b.b.`;
+    if (a.type === 'stadium_posun') return `pozdní záchyt: ${a.name} ${a.diff > 0 ? '+' : ''}${a.diff} b.b.`;
+    return a.name;
+  };
+
+  return (
+    <div onClick={onToggle} style={{
+      background: '#FFFFFF', border: selected ? '2px solid #702082' : '1px solid #E0D6EA',
+      padding: 20, cursor: 'pointer', position: 'relative', borderRadius: 14, gridColumn: '1 / -1',
+      boxShadow: selected ? '0 6px 22px rgba(112,32,130,0.18)' : '0 1px 6px rgba(112,32,130,0.06)',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 10 }}>
+        <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '2px 6px', background: '#702082', color: '#FFFFFF' }}>Rozpad • NOR</span>
+        <div style={{ width: 22, height: 22, border: '1.5px solid #702082', display: 'flex', alignItems: 'center', justifyContent: 'center', background: selected ? '#702082' : 'transparent', flexShrink: 0, borderRadius: 6 }}>
+          {selected && <Check size={14} color="#FFFFFF" />}
+        </div>
+      </div>
+
+      <div className="serif" style={{ fontSize: 22, fontWeight: 700, lineHeight: 1.2, marginBottom: 4 }}>
+        {cube?.human_name || 'Onkologie — rozpad'}
+      </div>
+
+      {d._loading && (
+        <div style={{ background: '#F4F1F8', padding: '10px 12px', margin: '8px 0', fontSize: 12, color: '#666', display: 'flex', alignItems: 'center', gap: 8, borderRadius: 8 }}>
+          <Loader2 size={14} className="spin" /> Načítám rozpadovou kostku…
+        </div>
+      )}
+      {d._error && (
+        <div style={{ background: '#FBEFEC', padding: '10px 12px', margin: '8px 0', fontSize: 12, color: '#9A2A1F', borderRadius: 8 }}>
+          Nelze načíst kostku: {d._error}
+        </div>
+      )}
+
+      {cube && (
+        <>
+          {/* Zužovátka */}
+          <div onClick={stop} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, margin: '12px 0' }}>
+            <div>
+              <div style={lbl}>Diagnóza</div>
+              <select value={filter.diagnosis} onChange={(e) => set('diagnosis', e.target.value)} style={selStyle}>
+                <option value="__vše__">všechny sledované</option>
+                {cube.dims.diagnosis.map(dg => <option key={dg.key} value={dg.key}>{dg.name}</option>)}
+              </select>
+            </div>
+            <div>
+              <div style={lbl}>Věk</div>
+              <select value={filter.age} onChange={(e) => set('age', e.target.value)} style={selStyle}>
+                {['vše', 'do 50', '50–64', '65+'].map(o => <option key={o} value={o}>{o === 'vše' ? 'všechny věky' : o === 'do 50' ? 'mladší 50' : o}</option>)}
+              </select>
+            </div>
+            <div>
+              <div style={lbl}>Pohlaví</div>
+              <select value={filter.sex} onChange={(e) => set('sex', e.target.value)} style={selStyle}>
+                {['vše', 'muž', 'žena'].map(o => <option key={o} value={o}>{o === 'vše' ? 'obě' : o}</option>)}
+              </select>
+            </div>
+            <div>
+              <div style={lbl}>Stadium</div>
+              <select value={filter.stage} onChange={(e) => set('stage', e.target.value)} style={selStyle}>
+                {['vše', 'I', 'II', 'III', 'IV', 'pozdní (III+IV)', 'neuvedeno'].map(o => <option key={o} value={o}>{o === 'vše' ? 'všechna' : o}</option>)}
+              </select>
+            </div>
+          </div>
+
+          {/* Graf řezu */}
+          {first && last ? (
+            <>
+              <div style={{ fontSize: 13, color: trendColor, fontWeight: 600, marginBottom: 4 }}>
+                {trendWord} {d.delta > 0 ? '+' : ''}{d.delta}{' %'} — {fmt(first.value)} ({first.year}) → {fmt(last.value)} ({last.year})
+              </div>
+              <div style={{ height: 70, margin: '4px -4px 8px' }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={series} margin={{ top: 4, right: 8, left: 8, bottom: 0 }}>
+                    <Line type="monotone" dataKey="value" stroke={trendColor} strokeWidth={1.8} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </>
+          ) : (
+            <div style={{ fontSize: 13, color: '#888', margin: '8px 0' }}>Pro tento výřez nejsou data.</div>
+          )}
+
+          {/* Panel anomálií */}
+          {cube.anomalies?.length > 0 && (
+            <div onClick={stop} style={{ marginTop: 8, padding: 12, background: '#F4F1F8', borderRadius: 10, border: '1px solid #E0D6EA' }}>
+              <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#702082', marginBottom: 8 }}>
+                Nalezené anomálie — klikni a promítne se do grafu i briefu
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {cube.anomalies.slice(0, 8).map((a, i) => (
+                  <button key={i} onClick={() => { onFilter(anomalyToFilter(a)); if (!selected) onToggle(); }}
+                    title={a.artifact_risk ? 'Pozor: možná změna kódování v čase' : ''}
+                    style={{ fontSize: 12, padding: '5px 10px', background: '#FFFFFF', border: '1px solid #D9C9E6', color: '#5a2a6a', cursor: 'pointer', borderRadius: 999 }}>
+                    {anomLabel(a)}
+                  </button>
+                ))}
+              </div>
+              <div style={{ fontSize: 11, color: '#888', marginTop: 8 }}>⚠ = u této diagnózy hrozí, že skok je změnou kódování, ne reálným trendem — ověř.</div>
+            </div>
+          )}
+
+          <div style={{ fontSize: 10, color: '#888', marginTop: 12 }}>
+            Data: Národní onkologický registr (ÚZIS ČR) · kurátorované diagnózy {cube.dims.years[0]}–{cube.dims.years[cube.dims.years.length - 1]}
+          </div>
+        </>
+      )}
     </div>
   );
 }

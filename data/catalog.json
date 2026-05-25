@@ -9310,6 +9310,31 @@
           "value": 489882
         }
       ]
+    },
+    {
+      "id": "onkologie_kostka",
+      "kind": "cube",
+      "category": "onko",
+      "human_name": "Onkologie — rozpad podle diagnózy, věku, pohlaví a stadia",
+      "description": "Interaktivní rozpad nově diagnostikovaných zhoubných nádorů z Národního onkologického registru. Lze zvolit konkrétní diagnózu (mozek, prs, plíce…), věkovou skupinu, pohlaví a stadium při záchytu. Nástroj sám upozorní na anomálie — strmé trendy, posun nemoci k mladším, zhoršující se pozdní záchyt.",
+      "relevant_for": [
+        "onkologie",
+        "zhoubné nádory",
+        "incidence",
+        "věkové skupiny",
+        "mladí pacienti",
+        "pozdní záchyt",
+        "stadium",
+        "trendy",
+        "konkrétní diagnóza"
+      ],
+      "trend_context": "Národní onkologický registr, kurátorované primární diagnózy 2000–2022, rozpad podle diagnózy/věku/pohlaví/stadia.",
+      "source_type": "national",
+      "source": "Národní onkologický registr (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/2054-incidence-prevalence-zhoubne-nadory",
+      "cube_url": "data/cubes/onkologie_incidence.json",
+      "last_seen": "2026-05-25"
     }
   ]
 }
