@@ -9335,6 +9335,29 @@
       "source_url": "https://www.nzip.cz/data/2054-incidence-prevalence-zhoubne-nadory",
       "cube_url": "data/cubes/onkologie_incidence.json",
       "last_seen": "2026-05-25"
+    },
+    {
+      "id": "onkologie_umrti_kostka",
+      "kind": "cube",
+      "category": "onko",
+      "human_name": "Onkologie — úmrtí, rozpad podle diagnózy, věku a pohlaví",
+      "description": "Interaktivní rozpad úmrtí na zhoubné nádory z Národního onkologického registru. Lze zvolit konkrétní diagnózu, věkovou skupinu a pohlaví. Nástroj sám upozorní na anomálie — strmé trendy úmrtnosti a posun k mladším.",
+      "relevant_for": [
+        "onkologie",
+        "zhoubné nádory",
+        "úmrtnost",
+        "mortalita",
+        "věkové skupiny",
+        "trendy",
+        "konkrétní diagnóza"
+      ],
+      "trend_context": "Národní onkologický registr, úmrtí na kurátorované primární diagnózy 2000–2022, rozpad podle diagnózy/věku/pohlaví.",
+      "source_type": "national",
+      "source": "Národní onkologický registr (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/2056-mortalita-zhoubne-nadory",
+      "cube_url": "data/cubes/onkologie_umrti.json",
+      "last_seen": "2026-05-25"
     }
   ]
 }

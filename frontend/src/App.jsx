@@ -1517,7 +1517,7 @@ function CubeCard({ d, selected, onToggle, filter, onFilter }) {
       </div>
 
       <div className="serif" style={{ fontSize: 22, fontWeight: 700, lineHeight: 1.2, marginBottom: 4 }}>
-        {cube?.human_name || 'Onkologie — rozpad'}
+        {cube?.human_name || d.human_name || 'Onkologie — rozpad'}
       </div>
 
       {d._loading && (
@@ -1554,12 +1554,14 @@ function CubeCard({ d, selected, onToggle, filter, onFilter }) {
                 {['vše', 'muž', 'žena'].map(o => <option key={o} value={o}>{o === 'vše' ? 'obě' : o}</option>)}
               </select>
             </div>
-            <div>
-              <div style={lbl}>Stadium</div>
-              <select value={filter.stage} onChange={(e) => set('stage', e.target.value)} style={selStyle}>
-                {['vše', 'I', 'II', 'III', 'IV', 'pozdní (III+IV)', 'neuvedeno'].map(o => <option key={o} value={o}>{o === 'vše' ? 'všechna' : o}</option>)}
-              </select>
-            </div>
+            {cube.dims.stage.length > 1 && (
+              <div>
+                <div style={lbl}>Stadium</div>
+                <select value={filter.stage} onChange={(e) => set('stage', e.target.value)} style={selStyle}>
+                  {['vše', 'I', 'II', 'III', 'IV', 'pozdní (III+IV)', 'neuvedeno'].map(o => <option key={o} value={o}>{o === 'vše' ? 'všechna' : o}</option>)}
+                </select>
+              </div>
+            )}
           </div>
 
           {/* Graf řezu */}
