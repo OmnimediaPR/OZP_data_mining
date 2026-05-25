@@ -887,7 +887,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
 
   const exportToDocx = async () => {
     // Pomocníci pro stručný zápis
-    const border = { style: BorderStyle.SINGLE, size: 4, color: 'C0C0C0' };
+    const border = { style: BorderStyle.SINGLE, size: 4, color: 'DDD2E5' };
     const tableBorders = { top: border, bottom: border, left: border, right: border, insideHorizontal: border, insideVertical: border };
     const t = (text, opts = {}) => new TextRun({
       text: String(text ?? ''),
@@ -910,8 +910,8 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
       shading: opts.shading,
     });
 
-    const lightBlue = { type: ShadingType.SOLID, color: 'auto', fill: 'EFF4F8' };
-    const dark = { type: ShadingType.SOLID, color: 'auto', fill: '1A1A1A' };
+    const lightPurple = { type: ShadingType.SOLID, color: 'auto', fill: 'F2ECF7' };
+    const purpleBox = { type: ShadingType.SOLID, color: 'auto', fill: '702082' };
 
     const children = [];
 
@@ -927,22 +927,22 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
       spacing: { after: 300 },
     }));
 
-    // 3. V čem data spočívají — světle modré pozadí
+    // 3. V čem data spočívají — světle fialové pozadí (OZP)
     children.push(p(t('V čem data spočívají', { bold: true, size: 22 }), { spacing: { before: 200, after: 100 } }));
     const sources = [...new Set(selectedDatasets.map(d => d.source).filter(Boolean))];
     const allYears = selectedDatasets.flatMap(d => (d.data || []).map(x => x.year)).filter(Number.isFinite);
     const yearRange = allYears.length ? `${Math.min(...allYears)}–${Math.max(...allYears)}` : '—';
     const datasetSummary = selectedDatasets.map(d => d.human_name || d.label).join(', ');
-    children.push(p([t('Zdroj: ', { bold: true }), t(sources.join(', ') || '—')], { shading: lightBlue, spacing: { before: 80, after: 80 } }));
-    children.push(p([t('Co data obsahují: ', { bold: true }), t(datasetSummary)], { shading: lightBlue, spacing: { after: 80 } }));
-    children.push(p([t('Časové pokrytí: ', { bold: true }), t(yearRange)], { shading: lightBlue, spacing: { after: 200 } }));
+    children.push(p([t('Zdroj: ', { bold: true }), t(sources.join(', ') || '—')], { shading: lightPurple, spacing: { before: 80, after: 80 } }));
+    children.push(p([t('Co data obsahují: ', { bold: true }), t(datasetSummary)], { shading: lightPurple, spacing: { after: 80 } }));
+    children.push(p([t('Časové pokrytí: ', { bold: true }), t(yearRange)], { shading: lightPurple, spacing: { after: 200 } }));
 
-    // 4. Co data dohromady říkají — tmavé pozadí, italika, bílý text
+    // 4. Co data dohromady říkají — fialové pozadí (OZP), italika, bílý text
     if (analysis.meta_pattern) {
       children.push(p(t('Co data dohromady říkají', { bold: true, size: 22 }), { spacing: { before: 300, after: 100 } }));
       children.push(p(
         t(analysis.meta_pattern, { italic: true, color: 'FFFFFF', size: 22 }),
-        { shading: dark, spacing: { before: 100, after: 200 } }
+        { shading: purpleBox, spacing: { before: 100, after: 200 } }
       ));
     }
 
@@ -1020,7 +1020,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
         }
         return new TableRow({
           children: [
-            cell(p(t(f.number || '', { bold: true, color: 'C9302C', size: 32 }), { alignment: AlignmentType.CENTER })),
+            cell(p(t(f.number || '', { bold: true, color: 'ED8B00', size: 32 }), { alignment: AlignmentType.CENTER })),
             cell(coParas),
             cell(p(t(f.explanation || ''))),
           ],
@@ -1062,7 +1062,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
 
     // 8. Co data NEPODPORUJÍ — červený nadpis, bullet list
     if (analysis.cannot_claim?.length) {
-      children.push(p(t('Co data NEPODPORUJÍ', { bold: true, color: 'C9302C', size: 22 }), { spacing: { before: 300, after: 100 } }));
+      children.push(p(t('Co data NEPODPORUJÍ', { bold: true, color: 'ED8B00', size: 22 }), { spacing: { before: 300, after: 100 } }));
       analysis.cannot_claim.forEach(c => {
         children.push(p(
           [t('„'), t(c.claim || '', { italic: true }), t(`" — ${c.why || ''}`)],
@@ -1077,7 +1077,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
       const parts = [t(`${d.label} (${d.code}) — ${d.source}`)];
       if (d.source_url) {
         parts.push(t(' · Zdroj dat: '));
-        parts.push(t(d.source_url, { color: '1F4E8C' }));
+        parts.push(t(d.source_url, { color: '702082' }));
       }
       children.push(p(parts, { spacing: { after: 40 } }));
     });
