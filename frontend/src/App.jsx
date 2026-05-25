@@ -44,8 +44,11 @@ function fetchCsvCached(entry) {
   return promise;
 }
 
-// Postaví časovou řadu [{year, value}] z catalog metadata + raw CSV.
+// Postaví časovou řadu [{year, value}]. Primárně z předpočítané řady v katalogu
+// (scripts/bake_series.mjs) — pak prohlížeč nestahuje žádné CSV. Pokud řada chybí
+// (např. čerstvě přidaný dataset), spadne zpět na živé stažení a parse CSV ze zdroje.
 async function parseDataset(entry) {
+  if (Array.isArray(entry.series) && entry.series.length > 0) return entry.series;
   const csvText = await fetchCsvCached(entry);
   const parsed = Papa.parse(csvText, {
     header: true,

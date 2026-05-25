@@ -1,5 +1,5 @@
 {
-  "schema_version": "2.1",
+  "schema_version": "2.2",
   "updated": "2026-05-25",
   "schema_notes": {
     "description": "Per-dataset metadata pro on-demand fetch z prohlížeče. Žádná data v repu, jen ukazatele na zdrojová CSV.",
@@ -25,7 +25,8 @@
       "aggregation": "sum_column | count_rows | last_in_year | date_to_year — jak za rok získat hodnotu. last_in_year: vezme value_column z posledního záznamu v každém roce (pro kumulativní hodnoty jako COVID *_celkem). date_to_year: vyparsuje rok z date_column a počítá řádky/sčítá value_column per rok.",
       "value_column": "název sloupce s hodnotou (pro aggregation=sum_column nebo last_in_year); null pro count_rows",
       "metric_label": "lidský popisek metriky pro UI (např. 'Roční incidence v ČR')",
-      "last_seen": "datum, kdy refresh script naposled ověřil, že csv_url funguje"
+      "last_seen": "datum, kdy refresh script naposled ověřil, že csv_url funguje",
+      "series": "předpočítaná časová řada [{year, value}] (scripts/bake_series.mjs); pokud chybí, frontend stáhne CSV živě"
     },
     "future_extensions": "Ratio aggregation (numerator/denominator) a Eurostat wide-TSV format budou doplněny v dalších iteracích."
   },
@@ -53,7 +54,49 @@
       "aggregation": "sum_column",
       "value_column": "incidence_rocni",
       "metric_label": "Roční incidence v ČR",
-      "last_seen": "2026-05-21"
+      "last_seen": "2026-05-21",
+      "series": [
+        {
+          "year": 2015,
+          "value": 19156
+        },
+        {
+          "year": 2016,
+          "value": 18758
+        },
+        {
+          "year": 2017,
+          "value": 18597
+        },
+        {
+          "year": 2018,
+          "value": 17869
+        },
+        {
+          "year": 2019,
+          "value": 17527
+        },
+        {
+          "year": 2020,
+          "value": 16161
+        },
+        {
+          "year": 2021,
+          "value": 15823
+        },
+        {
+          "year": 2022,
+          "value": 15643
+        },
+        {
+          "year": 2023,
+          "value": 14905
+        },
+        {
+          "year": 2024,
+          "value": 14398
+        }
+      ]
     },
     {
       "id": "cmp",
@@ -78,7 +121,49 @@
       "aggregation": "sum_column",
       "value_column": "incidence_rocni",
       "metric_label": "Roční incidence v ČR",
-      "last_seen": "2026-05-21"
+      "last_seen": "2026-05-21",
+      "series": [
+        {
+          "year": 2015,
+          "value": 30533
+        },
+        {
+          "year": 2016,
+          "value": 29332
+        },
+        {
+          "year": 2017,
+          "value": 28561
+        },
+        {
+          "year": 2018,
+          "value": 27907
+        },
+        {
+          "year": 2019,
+          "value": 26843
+        },
+        {
+          "year": 2020,
+          "value": 25774
+        },
+        {
+          "year": 2021,
+          "value": 25107
+        },
+        {
+          "year": 2022,
+          "value": 25302
+        },
+        {
+          "year": 2023,
+          "value": 24852
+        },
+        {
+          "year": 2024,
+          "value": 24443
+        }
+      ]
     },
     {
       "id": "prsa_incidence",
@@ -106,7 +191,193 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční počet nově diagnostikovaných případů",
-      "last_seen": "2026-05-21"
+      "last_seen": "2026-05-21",
+      "series": [
+        {
+          "year": 1977,
+          "value": 2839
+        },
+        {
+          "year": 1978,
+          "value": 2788
+        },
+        {
+          "year": 1979,
+          "value": 2809
+        },
+        {
+          "year": 1980,
+          "value": 2853
+        },
+        {
+          "year": 1981,
+          "value": 2988
+        },
+        {
+          "year": 1982,
+          "value": 3072
+        },
+        {
+          "year": 1983,
+          "value": 3048
+        },
+        {
+          "year": 1984,
+          "value": 3234
+        },
+        {
+          "year": 1985,
+          "value": 3155
+        },
+        {
+          "year": 1986,
+          "value": 3263
+        },
+        {
+          "year": 1987,
+          "value": 3601
+        },
+        {
+          "year": 1988,
+          "value": 3404
+        },
+        {
+          "year": 1989,
+          "value": 3586
+        },
+        {
+          "year": 1990,
+          "value": 3516
+        },
+        {
+          "year": 1991,
+          "value": 3886
+        },
+        {
+          "year": 1992,
+          "value": 4094
+        },
+        {
+          "year": 1993,
+          "value": 4227
+        },
+        {
+          "year": 1994,
+          "value": 4681
+        },
+        {
+          "year": 1995,
+          "value": 4638
+        },
+        {
+          "year": 1996,
+          "value": 4615
+        },
+        {
+          "year": 1997,
+          "value": 4646
+        },
+        {
+          "year": 1998,
+          "value": 4798
+        },
+        {
+          "year": 1999,
+          "value": 5180
+        },
+        {
+          "year": 2000,
+          "value": 5065
+        },
+        {
+          "year": 2001,
+          "value": 5317
+        },
+        {
+          "year": 2002,
+          "value": 5632
+        },
+        {
+          "year": 2003,
+          "value": 6013
+        },
+        {
+          "year": 2004,
+          "value": 5855
+        },
+        {
+          "year": 2005,
+          "value": 5790
+        },
+        {
+          "year": 2006,
+          "value": 6086
+        },
+        {
+          "year": 2007,
+          "value": 6775
+        },
+        {
+          "year": 2008,
+          "value": 6617
+        },
+        {
+          "year": 2009,
+          "value": 6181
+        },
+        {
+          "year": 2010,
+          "value": 6759
+        },
+        {
+          "year": 2011,
+          "value": 6768
+        },
+        {
+          "year": 2012,
+          "value": 7039
+        },
+        {
+          "year": 2013,
+          "value": 7353
+        },
+        {
+          "year": 2014,
+          "value": 7232
+        },
+        {
+          "year": 2015,
+          "value": 7312
+        },
+        {
+          "year": 2016,
+          "value": 7438
+        },
+        {
+          "year": 2017,
+          "value": 7374
+        },
+        {
+          "year": 2018,
+          "value": 7305
+        },
+        {
+          "year": 2019,
+          "value": 7972
+        },
+        {
+          "year": 2020,
+          "value": 7405
+        },
+        {
+          "year": 2021,
+          "value": 7945
+        },
+        {
+          "year": 2022,
+          "value": 7993
+        }
+      ]
     },
     {
       "id": "kolorektum_incidence",
@@ -138,7 +409,193 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční počet nově diagnostikovaných případů",
-      "last_seen": "2026-05-21"
+      "last_seen": "2026-05-21",
+      "series": [
+        {
+          "year": 1977,
+          "value": 3758
+        },
+        {
+          "year": 1978,
+          "value": 4029
+        },
+        {
+          "year": 1979,
+          "value": 3993
+        },
+        {
+          "year": 1980,
+          "value": 4227
+        },
+        {
+          "year": 1981,
+          "value": 4306
+        },
+        {
+          "year": 1982,
+          "value": 4445
+        },
+        {
+          "year": 1983,
+          "value": 4573
+        },
+        {
+          "year": 1984,
+          "value": 4570
+        },
+        {
+          "year": 1985,
+          "value": 4876
+        },
+        {
+          "year": 1986,
+          "value": 4971
+        },
+        {
+          "year": 1987,
+          "value": 5040
+        },
+        {
+          "year": 1988,
+          "value": 5518
+        },
+        {
+          "year": 1989,
+          "value": 5538
+        },
+        {
+          "year": 1990,
+          "value": 5411
+        },
+        {
+          "year": 1991,
+          "value": 6062
+        },
+        {
+          "year": 1992,
+          "value": 6112
+        },
+        {
+          "year": 1993,
+          "value": 6268
+        },
+        {
+          "year": 1994,
+          "value": 6430
+        },
+        {
+          "year": 1995,
+          "value": 6707
+        },
+        {
+          "year": 1996,
+          "value": 6926
+        },
+        {
+          "year": 1997,
+          "value": 7246
+        },
+        {
+          "year": 1998,
+          "value": 7332
+        },
+        {
+          "year": 1999,
+          "value": 7396
+        },
+        {
+          "year": 2000,
+          "value": 7493
+        },
+        {
+          "year": 2001,
+          "value": 7714
+        },
+        {
+          "year": 2002,
+          "value": 8128
+        },
+        {
+          "year": 2003,
+          "value": 7920
+        },
+        {
+          "year": 2004,
+          "value": 8042
+        },
+        {
+          "year": 2005,
+          "value": 8037
+        },
+        {
+          "year": 2006,
+          "value": 7789
+        },
+        {
+          "year": 2007,
+          "value": 7857
+        },
+        {
+          "year": 2008,
+          "value": 8177
+        },
+        {
+          "year": 2009,
+          "value": 8202
+        },
+        {
+          "year": 2010,
+          "value": 8269
+        },
+        {
+          "year": 2011,
+          "value": 8125
+        },
+        {
+          "year": 2012,
+          "value": 7905
+        },
+        {
+          "year": 2013,
+          "value": 8065
+        },
+        {
+          "year": 2014,
+          "value": 8353
+        },
+        {
+          "year": 2015,
+          "value": 7999
+        },
+        {
+          "year": 2016,
+          "value": 7724
+        },
+        {
+          "year": 2017,
+          "value": 7416
+        },
+        {
+          "year": 2018,
+          "value": 7308
+        },
+        {
+          "year": 2019,
+          "value": 7382
+        },
+        {
+          "year": 2020,
+          "value": 6998
+        },
+        {
+          "year": 2021,
+          "value": 7166
+        },
+        {
+          "year": 2022,
+          "value": 7107
+        }
+      ]
     },
     {
       "id": "prsa_mortalita",
@@ -166,32 +623,181 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční počet úmrtí v ČR",
-      "last_seen": "2026-05-21"
-    },
-    {
-      "id": "sebevrazdy_hospitalizace",
-      "category": "duševní zdraví",
-      "human_name": "Hospitalizace pacientů po pokusu o sebevraždu",
-      "description": "Roční počet hospitalizací pacientů, kteří byli přijati po pokusu o sebevraždu. Klíčový ukazatel duševního zdraví populace a dostupnosti psychiatrické péče.",
-      "relevant_for": [
-        "duševní zdraví",
-        "veřejné zdraví",
-        "krizová intervence",
-        "psychiatrická péče"
-      ],
-      "trend_context": "Vývoj odráží kombinaci sociálních faktorů (ekonomické krize, pandemie, krize bydlení), dostupnosti psychiatrické péče a rozšiřování center duševního zdraví. Sledování pokusů o sebevraždu doplňuje statistiku dokonaných sebevražd v ČSÚ.",
-      "source_type": "national",
-      "source": "Národní informační systém péče o duševní zdraví (ÚZIS)",
-      "code": "X60–X84",
-      "csv_url": "https://datanzis.uzis.gov.cz/data/OIS-04-NISDZ/OIS-04-18/Otevrena-data-OIS-04-18-hospitalizace-pacientu-pokus-o-sebevrazdu.csv",
-      "source_url": "https://www.nzip.cz/data/2664-hospitalizace-pacientu-pokus-o-sebevrazdu-otevrena-data",
-      "year_column": "rok",
-      "filter_column": null,
-      "row_match": null,
-      "aggregation": "sum_column",
-      "value_column": "hospitalizace_rocni",
-      "metric_label": "Roční počet hospitalizací",
-      "last_seen": "2026-05-21"
+      "last_seen": "2026-05-21",
+      "series": [
+        {
+          "year": 1980,
+          "value": 1123
+        },
+        {
+          "year": 1981,
+          "value": 1289
+        },
+        {
+          "year": 1982,
+          "value": 1449
+        },
+        {
+          "year": 1983,
+          "value": 1631
+        },
+        {
+          "year": 1984,
+          "value": 1644
+        },
+        {
+          "year": 1985,
+          "value": 1581
+        },
+        {
+          "year": 1986,
+          "value": 1728
+        },
+        {
+          "year": 1987,
+          "value": 1784
+        },
+        {
+          "year": 1988,
+          "value": 1745
+        },
+        {
+          "year": 1989,
+          "value": 1822
+        },
+        {
+          "year": 1990,
+          "value": 1838
+        },
+        {
+          "year": 1991,
+          "value": 1940
+        },
+        {
+          "year": 1992,
+          "value": 1985
+        },
+        {
+          "year": 1993,
+          "value": 2052
+        },
+        {
+          "year": 1994,
+          "value": 2004
+        },
+        {
+          "year": 1995,
+          "value": 2066
+        },
+        {
+          "year": 1996,
+          "value": 1907
+        },
+        {
+          "year": 1997,
+          "value": 1966
+        },
+        {
+          "year": 1998,
+          "value": 1928
+        },
+        {
+          "year": 1999,
+          "value": 1920
+        },
+        {
+          "year": 2000,
+          "value": 1957
+        },
+        {
+          "year": 2001,
+          "value": 1909
+        },
+        {
+          "year": 2002,
+          "value": 1986
+        },
+        {
+          "year": 2003,
+          "value": 1956
+        },
+        {
+          "year": 2004,
+          "value": 2012
+        },
+        {
+          "year": 2005,
+          "value": 1939
+        },
+        {
+          "year": 2006,
+          "value": 1930
+        },
+        {
+          "year": 2007,
+          "value": 1696
+        },
+        {
+          "year": 2008,
+          "value": 1674
+        },
+        {
+          "year": 2009,
+          "value": 1622
+        },
+        {
+          "year": 2010,
+          "value": 1676
+        },
+        {
+          "year": 2011,
+          "value": 1740
+        },
+        {
+          "year": 2012,
+          "value": 1702
+        },
+        {
+          "year": 2013,
+          "value": 1713
+        },
+        {
+          "year": 2014,
+          "value": 1591
+        },
+        {
+          "year": 2015,
+          "value": 1623
+        },
+        {
+          "year": 2016,
+          "value": 1697
+        },
+        {
+          "year": 2017,
+          "value": 1640
+        },
+        {
+          "year": 2018,
+          "value": 1638
+        },
+        {
+          "year": 2019,
+          "value": 1761
+        },
+        {
+          "year": 2020,
+          "value": 1732
+        },
+        {
+          "year": 2021,
+          "value": 1816
+        },
+        {
+          "year": 2022,
+          "value": 1720
+        }
+      ]
     },
     {
       "id": "hospitalizacni_pripady_akutni_pece_kardiologie",
@@ -218,7 +824,65 @@
       "aggregation": "sum_column",
       "value_column": "pocet_hosp",
       "metric_label": "Roční počet kardiologických hospitalizací",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 290114
+        },
+        {
+          "year": 2011,
+          "value": 281441
+        },
+        {
+          "year": 2012,
+          "value": 288229
+        },
+        {
+          "year": 2013,
+          "value": 273079
+        },
+        {
+          "year": 2014,
+          "value": 277676
+        },
+        {
+          "year": 2015,
+          "value": 269812
+        },
+        {
+          "year": 2016,
+          "value": 265050
+        },
+        {
+          "year": 2017,
+          "value": 259720
+        },
+        {
+          "year": 2018,
+          "value": 253231
+        },
+        {
+          "year": 2019,
+          "value": 253349
+        },
+        {
+          "year": 2020,
+          "value": 220656
+        },
+        {
+          "year": 2021,
+          "value": 218699
+        },
+        {
+          "year": 2022,
+          "value": 234688
+        },
+        {
+          "year": 2023,
+          "value": 238518
+        }
+      ]
     },
     {
       "id": "srdecni_selhani_epidemiologie",
@@ -245,7 +909,49 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční počet evidovaných pacientů se srdečním selháním",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2015,
+          "value": 310476
+        },
+        {
+          "year": 2016,
+          "value": 322756
+        },
+        {
+          "year": 2017,
+          "value": 333780
+        },
+        {
+          "year": 2018,
+          "value": 342992
+        },
+        {
+          "year": 2019,
+          "value": 352283
+        },
+        {
+          "year": 2020,
+          "value": 359532
+        },
+        {
+          "year": 2021,
+          "value": 362809
+        },
+        {
+          "year": 2022,
+          "value": 365246
+        },
+        {
+          "year": 2023,
+          "value": 375001
+        },
+        {
+          "year": 2024,
+          "value": 387343
+        }
+      ]
     },
     {
       "id": "hypertenze",
@@ -272,7 +978,65 @@
       "aggregation": "sum_column",
       "value_column": "prevalence_hypertenze",
       "metric_label": "Roční prevalence hypertenze v ČR",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2011,
+          "value": 1868373
+        },
+        {
+          "year": 2012,
+          "value": 1880668
+        },
+        {
+          "year": 2013,
+          "value": 1902839
+        },
+        {
+          "year": 2014,
+          "value": 1924293
+        },
+        {
+          "year": 2015,
+          "value": 2102286
+        },
+        {
+          "year": 2016,
+          "value": 2174565
+        },
+        {
+          "year": 2017,
+          "value": 2199728
+        },
+        {
+          "year": 2018,
+          "value": 2214094
+        },
+        {
+          "year": 2019,
+          "value": 2234849
+        },
+        {
+          "year": 2020,
+          "value": 2326687
+        },
+        {
+          "year": 2021,
+          "value": 2335820
+        },
+        {
+          "year": 2022,
+          "value": 2286893
+        },
+        {
+          "year": 2023,
+          "value": 2318250
+        },
+        {
+          "year": 2024,
+          "value": 2353924
+        }
+      ]
     },
     {
       "id": "kardiostimulatory_implantabilni_kardioverter_defibrilatory",
@@ -299,7 +1063,69 @@
       "aggregation": "sum_column",
       "value_column": "prevalence_PM_ICD",
       "metric_label": "Roční prevalence pacientů s kardiostimulátorem nebo implantabilním kardioverterem-defibrilátorem",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 0
+        },
+        {
+          "year": 2011,
+          "value": 0
+        },
+        {
+          "year": 2012,
+          "value": 0
+        },
+        {
+          "year": 2013,
+          "value": 0
+        },
+        {
+          "year": 2014,
+          "value": 0
+        },
+        {
+          "year": 2015,
+          "value": 79858
+        },
+        {
+          "year": 2016,
+          "value": 82975
+        },
+        {
+          "year": 2017,
+          "value": 86285
+        },
+        {
+          "year": 2018,
+          "value": 89472
+        },
+        {
+          "year": 2019,
+          "value": 92736
+        },
+        {
+          "year": 2020,
+          "value": 95076
+        },
+        {
+          "year": 2021,
+          "value": 96505
+        },
+        {
+          "year": 2022,
+          "value": 98510
+        },
+        {
+          "year": 2023,
+          "value": 101865
+        },
+        {
+          "year": 2024,
+          "value": 106220
+        }
+      ]
     },
     {
       "id": "kardiovaskularni_onemocneni_zatez_ceska_republika",
@@ -325,7 +1151,53 @@
       "aggregation": "sum_column",
       "value_column": "prevalence_KVO",
       "metric_label": "Roční prevalence kardiovaskulárních onemocnění v ČR",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2014,
+          "value": 3229917
+        },
+        {
+          "year": 2015,
+          "value": 3278800
+        },
+        {
+          "year": 2016,
+          "value": 3295881
+        },
+        {
+          "year": 2017,
+          "value": 3323025
+        },
+        {
+          "year": 2018,
+          "value": 3361420
+        },
+        {
+          "year": 2019,
+          "value": 3403327
+        },
+        {
+          "year": 2020,
+          "value": 3441887
+        },
+        {
+          "year": 2021,
+          "value": 3469624
+        },
+        {
+          "year": 2022,
+          "value": 3494884
+        },
+        {
+          "year": 2023,
+          "value": 3542357
+        },
+        {
+          "year": 2024,
+          "value": 3592916
+        }
+      ]
     },
     {
       "id": "nemoci_obehove_soustavy_umrti",
@@ -352,7 +1224,121 @@
       "aggregation": "sum_column",
       "value_column": "pocet_zemrelych",
       "metric_label": "Roční počet úmrtí na nemoci oběhové soustavy v ČR",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 1994,
+          "value": 65132
+        },
+        {
+          "year": 1995,
+          "value": 65951
+        },
+        {
+          "year": 1996,
+          "value": 63145
+        },
+        {
+          "year": 1997,
+          "value": 63334
+        },
+        {
+          "year": 1998,
+          "value": 60397
+        },
+        {
+          "year": 1999,
+          "value": 60286
+        },
+        {
+          "year": 2000,
+          "value": 58192
+        },
+        {
+          "year": 2001,
+          "value": 57404
+        },
+        {
+          "year": 2002,
+          "value": 57152
+        },
+        {
+          "year": 2003,
+          "value": 58065
+        },
+        {
+          "year": 2004,
+          "value": 55042
+        },
+        {
+          "year": 2005,
+          "value": 55155
+        },
+        {
+          "year": 2006,
+          "value": 52560
+        },
+        {
+          "year": 2007,
+          "value": 52464
+        },
+        {
+          "year": 2008,
+          "value": 52280
+        },
+        {
+          "year": 2009,
+          "value": 54100
+        },
+        {
+          "year": 2010,
+          "value": 53590
+        },
+        {
+          "year": 2011,
+          "value": 52725
+        },
+        {
+          "year": 2012,
+          "value": 53046
+        },
+        {
+          "year": 2013,
+          "value": 51731
+        },
+        {
+          "year": 2014,
+          "value": 48627
+        },
+        {
+          "year": 2015,
+          "value": 50969
+        },
+        {
+          "year": 2016,
+          "value": 47611
+        },
+        {
+          "year": 2017,
+          "value": 49346
+        },
+        {
+          "year": 2018,
+          "value": 48792
+        },
+        {
+          "year": 2019,
+          "value": 47393
+        },
+        {
+          "year": 2020,
+          "value": 51299
+        },
+        {
+          "year": 2021,
+          "value": 47873
+        }
+      ]
     },
     {
       "id": "novotvary_incidence_vse",
@@ -378,7 +1364,193 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční počet nově diagnostikovaných zhoubných novotvarů v ČR",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 1977,
+          "value": 12302
+        },
+        {
+          "year": 1978,
+          "value": 18931
+        },
+        {
+          "year": 1979,
+          "value": 21743
+        },
+        {
+          "year": 1980,
+          "value": 24060
+        },
+        {
+          "year": 1981,
+          "value": 25504
+        },
+        {
+          "year": 1982,
+          "value": 27276
+        },
+        {
+          "year": 1983,
+          "value": 28766
+        },
+        {
+          "year": 1984,
+          "value": 29244
+        },
+        {
+          "year": 1985,
+          "value": 29719
+        },
+        {
+          "year": 1986,
+          "value": 31135
+        },
+        {
+          "year": 1987,
+          "value": 32431
+        },
+        {
+          "year": 1988,
+          "value": 33044
+        },
+        {
+          "year": 1989,
+          "value": 35055
+        },
+        {
+          "year": 1990,
+          "value": 35538
+        },
+        {
+          "year": 1991,
+          "value": 36369
+        },
+        {
+          "year": 1992,
+          "value": 36509
+        },
+        {
+          "year": 1993,
+          "value": 37550
+        },
+        {
+          "year": 1994,
+          "value": 38291
+        },
+        {
+          "year": 1995,
+          "value": 39352
+        },
+        {
+          "year": 1996,
+          "value": 39848
+        },
+        {
+          "year": 1997,
+          "value": 40839
+        },
+        {
+          "year": 1998,
+          "value": 41750
+        },
+        {
+          "year": 1999,
+          "value": 42442
+        },
+        {
+          "year": 2000,
+          "value": 42797
+        },
+        {
+          "year": 2001,
+          "value": 42838
+        },
+        {
+          "year": 2002,
+          "value": 45349
+        },
+        {
+          "year": 2003,
+          "value": 46301
+        },
+        {
+          "year": 2004,
+          "value": 47095
+        },
+        {
+          "year": 2005,
+          "value": 47571
+        },
+        {
+          "year": 2006,
+          "value": 48650
+        },
+        {
+          "year": 2007,
+          "value": 49816
+        },
+        {
+          "year": 2008,
+          "value": 51208
+        },
+        {
+          "year": 2009,
+          "value": 52785
+        },
+        {
+          "year": 2010,
+          "value": 53948
+        },
+        {
+          "year": 2011,
+          "value": 55270
+        },
+        {
+          "year": 2012,
+          "value": 56692
+        },
+        {
+          "year": 2013,
+          "value": 57983
+        },
+        {
+          "year": 2014,
+          "value": 58559
+        },
+        {
+          "year": 2015,
+          "value": 60679
+        },
+        {
+          "year": 2016,
+          "value": 61758
+        },
+        {
+          "year": 2017,
+          "value": 64340
+        },
+        {
+          "year": 2018,
+          "value": 66817
+        },
+        {
+          "year": 2019,
+          "value": 64396
+        },
+        {
+          "year": 2020,
+          "value": 71598
+        },
+        {
+          "year": 2021,
+          "value": 73714
+        },
+        {
+          "year": 2022,
+          "value": 68637
+        }
+      ]
     },
     {
       "id": "novotvary_mortalita_vse",
@@ -403,7 +1575,181 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční počet úmrtí na zhoubné novotvary v ČR",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 1980,
+          "value": 21005
+        },
+        {
+          "year": 1981,
+          "value": 22084
+        },
+        {
+          "year": 1982,
+          "value": 23064
+        },
+        {
+          "year": 1983,
+          "value": 23891
+        },
+        {
+          "year": 1984,
+          "value": 23735
+        },
+        {
+          "year": 1985,
+          "value": 23278
+        },
+        {
+          "year": 1986,
+          "value": 24128
+        },
+        {
+          "year": 1987,
+          "value": 24862
+        },
+        {
+          "year": 1988,
+          "value": 24928
+        },
+        {
+          "year": 1989,
+          "value": 26284
+        },
+        {
+          "year": 1990,
+          "value": 26299
+        },
+        {
+          "year": 1991,
+          "value": 26906
+        },
+        {
+          "year": 1992,
+          "value": 26934
+        },
+        {
+          "year": 1993,
+          "value": 26974
+        },
+        {
+          "year": 1994,
+          "value": 27930
+        },
+        {
+          "year": 1995,
+          "value": 28114
+        },
+        {
+          "year": 1996,
+          "value": 27554
+        },
+        {
+          "year": 1997,
+          "value": 27623
+        },
+        {
+          "year": 1998,
+          "value": 27629
+        },
+        {
+          "year": 1999,
+          "value": 27784
+        },
+        {
+          "year": 2000,
+          "value": 28255
+        },
+        {
+          "year": 2001,
+          "value": 27885
+        },
+        {
+          "year": 2002,
+          "value": 28385
+        },
+        {
+          "year": 2003,
+          "value": 28661
+        },
+        {
+          "year": 2004,
+          "value": 28661
+        },
+        {
+          "year": 2005,
+          "value": 27782
+        },
+        {
+          "year": 2006,
+          "value": 27698
+        },
+        {
+          "year": 2007,
+          "value": 26938
+        },
+        {
+          "year": 2008,
+          "value": 27178
+        },
+        {
+          "year": 2009,
+          "value": 27450
+        },
+        {
+          "year": 2010,
+          "value": 27662
+        },
+        {
+          "year": 2011,
+          "value": 27539
+        },
+        {
+          "year": 2012,
+          "value": 27683
+        },
+        {
+          "year": 2013,
+          "value": 27449
+        },
+        {
+          "year": 2014,
+          "value": 27603
+        },
+        {
+          "year": 2015,
+          "value": 27407
+        },
+        {
+          "year": 2016,
+          "value": 27806
+        },
+        {
+          "year": 2017,
+          "value": 27852
+        },
+        {
+          "year": 2018,
+          "value": 28266
+        },
+        {
+          "year": 2019,
+          "value": 28869
+        },
+        {
+          "year": 2020,
+          "value": 28716
+        },
+        {
+          "year": 2021,
+          "value": 27717
+        },
+        {
+          "year": 2022,
+          "value": 28170
+        }
+      ]
     },
     {
       "id": "novotvary_preziti",
@@ -430,7 +1776,125 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční počet pacientů sledovaných v analýze přežití",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 1994,
+          "value": 54256
+        },
+        {
+          "year": 1995,
+          "value": 55604
+        },
+        {
+          "year": 1996,
+          "value": 57953
+        },
+        {
+          "year": 1997,
+          "value": 59279
+        },
+        {
+          "year": 1998,
+          "value": 59826
+        },
+        {
+          "year": 1999,
+          "value": 61321
+        },
+        {
+          "year": 2000,
+          "value": 61952
+        },
+        {
+          "year": 2001,
+          "value": 63544
+        },
+        {
+          "year": 2002,
+          "value": 67071
+        },
+        {
+          "year": 2003,
+          "value": 69079
+        },
+        {
+          "year": 2004,
+          "value": 71302
+        },
+        {
+          "year": 2005,
+          "value": 74106
+        },
+        {
+          "year": 2006,
+          "value": 74566
+        },
+        {
+          "year": 2007,
+          "value": 79392
+        },
+        {
+          "year": 2008,
+          "value": 80158
+        },
+        {
+          "year": 2009,
+          "value": 81947
+        },
+        {
+          "year": 2010,
+          "value": 86214
+        },
+        {
+          "year": 2011,
+          "value": 87134
+        },
+        {
+          "year": 2012,
+          "value": 90252
+        },
+        {
+          "year": 2013,
+          "value": 93354
+        },
+        {
+          "year": 2014,
+          "value": 95765
+        },
+        {
+          "year": 2015,
+          "value": 98886
+        },
+        {
+          "year": 2016,
+          "value": 101094
+        },
+        {
+          "year": 2017,
+          "value": 100456
+        },
+        {
+          "year": 2018,
+          "value": 100470
+        },
+        {
+          "year": 2019,
+          "value": 101474
+        },
+        {
+          "year": 2020,
+          "value": 93113
+        },
+        {
+          "year": 2021,
+          "value": 95759
+        },
+        {
+          "year": 2022,
+          "value": 104988
+        }
+      ]
     },
     {
       "id": "anesteziologicka_pece",
@@ -457,7 +1921,29 @@
       "aggregation": "sum_column",
       "value_column": "pocet_UOP",
       "metric_label": "Roční počet pacientů s anestezií v ČR",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2020,
+          "value": 651695
+        },
+        {
+          "year": 2021,
+          "value": 646984
+        },
+        {
+          "year": 2022,
+          "value": 764911
+        },
+        {
+          "year": 2023,
+          "value": 787476
+        },
+        {
+          "year": 2024,
+          "value": 793395
+        }
+      ]
     },
     {
       "id": "hospitalizacni_pripady_akutni_intezivni_pece",
@@ -485,7 +1971,69 @@
       "value_column": "pocet_hosp",
       "metric_label": "Roční počet hospitalizací v intenzivní péči",
       "last_seen": "2026-05-25",
-      "csv_format": "gzip"
+      "csv_format": "gzip",
+      "series": [
+        {
+          "year": 2010,
+          "value": 333534
+        },
+        {
+          "year": 2011,
+          "value": 337840
+        },
+        {
+          "year": 2012,
+          "value": 338212
+        },
+        {
+          "year": 2013,
+          "value": 329692
+        },
+        {
+          "year": 2014,
+          "value": 329701
+        },
+        {
+          "year": 2015,
+          "value": 323304
+        },
+        {
+          "year": 2016,
+          "value": 318516
+        },
+        {
+          "year": 2017,
+          "value": 315337
+        },
+        {
+          "year": 2018,
+          "value": 314414
+        },
+        {
+          "year": 2019,
+          "value": 318044
+        },
+        {
+          "year": 2020,
+          "value": 287152
+        },
+        {
+          "year": 2021,
+          "value": 295911
+        },
+        {
+          "year": 2022,
+          "value": 313758
+        },
+        {
+          "year": 2023,
+          "value": 314303
+        },
+        {
+          "year": 2024,
+          "value": 321505
+        }
+      ]
     },
     {
       "id": "luzkovy_fond_vyuziti",
@@ -511,7 +2059,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet_OD_akutni_STAN",
       "metric_label": "Roční počet ošetřovacích dnů na akutních standardních lůžcích",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 11577812
+        },
+        {
+          "year": 2011,
+          "value": 11225899
+        },
+        {
+          "year": 2012,
+          "value": 10940978
+        },
+        {
+          "year": 2013,
+          "value": 10320812
+        },
+        {
+          "year": 2014,
+          "value": 10410138
+        },
+        {
+          "year": 2015,
+          "value": 10129150
+        },
+        {
+          "year": 2016,
+          "value": 9945798
+        },
+        {
+          "year": 2017,
+          "value": 9680944
+        },
+        {
+          "year": 2018,
+          "value": 9495284
+        },
+        {
+          "year": 2019,
+          "value": 9344207
+        },
+        {
+          "year": 2020,
+          "value": 8066788
+        },
+        {
+          "year": 2021,
+          "value": 8135687
+        },
+        {
+          "year": 2022,
+          "value": 8637296
+        },
+        {
+          "year": 2023,
+          "value": 8701920
+        },
+        {
+          "year": 2024,
+          "value": 8643962
+        }
+      ]
     },
     {
       "id": "nezadouci_udalosti_luzkova_pece",
@@ -538,7 +2148,33 @@
       "aggregation": "sum_column",
       "value_column": "NU_absolutni_pocet",
       "metric_label": "Roční počet hlášených nežádoucích událostí v lůžkové péči",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2018,
+          "value": 105509
+        },
+        {
+          "year": 2019,
+          "value": 106914
+        },
+        {
+          "year": 2020,
+          "value": 101030
+        },
+        {
+          "year": 2021,
+          "value": 104228
+        },
+        {
+          "year": 2022,
+          "value": 110978
+        },
+        {
+          "year": 2023,
+          "value": 117185
+        }
+      ]
     },
     {
       "id": "covid_19_prehled_populace",
@@ -554,13 +2190,36 @@
       "code": null,
       "csv_url": "https://data.mzcr.cz/data/distribuce/402/Otevrena-data-NR-26-30-COVID-19-prehled-populace-2024-01.csv",
       "source_url": "https://www.nzip.cz/data/2135-covid-19-prehled-populace",
-      "year_column": "RokNarozeni",
+      "year_column": null,
+      "date_column": "DatumPozitivity",
       "filter_column": null,
       "row_match": null,
-      "aggregation": "count_rows",
+      "aggregation": "date_to_year",
       "value_column": null,
       "metric_label": "Roční počet evidovaných případů COVID-19",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2020,
+          "value": 751959
+        },
+        {
+          "year": 2021,
+          "value": 1773926
+        },
+        {
+          "year": 2022,
+          "value": 2054506
+        },
+        {
+          "year": 2023,
+          "value": 166385
+        },
+        {
+          "year": 2024,
+          "value": 50629
+        }
+      ]
     },
     {
       "id": "tuberkuloza_epidemiologie",
@@ -587,7 +2246,109 @@
       "aggregation": "sum_column",
       "value_column": "pripady",
       "metric_label": "Roční počet nově hlášených případů tuberkulózy",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2000,
+          "value": 1396
+        },
+        {
+          "year": 2001,
+          "value": 1313
+        },
+        {
+          "year": 2002,
+          "value": 1185
+        },
+        {
+          "year": 2003,
+          "value": 1141
+        },
+        {
+          "year": 2004,
+          "value": 1041
+        },
+        {
+          "year": 2005,
+          "value": 988
+        },
+        {
+          "year": 2006,
+          "value": 954
+        },
+        {
+          "year": 2007,
+          "value": 855
+        },
+        {
+          "year": 2008,
+          "value": 865
+        },
+        {
+          "year": 2009,
+          "value": 695
+        },
+        {
+          "year": 2010,
+          "value": 674
+        },
+        {
+          "year": 2011,
+          "value": 606
+        },
+        {
+          "year": 2012,
+          "value": 603
+        },
+        {
+          "year": 2013,
+          "value": 500
+        },
+        {
+          "year": 2014,
+          "value": 511
+        },
+        {
+          "year": 2015,
+          "value": 518
+        },
+        {
+          "year": 2016,
+          "value": 516
+        },
+        {
+          "year": 2017,
+          "value": 504
+        },
+        {
+          "year": 2018,
+          "value": 444
+        },
+        {
+          "year": 2019,
+          "value": 461
+        },
+        {
+          "year": 2020,
+          "value": 363
+        },
+        {
+          "year": 2021,
+          "value": 356
+        },
+        {
+          "year": 2022,
+          "value": 381
+        },
+        {
+          "year": 2023,
+          "value": 455
+        },
+        {
+          "year": 2024,
+          "value": 454
+        }
+      ]
     },
     {
       "id": "infekcni_nemoci",
@@ -614,7 +2375,41 @@
       "aggregation": "sum_column",
       "value_column": "pocet_pripadu",
       "metric_label": "Roční počet hlášených případů infekčních nemocí",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2018,
+          "value": 127350
+        },
+        {
+          "year": 2019,
+          "value": 149453
+        },
+        {
+          "year": 2020,
+          "value": 83099
+        },
+        {
+          "year": 2021,
+          "value": 71519
+        },
+        {
+          "year": 2022,
+          "value": 133946
+        },
+        {
+          "year": 2023,
+          "value": 123029
+        },
+        {
+          "year": 2024,
+          "value": 169746
+        },
+        {
+          "year": 2025,
+          "value": 139304
+        }
+      ]
     },
     {
       "id": "ockovani_hpv_poskytovatel",
@@ -641,7 +2436,61 @@
       "aggregation": "sum_column",
       "value_column": "pocet",
       "metric_label": "Roční počet podaných dávek očkování proti lidskému papilomaviru",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2012,
+          "value": 108941
+        },
+        {
+          "year": 2013,
+          "value": 100529
+        },
+        {
+          "year": 2014,
+          "value": 82543
+        },
+        {
+          "year": 2015,
+          "value": 64607
+        },
+        {
+          "year": 2016,
+          "value": 56394
+        },
+        {
+          "year": 2017,
+          "value": 55358
+        },
+        {
+          "year": 2018,
+          "value": 85029
+        },
+        {
+          "year": 2019,
+          "value": 94803
+        },
+        {
+          "year": 2020,
+          "value": 114965
+        },
+        {
+          "year": 2021,
+          "value": 122209
+        },
+        {
+          "year": 2022,
+          "value": 139530
+        },
+        {
+          "year": 2023,
+          "value": 161366
+        },
+        {
+          "year": 2024,
+          "value": 184025
+        }
+      ]
     },
     {
       "id": "pohlavni_nemoci",
@@ -667,7 +2516,137 @@
       "aggregation": "sum_column",
       "value_column": "pocet_pripadu",
       "metric_label": "Roční počet hlášených případů pohlavních nemocí",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 1994,
+          "value": 3317
+        },
+        {
+          "year": 1995,
+          "value": 2469
+        },
+        {
+          "year": 1996,
+          "value": 1745
+        },
+        {
+          "year": 1997,
+          "value": 1702
+        },
+        {
+          "year": 1998,
+          "value": 1742
+        },
+        {
+          "year": 1999,
+          "value": 1726
+        },
+        {
+          "year": 2000,
+          "value": 1855
+        },
+        {
+          "year": 2001,
+          "value": 2256
+        },
+        {
+          "year": 2002,
+          "value": 1887
+        },
+        {
+          "year": 2003,
+          "value": 1880
+        },
+        {
+          "year": 2004,
+          "value": 1634
+        },
+        {
+          "year": 2005,
+          "value": 1387
+        },
+        {
+          "year": 2006,
+          "value": 1584
+        },
+        {
+          "year": 2007,
+          "value": 1971
+        },
+        {
+          "year": 2008,
+          "value": 1667
+        },
+        {
+          "year": 2009,
+          "value": 1721
+        },
+        {
+          "year": 2010,
+          "value": 1779
+        },
+        {
+          "year": 2011,
+          "value": 1452
+        },
+        {
+          "year": 2012,
+          "value": 1856
+        },
+        {
+          "year": 2013,
+          "value": 2139
+        },
+        {
+          "year": 2014,
+          "value": 2139
+        },
+        {
+          "year": 2015,
+          "value": 2233
+        },
+        {
+          "year": 2016,
+          "value": 2262
+        },
+        {
+          "year": 2017,
+          "value": 2234
+        },
+        {
+          "year": 2018,
+          "value": 2243
+        },
+        {
+          "year": 2019,
+          "value": 2531
+        },
+        {
+          "year": 2020,
+          "value": 2584
+        },
+        {
+          "year": 2021,
+          "value": 2834
+        },
+        {
+          "year": 2022,
+          "value": 3221
+        },
+        {
+          "year": 2023,
+          "value": 4233
+        },
+        {
+          "year": 2024,
+          "value": 4206
+        },
+        {
+          "year": 2025,
+          "value": 3921
+        }
+      ]
     },
     {
       "id": "vakcinace_verejne_zdravotni_pojisteni",
@@ -694,7 +2673,61 @@
       "aggregation": "sum_column",
       "value_column": "pocet",
       "metric_label": "Roční počet podaných vakcín hrazených z veřejného zdravotního pojištění",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 684884
+        },
+        {
+          "year": 2011,
+          "value": 787788
+        },
+        {
+          "year": 2012,
+          "value": 2209610
+        },
+        {
+          "year": 2013,
+          "value": 2003958
+        },
+        {
+          "year": 2014,
+          "value": 2036404
+        },
+        {
+          "year": 2015,
+          "value": 2138884
+        },
+        {
+          "year": 2016,
+          "value": 2294255
+        },
+        {
+          "year": 2017,
+          "value": 2260018
+        },
+        {
+          "year": 2018,
+          "value": 2234870
+        },
+        {
+          "year": 2019,
+          "value": 2349245
+        },
+        {
+          "year": 2020,
+          "value": 2417418
+        },
+        {
+          "year": 2021,
+          "value": 2438716
+        },
+        {
+          "year": 2022,
+          "value": 3277470
+        }
+      ]
     },
     {
       "id": "akutni_pece_psychiatrie",
@@ -721,7 +2754,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet_hospitalizaci",
       "metric_label": "Roční počet hospitalizací v akutní psychiatrické péči",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 17321
+        },
+        {
+          "year": 2011,
+          "value": 17335
+        },
+        {
+          "year": 2012,
+          "value": 16964
+        },
+        {
+          "year": 2013,
+          "value": 17232
+        },
+        {
+          "year": 2014,
+          "value": 19030
+        },
+        {
+          "year": 2015,
+          "value": 19831
+        },
+        {
+          "year": 2016,
+          "value": 18810
+        },
+        {
+          "year": 2017,
+          "value": 20571
+        },
+        {
+          "year": 2018,
+          "value": 22934
+        },
+        {
+          "year": 2019,
+          "value": 23876
+        },
+        {
+          "year": 2020,
+          "value": 24593
+        },
+        {
+          "year": 2021,
+          "value": 27589
+        },
+        {
+          "year": 2022,
+          "value": 31221
+        },
+        {
+          "year": 2023,
+          "value": 33947
+        },
+        {
+          "year": 2024,
+          "value": 36503
+        }
+      ]
     },
     {
       "id": "alzheimerova_nemoc_neurcene_demence",
@@ -748,7 +2843,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet_pacientu",
       "metric_label": "Roční počet pacientů s Alzheimerovou nemocí nebo neurčenou demencí",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 61317
+        },
+        {
+          "year": 2011,
+          "value": 67492
+        },
+        {
+          "year": 2012,
+          "value": 72975
+        },
+        {
+          "year": 2013,
+          "value": 77435
+        },
+        {
+          "year": 2014,
+          "value": 83957
+        },
+        {
+          "year": 2015,
+          "value": 92036
+        },
+        {
+          "year": 2016,
+          "value": 97011
+        },
+        {
+          "year": 2017,
+          "value": 102077
+        },
+        {
+          "year": 2018,
+          "value": 105328
+        },
+        {
+          "year": 2019,
+          "value": 109287
+        },
+        {
+          "year": 2020,
+          "value": 111158
+        },
+        {
+          "year": 2021,
+          "value": 112942
+        },
+        {
+          "year": 2022,
+          "value": 120039
+        },
+        {
+          "year": 2023,
+          "value": 128400
+        },
+        {
+          "year": 2024,
+          "value": 135722
+        }
+      ]
     },
     {
       "id": "ambulantni_pece_psychiatrie",
@@ -775,7 +2932,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet_pacientu",
       "metric_label": "Roční počet pacientů v ambulantní psychiatrické péči",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 509949
+        },
+        {
+          "year": 2011,
+          "value": 531175
+        },
+        {
+          "year": 2012,
+          "value": 542475
+        },
+        {
+          "year": 2013,
+          "value": 558370
+        },
+        {
+          "year": 2014,
+          "value": 572785
+        },
+        {
+          "year": 2015,
+          "value": 586004
+        },
+        {
+          "year": 2016,
+          "value": 601184
+        },
+        {
+          "year": 2017,
+          "value": 613192
+        },
+        {
+          "year": 2018,
+          "value": 623483
+        },
+        {
+          "year": 2019,
+          "value": 636082
+        },
+        {
+          "year": 2020,
+          "value": 628726
+        },
+        {
+          "year": 2021,
+          "value": 652586
+        },
+        {
+          "year": 2022,
+          "value": 664075
+        },
+        {
+          "year": 2023,
+          "value": 679946
+        },
+        {
+          "year": 2024,
+          "value": 690270
+        }
+      ]
     },
     {
       "id": "dlouhodoba_pece_psychiatrie",
@@ -802,7 +3021,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet_hospitalizaci",
       "metric_label": "Roční počet hospitalizací v dlouhodobé psychiatrické péči",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 43165
+        },
+        {
+          "year": 2011,
+          "value": 44332
+        },
+        {
+          "year": 2012,
+          "value": 42289
+        },
+        {
+          "year": 2013,
+          "value": 40023
+        },
+        {
+          "year": 2014,
+          "value": 41244
+        },
+        {
+          "year": 2015,
+          "value": 39227
+        },
+        {
+          "year": 2016,
+          "value": 38551
+        },
+        {
+          "year": 2017,
+          "value": 37491
+        },
+        {
+          "year": 2018,
+          "value": 36469
+        },
+        {
+          "year": 2019,
+          "value": 36088
+        },
+        {
+          "year": 2020,
+          "value": 30464
+        },
+        {
+          "year": 2021,
+          "value": 30109
+        },
+        {
+          "year": 2022,
+          "value": 29195
+        },
+        {
+          "year": 2023,
+          "value": 30023
+        },
+        {
+          "year": 2024,
+          "value": 29823
+        }
+      ]
     },
     {
       "id": "deti_a_mladistvi_poruchy_autistickeho_spektra",
@@ -829,7 +3110,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet_pacientu",
       "metric_label": "Roční počet dětí a mladistvých s poruchami autistického spektra",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 2703
+        },
+        {
+          "year": 2011,
+          "value": 3341
+        },
+        {
+          "year": 2012,
+          "value": 3986
+        },
+        {
+          "year": 2013,
+          "value": 4678
+        },
+        {
+          "year": 2014,
+          "value": 5327
+        },
+        {
+          "year": 2015,
+          "value": 6120
+        },
+        {
+          "year": 2016,
+          "value": 6783
+        },
+        {
+          "year": 2017,
+          "value": 7566
+        },
+        {
+          "year": 2018,
+          "value": 8064
+        },
+        {
+          "year": 2019,
+          "value": 8501
+        },
+        {
+          "year": 2020,
+          "value": 8649
+        },
+        {
+          "year": 2021,
+          "value": 9146
+        },
+        {
+          "year": 2022,
+          "value": 10364
+        },
+        {
+          "year": 2023,
+          "value": 11163
+        },
+        {
+          "year": 2024,
+          "value": 12197
+        }
+      ]
     },
     {
       "id": "incidence_prevalence_hospitalizace_ambulantni_pece_psychiatrie",
@@ -854,7 +3197,57 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční incidence duševních onemocnění (jakákoliv F-diagnóza nebo G30)",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 52
+        },
+        {
+          "year": 2011,
+          "value": 52
+        },
+        {
+          "year": 2012,
+          "value": 52
+        },
+        {
+          "year": 2013,
+          "value": 52
+        },
+        {
+          "year": 2014,
+          "value": 52
+        },
+        {
+          "year": 2015,
+          "value": 52
+        },
+        {
+          "year": 2016,
+          "value": 52
+        },
+        {
+          "year": 2017,
+          "value": 52
+        },
+        {
+          "year": 2018,
+          "value": 52
+        },
+        {
+          "year": 2019,
+          "value": 52
+        },
+        {
+          "year": 2020,
+          "value": 52
+        },
+        {
+          "year": 2021,
+          "value": 52
+        }
+      ]
     },
     {
       "id": "lecba_psychofarmaky",
@@ -881,7 +3274,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet_pacientu",
       "metric_label": "Roční počet pacientů léčených psychofarmaky",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 1776740
+        },
+        {
+          "year": 2011,
+          "value": 1810201
+        },
+        {
+          "year": 2012,
+          "value": 1781073
+        },
+        {
+          "year": 2013,
+          "value": 1842043
+        },
+        {
+          "year": 2014,
+          "value": 1869932
+        },
+        {
+          "year": 2015,
+          "value": 1975103
+        },
+        {
+          "year": 2016,
+          "value": 2033701
+        },
+        {
+          "year": 2017,
+          "value": 2048074
+        },
+        {
+          "year": 2018,
+          "value": 2064693
+        },
+        {
+          "year": 2019,
+          "value": 2109079
+        },
+        {
+          "year": 2020,
+          "value": 2055302
+        },
+        {
+          "year": 2021,
+          "value": 2115028
+        },
+        {
+          "year": 2022,
+          "value": 2189245
+        },
+        {
+          "year": 2023,
+          "value": 2116359
+        },
+        {
+          "year": 2024,
+          "value": 2213278
+        }
+      ]
     },
     {
       "id": "pacienti_centra_dusevniho_zdravi",
@@ -908,7 +3363,37 @@
       "aggregation": "sum_column",
       "value_column": "pocet_pacientu",
       "metric_label": "Roční počet pacientů v Centrech duševního zdraví",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2018,
+          "value": 289
+        },
+        {
+          "year": 2019,
+          "value": 1455
+        },
+        {
+          "year": 2020,
+          "value": 3229
+        },
+        {
+          "year": 2021,
+          "value": 6259
+        },
+        {
+          "year": 2022,
+          "value": 7954
+        },
+        {
+          "year": 2023,
+          "value": 8481
+        },
+        {
+          "year": 2024,
+          "value": 9156
+        }
+      ]
     },
     {
       "id": "navazna_pece_psychiatrie_pokryti",
@@ -930,7 +3415,57 @@
       "aggregation": "sum_column",
       "value_column": "pocet_pacientu",
       "metric_label": "Roční počet pacientů s navaznou ambulantní psychiatrickou péčí",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 36078
+        },
+        {
+          "year": 2011,
+          "value": 36423
+        },
+        {
+          "year": 2012,
+          "value": 35761
+        },
+        {
+          "year": 2013,
+          "value": 35882
+        },
+        {
+          "year": 2014,
+          "value": 36450
+        },
+        {
+          "year": 2015,
+          "value": 35618
+        },
+        {
+          "year": 2016,
+          "value": 34917
+        },
+        {
+          "year": 2017,
+          "value": 34448
+        },
+        {
+          "year": 2018,
+          "value": 34224
+        },
+        {
+          "year": 2019,
+          "value": 33890
+        },
+        {
+          "year": 2020,
+          "value": 30748
+        },
+        {
+          "year": 2021,
+          "value": 30232
+        }
+      ]
     },
     {
       "id": "psychofarmaka_pokryti",
@@ -952,7 +3487,57 @@
       "aggregation": "sum_column",
       "value_column": "pocet_pacientu",
       "metric_label": "Roční pokrytí pacientů s duševním onemocněním léčbou psychofarmaky",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 169525
+        },
+        {
+          "year": 2011,
+          "value": 171963
+        },
+        {
+          "year": 2012,
+          "value": 174908
+        },
+        {
+          "year": 2013,
+          "value": 178637
+        },
+        {
+          "year": 2014,
+          "value": 181690
+        },
+        {
+          "year": 2015,
+          "value": 188912
+        },
+        {
+          "year": 2016,
+          "value": 191606
+        },
+        {
+          "year": 2017,
+          "value": 194603
+        },
+        {
+          "year": 2018,
+          "value": 195211
+        },
+        {
+          "year": 2019,
+          "value": 198058
+        },
+        {
+          "year": 2020,
+          "value": 201888
+        },
+        {
+          "year": 2021,
+          "value": 201763
+        }
+      ]
     },
     {
       "id": "dusevni_onemocneni_rehospitalizace",
@@ -974,7 +3559,57 @@
       "aggregation": "sum_column",
       "value_column": "pocet",
       "metric_label": "Roční počet rehospitalizací pacientů s duševním onemocněním",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 199028
+        },
+        {
+          "year": 2011,
+          "value": 202886
+        },
+        {
+          "year": 2012,
+          "value": 190068
+        },
+        {
+          "year": 2013,
+          "value": 178086
+        },
+        {
+          "year": 2014,
+          "value": 185079
+        },
+        {
+          "year": 2015,
+          "value": 178543
+        },
+        {
+          "year": 2016,
+          "value": 175182
+        },
+        {
+          "year": 2017,
+          "value": 172104
+        },
+        {
+          "year": 2018,
+          "value": 173793
+        },
+        {
+          "year": 2019,
+          "value": 174488
+        },
+        {
+          "year": 2020,
+          "value": 157161
+        },
+        {
+          "year": 2021,
+          "value": 156450
+        }
+      ]
     },
     {
       "id": "dusevni_onemocneni_sebevrazednost",
@@ -996,7 +3631,57 @@
       "aggregation": "sum_column",
       "value_column": "pocet",
       "metric_label": "Roční počet sebevražd u pacientů s evidovaným duševním onemocněním",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 51043
+        },
+        {
+          "year": 2011,
+          "value": 51264
+        },
+        {
+          "year": 2012,
+          "value": 51338
+        },
+        {
+          "year": 2013,
+          "value": 49895
+        },
+        {
+          "year": 2014,
+          "value": 51448
+        },
+        {
+          "year": 2015,
+          "value": 49894
+        },
+        {
+          "year": 2016,
+          "value": 49289
+        },
+        {
+          "year": 2017,
+          "value": 49204
+        },
+        {
+          "year": 2018,
+          "value": 49178
+        },
+        {
+          "year": 2019,
+          "value": 48827
+        },
+        {
+          "year": 2020,
+          "value": 44145
+        },
+        {
+          "year": 2021,
+          "value": 42181
+        }
+      ]
     },
     {
       "id": "sebevrazedne_pokusy",
@@ -1018,7 +3703,57 @@
       "aggregation": "sum_column",
       "value_column": "pocet",
       "metric_label": "Roční počet sebevražedných pokusů",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 5172
+        },
+        {
+          "year": 2011,
+          "value": 5472
+        },
+        {
+          "year": 2012,
+          "value": 6140
+        },
+        {
+          "year": 2013,
+          "value": 6474
+        },
+        {
+          "year": 2014,
+          "value": 6935
+        },
+        {
+          "year": 2015,
+          "value": 6458
+        },
+        {
+          "year": 2016,
+          "value": 6303
+        },
+        {
+          "year": 2017,
+          "value": 6004
+        },
+        {
+          "year": 2018,
+          "value": 6170
+        },
+        {
+          "year": 2019,
+          "value": 5800
+        },
+        {
+          "year": 2020,
+          "value": 5171
+        },
+        {
+          "year": 2021,
+          "value": 5535
+        }
+      ]
     },
     {
       "id": "dusevni_onemocneni_umrtnost",
@@ -1040,7 +3775,33 @@
       "aggregation": "sum_column",
       "value_column": "pocet_pacientu",
       "metric_label": "Roční úmrtnost pacientů s duševním onemocněním",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2016,
+          "value": 286022
+        },
+        {
+          "year": 2017,
+          "value": 285711
+        },
+        {
+          "year": 2018,
+          "value": 283910
+        },
+        {
+          "year": 2019,
+          "value": 284224
+        },
+        {
+          "year": 2020,
+          "value": 286490
+        },
+        {
+          "year": 2021,
+          "value": 281656
+        }
+      ]
     },
     {
       "id": "dopravni_urazy",
@@ -1067,7 +3828,69 @@
       "value_column": null,
       "metric_label": "Roční počet úrazů z dopravních nehod ošetřených ve zdravotnictví v ČR",
       "last_seen": "2026-05-25",
-      "csv_format": "gzip"
+      "csv_format": "gzip",
+      "series": [
+        {
+          "year": 2010,
+          "value": 46714
+        },
+        {
+          "year": 2011,
+          "value": 47889
+        },
+        {
+          "year": 2012,
+          "value": 47953
+        },
+        {
+          "year": 2013,
+          "value": 49190
+        },
+        {
+          "year": 2014,
+          "value": 52135
+        },
+        {
+          "year": 2015,
+          "value": 55584
+        },
+        {
+          "year": 2016,
+          "value": 56965
+        },
+        {
+          "year": 2017,
+          "value": 55259
+        },
+        {
+          "year": 2018,
+          "value": 58608
+        },
+        {
+          "year": 2019,
+          "value": 57410
+        },
+        {
+          "year": 2020,
+          "value": 55552
+        },
+        {
+          "year": 2021,
+          "value": 55622
+        },
+        {
+          "year": 2022,
+          "value": 57336
+        },
+        {
+          "year": 2023,
+          "value": 58854
+        },
+        {
+          "year": 2024,
+          "value": 59728
+        }
+      ]
     },
     {
       "id": "dopravni_urazy_charakteristika_okres_zarizeni",
@@ -1094,7 +3917,69 @@
       "value_column": null,
       "metric_label": "Roční počet úrazů z dopravních nehod podle okresu zdravotnického zařízení",
       "last_seen": "2026-05-25",
-      "csv_format": "gzip"
+      "csv_format": "gzip",
+      "series": [
+        {
+          "year": 2010,
+          "value": 46714
+        },
+        {
+          "year": 2011,
+          "value": 47889
+        },
+        {
+          "year": 2012,
+          "value": 47953
+        },
+        {
+          "year": 2013,
+          "value": 49190
+        },
+        {
+          "year": 2014,
+          "value": 52135
+        },
+        {
+          "year": 2015,
+          "value": 55584
+        },
+        {
+          "year": 2016,
+          "value": 56965
+        },
+        {
+          "year": 2017,
+          "value": 55259
+        },
+        {
+          "year": 2018,
+          "value": 58608
+        },
+        {
+          "year": 2019,
+          "value": 57410
+        },
+        {
+          "year": 2020,
+          "value": 55552
+        },
+        {
+          "year": 2021,
+          "value": 55622
+        },
+        {
+          "year": 2022,
+          "value": 57336
+        },
+        {
+          "year": 2023,
+          "value": 58854
+        },
+        {
+          "year": 2024,
+          "value": 59728
+        }
+      ]
     },
     {
       "id": "umrti_pocet_rok_vek_pohlavi_kapitola_mkn_10",
@@ -1121,7 +4006,129 @@
       "value_column": "pocet_zemrelych",
       "metric_label": "Roční počet zemřelých v ČR",
       "last_seen": "2026-05-25",
-      "csv_encoding": "windows-1250"
+      "csv_encoding": "windows-1250",
+      "series": [
+        {
+          "year": 1994,
+          "value": 117373
+        },
+        {
+          "year": 1995,
+          "value": 117913
+        },
+        {
+          "year": 1996,
+          "value": 112782
+        },
+        {
+          "year": 1997,
+          "value": 112744
+        },
+        {
+          "year": 1998,
+          "value": 109527
+        },
+        {
+          "year": 1999,
+          "value": 109768
+        },
+        {
+          "year": 2000,
+          "value": 109001
+        },
+        {
+          "year": 2001,
+          "value": 107755
+        },
+        {
+          "year": 2002,
+          "value": 108243
+        },
+        {
+          "year": 2003,
+          "value": 111288
+        },
+        {
+          "year": 2004,
+          "value": 107177
+        },
+        {
+          "year": 2005,
+          "value": 107938
+        },
+        {
+          "year": 2006,
+          "value": 104441
+        },
+        {
+          "year": 2007,
+          "value": 104636
+        },
+        {
+          "year": 2008,
+          "value": 104948
+        },
+        {
+          "year": 2009,
+          "value": 107421
+        },
+        {
+          "year": 2010,
+          "value": 106844
+        },
+        {
+          "year": 2011,
+          "value": 106848
+        },
+        {
+          "year": 2012,
+          "value": 108189
+        },
+        {
+          "year": 2013,
+          "value": 109160
+        },
+        {
+          "year": 2014,
+          "value": 105665
+        },
+        {
+          "year": 2015,
+          "value": 111173
+        },
+        {
+          "year": 2016,
+          "value": 107750
+        },
+        {
+          "year": 2017,
+          "value": 111443
+        },
+        {
+          "year": 2018,
+          "value": 112920
+        },
+        {
+          "year": 2019,
+          "value": 112362
+        },
+        {
+          "year": 2020,
+          "value": 129289
+        },
+        {
+          "year": 2021,
+          "value": 139891
+        },
+        {
+          "year": 2022,
+          "value": 120219
+        },
+        {
+          "year": 2023,
+          "value": 112795
+        }
+      ]
     },
     {
       "id": "mortalita_vek_pohlavi_okresy_dlouhodoby_vyvoj",
@@ -1147,7 +4154,161 @@
       "aggregation": "sum_column",
       "value_column": "zemreli_pocet",
       "metric_label": "Roční počet zemřelých podle okresu bydliště",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 1987,
+          "value": 254488
+        },
+        {
+          "year": 1988,
+          "value": 251388
+        },
+        {
+          "year": 1989,
+          "value": 255494
+        },
+        {
+          "year": 1990,
+          "value": 258332
+        },
+        {
+          "year": 1991,
+          "value": 248580
+        },
+        {
+          "year": 1992,
+          "value": 240674
+        },
+        {
+          "year": 1993,
+          "value": 236370
+        },
+        {
+          "year": 1994,
+          "value": 234746
+        },
+        {
+          "year": 1995,
+          "value": 235826
+        },
+        {
+          "year": 1996,
+          "value": 225564
+        },
+        {
+          "year": 1997,
+          "value": 225488
+        },
+        {
+          "year": 1998,
+          "value": 219054
+        },
+        {
+          "year": 1999,
+          "value": 219536
+        },
+        {
+          "year": 2000,
+          "value": 218002
+        },
+        {
+          "year": 2001,
+          "value": 215510
+        },
+        {
+          "year": 2002,
+          "value": 216486
+        },
+        {
+          "year": 2003,
+          "value": 222576
+        },
+        {
+          "year": 2004,
+          "value": 214354
+        },
+        {
+          "year": 2005,
+          "value": 215876
+        },
+        {
+          "year": 2006,
+          "value": 208882
+        },
+        {
+          "year": 2007,
+          "value": 209272
+        },
+        {
+          "year": 2008,
+          "value": 209896
+        },
+        {
+          "year": 2009,
+          "value": 214842
+        },
+        {
+          "year": 2010,
+          "value": 213688
+        },
+        {
+          "year": 2011,
+          "value": 213696
+        },
+        {
+          "year": 2012,
+          "value": 216378
+        },
+        {
+          "year": 2013,
+          "value": 218320
+        },
+        {
+          "year": 2014,
+          "value": 211330
+        },
+        {
+          "year": 2015,
+          "value": 222346
+        },
+        {
+          "year": 2016,
+          "value": 215500
+        },
+        {
+          "year": 2017,
+          "value": 222886
+        },
+        {
+          "year": 2018,
+          "value": 225840
+        },
+        {
+          "year": 2019,
+          "value": 224724
+        },
+        {
+          "year": 2020,
+          "value": 258578
+        },
+        {
+          "year": 2021,
+          "value": 279782
+        },
+        {
+          "year": 2022,
+          "value": 240438
+        },
+        {
+          "year": 2023,
+          "value": 225590
+        },
+        {
+          "year": 2024,
+          "value": 224422
+        }
+      ]
     },
     {
       "id": "zemreli_vek_pohlavi_kraje_diagnozy_mista",
@@ -1173,7 +4334,57 @@
       "aggregation": "sum_column",
       "value_column": "zemreli_pocet",
       "metric_label": "Roční počet zemřelých podle příčiny a místa úmrtí",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2013,
+          "value": 218320
+        },
+        {
+          "year": 2014,
+          "value": 211330
+        },
+        {
+          "year": 2015,
+          "value": 222346
+        },
+        {
+          "year": 2016,
+          "value": 215500
+        },
+        {
+          "year": 2017,
+          "value": 222886
+        },
+        {
+          "year": 2018,
+          "value": 225840
+        },
+        {
+          "year": 2019,
+          "value": 224724
+        },
+        {
+          "year": 2020,
+          "value": 258578
+        },
+        {
+          "year": 2021,
+          "value": 279782
+        },
+        {
+          "year": 2022,
+          "value": 240438
+        },
+        {
+          "year": 2023,
+          "value": 225590
+        },
+        {
+          "year": 2024,
+          "value": 224422
+        }
+      ]
     },
     {
       "id": "denni_umrti_vek_pohlavi_pricina",
@@ -1199,7 +4410,133 @@
       "aggregation": "sum_column",
       "value_column": "zem_celkem",
       "metric_label": "Roční počet zemřelých v ČR (z denních dat)",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 1994,
+          "value": 117373
+        },
+        {
+          "year": 1995,
+          "value": 117913
+        },
+        {
+          "year": 1996,
+          "value": 112782
+        },
+        {
+          "year": 1997,
+          "value": 112744
+        },
+        {
+          "year": 1998,
+          "value": 109527
+        },
+        {
+          "year": 1999,
+          "value": 109768
+        },
+        {
+          "year": 2000,
+          "value": 109001
+        },
+        {
+          "year": 2001,
+          "value": 107755
+        },
+        {
+          "year": 2002,
+          "value": 108243
+        },
+        {
+          "year": 2003,
+          "value": 111288
+        },
+        {
+          "year": 2004,
+          "value": 107177
+        },
+        {
+          "year": 2005,
+          "value": 107938
+        },
+        {
+          "year": 2006,
+          "value": 104441
+        },
+        {
+          "year": 2007,
+          "value": 104636
+        },
+        {
+          "year": 2008,
+          "value": 104948
+        },
+        {
+          "year": 2009,
+          "value": 107421
+        },
+        {
+          "year": 2010,
+          "value": 106844
+        },
+        {
+          "year": 2011,
+          "value": 106848
+        },
+        {
+          "year": 2012,
+          "value": 108189
+        },
+        {
+          "year": 2013,
+          "value": 109160
+        },
+        {
+          "year": 2014,
+          "value": 105665
+        },
+        {
+          "year": 2015,
+          "value": 111173
+        },
+        {
+          "year": 2016,
+          "value": 107750
+        },
+        {
+          "year": 2017,
+          "value": 111443
+        },
+        {
+          "year": 2018,
+          "value": 112920
+        },
+        {
+          "year": 2019,
+          "value": 112362
+        },
+        {
+          "year": 2020,
+          "value": 129289
+        },
+        {
+          "year": 2021,
+          "value": 139891
+        },
+        {
+          "year": 2022,
+          "value": 120219
+        },
+        {
+          "year": 2023,
+          "value": 112795
+        },
+        {
+          "year": 2024,
+          "value": 112211
+        }
+      ]
     },
     {
       "id": "predcasne_umrti_vek_pohlavi_kraje_casovy_trend",
@@ -1225,7 +4562,133 @@
       "aggregation": "sum_column",
       "value_column": "predcasne_zemreli_pocet",
       "metric_label": "Roční počet předčasných úmrtí",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 1994,
+          "value": 58592
+        },
+        {
+          "year": 1995,
+          "value": 57260
+        },
+        {
+          "year": 1996,
+          "value": 53946
+        },
+        {
+          "year": 1997,
+          "value": 54076
+        },
+        {
+          "year": 1998,
+          "value": 50509
+        },
+        {
+          "year": 1999,
+          "value": 49649
+        },
+        {
+          "year": 2000,
+          "value": 49350
+        },
+        {
+          "year": 2001,
+          "value": 47565
+        },
+        {
+          "year": 2002,
+          "value": 46687
+        },
+        {
+          "year": 2003,
+          "value": 47059
+        },
+        {
+          "year": 2004,
+          "value": 45310
+        },
+        {
+          "year": 2005,
+          "value": 44404
+        },
+        {
+          "year": 2006,
+          "value": 41723
+        },
+        {
+          "year": 2007,
+          "value": 42505
+        },
+        {
+          "year": 2008,
+          "value": 42032
+        },
+        {
+          "year": 2009,
+          "value": 41730
+        },
+        {
+          "year": 2010,
+          "value": 41678
+        },
+        {
+          "year": 2011,
+          "value": 41766
+        },
+        {
+          "year": 2012,
+          "value": 41397
+        },
+        {
+          "year": 2013,
+          "value": 42215
+        },
+        {
+          "year": 2014,
+          "value": 40031
+        },
+        {
+          "year": 2015,
+          "value": 40950
+        },
+        {
+          "year": 2016,
+          "value": 39207
+        },
+        {
+          "year": 2017,
+          "value": 40107
+        },
+        {
+          "year": 2018,
+          "value": 40158
+        },
+        {
+          "year": 2019,
+          "value": 38962
+        },
+        {
+          "year": 2020,
+          "value": 45444
+        },
+        {
+          "year": 2021,
+          "value": 59366
+        },
+        {
+          "year": 2022,
+          "value": 40202
+        },
+        {
+          "year": 2023,
+          "value": 35907
+        },
+        {
+          "year": 2024,
+          "value": 34984
+        }
+      ]
     },
     {
       "id": "ocekavatelne_umrti_vek_pohlavi_kraje_casovy_trend",
@@ -1251,7 +4714,65 @@
       "aggregation": "sum_column",
       "value_column": "ocekavatelne_zemreli_pocet",
       "metric_label": "Roční počet očekávatelných úmrtí",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2011,
+          "value": 129016
+        },
+        {
+          "year": 2012,
+          "value": 130276
+        },
+        {
+          "year": 2013,
+          "value": 135578
+        },
+        {
+          "year": 2014,
+          "value": 131250
+        },
+        {
+          "year": 2015,
+          "value": 137138
+        },
+        {
+          "year": 2016,
+          "value": 134536
+        },
+        {
+          "year": 2017,
+          "value": 138110
+        },
+        {
+          "year": 2018,
+          "value": 139044
+        },
+        {
+          "year": 2019,
+          "value": 138946
+        },
+        {
+          "year": 2020,
+          "value": 142382
+        },
+        {
+          "year": 2021,
+          "value": 135390
+        },
+        {
+          "year": 2022,
+          "value": 137524
+        },
+        {
+          "year": 2023,
+          "value": 134512
+        },
+        {
+          "year": 2024,
+          "value": 133448
+        }
+      ]
     },
     {
       "id": "pacienti_ocekavatelne_umrti_mista_okresy_casovy_trend",
@@ -1277,7 +4798,65 @@
       "aggregation": "sum_column",
       "value_column": "ocekavatelne_zemreli_pocet",
       "metric_label": "Roční počet očekávatelných úmrtí podle místa úmrtí",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2011,
+          "value": 129016
+        },
+        {
+          "year": 2012,
+          "value": 130276
+        },
+        {
+          "year": 2013,
+          "value": 135578
+        },
+        {
+          "year": 2014,
+          "value": 131250
+        },
+        {
+          "year": 2015,
+          "value": 137138
+        },
+        {
+          "year": 2016,
+          "value": 134536
+        },
+        {
+          "year": 2017,
+          "value": 138110
+        },
+        {
+          "year": 2018,
+          "value": 139044
+        },
+        {
+          "year": 2019,
+          "value": 138946
+        },
+        {
+          "year": 2020,
+          "value": 142382
+        },
+        {
+          "year": 2021,
+          "value": 135390
+        },
+        {
+          "year": 2022,
+          "value": 137524
+        },
+        {
+          "year": 2023,
+          "value": 134512
+        },
+        {
+          "year": 2024,
+          "value": 133448
+        }
+      ]
     },
     {
       "id": "pacienti_umrti_priciny_vybrane_chronicke_diagnozy",
@@ -1303,7 +4882,133 @@
       "aggregation": "sum_column",
       "value_column": "zemreli_pocet",
       "metric_label": "Roční počet úmrtí na vybrané chronické příčiny",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 1994,
+          "value": 234746
+        },
+        {
+          "year": 1995,
+          "value": 235826
+        },
+        {
+          "year": 1996,
+          "value": 225564
+        },
+        {
+          "year": 1997,
+          "value": 225488
+        },
+        {
+          "year": 1998,
+          "value": 219054
+        },
+        {
+          "year": 1999,
+          "value": 219536
+        },
+        {
+          "year": 2000,
+          "value": 218002
+        },
+        {
+          "year": 2001,
+          "value": 215510
+        },
+        {
+          "year": 2002,
+          "value": 216486
+        },
+        {
+          "year": 2003,
+          "value": 222576
+        },
+        {
+          "year": 2004,
+          "value": 214354
+        },
+        {
+          "year": 2005,
+          "value": 215876
+        },
+        {
+          "year": 2006,
+          "value": 208882
+        },
+        {
+          "year": 2007,
+          "value": 209272
+        },
+        {
+          "year": 2008,
+          "value": 209896
+        },
+        {
+          "year": 2009,
+          "value": 214842
+        },
+        {
+          "year": 2010,
+          "value": 213688
+        },
+        {
+          "year": 2011,
+          "value": 213696
+        },
+        {
+          "year": 2012,
+          "value": 216378
+        },
+        {
+          "year": 2013,
+          "value": 218320
+        },
+        {
+          "year": 2014,
+          "value": 211330
+        },
+        {
+          "year": 2015,
+          "value": 222346
+        },
+        {
+          "year": 2016,
+          "value": 215500
+        },
+        {
+          "year": 2017,
+          "value": 222886
+        },
+        {
+          "year": 2018,
+          "value": 225840
+        },
+        {
+          "year": 2019,
+          "value": 224724
+        },
+        {
+          "year": 2020,
+          "value": 258578
+        },
+        {
+          "year": 2021,
+          "value": 279782
+        },
+        {
+          "year": 2022,
+          "value": 240438
+        },
+        {
+          "year": 2023,
+          "value": 225590
+        },
+        {
+          "year": 2024,
+          "value": 224422
+        }
+      ]
     },
     {
       "id": "umrti_doma_pocet_odbornost_925_926_poslednich_30_dnu",
@@ -1329,7 +5034,45 @@
       "aggregation": "sum_column",
       "value_column": "zemreli_doma_pocet",
       "metric_label": "Roční počet úmrtí doma",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2016,
+          "value": 22471
+        },
+        {
+          "year": 2017,
+          "value": 24263
+        },
+        {
+          "year": 2018,
+          "value": 25011
+        },
+        {
+          "year": 2019,
+          "value": 25736
+        },
+        {
+          "year": 2020,
+          "value": 30375
+        },
+        {
+          "year": 2021,
+          "value": 32912
+        },
+        {
+          "year": 2022,
+          "value": 29949
+        },
+        {
+          "year": 2023,
+          "value": 28556
+        },
+        {
+          "year": 2024,
+          "value": 28588
+        }
+      ]
     },
     {
       "id": "unikatni_pacienti_vykazana_pece_odbornost_929_drg_markery",
@@ -1355,7 +5098,33 @@
       "aggregation": "sum_column",
       "value_column": "pocet",
       "metric_label": "Roční počet pacientů s vykázanou paliativní péčí",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2019,
+          "value": 2158
+        },
+        {
+          "year": 2020,
+          "value": 8730
+        },
+        {
+          "year": 2021,
+          "value": 8607
+        },
+        {
+          "year": 2022,
+          "value": 14404
+        },
+        {
+          "year": 2023,
+          "value": 22839
+        },
+        {
+          "year": 2024,
+          "value": 31806
+        }
+      ]
     },
     {
       "id": "trajektorie_pacientu_pred_umrtim_regiony",
@@ -1381,7 +5150,65 @@
       "aggregation": "sum_column",
       "value_column": "pocet_ocekavatelne_zemrelych",
       "metric_label": "Roční počet očekávatelně zemřelých v hodnocení trajektorií",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2011,
+          "value": 129016
+        },
+        {
+          "year": 2012,
+          "value": 130276
+        },
+        {
+          "year": 2013,
+          "value": 135578
+        },
+        {
+          "year": 2014,
+          "value": 131250
+        },
+        {
+          "year": 2015,
+          "value": 137138
+        },
+        {
+          "year": 2016,
+          "value": 134536
+        },
+        {
+          "year": 2017,
+          "value": 138110
+        },
+        {
+          "year": 2018,
+          "value": 139044
+        },
+        {
+          "year": 2019,
+          "value": 138946
+        },
+        {
+          "year": 2020,
+          "value": 142382
+        },
+        {
+          "year": 2021,
+          "value": 135390
+        },
+        {
+          "year": 2022,
+          "value": 137524
+        },
+        {
+          "year": 2023,
+          "value": 134512
+        },
+        {
+          "year": 2024,
+          "value": 133448
+        }
+      ]
     },
     {
       "id": "preventivni_prohlidky_pokryti",
@@ -1408,7 +5235,65 @@
       "value_column": "pocet_vysetrenych",
       "metric_label": "Roční počet osob s preventivní prohlídkou",
       "last_seen": "2026-05-25",
-      "csv_encoding": "windows-1250"
+      "csv_encoding": "windows-1250",
+      "series": [
+        {
+          "year": 2011,
+          "value": 5068442
+        },
+        {
+          "year": 2012,
+          "value": 5243606
+        },
+        {
+          "year": 2013,
+          "value": 5396450
+        },
+        {
+          "year": 2014,
+          "value": 5574410
+        },
+        {
+          "year": 2015,
+          "value": 5724581
+        },
+        {
+          "year": 2016,
+          "value": 5869002
+        },
+        {
+          "year": 2017,
+          "value": 5984485
+        },
+        {
+          "year": 2018,
+          "value": 6056952
+        },
+        {
+          "year": 2019,
+          "value": 6162438
+        },
+        {
+          "year": 2020,
+          "value": 5911700
+        },
+        {
+          "year": 2021,
+          "value": 5846938
+        },
+        {
+          "year": 2022,
+          "value": 6239005
+        },
+        {
+          "year": 2023,
+          "value": 6520312
+        },
+        {
+          "year": 2024,
+          "value": 6767424
+        }
+      ]
     },
     {
       "id": "preventivni_prohlidky_pokryti_kapitace",
@@ -1434,7 +5319,65 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetrenych",
       "metric_label": "Roční počet dospělých s preventivní prohlídkou",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2011,
+          "value": 2649594
+        },
+        {
+          "year": 2012,
+          "value": 3141179
+        },
+        {
+          "year": 2013,
+          "value": 3300933
+        },
+        {
+          "year": 2014,
+          "value": 3667495
+        },
+        {
+          "year": 2015,
+          "value": 3795191
+        },
+        {
+          "year": 2016,
+          "value": 3915166
+        },
+        {
+          "year": 2017,
+          "value": 4010733
+        },
+        {
+          "year": 2018,
+          "value": 4057222
+        },
+        {
+          "year": 2019,
+          "value": 4139500
+        },
+        {
+          "year": 2020,
+          "value": 3885356
+        },
+        {
+          "year": 2021,
+          "value": 3825964
+        },
+        {
+          "year": 2022,
+          "value": 4149017
+        },
+        {
+          "year": 2023,
+          "value": 4443681
+        },
+        {
+          "year": 2024,
+          "value": 4714362
+        }
+      ]
     },
     {
       "id": "screening_demence_prakticky_lekar",
@@ -1460,7 +5403,25 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetreni",
       "metric_label": "Roční počet provedených časných záchytů demence",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2021,
+          "value": 171459
+        },
+        {
+          "year": 2022,
+          "value": 212010
+        },
+        {
+          "year": 2023,
+          "value": 270215
+        },
+        {
+          "year": 2024,
+          "value": 328669
+        }
+      ]
     },
     {
       "id": "casny_zachyt_vydut_brisni_aorty_pocet_vysetreni",
@@ -1486,7 +5447,13 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetreni",
       "metric_label": "Roční počet ultrazvukových vyšetření výdutě břišní aorty",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2025,
+          "value": 7239
+        }
+      ]
     },
     {
       "id": "chronicka_dialyzacni_lecba_podil_osob_nefrolog",
@@ -1512,7 +5479,33 @@
       "aggregation": "sum_column",
       "value_column": "pocet_dialyzovanych",
       "metric_label": "Roční počet osob vstupujících do chronické dialýzy",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2019,
+          "value": 1432
+        },
+        {
+          "year": 2020,
+          "value": 1365
+        },
+        {
+          "year": 2021,
+          "value": 1442
+        },
+        {
+          "year": 2022,
+          "value": 1427
+        },
+        {
+          "year": 2023,
+          "value": 1353
+        },
+        {
+          "year": 2024,
+          "value": 1237
+        }
+      ]
     },
     {
       "id": "screening_sluchu_novorozenci",
@@ -1538,7 +5531,45 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetrenych",
       "metric_label": "Roční počet novorozenců vyšetřených na sluch",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2016,
+          "value": 95467
+        },
+        {
+          "year": 2017,
+          "value": 99377
+        },
+        {
+          "year": 2018,
+          "value": 101599
+        },
+        {
+          "year": 2019,
+          "value": 102312
+        },
+        {
+          "year": 2020,
+          "value": 101843
+        },
+        {
+          "year": 2021,
+          "value": 103818
+        },
+        {
+          "year": 2022,
+          "value": 95450
+        },
+        {
+          "year": 2023,
+          "value": 86878
+        },
+        {
+          "year": 2024,
+          "value": 80286
+        }
+      ]
     },
     {
       "id": "sluch_screening_5_let_pokryti_populace",
@@ -1564,7 +5595,29 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetrenych",
       "metric_label": "Roční počet dětí vyšetřených na sluch ve věku 5 let",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2020,
+          "value": 16467
+        },
+        {
+          "year": 2021,
+          "value": 21363
+        },
+        {
+          "year": 2022,
+          "value": 26304
+        },
+        {
+          "year": 2023,
+          "value": 27553
+        },
+        {
+          "year": 2024,
+          "value": 28443
+        }
+      ]
     },
     {
       "id": "ocni_vady_pokryti_cilove_populace",
@@ -1590,7 +5643,21 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetrenych",
       "metric_label": "Roční počet dětí vyšetřených na oční vady",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2022,
+          "value": 32651
+        },
+        {
+          "year": 2023,
+          "value": 36504
+        },
+        {
+          "year": 2024,
+          "value": 45405
+        }
+      ]
     },
     {
       "id": "screening_kycle",
@@ -1616,7 +5683,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet_jeden_screening",
       "metric_label": "Roční počet dětí s vyšetřením kyčlí (alespoň jedním)",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 109496
+        },
+        {
+          "year": 2011,
+          "value": 101075
+        },
+        {
+          "year": 2012,
+          "value": 100485
+        },
+        {
+          "year": 2013,
+          "value": 99100
+        },
+        {
+          "year": 2014,
+          "value": 102368
+        },
+        {
+          "year": 2015,
+          "value": 103567
+        },
+        {
+          "year": 2016,
+          "value": 105484
+        },
+        {
+          "year": 2017,
+          "value": 108345
+        },
+        {
+          "year": 2018,
+          "value": 108133
+        },
+        {
+          "year": 2019,
+          "value": 105689
+        },
+        {
+          "year": 2020,
+          "value": 103304
+        },
+        {
+          "year": 2021,
+          "value": 104507
+        },
+        {
+          "year": 2022,
+          "value": 93619
+        },
+        {
+          "year": 2023,
+          "value": 84284
+        },
+        {
+          "year": 2024,
+          "value": 77876
+        }
+      ]
     },
     {
       "id": "vcasny_zachyt_poruchy_autistickeho_spektra",
@@ -1642,7 +5771,41 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetrenych",
       "metric_label": "Roční počet dětí vyšetřených na poruchy autistického spektra",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2017,
+          "value": 33866
+        },
+        {
+          "year": 2018,
+          "value": 74453
+        },
+        {
+          "year": 2019,
+          "value": 82167
+        },
+        {
+          "year": 2020,
+          "value": 86837
+        },
+        {
+          "year": 2021,
+          "value": 87683
+        },
+        {
+          "year": 2022,
+          "value": 86449
+        },
+        {
+          "year": 2023,
+          "value": 89944
+        },
+        {
+          "year": 2024,
+          "value": 82295
+        }
+      ]
     },
     {
       "id": "cervix_screening_pokryti_populace",
@@ -1668,7 +5831,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetrenych",
       "metric_label": "Roční počet žen se screeningovým vyšetřením děložního hrdla",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 1965854
+        },
+        {
+          "year": 2011,
+          "value": 1998093
+        },
+        {
+          "year": 2012,
+          "value": 2024939
+        },
+        {
+          "year": 2013,
+          "value": 2079997
+        },
+        {
+          "year": 2014,
+          "value": 2072239
+        },
+        {
+          "year": 2015,
+          "value": 2096561
+        },
+        {
+          "year": 2016,
+          "value": 2106772
+        },
+        {
+          "year": 2017,
+          "value": 2106666
+        },
+        {
+          "year": 2018,
+          "value": 2109683
+        },
+        {
+          "year": 2019,
+          "value": 2156488
+        },
+        {
+          "year": 2020,
+          "value": 2005798
+        },
+        {
+          "year": 2021,
+          "value": 2118351
+        },
+        {
+          "year": 2022,
+          "value": 2155473
+        },
+        {
+          "year": 2023,
+          "value": 2230683
+        },
+        {
+          "year": 2024,
+          "value": 2257188
+        }
+      ]
     },
     {
       "id": "cervix_pokryti_trilete",
@@ -1694,7 +5919,61 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetreni",
       "metric_label": "Roční počet žen se screeningem děložního hrdla (tříletý interval)",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2012,
+          "value": 2938958
+        },
+        {
+          "year": 2013,
+          "value": 2980008
+        },
+        {
+          "year": 2014,
+          "value": 3017574
+        },
+        {
+          "year": 2015,
+          "value": 3037272
+        },
+        {
+          "year": 2016,
+          "value": 3040531
+        },
+        {
+          "year": 2017,
+          "value": 3034742
+        },
+        {
+          "year": 2018,
+          "value": 3030036
+        },
+        {
+          "year": 2019,
+          "value": 3033932
+        },
+        {
+          "year": 2020,
+          "value": 3011263
+        },
+        {
+          "year": 2021,
+          "value": 3005028
+        },
+        {
+          "year": 2022,
+          "value": 3013477
+        },
+        {
+          "year": 2023,
+          "value": 3069551
+        },
+        {
+          "year": 2024,
+          "value": 3105582
+        }
+      ]
     },
     {
       "id": "cervix_cytologie_pocet",
@@ -1720,7 +5999,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetreni",
       "metric_label": "Roční počet provedených screeningových cytologií",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 2005672
+        },
+        {
+          "year": 2011,
+          "value": 2039406
+        },
+        {
+          "year": 2012,
+          "value": 2072467
+        },
+        {
+          "year": 2013,
+          "value": 2114173
+        },
+        {
+          "year": 2014,
+          "value": 2102627
+        },
+        {
+          "year": 2015,
+          "value": 2126711
+        },
+        {
+          "year": 2016,
+          "value": 2132928
+        },
+        {
+          "year": 2017,
+          "value": 2131431
+        },
+        {
+          "year": 2018,
+          "value": 2133431
+        },
+        {
+          "year": 2019,
+          "value": 2180577
+        },
+        {
+          "year": 2020,
+          "value": 2031822
+        },
+        {
+          "year": 2021,
+          "value": 2141348
+        },
+        {
+          "year": 2022,
+          "value": 2178729
+        },
+        {
+          "year": 2023,
+          "value": 2254431
+        },
+        {
+          "year": 2024,
+          "value": 2281627
+        }
+      ]
     },
     {
       "id": "cervix_cytologie_podil_abnormalnich",
@@ -1746,7 +6087,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetrenych",
       "metric_label": "Roční počet žen se screeningovou cytologií",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 1363011
+        },
+        {
+          "year": 2011,
+          "value": 1370170
+        },
+        {
+          "year": 2012,
+          "value": 1384026
+        },
+        {
+          "year": 2013,
+          "value": 1414125
+        },
+        {
+          "year": 2014,
+          "value": 1399483
+        },
+        {
+          "year": 2015,
+          "value": 1417640
+        },
+        {
+          "year": 2016,
+          "value": 1422138
+        },
+        {
+          "year": 2017,
+          "value": 1422311
+        },
+        {
+          "year": 2018,
+          "value": 1427707
+        },
+        {
+          "year": 2019,
+          "value": 1457712
+        },
+        {
+          "year": 2020,
+          "value": 1375707
+        },
+        {
+          "year": 2021,
+          "value": 1432608
+        },
+        {
+          "year": 2022,
+          "value": 1452359
+        },
+        {
+          "year": 2023,
+          "value": 1481758
+        },
+        {
+          "year": 2024,
+          "value": 1480877
+        }
+      ]
     },
     {
       "id": "cervix_podil_hpv",
@@ -1772,7 +6175,21 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetrenych_hpv",
       "metric_label": "Roční počet provedených testů na lidský papilomavirus",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2022,
+          "value": 69832
+        },
+        {
+          "year": 2023,
+          "value": 76061
+        },
+        {
+          "year": 2024,
+          "value": 102003
+        }
+      ]
     },
     {
       "id": "cervix_podil_pozitivnich_hpv",
@@ -1798,7 +6215,21 @@
       "aggregation": "sum_column",
       "value_column": "pocet_pozitivnich_hpv",
       "metric_label": "Roční počet pozitivních testů na lidský papilomavirus",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2022,
+          "value": 5015
+        },
+        {
+          "year": 2023,
+          "value": 5563
+        },
+        {
+          "year": 2024,
+          "value": 7131
+        }
+      ]
     },
     {
       "id": "mamografie_screening_pokryti_populace",
@@ -1824,7 +6255,65 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetrenych",
       "metric_label": "Roční počet žen se screeningovou mamografií",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2011,
+          "value": 1037805
+        },
+        {
+          "year": 2012,
+          "value": 1100787
+        },
+        {
+          "year": 2013,
+          "value": 1187595
+        },
+        {
+          "year": 2014,
+          "value": 1265419
+        },
+        {
+          "year": 2015,
+          "value": 1293519
+        },
+        {
+          "year": 2016,
+          "value": 1302127
+        },
+        {
+          "year": 2017,
+          "value": 1330206
+        },
+        {
+          "year": 2018,
+          "value": 1343490
+        },
+        {
+          "year": 2019,
+          "value": 1372702
+        },
+        {
+          "year": 2020,
+          "value": 1350950
+        },
+        {
+          "year": 2021,
+          "value": 1370168
+        },
+        {
+          "year": 2022,
+          "value": 1448238
+        },
+        {
+          "year": 2023,
+          "value": 1491558
+        },
+        {
+          "year": 2024,
+          "value": 1543961
+        }
+      ]
     },
     {
       "id": "mamografie_pokryti_uplne_trilete",
@@ -1850,7 +6339,61 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetreni",
       "metric_label": "Roční počet žen s úplným mamografickým screeningem (tříletý interval)",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2012,
+          "value": 1438237
+        },
+        {
+          "year": 2013,
+          "value": 1484152
+        },
+        {
+          "year": 2014,
+          "value": 1554335
+        },
+        {
+          "year": 2015,
+          "value": 1594600
+        },
+        {
+          "year": 2016,
+          "value": 1617714
+        },
+        {
+          "year": 2017,
+          "value": 1633201
+        },
+        {
+          "year": 2018,
+          "value": 1656679
+        },
+        {
+          "year": 2019,
+          "value": 1686254
+        },
+        {
+          "year": 2020,
+          "value": 1691014
+        },
+        {
+          "year": 2021,
+          "value": 1699365
+        },
+        {
+          "year": 2022,
+          "value": 1733246
+        },
+        {
+          "year": 2023,
+          "value": 1795366
+        },
+        {
+          "year": 2024,
+          "value": 1845365
+        }
+      ]
     },
     {
       "id": "mamografie_screeningova_vysetreni_pocet",
@@ -1876,7 +6419,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetreni",
       "metric_label": "Roční počet provedených screeningových mamografií",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 512584
+        },
+        {
+          "year": 2011,
+          "value": 529235
+        },
+        {
+          "year": 2012,
+          "value": 575730
+        },
+        {
+          "year": 2013,
+          "value": 616476
+        },
+        {
+          "year": 2014,
+          "value": 654065
+        },
+        {
+          "year": 2015,
+          "value": 645395
+        },
+        {
+          "year": 2016,
+          "value": 662452
+        },
+        {
+          "year": 2017,
+          "value": 673805
+        },
+        {
+          "year": 2018,
+          "value": 675920
+        },
+        {
+          "year": 2019,
+          "value": 703212
+        },
+        {
+          "year": 2020,
+          "value": 655553
+        },
+        {
+          "year": 2021,
+          "value": 726575
+        },
+        {
+          "year": 2022,
+          "value": 734486
+        },
+        {
+          "year": 2023,
+          "value": 770402
+        },
+        {
+          "year": 2024,
+          "value": 786942
+        }
+      ]
     },
     {
       "id": "mamografie_diagnosticke",
@@ -1902,7 +6507,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetreni",
       "metric_label": "Roční počet diagnostických mamografií",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 134099
+        },
+        {
+          "year": 2011,
+          "value": 102347
+        },
+        {
+          "year": 2012,
+          "value": 87544
+        },
+        {
+          "year": 2013,
+          "value": 80456
+        },
+        {
+          "year": 2014,
+          "value": 78767
+        },
+        {
+          "year": 2015,
+          "value": 76100
+        },
+        {
+          "year": 2016,
+          "value": 80009
+        },
+        {
+          "year": 2017,
+          "value": 79805
+        },
+        {
+          "year": 2018,
+          "value": 79296
+        },
+        {
+          "year": 2019,
+          "value": 78578
+        },
+        {
+          "year": 2020,
+          "value": 66687
+        },
+        {
+          "year": 2021,
+          "value": 67301
+        },
+        {
+          "year": 2022,
+          "value": 67861
+        },
+        {
+          "year": 2023,
+          "value": 70412
+        },
+        {
+          "year": 2024,
+          "value": 72597
+        }
+      ]
     },
     {
       "id": "mamografie_doplnujici_vysetreni",
@@ -1928,7 +6595,61 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetreni_doplnujici",
       "metric_label": "Roční počet doplňujících vyšetření po screeningové mamografii",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2012,
+          "value": 66647
+        },
+        {
+          "year": 2013,
+          "value": 60947
+        },
+        {
+          "year": 2014,
+          "value": 56042
+        },
+        {
+          "year": 2015,
+          "value": 52665
+        },
+        {
+          "year": 2016,
+          "value": 53420
+        },
+        {
+          "year": 2017,
+          "value": 52937
+        },
+        {
+          "year": 2018,
+          "value": 50253
+        },
+        {
+          "year": 2019,
+          "value": 50779
+        },
+        {
+          "year": 2020,
+          "value": 48672
+        },
+        {
+          "year": 2021,
+          "value": 55268
+        },
+        {
+          "year": 2022,
+          "value": 52323
+        },
+        {
+          "year": 2023,
+          "value": 53433
+        },
+        {
+          "year": 2024,
+          "value": 52059
+        }
+      ]
     },
     {
       "id": "mamografie_ultrazvukova_vysetreni_podil",
@@ -1954,7 +6675,49 @@
       "aggregation": "sum_column",
       "value_column": "pocet_uz",
       "metric_label": "Roční počet doplňujících ultrazvukových vyšetření prsu",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2012,
+          "value": 56278
+        },
+        {
+          "year": 2013,
+          "value": 53056
+        },
+        {
+          "year": 2014,
+          "value": 47848
+        },
+        {
+          "year": 2015,
+          "value": 43949
+        },
+        {
+          "year": 2016,
+          "value": 43791
+        },
+        {
+          "year": 2017,
+          "value": 43550
+        },
+        {
+          "year": 2018,
+          "value": 40050
+        },
+        {
+          "year": 2019,
+          "value": 40105
+        },
+        {
+          "year": 2020,
+          "value": 35920
+        },
+        {
+          "year": 2021,
+          "value": 39698
+        }
+      ]
     },
     {
       "id": "kolorektum_screening_pokryti_populace",
@@ -1980,7 +6743,65 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetrenych",
       "metric_label": "Roční počet osob se screeningem tlustého střeva",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2011,
+          "value": 938088
+        },
+        {
+          "year": 2012,
+          "value": 976918
+        },
+        {
+          "year": 2013,
+          "value": 1027154
+        },
+        {
+          "year": 2014,
+          "value": 1218852
+        },
+        {
+          "year": 2015,
+          "value": 1296194
+        },
+        {
+          "year": 2016,
+          "value": 1236014
+        },
+        {
+          "year": 2017,
+          "value": 1223667
+        },
+        {
+          "year": 2018,
+          "value": 1230556
+        },
+        {
+          "year": 2019,
+          "value": 1238472
+        },
+        {
+          "year": 2020,
+          "value": 1126546
+        },
+        {
+          "year": 2021,
+          "value": 1115415
+        },
+        {
+          "year": 2022,
+          "value": 1211650
+        },
+        {
+          "year": 2023,
+          "value": 1297864
+        },
+        {
+          "year": 2024,
+          "value": 1370340
+        }
+      ]
     },
     {
       "id": "kolorektum_screening_pokryti_populace_trilete",
@@ -2006,7 +6827,61 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetreni",
       "metric_label": "Roční počet osob se screeningem tlustého střeva (tříletý interval)",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2012,
+          "value": 1332188
+        },
+        {
+          "year": 2013,
+          "value": 1383361
+        },
+        {
+          "year": 2014,
+          "value": 1583892
+        },
+        {
+          "year": 2015,
+          "value": 1699935
+        },
+        {
+          "year": 2016,
+          "value": 1761158
+        },
+        {
+          "year": 2017,
+          "value": 1696402
+        },
+        {
+          "year": 2018,
+          "value": 1693760
+        },
+        {
+          "year": 2019,
+          "value": 1693952
+        },
+        {
+          "year": 2020,
+          "value": 1622813
+        },
+        {
+          "year": 2021,
+          "value": 1581981
+        },
+        {
+          "year": 2022,
+          "value": 1602339
+        },
+        {
+          "year": 2023,
+          "value": 1729540
+        },
+        {
+          "year": 2024,
+          "value": 1827407
+        }
+      ]
     },
     {
       "id": "kolorektum_pokryti_uplne_trilete",
@@ -2032,7 +6907,61 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetreni",
       "metric_label": "Roční počet osob s úplným kolorektálním screeningem (tříletý interval)",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2012,
+          "value": 1647814
+        },
+        {
+          "year": 2013,
+          "value": 1701646
+        },
+        {
+          "year": 2014,
+          "value": 1926339
+        },
+        {
+          "year": 2015,
+          "value": 2058123
+        },
+        {
+          "year": 2016,
+          "value": 2125992
+        },
+        {
+          "year": 2017,
+          "value": 2060744
+        },
+        {
+          "year": 2018,
+          "value": 2057625
+        },
+        {
+          "year": 2019,
+          "value": 2057292
+        },
+        {
+          "year": 2020,
+          "value": 1983735
+        },
+        {
+          "year": 2021,
+          "value": 1949514
+        },
+        {
+          "year": 2022,
+          "value": 1982742
+        },
+        {
+          "year": 2023,
+          "value": 2126687
+        },
+        {
+          "year": 2024,
+          "value": 2234464
+        }
+      ]
     },
     {
       "id": "kolorektum_toks_pocet",
@@ -2058,7 +6987,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetreni",
       "metric_label": "Roční počet provedených testů okultního krvácení do stolice",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 512471
+        },
+        {
+          "year": 2011,
+          "value": 518070
+        },
+        {
+          "year": 2012,
+          "value": 545697
+        },
+        {
+          "year": 2013,
+          "value": 566957
+        },
+        {
+          "year": 2014,
+          "value": 736692
+        },
+        {
+          "year": 2015,
+          "value": 663944
+        },
+        {
+          "year": 2016,
+          "value": 658289
+        },
+        {
+          "year": 2017,
+          "value": 639254
+        },
+        {
+          "year": 2018,
+          "value": 650585
+        },
+        {
+          "year": 2019,
+          "value": 640309
+        },
+        {
+          "year": 2020,
+          "value": 530835
+        },
+        {
+          "year": 2021,
+          "value": 605540
+        },
+        {
+          "year": 2022,
+          "value": 629536
+        },
+        {
+          "year": 2023,
+          "value": 688999
+        },
+        {
+          "year": 2024,
+          "value": 702557
+        }
+      ]
     },
     {
       "id": "kolorektum_toks_podil_pozitivnich",
@@ -2084,7 +7075,65 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetrenych",
       "metric_label": "Roční počet provedených testů okultního krvácení do stolice",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2011,
+          "value": 510733
+        },
+        {
+          "year": 2012,
+          "value": 538018
+        },
+        {
+          "year": 2013,
+          "value": 558976
+        },
+        {
+          "year": 2014,
+          "value": 726656
+        },
+        {
+          "year": 2015,
+          "value": 653735
+        },
+        {
+          "year": 2016,
+          "value": 648124
+        },
+        {
+          "year": 2017,
+          "value": 628297
+        },
+        {
+          "year": 2018,
+          "value": 638382
+        },
+        {
+          "year": 2019,
+          "value": 621025
+        },
+        {
+          "year": 2020,
+          "value": 516251
+        },
+        {
+          "year": 2021,
+          "value": 590741
+        },
+        {
+          "year": 2022,
+          "value": 613800
+        },
+        {
+          "year": 2023,
+          "value": 671148
+        },
+        {
+          "year": 2024,
+          "value": 684348
+        }
+      ]
     },
     {
       "id": "kolorektum_screeningove_kolonoskopie_pocet",
@@ -2110,7 +7159,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetreni",
       "metric_label": "Roční počet provedených screeningových kolonoskopií",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 3842
+        },
+        {
+          "year": 2011,
+          "value": 4218
+        },
+        {
+          "year": 2012,
+          "value": 4198
+        },
+        {
+          "year": 2013,
+          "value": 4907
+        },
+        {
+          "year": 2014,
+          "value": 9123
+        },
+        {
+          "year": 2015,
+          "value": 12899
+        },
+        {
+          "year": 2016,
+          "value": 12300
+        },
+        {
+          "year": 2017,
+          "value": 11506
+        },
+        {
+          "year": 2018,
+          "value": 12056
+        },
+        {
+          "year": 2019,
+          "value": 12474
+        },
+        {
+          "year": 2020,
+          "value": 10982
+        },
+        {
+          "year": 2021,
+          "value": 13347
+        },
+        {
+          "year": 2022,
+          "value": 17107
+        },
+        {
+          "year": 2023,
+          "value": 20266
+        },
+        {
+          "year": 2024,
+          "value": 26674
+        }
+      ]
     },
     {
       "id": "kolorektum_toks_kolonoskopie",
@@ -2137,7 +7248,69 @@
       "value_column": null,
       "metric_label": "Roční počet pozitivních testů s navazující kolonoskopií",
       "last_seen": "2026-05-25",
-      "csv_format": "gzip"
+      "csv_format": "gzip",
+      "series": [
+        {
+          "year": 2010,
+          "value": 54373
+        },
+        {
+          "year": 2011,
+          "value": 60201
+        },
+        {
+          "year": 2012,
+          "value": 65646
+        },
+        {
+          "year": 2013,
+          "value": 73439
+        },
+        {
+          "year": 2014,
+          "value": 92003
+        },
+        {
+          "year": 2015,
+          "value": 82449
+        },
+        {
+          "year": 2016,
+          "value": 79866
+        },
+        {
+          "year": 2017,
+          "value": 66280
+        },
+        {
+          "year": 2018,
+          "value": 70371
+        },
+        {
+          "year": 2019,
+          "value": 73395
+        },
+        {
+          "year": 2020,
+          "value": 88151
+        },
+        {
+          "year": 2021,
+          "value": 100964
+        },
+        {
+          "year": 2022,
+          "value": 105865
+        },
+        {
+          "year": 2023,
+          "value": 102937
+        },
+        {
+          "year": 2024,
+          "value": 99776
+        }
+      ]
     },
     {
       "id": "prostata_podil_vysetrenych_psa",
@@ -2163,7 +7336,65 @@
       "aggregation": "sum_column",
       "value_column": "pocet_vysetrenych",
       "metric_label": "Roční počet vyšetření prostatického specifického antigenu",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2011,
+          "value": 770379
+        },
+        {
+          "year": 2012,
+          "value": 784224
+        },
+        {
+          "year": 2013,
+          "value": 802988
+        },
+        {
+          "year": 2014,
+          "value": 851024
+        },
+        {
+          "year": 2015,
+          "value": 911437
+        },
+        {
+          "year": 2016,
+          "value": 959058
+        },
+        {
+          "year": 2017,
+          "value": 983482
+        },
+        {
+          "year": 2018,
+          "value": 998897
+        },
+        {
+          "year": 2019,
+          "value": 1037905
+        },
+        {
+          "year": 2020,
+          "value": 1019439
+        },
+        {
+          "year": 2021,
+          "value": 1036588
+        },
+        {
+          "year": 2022,
+          "value": 1125042
+        },
+        {
+          "year": 2023,
+          "value": 1181907
+        },
+        {
+          "year": 2024,
+          "value": 1289407
+        }
+      ]
     },
     {
       "id": "prostata_podil_pozitivnich_psa",
@@ -2189,7 +7420,13 @@
       "aggregation": "sum_column",
       "value_column": "pocet_pozitivnich",
       "metric_label": "Roční počet mužů se zvýšenou hodnotou prostatického specifického antigenu",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2024,
+          "value": 12874
+        }
+      ]
     },
     {
       "id": "prostata_pocet_oslovenych",
@@ -2215,7 +7452,13 @@
       "aggregation": "sum_column",
       "value_column": "pocet_oslovenych",
       "metric_label": "Roční počet mužů oslovených do programu záchytu rakoviny prostaty",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2024,
+          "value": 150498
+        }
+      ]
     },
     {
       "id": "oslovene_osoby_casny_zachyt_karcinom_plic",
@@ -2241,7 +7484,21 @@
       "aggregation": "sum_column",
       "value_column": "pocet_osob",
       "metric_label": "Roční počet osob oslovených do programu záchytu rakoviny plic",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2022,
+          "value": 10042
+        },
+        {
+          "year": 2023,
+          "value": 15880
+        },
+        {
+          "year": 2024,
+          "value": 18515
+        }
+      ]
     },
     {
       "id": "rodicky_zpusob_porodu",
@@ -2267,7 +7524,101 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční počet porodů",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2000,
+          "value": 89562
+        },
+        {
+          "year": 2001,
+          "value": 89303
+        },
+        {
+          "year": 2002,
+          "value": 91534
+        },
+        {
+          "year": 2003,
+          "value": 92387
+        },
+        {
+          "year": 2004,
+          "value": 96098
+        },
+        {
+          "year": 2005,
+          "value": 100519
+        },
+        {
+          "year": 2006,
+          "value": 104129
+        },
+        {
+          "year": 2007,
+          "value": 111987
+        },
+        {
+          "year": 2008,
+          "value": 117317
+        },
+        {
+          "year": 2009,
+          "value": 115984
+        },
+        {
+          "year": 2010,
+          "value": 114406
+        },
+        {
+          "year": 2011,
+          "value": 106392
+        },
+        {
+          "year": 2012,
+          "value": 105790
+        },
+        {
+          "year": 2013,
+          "value": 103902
+        },
+        {
+          "year": 2014,
+          "value": 106971
+        },
+        {
+          "year": 2015,
+          "value": 107618
+        },
+        {
+          "year": 2016,
+          "value": 109520
+        },
+        {
+          "year": 2017,
+          "value": 111643
+        },
+        {
+          "year": 2018,
+          "value": 111763
+        },
+        {
+          "year": 2019,
+          "value": 109728
+        },
+        {
+          "year": 2020,
+          "value": 107200
+        },
+        {
+          "year": 2021,
+          "value": 108371
+        },
+        {
+          "year": 2022,
+          "value": 99381
+        }
+      ]
     },
     {
       "id": "novorozenci_zpusob_porodu",
@@ -2293,7 +7644,101 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční počet narozených dětí",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2000,
+          "value": 90940
+        },
+        {
+          "year": 2001,
+          "value": 90832
+        },
+        {
+          "year": 2002,
+          "value": 93044
+        },
+        {
+          "year": 2003,
+          "value": 93993
+        },
+        {
+          "year": 2004,
+          "value": 97921
+        },
+        {
+          "year": 2005,
+          "value": 102421
+        },
+        {
+          "year": 2006,
+          "value": 106184
+        },
+        {
+          "year": 2007,
+          "value": 114052
+        },
+        {
+          "year": 2008,
+          "value": 119585
+        },
+        {
+          "year": 2009,
+          "value": 118227
+        },
+        {
+          "year": 2010,
+          "value": 116617
+        },
+        {
+          "year": 2011,
+          "value": 108156
+        },
+        {
+          "year": 2012,
+          "value": 107430
+        },
+        {
+          "year": 2013,
+          "value": 105486
+        },
+        {
+          "year": 2014,
+          "value": 108536
+        },
+        {
+          "year": 2015,
+          "value": 109082
+        },
+        {
+          "year": 2016,
+          "value": 111309
+        },
+        {
+          "year": 2017,
+          "value": 113221
+        },
+        {
+          "year": 2018,
+          "value": 113253
+        },
+        {
+          "year": 2019,
+          "value": 111044
+        },
+        {
+          "year": 2020,
+          "value": 108907
+        },
+        {
+          "year": 2021,
+          "value": 110360
+        },
+        {
+          "year": 2022,
+          "value": 100458
+        }
+      ]
     },
     {
       "id": "potraty_sociodemograficke_charakteristiky",
@@ -2320,7 +7765,133 @@
       "value_column": null,
       "metric_label": "Roční počet potratů",
       "last_seen": "2026-05-25",
-      "csv_format": "gzip"
+      "csv_format": "gzip",
+      "series": [
+        {
+          "year": 1994,
+          "value": 67434
+        },
+        {
+          "year": 1995,
+          "value": 61590
+        },
+        {
+          "year": 1996,
+          "value": 59962
+        },
+        {
+          "year": 1997,
+          "value": 56973
+        },
+        {
+          "year": 1998,
+          "value": 55654
+        },
+        {
+          "year": 1999,
+          "value": 52102
+        },
+        {
+          "year": 2000,
+          "value": 47370
+        },
+        {
+          "year": 2001,
+          "value": 45057
+        },
+        {
+          "year": 2002,
+          "value": 43743
+        },
+        {
+          "year": 2003,
+          "value": 42304
+        },
+        {
+          "year": 2004,
+          "value": 41321
+        },
+        {
+          "year": 2005,
+          "value": 40022
+        },
+        {
+          "year": 2006,
+          "value": 39959
+        },
+        {
+          "year": 2007,
+          "value": 40917
+        },
+        {
+          "year": 2008,
+          "value": 41446
+        },
+        {
+          "year": 2009,
+          "value": 40528
+        },
+        {
+          "year": 2010,
+          "value": 39273
+        },
+        {
+          "year": 2011,
+          "value": 38864
+        },
+        {
+          "year": 2012,
+          "value": 37734
+        },
+        {
+          "year": 2013,
+          "value": 37687
+        },
+        {
+          "year": 2014,
+          "value": 36985
+        },
+        {
+          "year": 2015,
+          "value": 35761
+        },
+        {
+          "year": 2016,
+          "value": 36247
+        },
+        {
+          "year": 2017,
+          "value": 35124
+        },
+        {
+          "year": 2018,
+          "value": 33011
+        },
+        {
+          "year": 2019,
+          "value": 31843
+        },
+        {
+          "year": 2020,
+          "value": 30432
+        },
+        {
+          "year": 2021,
+          "value": 27997
+        },
+        {
+          "year": 2022,
+          "value": 27760
+        },
+        {
+          "year": 2023,
+          "value": 25134
+        },
+        {
+          "year": 2024,
+          "value": 24349
+        }
+      ]
     },
     {
       "id": "rodicky_cisarske_rezy",
@@ -2346,7 +7917,101 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční počet porodů císařským řezem",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2000,
+          "value": 11720
+        },
+        {
+          "year": 2001,
+          "value": 12017
+        },
+        {
+          "year": 2002,
+          "value": 13052
+        },
+        {
+          "year": 2003,
+          "value": 14324
+        },
+        {
+          "year": 2004,
+          "value": 15634
+        },
+        {
+          "year": 2005,
+          "value": 17512
+        },
+        {
+          "year": 2006,
+          "value": 19439
+        },
+        {
+          "year": 2007,
+          "value": 22428
+        },
+        {
+          "year": 2008,
+          "value": 24486
+        },
+        {
+          "year": 2009,
+          "value": 25114
+        },
+        {
+          "year": 2010,
+          "value": 26340
+        },
+        {
+          "year": 2011,
+          "value": 25291
+        },
+        {
+          "year": 2012,
+          "value": 26477
+        },
+        {
+          "year": 2013,
+          "value": 26551
+        },
+        {
+          "year": 2014,
+          "value": 27945
+        },
+        {
+          "year": 2015,
+          "value": 28089
+        },
+        {
+          "year": 2016,
+          "value": 26754
+        },
+        {
+          "year": 2017,
+          "value": 26982
+        },
+        {
+          "year": 2018,
+          "value": 26348
+        },
+        {
+          "year": 2019,
+          "value": 26161
+        },
+        {
+          "year": 2020,
+          "value": 26281
+        },
+        {
+          "year": 2021,
+          "value": 27720
+        },
+        {
+          "year": 2022,
+          "value": 25504
+        }
+      ]
     },
     {
       "id": "asistovana_reprodukce_prubeh_efektivita",
@@ -2372,7 +8037,41 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční počet cyklů asistované reprodukce",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2016,
+          "value": 41428
+        },
+        {
+          "year": 2017,
+          "value": 43391
+        },
+        {
+          "year": 2018,
+          "value": 44635
+        },
+        {
+          "year": 2019,
+          "value": 46144
+        },
+        {
+          "year": 2020,
+          "value": 40280
+        },
+        {
+          "year": 2021,
+          "value": 46829
+        },
+        {
+          "year": 2022,
+          "value": 52938
+        },
+        {
+          "year": 2023,
+          "value": 54347
+        }
+      ]
     },
     {
       "id": "vrozene_vady_cesko",
@@ -2398,7 +8097,41 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční počet narozených dětí s vrozenou vadou",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2016,
+          "value": 4093
+        },
+        {
+          "year": 2017,
+          "value": 4296
+        },
+        {
+          "year": 2018,
+          "value": 4378
+        },
+        {
+          "year": 2019,
+          "value": 4261
+        },
+        {
+          "year": 2020,
+          "value": 4343
+        },
+        {
+          "year": 2021,
+          "value": 4326
+        },
+        {
+          "year": 2022,
+          "value": 3791
+        },
+        {
+          "year": 2023,
+          "value": 3436
+        }
+      ]
     },
     {
       "id": "rodicky_porod_leky",
@@ -2427,7 +8160,37 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční počet porodů s epidurální analgezií",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2016,
+          "value": 10863
+        },
+        {
+          "year": 2017,
+          "value": 12524
+        },
+        {
+          "year": 2018,
+          "value": 13174
+        },
+        {
+          "year": 2019,
+          "value": 13517
+        },
+        {
+          "year": 2020,
+          "value": 13721
+        },
+        {
+          "year": 2021,
+          "value": 14119
+        },
+        {
+          "year": 2022,
+          "value": 13901
+        }
+      ]
     },
     {
       "id": "rodicky_diabetes",
@@ -2456,7 +8219,101 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční počet rodiček s diabetem",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2000,
+          "value": 1505
+        },
+        {
+          "year": 2001,
+          "value": 1856
+        },
+        {
+          "year": 2002,
+          "value": 1658
+        },
+        {
+          "year": 2003,
+          "value": 1755
+        },
+        {
+          "year": 2004,
+          "value": 1643
+        },
+        {
+          "year": 2005,
+          "value": 2185
+        },
+        {
+          "year": 2006,
+          "value": 2893
+        },
+        {
+          "year": 2007,
+          "value": 3455
+        },
+        {
+          "year": 2008,
+          "value": 3494
+        },
+        {
+          "year": 2009,
+          "value": 3743
+        },
+        {
+          "year": 2010,
+          "value": 4349
+        },
+        {
+          "year": 2011,
+          "value": 4216
+        },
+        {
+          "year": 2012,
+          "value": 4256
+        },
+        {
+          "year": 2013,
+          "value": 4337
+        },
+        {
+          "year": 2014,
+          "value": 4615
+        },
+        {
+          "year": 2015,
+          "value": 4874
+        },
+        {
+          "year": 2016,
+          "value": 6815
+        },
+        {
+          "year": 2017,
+          "value": 7834
+        },
+        {
+          "year": 2018,
+          "value": 8827
+        },
+        {
+          "year": 2019,
+          "value": 9746
+        },
+        {
+          "year": 2020,
+          "value": 11091
+        },
+        {
+          "year": 2021,
+          "value": 12328
+        },
+        {
+          "year": 2022,
+          "value": 11253
+        }
+      ]
     },
     {
       "id": "rodicky_komplikace_tehotenstvi",
@@ -2485,7 +8342,101 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční počet rodiček s preeklampsií",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2000,
+          "value": 1056
+        },
+        {
+          "year": 2001,
+          "value": 929
+        },
+        {
+          "year": 2002,
+          "value": 928
+        },
+        {
+          "year": 2003,
+          "value": 906
+        },
+        {
+          "year": 2004,
+          "value": 930
+        },
+        {
+          "year": 2005,
+          "value": 836
+        },
+        {
+          "year": 2006,
+          "value": 850
+        },
+        {
+          "year": 2007,
+          "value": 964
+        },
+        {
+          "year": 2008,
+          "value": 906
+        },
+        {
+          "year": 2009,
+          "value": 965
+        },
+        {
+          "year": 2010,
+          "value": 975
+        },
+        {
+          "year": 2011,
+          "value": 853
+        },
+        {
+          "year": 2012,
+          "value": 826
+        },
+        {
+          "year": 2013,
+          "value": 824
+        },
+        {
+          "year": 2014,
+          "value": 856
+        },
+        {
+          "year": 2015,
+          "value": 792
+        },
+        {
+          "year": 2016,
+          "value": 1031
+        },
+        {
+          "year": 2017,
+          "value": 956
+        },
+        {
+          "year": 2018,
+          "value": 972
+        },
+        {
+          "year": 2019,
+          "value": 971
+        },
+        {
+          "year": 2020,
+          "value": 879
+        },
+        {
+          "year": 2021,
+          "value": 932
+        },
+        {
+          "year": 2022,
+          "value": 934
+        }
+      ]
     },
     {
       "id": "rodicky_komplikace_porod",
@@ -2514,7 +8465,101 @@
       "aggregation": "count_rows",
       "value_column": null,
       "metric_label": "Roční počet porodů s epiziotomií",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2000,
+          "value": 49232
+        },
+        {
+          "year": 2001,
+          "value": 50532
+        },
+        {
+          "year": 2002,
+          "value": 48225
+        },
+        {
+          "year": 2003,
+          "value": 47229
+        },
+        {
+          "year": 2004,
+          "value": 47486
+        },
+        {
+          "year": 2005,
+          "value": 45839
+        },
+        {
+          "year": 2006,
+          "value": 42562
+        },
+        {
+          "year": 2007,
+          "value": 41705
+        },
+        {
+          "year": 2008,
+          "value": 43916
+        },
+        {
+          "year": 2009,
+          "value": 42922
+        },
+        {
+          "year": 2010,
+          "value": 40764
+        },
+        {
+          "year": 2011,
+          "value": 37110
+        },
+        {
+          "year": 2012,
+          "value": 35834
+        },
+        {
+          "year": 2013,
+          "value": 32817
+        },
+        {
+          "year": 2014,
+          "value": 31598
+        },
+        {
+          "year": 2015,
+          "value": 29390
+        },
+        {
+          "year": 2016,
+          "value": 31002
+        },
+        {
+          "year": 2017,
+          "value": 30812
+        },
+        {
+          "year": 2018,
+          "value": 29193
+        },
+        {
+          "year": 2019,
+          "value": 27627
+        },
+        {
+          "year": 2020,
+          "value": 26356
+        },
+        {
+          "year": 2021,
+          "value": 24799
+        },
+        {
+          "year": 2022,
+          "value": 20690
+        }
+      ]
     },
     {
       "id": "hospitalizacni_pripady_akutni_pece",
@@ -2539,7 +8584,65 @@
       "aggregation": "sum_column",
       "value_column": "pocet_hosp",
       "metric_label": "Roční počet případů akutní lůžkové péče",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 1999861
+        },
+        {
+          "year": 2011,
+          "value": 1973041
+        },
+        {
+          "year": 2012,
+          "value": 2018633
+        },
+        {
+          "year": 2013,
+          "value": 1994234
+        },
+        {
+          "year": 2014,
+          "value": 2024810
+        },
+        {
+          "year": 2015,
+          "value": 1992889
+        },
+        {
+          "year": 2016,
+          "value": 1980183
+        },
+        {
+          "year": 2017,
+          "value": 1952513
+        },
+        {
+          "year": 2018,
+          "value": 1933477
+        },
+        {
+          "year": 2019,
+          "value": 1922503
+        },
+        {
+          "year": 2020,
+          "value": 1650133
+        },
+        {
+          "year": 2021,
+          "value": 1659211
+        },
+        {
+          "year": 2022,
+          "value": 1802359
+        },
+        {
+          "year": 2023,
+          "value": 1803780
+        }
+      ]
     },
     {
       "id": "hospitalizacni_pripady_nasledna_dlouhodoba_pece",
@@ -2564,7 +8667,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet_hosp",
       "metric_label": "Roční počet případů následné a dlouhodobé péče",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 173030
+        },
+        {
+          "year": 2011,
+          "value": 179123
+        },
+        {
+          "year": 2012,
+          "value": 175620
+        },
+        {
+          "year": 2013,
+          "value": 172136
+        },
+        {
+          "year": 2014,
+          "value": 180499
+        },
+        {
+          "year": 2015,
+          "value": 181197
+        },
+        {
+          "year": 2016,
+          "value": 181568
+        },
+        {
+          "year": 2017,
+          "value": 182201
+        },
+        {
+          "year": 2018,
+          "value": 182381
+        },
+        {
+          "year": 2019,
+          "value": 181886
+        },
+        {
+          "year": 2020,
+          "value": 161789
+        },
+        {
+          "year": 2021,
+          "value": 168159
+        },
+        {
+          "year": 2022,
+          "value": 171022
+        },
+        {
+          "year": 2023,
+          "value": 176221
+        },
+        {
+          "year": 2024,
+          "value": 177386
+        }
+      ]
     },
     {
       "id": "lazenska_pece_lecebne_vykony",
@@ -2589,7 +8754,49 @@
       "aggregation": "sum_column",
       "value_column": "mnozstvi",
       "metric_label": "Roční počet léčebných výkonů v lázeňské péči",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2015,
+          "value": 15344035
+        },
+        {
+          "year": 2016,
+          "value": 16066080
+        },
+        {
+          "year": 2017,
+          "value": 16952448
+        },
+        {
+          "year": 2018,
+          "value": 16044310
+        },
+        {
+          "year": 2019,
+          "value": 15215510
+        },
+        {
+          "year": 2020,
+          "value": 9819397
+        },
+        {
+          "year": 2021,
+          "value": 9712203
+        },
+        {
+          "year": 2022,
+          "value": 12325622
+        },
+        {
+          "year": 2023,
+          "value": 12261127
+        },
+        {
+          "year": 2024,
+          "value": 13137461
+        }
+      ]
     },
     {
       "id": "totalni_endoprotezy_pocet",
@@ -2614,7 +8821,33 @@
       "aggregation": "sum_column",
       "value_column": "pocet_operaci",
       "metric_label": "Roční počet operací totálních endoprotéz",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2019,
+          "value": 29374
+        },
+        {
+          "year": 2020,
+          "value": 29596
+        },
+        {
+          "year": 2021,
+          "value": 29973
+        },
+        {
+          "year": 2022,
+          "value": 44785
+        },
+        {
+          "year": 2023,
+          "value": 49345
+        },
+        {
+          "year": 2024,
+          "value": 52040
+        }
+      ]
     },
     {
       "id": "zdravotnicka_technika_zarizeni",
@@ -2639,7 +8872,41 @@
       "aggregation": "sum_column",
       "value_column": "pocet_pristroju",
       "metric_label": "Roční počet přístrojů zdravotnické techniky",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2017,
+          "value": 38152
+        },
+        {
+          "year": 2018,
+          "value": 39051
+        },
+        {
+          "year": 2019,
+          "value": 37240
+        },
+        {
+          "year": 2020,
+          "value": 38798
+        },
+        {
+          "year": 2021,
+          "value": 40754
+        },
+        {
+          "year": 2022,
+          "value": 41828
+        },
+        {
+          "year": 2023,
+          "value": 43962
+        },
+        {
+          "year": 2024,
+          "value": 45101
+        }
+      ]
     },
     {
       "id": "pacienti_zdravotnicka_zachranna_sluzba",
@@ -2665,7 +8932,69 @@
       "value_column": "pocet_pacientodnu",
       "metric_label": "Roční počet pacientů ošetřených záchrannou službou",
       "last_seen": "2026-05-25",
-      "csv_format": "gzip"
+      "csv_format": "gzip",
+      "series": [
+        {
+          "year": 2010,
+          "value": 689142
+        },
+        {
+          "year": 2011,
+          "value": 715847
+        },
+        {
+          "year": 2012,
+          "value": 758548
+        },
+        {
+          "year": 2013,
+          "value": 799915
+        },
+        {
+          "year": 2014,
+          "value": 835876
+        },
+        {
+          "year": 2015,
+          "value": 874891
+        },
+        {
+          "year": 2016,
+          "value": 893735
+        },
+        {
+          "year": 2017,
+          "value": 906999
+        },
+        {
+          "year": 2018,
+          "value": 948560
+        },
+        {
+          "year": 2019,
+          "value": 954658
+        },
+        {
+          "year": 2020,
+          "value": 931278
+        },
+        {
+          "year": 2021,
+          "value": 998347
+        },
+        {
+          "year": 2022,
+          "value": 1047380
+        },
+        {
+          "year": 2023,
+          "value": 1007775
+        },
+        {
+          "year": 2024,
+          "value": 1050015
+        }
+      ]
     },
     {
       "id": "alergicka_ryma",
@@ -2708,7 +9037,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet",
       "metric_label": "Roční počet dispenzarizovaných pacientů s alergickou rýmou",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 324058
+        },
+        {
+          "year": 2011,
+          "value": 402173
+        },
+        {
+          "year": 2012,
+          "value": 433840
+        },
+        {
+          "year": 2013,
+          "value": 466065
+        },
+        {
+          "year": 2014,
+          "value": 523511
+        },
+        {
+          "year": 2015,
+          "value": 564766
+        },
+        {
+          "year": 2016,
+          "value": 591571
+        },
+        {
+          "year": 2017,
+          "value": 603863
+        },
+        {
+          "year": 2018,
+          "value": 636940
+        },
+        {
+          "year": 2019,
+          "value": 665038
+        },
+        {
+          "year": 2020,
+          "value": 646033
+        },
+        {
+          "year": 2021,
+          "value": 682114
+        },
+        {
+          "year": 2022,
+          "value": 763327
+        },
+        {
+          "year": 2023,
+          "value": 791853
+        },
+        {
+          "year": 2024,
+          "value": 832902
+        }
+      ]
     },
     {
       "id": "atopicka_dermatitida",
@@ -2751,7 +9142,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet",
       "metric_label": "Roční počet dispenzarizovaných pacientů s atopickou dermatitidou",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 75551
+        },
+        {
+          "year": 2011,
+          "value": 75513
+        },
+        {
+          "year": 2012,
+          "value": 74867
+        },
+        {
+          "year": 2013,
+          "value": 74131
+        },
+        {
+          "year": 2014,
+          "value": 74878
+        },
+        {
+          "year": 2015,
+          "value": 75071
+        },
+        {
+          "year": 2016,
+          "value": 71802
+        },
+        {
+          "year": 2017,
+          "value": 69398
+        },
+        {
+          "year": 2018,
+          "value": 67972
+        },
+        {
+          "year": 2019,
+          "value": 68039
+        },
+        {
+          "year": 2020,
+          "value": 69047
+        },
+        {
+          "year": 2021,
+          "value": 72976
+        },
+        {
+          "year": 2022,
+          "value": 71996
+        },
+        {
+          "year": 2023,
+          "value": 72984
+        },
+        {
+          "year": 2024,
+          "value": 70686
+        }
+      ]
     },
     {
       "id": "asthma_bronchiale",
@@ -2794,7 +9247,69 @@
       "aggregation": "sum_column",
       "value_column": "pocet",
       "metric_label": "Roční počet pacientů s bronchiálním astmatem",
-      "last_seen": "2026-05-25"
+      "last_seen": "2026-05-25",
+      "series": [
+        {
+          "year": 2010,
+          "value": 333658
+        },
+        {
+          "year": 2011,
+          "value": 347297
+        },
+        {
+          "year": 2012,
+          "value": 355157
+        },
+        {
+          "year": 2013,
+          "value": 366012
+        },
+        {
+          "year": 2014,
+          "value": 386197
+        },
+        {
+          "year": 2015,
+          "value": 395455
+        },
+        {
+          "year": 2016,
+          "value": 406835
+        },
+        {
+          "year": 2017,
+          "value": 409842
+        },
+        {
+          "year": 2018,
+          "value": 419286
+        },
+        {
+          "year": 2019,
+          "value": 433578
+        },
+        {
+          "year": 2020,
+          "value": 429536
+        },
+        {
+          "year": 2021,
+          "value": 437948
+        },
+        {
+          "year": 2022,
+          "value": 455135
+        },
+        {
+          "year": 2023,
+          "value": 470303
+        },
+        {
+          "year": 2024,
+          "value": 489882
+        }
+      ]
     }
   ]
 }

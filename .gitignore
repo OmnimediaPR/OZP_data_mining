@@ -145,3 +145,6 @@ vite.config.ts.timestamp-*
 # Lokální dev artefakty (vite public mirror dat, python cache)
 frontend/public/
 scripts/__pycache__/
+
+# Claude Code lokální stav (nastavení + zámek naplánovaných úloh)
+.claude/
