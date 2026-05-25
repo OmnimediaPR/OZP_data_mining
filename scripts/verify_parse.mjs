@@ -6,10 +6,20 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const Papa = require(process.cwd() + '/frontend/node_modules/papaparse/papaparse.js');
 
+// Argumenty: ID datasetů k ověření a/nebo cesty k .json batch souborům.
+// Entries se hledají v data/catalog.json + ve všech předaných batch souborech.
+const args = process.argv.slice(2);
+const batchFiles = args.filter(a => a.endsWith('.json'));
+let TARGETS = args.filter(a => !a.endsWith('.json'));
+
 const catalog = JSON.parse(readFileSync('data/catalog.json', 'utf-8'));
 const byId = Object.fromEntries(catalog.datasets.map(d => [d.id, d]));
-
-const TARGETS = process.argv.slice(2);
+for (const bf of batchFiles) {
+  const b = JSON.parse(readFileSync(bf, 'utf-8'));
+  const items = b.entries || b.drafts; // batch nebo catalog_drafts
+  for (const e of items) byId[e.id] = e;
+  if (TARGETS.length === 0) TARGETS.push(...items.map(e => e.id));
+}
 
 const stripBom = s => (s == null ? s : s.toString().replace(/^﻿/, ''));
 
@@ -62,6 +72,11 @@ for (const id of TARGETS) {
     const parsed = Papa.parse(text, { header: true, skipEmptyLines: true, dynamicTyping: false });
     let rows = parsed.data;
     if (entry.filter_column) rows = rows.filter(x => (x[stripBom(entry.filter_column)] || '').toString().trim() !== '');
+    if (entry.row_match) {
+      const col = stripBom(entry.row_match.column);
+      const prefixes = Array.isArray(entry.row_match.prefix) ? entry.row_match.prefix : [entry.row_match.prefix];
+      rows = rows.filter(x => { const v = (x[col] || '').toString(); return prefixes.some(p => v.startsWith(p)); });
+    }
     const series = aggregate(rows, entry);
     const secs = ((Date.now() - t0) / 1000).toFixed(1);
     const head = series.slice(0, 2).map(p => `${p.year}:${p.value}`).join(' ');
