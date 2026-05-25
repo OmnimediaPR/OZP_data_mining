@@ -9381,6 +9381,29 @@
       "source_url": "https://www.nzip.cz/data/2621-infekcni-nemoci-otevrena-data",
       "cube_url": "data/cubes/infekcni_nemoci.json",
       "last_seen": "2026-05-25"
+    },
+    {
+      "id": "hospitalizace_kostka",
+      "kind": "cube",
+      "category": "hospitalizace",
+      "human_name": "Hospitalizace v akutní péči — rozpad podle skupiny diagnóz, věku a pohlaví",
+      "description": "Interaktivní rozpad hospitalizačních případů v akutní lůžkové péči. Lze zvolit skupinu diagnóz (kapitolu MKN — např. nemoci oběhové soustavy, novotvary, úrazy), věkovou skupinu a pohlaví. Nástroj sám upozorní na anomálie — strmé trendy a posun k mladším.",
+      "relevant_for": [
+        "hospitalizace",
+        "akutní péče",
+        "nemocnice",
+        "skupiny diagnóz",
+        "věkové skupiny",
+        "trendy",
+        "zatížení nemocnic"
+      ],
+      "trend_context": "Národní registr hrazených zdravotních služeb, akutní lůžková péče, diagnózy seskupené do kapitol MKN-10, 2010 dál.",
+      "source_type": "national",
+      "source": "Národní registr hrazených zdravotních služeb (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1751-hospitalizacni-pripady-akutni-pece-otevrena-data",
+      "cube_url": "data/cubes/hospitalizace_akutni.json",
+      "last_seen": "2026-05-25"
     }
   ]
 }

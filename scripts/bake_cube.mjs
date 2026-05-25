@@ -33,6 +33,37 @@ const DG_ONKO = {
 };
 const SEX = (v) => (v === '1' ? 'muž' : v === '2' ? 'žena' : null);
 const SEX_MZ = (v) => (v === 'M' ? 'muž' : v === 'Z' ? 'žena' : null);
+
+// MKN-10 kód (např. "I21") → název kapitoly. Pro seskupení diagnóz do velkých skupin.
+function mknChapter(code) {
+  const m = (code || '').toString().toUpperCase().match(/^([A-Z])(\d{2})/);
+  if (!m) return null;
+  const L = m[1], n = +m[2];
+  switch (L) {
+    case 'A': case 'B': return 'infekční a parazitární nemoci';
+    case 'C': return 'novotvary';
+    case 'D': return n <= 48 ? 'novotvary' : 'nemoci krve a poruchy imunity';
+    case 'E': return 'nemoci endokrinní, výživy a látkové přeměny';
+    case 'F': return 'duševní poruchy a poruchy chování';
+    case 'G': return 'nemoci nervové soustavy';
+    case 'H': return n <= 59 ? 'nemoci oka' : 'nemoci ucha';
+    case 'I': return 'nemoci oběhové soustavy';
+    case 'J': return 'nemoci dýchací soustavy';
+    case 'K': return 'nemoci trávicí soustavy';
+    case 'L': return 'nemoci kůže a podkoží';
+    case 'M': return 'nemoci svalové a kosterní soustavy a pojiva';
+    case 'N': return 'nemoci močové a pohlavní soustavy';
+    case 'O': return 'těhotenství, porod a šestinedělí';
+    case 'P': return 'stavy vzniklé v perinatálním období';
+    case 'Q': return 'vrozené vady a chromozomální abnormality';
+    case 'R': return 'příznaky a nálezy nezařazené jinde';
+    case 'S': case 'T': return 'poranění, otravy a vnější následky';
+    case 'V': case 'W': case 'X': case 'Y': return 'vnější příčiny nemocnosti a úmrtnosti';
+    case 'Z': return 'preventivní kontakty se zdravotnictvím';
+    case 'U': return 'kódy pro speciální účely (např. covid)';
+    default: return null;
+  }
+}
 const STAGE = (v) => { const s = (v || '').toString().replace(/"/g, '').trim(); return ['1', '2', '3', '4'].includes(s) ? ['', 'I', 'II', 'III', 'IV'][+s] : 'neuvedeno'; };
 const nor5 = (code) => { const low = parseInt((code || '').toString().slice(2, 5), 10); return Number.isFinite(low) ? Math.floor(low / 5) * 5 : null; };
 const ageLabel = (s) => (s >= 85 ? '85 a více' : `${s}–${s + 4}`);
@@ -47,6 +78,7 @@ function extractor(dim) {
     throw new Error(`neznámý decode věku: ${dim.decode}`);
   }
   if (dim.map === 'DG_ONKO') return (r) => { const m = DG_ONKO[(r[col] || '').toString().slice(0, 3)]; return m ? m.key : null; };
+  if (dim.map === 'MKN_CHAPTER') return (r) => mknChapter(r[col]);
   if (dim.map === 'SEX') return (r) => SEX((r[col] || '').toString());
   if (dim.map === 'SEX_MZ') return (r) => SEX_MZ((r[col] || '').toString());
   if (dim.map === 'STAGE') return (r) => STAGE(r[col]);
@@ -203,6 +235,19 @@ const CONFIGS = [
       { key: 'nemoc', label: 'Nemoc', kind: 'category', primary: true, col: 'diagnoza_nazev', maxValues: 40 },
       { key: 'age', label: 'Věk', kind: 'age', col: 'vek_kod', decode: 'nor5' },
       { key: 'sex', label: 'Pohlaví', kind: 'category', col: 'pohlavi', map: 'SEX_MZ' },
+    ],
+  },
+  {
+    id: 'hospitalizace_akutni', src: 'https://data.mzcr.cz/data/distribuce/364/Otevrena-data-NR-04-08-hospitalizacni-pripady-akutni-pece-2024-01.csv',
+    source: 'Národní registr hrazených zdravotních služeb (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1751-hospitalizacni-pripady-akutni-pece-otevrena-data',
+    human_name: 'Hospitalizace v akutní péči',
+    description: 'Počty hospitalizačních případů v akutní lůžkové péči, rozpadnutelné podle skupiny diagnóz (kapitola MKN), věku a pohlaví.',
+    metric_label: 'Hospitalizační případy', metric: { type: 'sum', col: 'pocet_hosp' }, yearCol: 'rok', year_from: 2010,
+    note: 'Diagnózy seskupené do kapitol MKN-10. Hlavní diagnóza hospitalizace (ZDG).',
+    dims: [
+      { key: 'skupina', label: 'Skupina diagnóz', kind: 'category', primary: true, col: 'ZDG', map: 'MKN_CHAPTER' },
+      { key: 'age', label: 'Věk', kind: 'age', col: 'vek_kod', decode: 'nor5' },
+      { key: 'sex', label: 'Pohlaví', kind: 'category', col: 'pohlavi', map: 'SEX' },
     ],
   },
   // Pozn.: očkování (vakcinace) zatím vynecháno — „trendy" jsou hlavně spouštění/rozšiřování
