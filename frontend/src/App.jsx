@@ -153,53 +153,65 @@ function fetchCubeCached(entry) {
   return p;
 }
 
-const DEFAULT_CUBE_FILTER = { diagnosis: '__vše__', age: 'vše', sex: 'vše', stage: 'vše' };
-const ageLow = (label) => parseInt(label, 10); // "45–49" → 45, "85 a více" → 85
+// Kostka má OBECNÉ dimenze: cube.dims = [{key,label,kind:'category'|'age',values,primary?}].
+// Filtr = { [dimKey]: 'vše' | hodnota | 'pozdní (III+IV)' | věkové pásmo }. Buňka = [yearIdx, ...dimIdx, count].
+const DEFAULT_CUBE_FILTER = {};
+const valKey = (v) => (v && typeof v === 'object') ? v.key : v;
+const valName = (v) => (v && typeof v === 'object') ? v.name : v;
 function ageMatch(mode, low) {
   if (mode === 'do 50') return low < 50;
   if (mode === '50–64') return low >= 50 && low < 65;
   if (mode === '65+') return low >= 65;
-  return true; // 'vše'
+  return true;
+}
+function dimMatches(dim, idx, sel) {
+  if (sel == null || sel === 'vše') return true;
+  if (dim.kind === 'age') return ageMatch(sel, dim.values[idx]);
+  const v = valKey(dim.values[idx]);
+  if (sel === 'pozdní (III+IV)') return v === 'III' || v === 'IV';
+  return v === sel;
 }
 
 // Sečte buňky odpovídající filtru → časová řada [{year, value}].
 function sliceCube(cube, f = DEFAULT_CUBE_FILTER) {
-  const D = cube.dims;
-  const dgIdx = f.diagnosis && f.diagnosis !== '__vše__' ? D.diagnosis.findIndex(d => d.key === f.diagnosis) : -1;
-  const sexIdx = f.sex && f.sex !== 'vše' ? D.sex.indexOf(f.sex) : -1;
-  let stageIdxs = null;
-  if (f.stage === 'pozdní (III+IV)') stageIdxs = ['III', 'IV'].map(s => D.stage.indexOf(s));
-  else if (f.stage && f.stage !== 'vše') stageIdxs = [D.stage.indexOf(f.stage)];
   const byYear = {};
-  for (const [yi, di, ai, si, sti, n] of cube.cells) {
-    if (dgIdx >= 0 && di !== dgIdx) continue;
-    if (sexIdx >= 0 && si !== sexIdx) continue;
-    if (stageIdxs && !stageIdxs.includes(sti)) continue;
-    if (f.age !== 'vše' && !ageMatch(f.age, ageLow(D.age[ai]))) continue;
-    const y = D.years[yi];
-    byYear[y] = (byYear[y] || 0) + n;
+  for (const cell of cube.cells) {
+    let ok = true;
+    for (let d = 0; d < cube.dims.length; d++) {
+      if (!dimMatches(cube.dims[d], cell[d + 1], f[cube.dims[d].key])) { ok = false; break; }
+    }
+    if (!ok) continue;
+    const y = cube.years[cell[0]];
+    byYear[y] = (byYear[y] || 0) + cell[cell.length - 1];
   }
-  return D.years.filter(y => y in byYear).map(y => ({ year: y, value: byYear[y] }));
+  return cube.years.filter(y => y in byYear).map(y => ({ year: y, value: byYear[y] }));
 }
 
 // Lidský popis filtru — pro nadpis karty, analýzu i brief.
-function cubeFilterLabel(cube, f) {
+function cubeFilterLabel(cube, f = {}) {
   const parts = [];
-  if (f.diagnosis && f.diagnosis !== '__vše__') {
-    const d = cube.dims.diagnosis.find(x => x.key === f.diagnosis);
-    parts.push(d ? d.name : f.diagnosis);
-  } else parts.push('všechny sledované diagnózy');
-  if (f.age && f.age !== 'vše') parts.push(f.age === 'do 50' ? 'mladší 50 let' : `${f.age} let`);
-  if (f.sex && f.sex !== 'vše') parts.push(f.sex === 'muž' ? 'muži' : 'ženy');
-  if (f.stage && f.stage !== 'vše') parts.push(f.stage === 'pozdní (III+IV)' ? 'pozdní záchyt (stadium III+IV)' : `stadium ${f.stage}`);
-  return parts.join(', ');
+  for (const dim of cube.dims) {
+    const sel = f[dim.key];
+    if (!sel || sel === 'vše') continue;
+    if (dim.kind === 'age') parts.push(sel === 'do 50' ? 'mladší 50 let' : `${sel} let`);
+    else if (sel === 'pozdní (III+IV)') parts.push('pozdní záchyt (stadium III+IV)');
+    else parts.push(valName(dim.values.find(v => valKey(v) === sel)) || sel);
+  }
+  if (parts.length) return parts.join(', ');
+  const p = cube.dims.find(d => d.primary);
+  return p ? `všechny ${p.label.toLowerCase()}` : 'celkem';
 }
 
 // Filtr, který demonstruje danou anomálii (klik na anomálii ho nastaví).
-function anomalyToFilter(a) {
-  if (a.type === 'vek_posun') return { diagnosis: a.dg, age: 'do 50', sex: 'vše', stage: 'vše' };
-  if (a.type === 'stadium_posun') return { diagnosis: a.dg, age: 'vše', sex: 'vše', stage: 'pozdní (III+IV)' };
-  return { diagnosis: a.dg, age: 'vše', sex: 'vše', stage: 'vše' }; // trend
+function anomalyToFilter(cube, a) {
+  const primary = cube.dims.find(d => d.primary)?.key;
+  const ageKey = cube.dims.find(d => d.kind === 'age')?.key;
+  const stageKey = cube.dims.find(d => Array.isArray(d.values) && d.values.some(v => valKey(v) === 'III'))?.key;
+  const f = {};
+  if (primary) f[primary] = a.dg;
+  if (a.type === 'vek_posun' && ageKey) f[ageKey] = 'do 50';
+  if (a.type === 'stadium_posun' && stageKey) f[stageKey] = 'pozdní (III+IV)';
+  return f;
 }
 
 // ============================================================
@@ -703,12 +715,14 @@ export default function App() {
         const f = cubeFilterOf(meta.id);
         series = sliceCube(state.cube, f);
         const label = cubeFilterLabel(state.cube, f);
+        const primaryKey = state.cube.dims.find(d => d.primary)?.key;
+        const primarySel = primaryKey && f[primaryKey] && f[primaryKey] !== 'vše' ? f[primaryKey] : null;
         extra = {
           cube: state.cube,
           cubeFilter: f,
           human_name: `${meta.human_name}: ${label}`,
-          metric_label: 'Nově diagnostikované případy',
-          code: f.diagnosis !== '__vše__' ? f.diagnosis : null,
+          metric_label: state.cube.metric_label || 'Počet',
+          code: primarySel,
           trend_context: `${meta.trend_context} Aktuální výřez: ${label}.`,
         };
       } else {
@@ -1533,35 +1547,24 @@ function CubeCard({ d, selected, onToggle, filter, onFilter }) {
 
       {cube && (
         <>
-          {/* Zužovátka */}
+          {/* Zužovátka — dynamicky podle dimenzí kostky */}
           <div onClick={stop} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 10, margin: '12px 0' }}>
-            <div>
-              <div style={lbl}>Diagnóza</div>
-              <select value={filter.diagnosis} onChange={(e) => set('diagnosis', e.target.value)} style={selStyle}>
-                <option value="__vše__">všechny sledované</option>
-                {cube.dims.diagnosis.map(dg => <option key={dg.key} value={dg.key}>{dg.name}</option>)}
-              </select>
-            </div>
-            <div>
-              <div style={lbl}>Věk</div>
-              <select value={filter.age} onChange={(e) => set('age', e.target.value)} style={selStyle}>
-                {['vše', 'do 50', '50–64', '65+'].map(o => <option key={o} value={o}>{o === 'vše' ? 'všechny věky' : o === 'do 50' ? 'mladší 50' : o}</option>)}
-              </select>
-            </div>
-            <div>
-              <div style={lbl}>Pohlaví</div>
-              <select value={filter.sex} onChange={(e) => set('sex', e.target.value)} style={selStyle}>
-                {['vše', 'muž', 'žena'].map(o => <option key={o} value={o}>{o === 'vše' ? 'obě' : o}</option>)}
-              </select>
-            </div>
-            {cube.dims.stage.length > 1 && (
-              <div>
-                <div style={lbl}>Stadium</div>
-                <select value={filter.stage} onChange={(e) => set('stage', e.target.value)} style={selStyle}>
-                  {['vše', 'I', 'II', 'III', 'IV', 'pozdní (III+IV)', 'neuvedeno'].map(o => <option key={o} value={o}>{o === 'vše' ? 'všechna' : o}</option>)}
-                </select>
-              </div>
-            )}
+            {cube.dims.map(dim => {
+              if (dim.kind !== 'age' && dim.values.length <= 1) return null; // skryj jednohodnotové
+              const hasLate = dim.kind !== 'age' && dim.values.some(v => valKey(v) === 'III') && dim.values.some(v => valKey(v) === 'IV');
+              return (
+                <div key={dim.key}>
+                  <div style={lbl}>{dim.label}</div>
+                  <select value={filter[dim.key] || 'vše'} onChange={(e) => set(dim.key, e.target.value)} style={selStyle}>
+                    <option value="vše">{dim.primary ? 'všechny sledované' : 'vše'}</option>
+                    {dim.kind === 'age'
+                      ? ['do 50', '50–64', '65+'].map(o => <option key={o} value={o}>{o === 'do 50' ? 'mladší 50' : o}</option>)
+                      : dim.values.map(v => <option key={valKey(v)} value={valKey(v)}>{valName(v)}</option>)}
+                    {hasLate && <option value="pozdní (III+IV)">pozdní (III+IV)</option>}
+                  </select>
+                </div>
+              );
+            })}
           </div>
 
           {/* Graf řezu */}
@@ -1590,7 +1593,7 @@ function CubeCard({ d, selected, onToggle, filter, onFilter }) {
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                 {cube.anomalies.slice(0, 8).map((a, i) => (
-                  <button key={i} onClick={() => { onFilter(anomalyToFilter(a)); if (!selected) onToggle(); }}
+                  <button key={i} onClick={() => { onFilter(anomalyToFilter(cube, a)); if (!selected) onToggle(); }}
                     title={a.artifact_risk ? 'Pozor: možná změna kódování v čase' : ''}
                     style={{ fontSize: 12, padding: '5px 10px', background: '#FFFFFF', border: '1px solid #D9C9E6', color: '#5a2a6a', cursor: 'pointer', borderRadius: 999 }}>
                     {anomLabel(a)}
@@ -1602,7 +1605,7 @@ function CubeCard({ d, selected, onToggle, filter, onFilter }) {
           )}
 
           <div style={{ fontSize: 10, color: '#888', marginTop: 12 }}>
-            Data: Národní onkologický registr (ÚZIS ČR) · kurátorované diagnózy {cube.dims.years[0]}–{cube.dims.years[cube.dims.years.length - 1]}
+            Data: {cube.source || 'ÚZIS ČR'} · {cube.years[0]}–{cube.years[cube.years.length - 1]}
           </div>
         </>
       )}

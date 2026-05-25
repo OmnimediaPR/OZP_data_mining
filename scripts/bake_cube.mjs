@@ -1,9 +1,9 @@
-// Napeče "rozpadové kostky" z onkologického registru NOR (config-driven; jedna konfigurace
-// = jeden registr). Zatím onkologická INCIDENCE a ÚMRTNOST (stejná struktura: diagnoza_kod,
-// kódovaný věk "66LLLUUU", pohlaví; incidence navíc stadium).
-// Rozměry: rok × diagnóza × věk (5letá pásma) × pohlaví × stadium. Jen kurátorované primární
-// diagnózy (vypadnou artefaktové kódy). Nehodgkinské lymfomy C82–C86 sloučeny (překlasifikace).
-// Výstup: data/cubes/<id>.json (řídké buňky + metadata dimenzí + sken anomálií).
+// Napeče "rozpadové kostky" z registrů NZIP/ÚZIS. Config-driven a OBECNÉ DIMENZE:
+// každá kostka nese pole dims [{key,label,kind,values,primary?}] + řídké buňky
+// [yearIdx, ...dimIdx, count] + sken anomálií. Frontend renderuje zužovátka dynamicky.
+//
+// kind: 'category' (values = pole stringů nebo {key,name}) | 'age' (values = počátky 5letých pásem).
+// Jedna dim má primary:true (hlavní rozpad — nad ní běží sken anomálií).
 //
 // Spuštění:  node --max-old-space-size=4096 scripts/bake_cube.mjs
 import { Readable } from 'node:stream';
@@ -13,161 +13,180 @@ const require = createRequire(import.meta.url);
 const Papa = require(process.cwd() + '/frontend/node_modules/papaparse/papaparse.js');
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124';
-const YEAR_FROM = 2000;
 
+// ---- sdílené číselníky ----
 const NHL = { key: 'NHL', name: 'nehodgkinský lymfom' };
-const DG = {
-  C15: { key: 'C15', name: 'zhoubný novotvar jícnu' },
-  C16: { key: 'C16', name: 'zhoubný novotvar žaludku' },
-  C18: { key: 'C18', name: 'zhoubný novotvar tlustého střeva' },
-  C19: { key: 'C19', name: 'zhoubný novotvar rektosigmoideálního spojení' },
-  C20: { key: 'C20', name: 'zhoubný novotvar konečníku' },
-  C22: { key: 'C22', name: 'zhoubný novotvar jater' },
-  C25: { key: 'C25', name: 'zhoubný novotvar slinivky břišní' },
-  C32: { key: 'C32', name: 'zhoubný novotvar hrtanu' },
-  C34: { key: 'C34', name: 'zhoubný novotvar průdušky a plíce' },
-  C43: { key: 'C43', name: 'zhoubný melanom kůže' },
-  C44: { key: 'C44', name: 'jiný zhoubný novotvar kůže' },
-  C50: { key: 'C50', name: 'zhoubný novotvar prsu' },
-  C53: { key: 'C53', name: 'zhoubný novotvar děložního hrdla' },
-  C54: { key: 'C54', name: 'zhoubný novotvar těla děložního' },
-  C56: { key: 'C56', name: 'zhoubný novotvar vaječníku' },
-  C61: { key: 'C61', name: 'zhoubný novotvar předstojné žlázy' },
-  C62: { key: 'C62', name: 'zhoubný novotvar varlete' },
-  C64: { key: 'C64', name: 'zhoubný novotvar ledviny' },
-  C67: { key: 'C67', name: 'zhoubný novotvar močového měchýře' },
-  C71: { key: 'C71', name: 'zhoubný novotvar mozku' },
-  C73: { key: 'C73', name: 'zhoubný novotvar štítné žlázy' },
-  C81: { key: 'C81', name: 'Hodgkinův lymfom' },
+const DG_ONKO = {
+  C15: { key: 'C15', name: 'zhoubný novotvar jícnu' }, C16: { key: 'C16', name: 'zhoubný novotvar žaludku' },
+  C18: { key: 'C18', name: 'zhoubný novotvar tlustého střeva' }, C19: { key: 'C19', name: 'zhoubný novotvar rektosigmoideálního spojení' },
+  C20: { key: 'C20', name: 'zhoubný novotvar konečníku' }, C22: { key: 'C22', name: 'zhoubný novotvar jater' },
+  C25: { key: 'C25', name: 'zhoubný novotvar slinivky břišní' }, C32: { key: 'C32', name: 'zhoubný novotvar hrtanu' },
+  C34: { key: 'C34', name: 'zhoubný novotvar průdušky a plíce' }, C43: { key: 'C43', name: 'zhoubný melanom kůže' },
+  C44: { key: 'C44', name: 'jiný zhoubný novotvar kůže' }, C50: { key: 'C50', name: 'zhoubný novotvar prsu' },
+  C53: { key: 'C53', name: 'zhoubný novotvar děložního hrdla' }, C54: { key: 'C54', name: 'zhoubný novotvar těla děložního' },
+  C56: { key: 'C56', name: 'zhoubný novotvar vaječníku' }, C61: { key: 'C61', name: 'zhoubný novotvar předstojné žlázy' },
+  C62: { key: 'C62', name: 'zhoubný novotvar varlete' }, C64: { key: 'C64', name: 'zhoubný novotvar ledviny' },
+  C67: { key: 'C67', name: 'zhoubný novotvar močového měchýře' }, C71: { key: 'C71', name: 'zhoubný novotvar mozku' },
+  C73: { key: 'C73', name: 'zhoubný novotvar štítné žlázy' }, C81: { key: 'C81', name: 'Hodgkinův lymfom' },
   C82: NHL, C83: NHL, C84: NHL, C85: NHL, C86: NHL,
-  C90: { key: 'C90', name: 'mnohočetný myelom' },
-  C91: { key: 'C91', name: 'lymfatická leukémie' },
-  C92: { key: 'C92', name: 'myeloidní leukémie' },
+  C90: { key: 'C90', name: 'mnohočetný myelom' }, C91: { key: 'C91', name: 'lymfatická leukémie' }, C92: { key: 'C92', name: 'myeloidní leukémie' },
 };
-const dgNameByKey = {};
-for (const v of Object.values(DG)) dgNameByKey[v.key] = v.name;
-
-const ageBandStart = (code) => {
-  const low = parseInt((code || '').toString().slice(2, 5), 10);
-  return Number.isFinite(low) ? Math.floor(low / 5) * 5 : null;
-};
-const ageLabel = (s) => (s >= 85 ? '85 a více' : `${s}–${s + 4}`);
-const STAGE = (v) => { const s = (v || '').toString().replace(/"/g, '').trim(); return ['1', '2', '3', '4'].includes(s) ? ['', 'I', 'II', 'III', 'IV'][+s] : 'neuvedeno'; };
 const SEX = (v) => (v === '1' ? 'muž' : v === '2' ? 'žena' : null);
+const STAGE = (v) => { const s = (v || '').toString().replace(/"/g, '').trim(); return ['1', '2', '3', '4'].includes(s) ? ['', 'I', 'II', 'III', 'IV'][+s] : 'neuvedeno'; };
+const nor5 = (code) => { const low = parseInt((code || '').toString().slice(2, 5), 10); return Number.isFinite(low) ? Math.floor(low / 5) * 5 : null; };
+const ageLabel = (s) => (s >= 85 ? '85 a více' : `${s}–${s + 4}`);
+const SEP = '';
 
-const CONFIGS = [
-  {
-    id: 'onkologie_incidence',
-    src: 'https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv',
-    source_url: 'https://www.nzip.cz/data/2054-incidence-prevalence-zhoubne-nadory',
-    human_name: 'Onkologie — nově diagnostikované zhoubné nádory',
-    description: 'Počty nově diagnostikovaných zhoubných nádorů v Česku z Národního onkologického registru, rozpadnutelné podle diagnózy, věku, pohlaví a stadia při záchytu.',
-    metric_label: 'Nově diagnostikované případy',
-    yearCol: 'rok_dg', ageCol: 'vek_kategorie_kod_dg', hasStage: true,
-    note: 'Kurátorované primární diagnózy. Nehodgkinské lymfomy (C82–C86) sloučeny. Stadium III+IV = pozdní záchyt; „neuvedeno" je u některých diagnóz (mozek) převažující.',
-  },
-  {
-    id: 'onkologie_umrti',
-    src: 'https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv',
-    source_url: 'https://www.nzip.cz/data/2056-mortalita-zhoubne-nadory',
-    human_name: 'Onkologie — úmrtí na zhoubné nádory',
-    description: 'Počty úmrtí na zhoubné nádory v Česku z Národního onkologického registru, rozpadnutelné podle diagnózy, věku a pohlaví.',
-    metric_label: 'Úmrtí',
-    yearCol: 'umrti_rok', ageCol: 'umrti_vek_kategorie_kod', hasStage: false,
-    note: 'Kurátorované primární diagnózy. Nehodgkinské lymfomy (C82–C86) sloučeny. Bez stadia (registr úmrtí ho neeviduje).',
-  },
-];
+// Vrátí funkci row → hodnota dimenze (nebo null = řádek zahodit).
+function extractor(dim) {
+  const col = dim.col;
+  if (dim.kind === 'age') {
+    if (dim.decode === 'nor5') return (r) => nor5(r[col]);
+    throw new Error(`neznámý decode věku: ${dim.decode}`);
+  }
+  if (dim.map === 'DG_ONKO') return (r) => { const m = DG_ONKO[(r[col] || '').toString().slice(0, 3)]; return m ? m.key : null; };
+  if (dim.map === 'SEX') return (r) => SEX((r[col] || '').toString());
+  if (dim.map === 'STAGE') return (r) => STAGE(r[col]);
+  // plain category — hodnota přímo ze sloupce (volitelně oříznutá / s mapou názvů)
+  return (r) => { const v = (r[col] ?? '').toString().trim(); return v === '' ? null : v; };
+}
 
 async function bakeOne(cfg) {
-  const counts = new Map();
-  const dgTotal = {};
+  const exs = cfg.dims.map(extractor);
+  const counts = new Map();        // klíč: year SEP v0 SEP v1 ... → metrika
+  const dimSeen = cfg.dims.map(() => new Map()); // dim → Map(value → total) pro řazení
+  const yearsSeen = new Set();
   let nRows = 0, nUsed = 0;
   const r = await fetch(cfg.src, { headers: { 'User-Agent': UA } });
   if (!r.ok) throw new Error(`${cfg.id}: HTTP ${r.status}`);
-  const ns = Readable.fromWeb(r.body); ns.setEncoding('utf8');
+  const ns = Readable.fromWeb(r.body); ns.setEncoding(cfg.encoding === 'windows-1250' ? 'latin1' : 'utf8');
   const t0 = Date.now();
   await new Promise((res, rej) => Papa.parse(ns, {
     header: true, skipEmptyLines: true,
     step: ({ data: x }) => {
       nRows++;
-      const d = DG[(x.diagnoza_kod || '').toString().slice(0, 3)]; if (!d) return;
-      const y = parseInt((x[cfg.yearCol] || '').toString(), 10); if (!Number.isFinite(y) || y < YEAR_FROM) return;
-      const a = ageBandStart(x[cfg.ageCol]); if (a == null) return;
-      const sex = SEX((x.pohlavi || '').toString()); if (!sex) return;
-      const st = cfg.hasStage ? STAGE(x.stadium) : 'neuvedeno';
-      const key = `${y}|${d.key}|${a}|${sex}|${st}`;
-      counts.set(key, (counts.get(key) || 0) + 1);
-      dgTotal[d.key] = (dgTotal[d.key] || 0) + 1; nUsed++;
+      const y = parseInt((x[cfg.yearCol] || '').toString(), 10);
+      if (!Number.isFinite(y) || y < cfg.year_from) return;
+      const vals = [];
+      for (let i = 0; i < exs.length; i++) { const v = exs[i](x); if (v == null) return; vals.push(v); }
+      let amount = 1;
+      if (cfg.metric.type === 'sum') { amount = parseFloat((x[cfg.metric.col] || '').toString().replace(',', '.')); if (!Number.isFinite(amount)) return; }
+      const key = y + SEP + vals.join(SEP);
+      counts.set(key, (counts.get(key) || 0) + amount);
+      yearsSeen.add(y);
+      for (let i = 0; i < vals.length; i++) dimSeen[i].set(vals[i], (dimSeen[i].get(vals[i]) || 0) + amount);
+      nUsed++;
     }, complete: res, error: rej,
   }));
 
-  const diagnosis = Object.keys(dgTotal).sort((a, b) => dgTotal[b] - dgTotal[a]).map(k => ({ key: k, name: dgNameByKey[k] }));
-  const ageStarts = [...new Set([...counts.keys()].map(k => +k.split('|')[2]))].sort((a, b) => a - b);
-  const age = ageStarts.map(ageLabel);
-  const sexDim = ['muž', 'žena'];
-  const stageDim = cfg.hasStage ? ['I', 'II', 'III', 'IV', 'neuvedeno'] : ['neuvedeno'];
-  const years = [...new Set([...counts.keys()].map(k => +k.split('|')[0]))].sort((a, b) => a - b);
-  const di = Object.fromEntries(diagnosis.map((d, i) => [d.key, i]));
-  const ai = Object.fromEntries(ageStarts.map((s, i) => [s, i]));
-  const yi = Object.fromEntries(years.map((y, i) => [y, i]));
-  const sxi = Object.fromEntries(sexDim.map((s, i) => [s, i]));
-  const sti = Object.fromEntries(stageDim.map((s, i) => [s, i]));
+  // sestav dimenze
+  const years = [...yearsSeen].sort((a, b) => a - b);
+  const dims = cfg.dims.map((d, i) => {
+    let values;
+    if (d.kind === 'age') values = [...dimSeen[i].keys()].sort((a, b) => a - b);
+    else if (d.order === 'fixed') values = d.fixed.filter(v => dimSeen[i].has(v));
+    else values = [...dimSeen[i].keys()].sort((a, b) => (dimSeen[i].get(b) - dimSeen[i].get(a))); // podle objemu
+    // názvy: pro DG_ONKO doplň lidský název
+    let outValues = values;
+    if (d.map === 'DG_ONKO') { const nm = {}; for (const v of Object.values(DG_ONKO)) nm[v.key] = v.name; outValues = values.map(k => ({ key: k, name: nm[k] })); }
+    return { key: d.key, label: d.label, kind: d.kind, primary: !!d.primary, values: outValues };
+  });
+  const idxMaps = dims.map((d, i) => {
+    const m = new Map();
+    (cfg.dims[i].kind === 'age' ? d.values : d.values.map(v => (v && typeof v === 'object') ? v.key : v)).forEach((v, j) => m.set(v, j));
+    return m;
+  });
+  const yi = new Map(years.map((y, i) => [y, i]));
   const cells = [];
-  for (const [k, n] of counts) { const [y, dk, a, sex, st] = k.split('|'); cells.push([yi[+y], di[dk], ai[+a], sxi[sex], sti[st], n]); }
-
-  // ---- anomálie ----
-  const BASE = [2011, 2012, 2013].filter(y => years.includes(y));
-  const REC = [2020, 2021, 2022].filter(y => years.includes(y));
-  const byDgYear = {}, byDgPerYoung = {}, byDgPerLate = {};
   for (const [k, n] of counts) {
-    const [y, dk, a, , st] = k.split('|'); const Y = +y, A = +a;
-    (byDgYear[dk] = byDgYear[dk] || {})[Y] = (byDgYear[dk][Y] || 0) + n;
-    const per = BASE.includes(Y) ? 'b' : REC.includes(Y) ? 'r' : null;
-    if (per) {
-      const yo = byDgPerYoung[dk] = byDgPerYoung[dk] || { b: { t: 0, y: 0 }, r: { t: 0, y: 0 } };
-      yo[per].t += n; if (A < 50) yo[per].y += n;
-      if (cfg.hasStage) {
-        const la = byDgPerLate[dk] = byDgPerLate[dk] || { b: { staged: 0, late: 0 }, r: { staged: 0, late: 0 } };
-        if (st === 'III' || st === 'IV') { la[per].staged += n; la[per].late += n; }
-        else if (st === 'I' || st === 'II') la[per].staged += n;
-      }
-    }
+    const parts = k.split(SEP); const y = +parts[0];
+    const tuple = [yi.get(y)];
+    let ok = true;
+    for (let i = 0; i < dims.length; i++) { const v = cfg.dims[i].kind === 'age' ? +parts[i + 1] : parts[i + 1]; const ix = idxMaps[i].get(v); if (ix == null) { ok = false; break; } tuple.push(ix); }
+    if (ok) { tuple.push(cfg.metric.type === 'sum' ? Math.round(n) : n); cells.push(tuple); }
   }
-  const avg = (o, ys) => ys.reduce((s, y) => s + (o[y] || 0), 0) / (ys.length || 1);
-  const maxJump = (o) => { let m = 0; for (let i = 1; i < years.length; i++) { const a = o[years[i - 1]] || 0, b = o[years[i]] || 0; if (a >= 30) m = Math.max(m, Math.abs((b - a) / a)); } return m; };
-  const anomalies = [];
-  for (const d of diagnosis) {
-    const k = d.key;
-    const b = avg(byDgYear[k], BASE), rc = avg(byDgYear[k], REC);
-    if (rc >= 150 && b > 0) { const pct = Math.round((rc - b) / b * 100); if (Math.abs(pct) >= 15) anomalies.push({ type: 'trend', dg: k, name: d.name, pct, from: Math.round(b), to: Math.round(rc), artifact_risk: maxJump(byDgYear[k]) > 0.35 }); }
-    const yo = byDgPerYoung[k];
-    if (yo && yo.r.t >= 800) { const sb = yo.b.t ? yo.b.y / yo.b.t * 100 : 0, sr = yo.r.t ? yo.r.y / yo.r.t * 100 : 0; if (Math.abs(sr - sb) >= 2.5) anomalies.push({ type: 'vek_posun', dg: k, name: d.name, from_pct: +sb.toFixed(1), to_pct: +sr.toFixed(1), diff: +(sr - sb).toFixed(1) }); }
-    const la = byDgPerLate[k];
-    if (la && la.r.staged >= 400) { const lb = la.b.staged ? la.b.late / la.b.staged * 100 : 0, lr = la.r.staged ? la.r.late / la.r.staged * 100 : 0; if (Math.abs(lr - lb) >= 3) anomalies.push({ type: 'stadium_posun', dg: k, name: d.name, from_pct: +lb.toFixed(1), to_pct: +lr.toFixed(1), diff: +(lr - lb).toFixed(1) }); }
-  }
-  const byType = (t) => anomalies.filter(a => a.type === t).sort((a, b) => Math.abs(b.diff ?? b.pct) - Math.abs(a.diff ?? a.pct));
-  const tr = byType('trend'), ve = byType('vek_posun'), st2 = byType('stadium_posun');
-  const mixed = [];
-  for (let i = 0; i < Math.max(tr.length, ve.length, st2.length); i++) { if (tr[i]) mixed.push(tr[i]); if (ve[i]) mixed.push(ve[i]); if (st2[i]) mixed.push(st2[i]); }
 
+  const anomalies = scanAnomalies(cfg, dims, years, counts);
   const cube = {
     id: cfg.id, human_name: cfg.human_name, description: cfg.description,
-    source: 'Národní onkologický registr (ÚZIS ČR)', source_url: cfg.source_url,
-    metric_label: cfg.metric_label, baked_at: new Date().toISOString().slice(0, 10), note: cfg.note,
-    dims: { diagnosis, age, sex: sexDim, stage: stageDim, years }, cells, anomalies: mixed,
+    source: cfg.source, source_url: cfg.source_url, metric_label: cfg.metric_label,
+    baked_at: new Date().toISOString().slice(0, 10), note: cfg.note,
+    years, dims, cells, anomalies,
   };
   mkdirSync('data/cubes', { recursive: true });
   writeFileSync(`data/cubes/${cfg.id}.json`, JSON.stringify(cube) + '\n');
   const secs = ((Date.now() - t0) / 1000).toFixed(0);
-  console.log(`✓ ${cfg.id}: ${nUsed.toLocaleString()}/${nRows.toLocaleString()} řádků, ${diagnosis.length} dg, ${cells.length.toLocaleString()} buněk, ${(JSON.stringify(cube).length / 1024).toFixed(0)} KB, ${secs}s, ${mixed.length} anomálií`);
-  return mixed.slice(0, 6);
-}
-
-for (const cfg of CONFIGS) {
-  const top = await bakeOne(cfg);
-  for (const a of top) {
+  console.log(`✓ ${cfg.id}: ${nUsed.toLocaleString()}/${nRows.toLocaleString()} řádků, ${cells.length.toLocaleString()} buněk, ${(JSON.stringify(cube).length / 1024).toFixed(0)} KB, ${secs}s, ${anomalies.length} anomálií`);
+  for (const a of anomalies.slice(0, 6)) {
     if (a.type === 'trend') console.log(`    [trend] ${a.pct > 0 ? '+' : ''}${a.pct}% ${a.name}${a.artifact_risk ? ' ⚠' : ''}`);
     if (a.type === 'vek_posun') console.log(`    [věk] ${a.diff > 0 ? '+' : ''}${a.diff} b.b. <50 ${a.name}`);
     if (a.type === 'stadium_posun') console.log(`    [stadium] ${a.diff > 0 ? '+' : ''}${a.diff} b.b. pozdní ${a.name}`);
   }
 }
+
+// Sken anomálií nad primární dimenzí (+ věk + stadium, pokud existují).
+function scanAnomalies(cfg, dims, years, counts) {
+  const pIdx = dims.findIndex(d => d.primary); if (pIdx < 0) return [];
+  const ageIdx = dims.findIndex(d => d.kind === 'age');
+  const stageIdx = dims.findIndex(d => d.values.includes && d.values.includes('III') && d.values.includes('IV'));
+  const pVals = dims[pIdx].values; const pName = (k) => { const v = pVals.find(x => ((x && typeof x === 'object') ? x.key : x) === k); return (v && typeof v === 'object') ? v.name : k; };
+  const byPYear = {}, byPYoung = {}, byPLate = {};
+  for (const [key, n] of counts) {
+    const parts = key.split(SEP); const Y = +parts[0]; const pv = parts[pIdx + 1];
+    (byPYear[pv] = byPYear[pv] || {})[Y] = (byPYear[pv][Y] || 0) + n;
+    const per = [2011, 2012, 2013].includes(Y) ? 'b' : [2020, 2021, 2022].includes(Y) ? 'r' : null;
+    if (per && ageIdx >= 0) { const a = +parts[ageIdx + 1]; const yo = byPYoung[pv] = byPYoung[pv] || { b: { t: 0, y: 0 }, r: { t: 0, y: 0 } }; yo[per].t += n; if (a < 50) yo[per].y += n; }
+    if (per && stageIdx >= 0) { const st = parts[stageIdx + 1]; const la = byPLate[pv] = byPLate[pv] || { b: { s: 0, l: 0 }, r: { s: 0, l: 0 } }; if (st === 'III' || st === 'IV') { la[per].s += n; la[per].l += n; } else if (st === 'I' || st === 'II') la[per].s += n; }
+  }
+  const avg = (o, ys) => ys.reduce((s, y) => s + ((o && o[y]) || 0), 0) / ys.length;
+  const maxJump = (o) => { let m = 0; for (let i = 1; i < years.length; i++) { const a = o[years[i - 1]] || 0, b = o[years[i]] || 0; if (a >= 30) m = Math.max(m, Math.abs((b - a) / a)); } return m; };
+  const out = [];
+  for (const pv of Object.keys(byPYear)) {
+    const b = avg(byPYear[pv], [2011, 2012, 2013]), rc = avg(byPYear[pv], [2020, 2021, 2022]);
+    if (rc >= 150 && b > 0) { const pct = Math.round((rc - b) / b * 100); if (Math.abs(pct) >= 15) out.push({ type: 'trend', dg: pv, name: pName(pv), pct, from: Math.round(b), to: Math.round(rc), artifact_risk: maxJump(byPYear[pv]) > 0.35 }); }
+    const yo = byPYoung[pv];
+    if (yo && yo.r.t >= 800) { const sb = yo.b.t ? yo.b.y / yo.b.t * 100 : 0, sr = yo.r.t ? yo.r.y / yo.r.t * 100 : 0; if (Math.abs(sr - sb) >= 2.5) out.push({ type: 'vek_posun', dg: pv, name: pName(pv), from_pct: +sb.toFixed(1), to_pct: +sr.toFixed(1), diff: +(sr - sb).toFixed(1) }); }
+    const la = byPLate[pv];
+    if (la && la.r.s >= 400) { const lb = la.b.s ? la.b.l / la.b.s * 100 : 0, lr = la.r.s ? la.r.l / la.r.s * 100 : 0; if (Math.abs(lr - lb) >= 3) out.push({ type: 'stadium_posun', dg: pv, name: pName(pv), from_pct: +lb.toFixed(1), to_pct: +lr.toFixed(1), diff: +(lr - lb).toFixed(1) }); }
+  }
+  const byType = (t) => out.filter(a => a.type === t).sort((a, b) => Math.abs(b.diff ?? b.pct) - Math.abs(a.diff ?? a.pct));
+  const tr = byType('trend'), ve = byType('vek_posun'), st = byType('stadium_posun'), mixed = [];
+  for (let i = 0; i < Math.max(tr.length, ve.length, st.length); i++) { if (tr[i]) mixed.push(tr[i]); if (ve[i]) mixed.push(ve[i]); if (st[i]) mixed.push(st[i]); }
+  return mixed;
+}
+
+const ONKO_SRC_INC = 'https://data.mzcr.cz/data/distribuce/372/Otevrena-data-NR-07-01-incidence-prevalence-zhoubne-nadory-regiony-cr-2024-01.csv';
+const ONKO_SRC_MOR = 'https://data.mzcr.cz/data/distribuce/377/Otevrena-data-NR-07-02-mortalita-zhoubne-nadory-regiony-cr-2024-01.csv';
+
+const CONFIGS = [
+  {
+    id: 'onkologie_incidence', src: ONKO_SRC_INC, source: 'Národní onkologický registr (ÚZIS ČR)',
+    source_url: 'https://www.nzip.cz/data/2054-incidence-prevalence-zhoubne-nadory',
+    human_name: 'Onkologie — nově diagnostikované zhoubné nádory',
+    description: 'Počty nově diagnostikovaných zhoubných nádorů v Česku z Národního onkologického registru, rozpadnutelné podle diagnózy, věku, pohlaví a stadia při záchytu.',
+    metric_label: 'Nově diagnostikované případy', metric: { type: 'count' }, yearCol: 'rok_dg', year_from: 2000,
+    note: 'Kurátorované primární diagnózy. Nehodgkinské lymfomy (C82–C86) sloučeny. Stadium III+IV = pozdní záchyt; „neuvedeno" je u některých diagnóz (mozek) převažující.',
+    dims: [
+      { key: 'diagnosis', label: 'Diagnóza', kind: 'category', primary: true, col: 'diagnoza_kod', map: 'DG_ONKO' },
+      { key: 'age', label: 'Věk', kind: 'age', col: 'vek_kategorie_kod_dg', decode: 'nor5' },
+      { key: 'sex', label: 'Pohlaví', kind: 'category', col: 'pohlavi', map: 'SEX' },
+      { key: 'stage', label: 'Stadium', kind: 'category', col: 'stadium', map: 'STAGE', order: 'fixed', fixed: ['I', 'II', 'III', 'IV', 'neuvedeno'] },
+    ],
+  },
+  {
+    id: 'onkologie_umrti', src: ONKO_SRC_MOR, source: 'Národní onkologický registr (ÚZIS ČR)',
+    source_url: 'https://www.nzip.cz/data/2056-mortalita-zhoubne-nadory',
+    human_name: 'Onkologie — úmrtí na zhoubné nádory',
+    description: 'Počty úmrtí na zhoubné nádory v Česku z Národního onkologického registru, rozpadnutelné podle diagnózy, věku a pohlaví.',
+    metric_label: 'Úmrtí', metric: { type: 'count' }, yearCol: 'umrti_rok', year_from: 2000,
+    note: 'Kurátorované primární diagnózy. Nehodgkinské lymfomy (C82–C86) sloučeny. Bez stadia (registr úmrtí ho neeviduje).',
+    dims: [
+      { key: 'diagnosis', label: 'Diagnóza', kind: 'category', primary: true, col: 'diagnoza_kod', map: 'DG_ONKO' },
+      { key: 'age', label: 'Věk', kind: 'age', col: 'umrti_vek_kategorie_kod', decode: 'nor5' },
+      { key: 'sex', label: 'Pohlaví', kind: 'category', col: 'pohlavi', map: 'SEX' },
+    ],
+  },
+];
+
+const only = process.argv.slice(2);
+for (const cfg of CONFIGS) { if (only.length && !only.includes(cfg.id)) continue; await bakeOne(cfg); }
