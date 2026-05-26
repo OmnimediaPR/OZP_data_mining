@@ -1680,6 +1680,7 @@ function CubeCard({ d, selected, onToggle, filter, onFilter }) {
                   </LineChart>
                 </ResponsiveContainer>
               </div>
+              <SeriesNumbers series={series} />
             </>
           ) : (
             <div style={{ fontSize: 13, color: '#888', margin: '8px 0' }}>Pro tento výřez nejsou data.</div>
@@ -1709,6 +1710,34 @@ function CubeCard({ d, selected, onToggle, filter, onFilter }) {
           </div>
         </>
       )}
+    </div>
+  );
+}
+
+// Kompaktní dvouřádková tabulka (rok / hodnota) pod sparkline na kartě — ať jsou
+// holá čísla vidět hned u grafu, bez spuštění analýzy. Vodorovně scrollovatelná.
+function SeriesNumbers({ series }) {
+  if (!Array.isArray(series) || !series.length) return null;
+  const fmt = (n) => (typeof n === 'number' ? n.toLocaleString('cs-CZ') : String(n ?? ''));
+  const th = { textAlign: 'left', padding: '2px 8px 2px 0', whiteSpace: 'nowrap', position: 'sticky', left: 0, background: '#FFFFFF' };
+  return (
+    <div style={{ overflowX: 'auto', margin: '2px 0 8px', paddingBottom: 2 }}>
+      <table style={{ borderCollapse: 'collapse', fontSize: 11 }}>
+        <tbody>
+          <tr>
+            <th style={{ ...th, color: '#888', fontWeight: 600 }}>Rok</th>
+            {series.map(r => (
+              <td key={r.year} style={{ padding: '2px 8px', textAlign: 'right', color: '#888', whiteSpace: 'nowrap' }}>{r.year}</td>
+            ))}
+          </tr>
+          <tr>
+            <th style={{ ...th, color: '#702082', fontWeight: 700 }}>Hodnota</th>
+            {series.map(r => (
+              <td key={r.year} className="num" style={{ padding: '2px 8px', textAlign: 'right', fontWeight: 600, whiteSpace: 'nowrap' }}>{fmt(r.value)}</td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
@@ -1841,6 +1870,7 @@ function DatasetCard({ d, selected, onToggle }) {
               </LineChart>
             </ResponsiveContainer>
           </div>
+          <SeriesNumbers series={d.data} />
         </>
       )}
 
