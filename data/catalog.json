@@ -7988,6 +7988,31 @@
       "last_seen": "2026-05-26"
     },
     {
+      "id": "novorozenci_screening",
+      "kind": "cube",
+      "category": "reprodukce",
+      "human_name": "Novorozenci — screeningová vyšetření",
+      "description": "Počty novorozenců, u nichž bylo provedeno dané screeningové vyšetření (laboratorní screening z patní krve, screening srdečních vad pulzní oxymetrií, oční screening katarakty, screening sluchu a kyčlí), rozpadnutelné podle gestačního stáří, věku matky a typu poskytovatele. U jednoho novorozence se obvykle provádí víc screeningů, počty napříč vyšetřeními proto nelze sčítat.",
+      "relevant_for": [
+        "novorozenci",
+        "novorozenecký screening",
+        "screening sluchu",
+        "screening kyčlí",
+        "screening srdečních vad",
+        "laboratorní screening",
+        "screening katarakty",
+        "prevence u novorozenců",
+        "reprodukce"
+      ],
+      "trend_context": "Národní registr reprodukčního zdraví, modul Novorozenci, jedno narozené dítě na řádek, screeningy eviduje až od roku 2016. U jednoho novorozence se obvykle provádí víc screeningů, počty napříč vyšetřeními nelze sčítat. Popisná data o pokrytí, ne hledání trendů.",
+      "source_type": "national",
+      "source": "Národní registr reprodukčního zdraví (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1623-novorozenci-screening-otevrena-data",
+      "cube_url": "data/cubes/novorozenci_screening.json",
+      "last_seen": "2026-05-26"
+    },
+    {
       "id": "ockovani_kostka",
       "kind": "cube",
       "category": "prevence",
