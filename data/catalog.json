@@ -6268,6 +6268,537 @@
       ]
     },
     {
+      "id": "kolorektum_cekaci_doba",
+      "category": "screening",
+      "source_type": "regional_timeseries",
+      "human_name": "Čekací doba na kolonoskopii po pozitivním screeningovém testu",
+      "description": "Průměrná čekací doba (ve dnech) na navazující kolonoskopii po pozitivním screeningovém testu na okultní krvácení do stolice, podle kraje a roku. Datová podpora prevence rakoviny tlustého střeva a konečníku — ukazuje, jak rychle se lidé s pozitivním záchytem dostanou k vyšetření, které nádor potvrdí, nebo vyloučí.",
+      "relevant_for": [
+        "kolorektální karcinom",
+        "rakovina tlustého střeva a konečníku",
+        "screening",
+        "čekací doba na kolonoskopii",
+        "kolonoskopie",
+        "dostupnost péče",
+        "prevence",
+        "regionální rozdíly"
+      ],
+      "trend_context": "Program screeningu kolorektálního karcinomu, čtvrtletní data agregovaná na roční krajský průměr, roky 2019–2024. Celostátní průměr čekání na navazující kolonoskopii vzrostl z 61 dní (2019) na 84 dní (2024). Mezi kraji jsou v roce 2024 rozdíly zhruba od 68 dní (Pardubický) po 100 dní (Královéhradecký), na úrovni okresů ještě výraznější (přibližně od 40 do 150 dní). Kratší čekání znamená rychlejší potvrzení či vyloučení nádoru. Popisná data, ne hledání anomálií.",
+      "source": "Národní screeningové programy (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/2328-kolorektum-cekaci-doba-otevrena-data",
+      "csv_url": "https://datanzis.uzis.gov.cz/data/PPS-02-KRK/PPS-02-07/Otevrena-data-PPS-02-07-kolorektum-cekaci-doba.csv",
+      "metric_label": "Průměrná čekací doba na kolonoskopii (dny)",
+      "coverage": "2019–2024",
+      "last_seen": "2026-05-26",
+      "series": [
+        {
+          "year": 2019,
+          "kraj_kod": "CZ010",
+          "kraj_nazev": "Hl. m. Praha",
+          "value": 51
+        },
+        {
+          "year": 2019,
+          "kraj_kod": "CZ020",
+          "kraj_nazev": "Středočeský kraj",
+          "value": 57
+        },
+        {
+          "year": 2019,
+          "kraj_kod": "CZ031",
+          "kraj_nazev": "Jihočeský kraj",
+          "value": 68
+        },
+        {
+          "year": 2019,
+          "kraj_kod": "CZ032",
+          "kraj_nazev": "Plzeňský kraj",
+          "value": 60
+        },
+        {
+          "year": 2019,
+          "kraj_kod": "CZ041",
+          "kraj_nazev": "Karlovarský kraj",
+          "value": 72
+        },
+        {
+          "year": 2019,
+          "kraj_kod": "CZ042",
+          "kraj_nazev": "Ústecký kraj",
+          "value": 64
+        },
+        {
+          "year": 2019,
+          "kraj_kod": "CZ051",
+          "kraj_nazev": "Liberecký kraj",
+          "value": 86
+        },
+        {
+          "year": 2019,
+          "kraj_kod": "CZ052",
+          "kraj_nazev": "Královéhradecký kraj",
+          "value": 62
+        },
+        {
+          "year": 2019,
+          "kraj_kod": "CZ053",
+          "kraj_nazev": "Pardubický kraj",
+          "value": 61
+        },
+        {
+          "year": 2019,
+          "kraj_kod": "CZ063",
+          "kraj_nazev": "Vysočina",
+          "value": 63
+        },
+        {
+          "year": 2019,
+          "kraj_kod": "CZ064",
+          "kraj_nazev": "Jihomoravský kraj",
+          "value": 69
+        },
+        {
+          "year": 2019,
+          "kraj_kod": "CZ071",
+          "kraj_nazev": "Olomoucký kraj",
+          "value": 49
+        },
+        {
+          "year": 2019,
+          "kraj_kod": "CZ072",
+          "kraj_nazev": "Zlínský kraj",
+          "value": 61
+        },
+        {
+          "year": 2019,
+          "kraj_kod": "CZ080",
+          "kraj_nazev": "Moravskoslezský kraj",
+          "value": 52
+        },
+        {
+          "year": 2020,
+          "kraj_kod": "CZ010",
+          "kraj_nazev": "Hl. m. Praha",
+          "value": 57
+        },
+        {
+          "year": 2020,
+          "kraj_kod": "CZ020",
+          "kraj_nazev": "Středočeský kraj",
+          "value": 63
+        },
+        {
+          "year": 2020,
+          "kraj_kod": "CZ031",
+          "kraj_nazev": "Jihočeský kraj",
+          "value": 77
+        },
+        {
+          "year": 2020,
+          "kraj_kod": "CZ032",
+          "kraj_nazev": "Plzeňský kraj",
+          "value": 68
+        },
+        {
+          "year": 2020,
+          "kraj_kod": "CZ041",
+          "kraj_nazev": "Karlovarský kraj",
+          "value": 59
+        },
+        {
+          "year": 2020,
+          "kraj_kod": "CZ042",
+          "kraj_nazev": "Ústecký kraj",
+          "value": 78
+        },
+        {
+          "year": 2020,
+          "kraj_kod": "CZ051",
+          "kraj_nazev": "Liberecký kraj",
+          "value": 95
+        },
+        {
+          "year": 2020,
+          "kraj_kod": "CZ052",
+          "kraj_nazev": "Královéhradecký kraj",
+          "value": 68
+        },
+        {
+          "year": 2020,
+          "kraj_kod": "CZ053",
+          "kraj_nazev": "Pardubický kraj",
+          "value": 75
+        },
+        {
+          "year": 2020,
+          "kraj_kod": "CZ063",
+          "kraj_nazev": "Vysočina",
+          "value": 73
+        },
+        {
+          "year": 2020,
+          "kraj_kod": "CZ064",
+          "kraj_nazev": "Jihomoravský kraj",
+          "value": 83
+        },
+        {
+          "year": 2020,
+          "kraj_kod": "CZ071",
+          "kraj_nazev": "Olomoucký kraj",
+          "value": 61
+        },
+        {
+          "year": 2020,
+          "kraj_kod": "CZ072",
+          "kraj_nazev": "Zlínský kraj",
+          "value": 78
+        },
+        {
+          "year": 2020,
+          "kraj_kod": "CZ080",
+          "kraj_nazev": "Moravskoslezský kraj",
+          "value": 60
+        },
+        {
+          "year": 2021,
+          "kraj_kod": "CZ010",
+          "kraj_nazev": "Hl. m. Praha",
+          "value": 56
+        },
+        {
+          "year": 2021,
+          "kraj_kod": "CZ020",
+          "kraj_nazev": "Středočeský kraj",
+          "value": 62
+        },
+        {
+          "year": 2021,
+          "kraj_kod": "CZ031",
+          "kraj_nazev": "Jihočeský kraj",
+          "value": 73
+        },
+        {
+          "year": 2021,
+          "kraj_kod": "CZ032",
+          "kraj_nazev": "Plzeňský kraj",
+          "value": 61
+        },
+        {
+          "year": 2021,
+          "kraj_kod": "CZ041",
+          "kraj_nazev": "Karlovarský kraj",
+          "value": 54
+        },
+        {
+          "year": 2021,
+          "kraj_kod": "CZ042",
+          "kraj_nazev": "Ústecký kraj",
+          "value": 77
+        },
+        {
+          "year": 2021,
+          "kraj_kod": "CZ051",
+          "kraj_nazev": "Liberecký kraj",
+          "value": 94
+        },
+        {
+          "year": 2021,
+          "kraj_kod": "CZ052",
+          "kraj_nazev": "Královéhradecký kraj",
+          "value": 78
+        },
+        {
+          "year": 2021,
+          "kraj_kod": "CZ053",
+          "kraj_nazev": "Pardubický kraj",
+          "value": 75
+        },
+        {
+          "year": 2021,
+          "kraj_kod": "CZ063",
+          "kraj_nazev": "Vysočina",
+          "value": 79
+        },
+        {
+          "year": 2021,
+          "kraj_kod": "CZ064",
+          "kraj_nazev": "Jihomoravský kraj",
+          "value": 80
+        },
+        {
+          "year": 2021,
+          "kraj_kod": "CZ071",
+          "kraj_nazev": "Olomoucký kraj",
+          "value": 57
+        },
+        {
+          "year": 2021,
+          "kraj_kod": "CZ072",
+          "kraj_nazev": "Zlínský kraj",
+          "value": 79
+        },
+        {
+          "year": 2021,
+          "kraj_kod": "CZ080",
+          "kraj_nazev": "Moravskoslezský kraj",
+          "value": 68
+        },
+        {
+          "year": 2022,
+          "kraj_kod": "CZ010",
+          "kraj_nazev": "Hl. m. Praha",
+          "value": 72
+        },
+        {
+          "year": 2022,
+          "kraj_kod": "CZ020",
+          "kraj_nazev": "Středočeský kraj",
+          "value": 70
+        },
+        {
+          "year": 2022,
+          "kraj_kod": "CZ031",
+          "kraj_nazev": "Jihočeský kraj",
+          "value": 84
+        },
+        {
+          "year": 2022,
+          "kraj_kod": "CZ032",
+          "kraj_nazev": "Plzeňský kraj",
+          "value": 61
+        },
+        {
+          "year": 2022,
+          "kraj_kod": "CZ041",
+          "kraj_nazev": "Karlovarský kraj",
+          "value": 62
+        },
+        {
+          "year": 2022,
+          "kraj_kod": "CZ042",
+          "kraj_nazev": "Ústecký kraj",
+          "value": 87
+        },
+        {
+          "year": 2022,
+          "kraj_kod": "CZ051",
+          "kraj_nazev": "Liberecký kraj",
+          "value": 88
+        },
+        {
+          "year": 2022,
+          "kraj_kod": "CZ052",
+          "kraj_nazev": "Královéhradecký kraj",
+          "value": 88
+        },
+        {
+          "year": 2022,
+          "kraj_kod": "CZ053",
+          "kraj_nazev": "Pardubický kraj",
+          "value": 77
+        },
+        {
+          "year": 2022,
+          "kraj_kod": "CZ063",
+          "kraj_nazev": "Vysočina",
+          "value": 91
+        },
+        {
+          "year": 2022,
+          "kraj_kod": "CZ064",
+          "kraj_nazev": "Jihomoravský kraj",
+          "value": 91
+        },
+        {
+          "year": 2022,
+          "kraj_kod": "CZ071",
+          "kraj_nazev": "Olomoucký kraj",
+          "value": 63
+        },
+        {
+          "year": 2022,
+          "kraj_kod": "CZ072",
+          "kraj_nazev": "Zlínský kraj",
+          "value": 76
+        },
+        {
+          "year": 2022,
+          "kraj_kod": "CZ080",
+          "kraj_nazev": "Moravskoslezský kraj",
+          "value": 78
+        },
+        {
+          "year": 2023,
+          "kraj_kod": "CZ010",
+          "kraj_nazev": "Hl. m. Praha",
+          "value": 78
+        },
+        {
+          "year": 2023,
+          "kraj_kod": "CZ020",
+          "kraj_nazev": "Středočeský kraj",
+          "value": 79
+        },
+        {
+          "year": 2023,
+          "kraj_kod": "CZ031",
+          "kraj_nazev": "Jihočeský kraj",
+          "value": 87
+        },
+        {
+          "year": 2023,
+          "kraj_kod": "CZ032",
+          "kraj_nazev": "Plzeňský kraj",
+          "value": 79
+        },
+        {
+          "year": 2023,
+          "kraj_kod": "CZ041",
+          "kraj_nazev": "Karlovarský kraj",
+          "value": 74
+        },
+        {
+          "year": 2023,
+          "kraj_kod": "CZ042",
+          "kraj_nazev": "Ústecký kraj",
+          "value": 83
+        },
+        {
+          "year": 2023,
+          "kraj_kod": "CZ051",
+          "kraj_nazev": "Liberecký kraj",
+          "value": 87
+        },
+        {
+          "year": 2023,
+          "kraj_kod": "CZ052",
+          "kraj_nazev": "Královéhradecký kraj",
+          "value": 108
+        },
+        {
+          "year": 2023,
+          "kraj_kod": "CZ053",
+          "kraj_nazev": "Pardubický kraj",
+          "value": 81
+        },
+        {
+          "year": 2023,
+          "kraj_kod": "CZ063",
+          "kraj_nazev": "Vysočina",
+          "value": 96
+        },
+        {
+          "year": 2023,
+          "kraj_kod": "CZ064",
+          "kraj_nazev": "Jihomoravský kraj",
+          "value": 104
+        },
+        {
+          "year": 2023,
+          "kraj_kod": "CZ071",
+          "kraj_nazev": "Olomoucký kraj",
+          "value": 72
+        },
+        {
+          "year": 2023,
+          "kraj_kod": "CZ072",
+          "kraj_nazev": "Zlínský kraj",
+          "value": 96
+        },
+        {
+          "year": 2023,
+          "kraj_kod": "CZ080",
+          "kraj_nazev": "Moravskoslezský kraj",
+          "value": 88
+        },
+        {
+          "year": 2024,
+          "kraj_kod": "CZ010",
+          "kraj_nazev": "Hl. m. Praha",
+          "value": 76
+        },
+        {
+          "year": 2024,
+          "kraj_kod": "CZ020",
+          "kraj_nazev": "Středočeský kraj",
+          "value": 89
+        },
+        {
+          "year": 2024,
+          "kraj_kod": "CZ031",
+          "kraj_nazev": "Jihočeský kraj",
+          "value": 79
+        },
+        {
+          "year": 2024,
+          "kraj_kod": "CZ032",
+          "kraj_nazev": "Plzeňský kraj",
+          "value": 84
+        },
+        {
+          "year": 2024,
+          "kraj_kod": "CZ041",
+          "kraj_nazev": "Karlovarský kraj",
+          "value": 72
+        },
+        {
+          "year": 2024,
+          "kraj_kod": "CZ042",
+          "kraj_nazev": "Ústecký kraj",
+          "value": 79
+        },
+        {
+          "year": 2024,
+          "kraj_kod": "CZ051",
+          "kraj_nazev": "Liberecký kraj",
+          "value": 89
+        },
+        {
+          "year": 2024,
+          "kraj_kod": "CZ052",
+          "kraj_nazev": "Královéhradecký kraj",
+          "value": 100
+        },
+        {
+          "year": 2024,
+          "kraj_kod": "CZ053",
+          "kraj_nazev": "Pardubický kraj",
+          "value": 68
+        },
+        {
+          "year": 2024,
+          "kraj_kod": "CZ063",
+          "kraj_nazev": "Vysočina",
+          "value": 90
+        },
+        {
+          "year": 2024,
+          "kraj_kod": "CZ064",
+          "kraj_nazev": "Jihomoravský kraj",
+          "value": 96
+        },
+        {
+          "year": 2024,
+          "kraj_kod": "CZ071",
+          "kraj_nazev": "Olomoucký kraj",
+          "value": 76
+        },
+        {
+          "year": 2024,
+          "kraj_kod": "CZ072",
+          "kraj_nazev": "Zlínský kraj",
+          "value": 92
+        },
+        {
+          "year": 2024,
+          "kraj_kod": "CZ080",
+          "kraj_nazev": "Moravskoslezský kraj",
+          "value": 82
+        }
+      ]
+    },
+    {
       "id": "prostata_podil_vysetrenych_psa",
       "category": "screening",
       "human_name": "Vyšetření prostatického specifického antigenu",
