@@ -8085,6 +8085,30 @@
       "last_seen": "2026-05-26"
     },
     {
+      "id": "novorozenci_propusteni",
+      "kind": "cube",
+      "category": "reprodukce",
+      "human_name": "Novorozenci — výživa a propuštění",
+      "description": "Interaktivní rozpad živě narozených dětí podle způsobu výživy při propuštění (výlučné kojení, dokrm formulí, umělá výživa, parenterální výživa), délky hospitalizace, důvodu ukončení péče (propuštění domů, překlad, úmrtí), způsobu porodu a gestačního stáří. Ukazuje mimo jiné podíl výlučně kojených dětí a délku pobytu po porodu.",
+      "relevant_for": [
+        "novorozenci",
+        "kojení",
+        "výlučné kojení",
+        "umělá výživa",
+        "délka hospitalizace po porodu",
+        "propuštění novorozence",
+        "úmrtí novorozence",
+        "reprodukce"
+      ],
+      "trend_context": "Národní registr reprodukčního zdraví, modul Novorozenci, jedno živě narozené dítě na řádek, eviduje od roku 2000. Číselník způsobu výživy byl v čase rozšiřován, podíly jednotlivých kategorií proto nelze srovnávat napříč celou řadou bez výhrad. Popisná data, ne hledání trendů.",
+      "source_type": "national",
+      "source": "Národní registr reprodukčního zdraví (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1611-novorozenci-propusteni-otevrena-data",
+      "cube_url": "data/cubes/novorozenci_propusteni.json",
+      "last_seen": "2026-05-26"
+    },
+    {
       "id": "ockovani_kostka",
       "kind": "cube",
       "category": "prevence",
