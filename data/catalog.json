@@ -8506,6 +8506,32 @@
       "last_seen": "2026-05-26"
     },
     {
+      "id": "porody_leky",
+      "kind": "cube",
+      "category": "reprodukce",
+      "human_name": "Porody — léky podané za porodu",
+      "description": "Interaktivní rozpad porodů, u nichž byl podán lék dané skupiny (uterotonika na stahy dělohy, spasmolytika, analgetika proti bolesti, epidurální analgezie, antibiotika, uterolytika), rozpadnutelný podle věku matky, typu poskytovatele a způsobu porodu. U jednoho porodu může být podáno víc skupin léků, počty napříč skupinami proto nelze sčítat.",
+      "relevant_for": [
+        "porody",
+        "léky za porodu",
+        "epidurál",
+        "epidurální analgezie",
+        "tlumení bolesti u porodu",
+        "antibiotika u porodu",
+        "uterotonika",
+        "analgetika",
+        "reprodukce",
+        "věk matky"
+      ],
+      "trend_context": "Národní registr reprodukčního zdraví, léky podané za porodu, 2000 dál. U jednoho porodu může být podáno víc skupin léků, počty napříč nimi nelze sčítat. Epidurální analgezii registr eviduje až od roku 2016, u dřívějších let je prázdná. Názvy skupin léků jsou odvozené z názvů sloupců registru.",
+      "source_type": "national",
+      "source": "Národní registr reprodukčního zdraví (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1620-rodicky-porod-leky-otevrena-data",
+      "cube_url": "data/cubes/porody_leky.json",
+      "last_seen": "2026-05-26"
+    },
+    {
       "id": "ockovani_kostka",
       "kind": "cube",
       "category": "prevence",

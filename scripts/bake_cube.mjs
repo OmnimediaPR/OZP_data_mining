@@ -435,6 +435,28 @@ const CONFIGS = [
     ],
   },
   {
+    id: 'porody_leky', src: 'https://data.mzcr.cz/data/distribuce/317/rodicky-leky.csv',
+    source: 'Národní registr reprodukčního zdraví (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1620-rodicky-porod-leky-otevrena-data',
+    human_name: 'Porody — léky podané za porodu',
+    description: 'Počty porodů, u nichž byl podán lék dané skupiny (uterotonika na stahy dělohy, spasmolytika, analgetika proti bolesti, epidurální analgezie, antibiotika, uterolytika), rozpadnutelné podle věku matky, typu poskytovatele a způsobu porodu. U jednoho porodu může být podáno víc skupin léků.',
+    metric_label: 'Porody s podaným lékem', metric: { type: 'wide' }, yearCol: 'rok_porodu', year_from: 2000,
+    note: 'Příznakové sloupce léků (hodnota 1 = ano), u jednoho porodu může být podáno víc skupin léků → počty napříč skupinami nelze sčítat. Epidurální analgezii registr eviduje až od roku 2016, dřívější roky jsou u ní prázdné. Názvy skupin jsou odvozené z názvů sloupců registru.',
+    wideCauses: [
+      { col: 'leky_uterotonika', name: 'uterotonika (léky na stahy dělohy)' },
+      { col: 'leky_uterolytika', name: 'uterolytika (léky tlumící stahy dělohy)' },
+      { col: 'leky_spasmolytika', name: 'spasmolytika (léky uvolňující křeče)' },
+      { col: 'leky_analgetika', name: 'analgetika (léky proti bolesti)' },
+      { col: 'leky_epidural', name: 'epidurální analgezie' },
+      { col: 'leky_antibiotika', name: 'antibiotika' },
+    ],
+    dims: [
+      { key: 'lek', label: 'Skupina léků', kind: 'category', primary: true, wide: true },
+      { key: 'vek_matky', label: 'Věk matky', kind: 'category', col: 'vek_matky', valueMap: { '1': 'do 19 let', '2': '20–24 let', '3': '25–29 let', '4': '30–34 let', '5': '35–39 let', '6': '40 a více let' } },
+      { key: 'typ_pzs', label: 'Typ poskytovatele', kind: 'category', col: 'typ_pzs', valueMap: { '1': 'poskytovatel základní úrovně', '2': 'perinatologické centrum intermediární péče', '3': 'perinatologické centrum intenzivní péče' } },
+      { key: 'zpusob', label: 'Způsob porodu', kind: 'category', col: 'zpusob_porodu', valueMap: { '1': 'vaginální porod', '2': 'císařský řez' } },
+    ],
+  },
+  {
     id: 'urazy', src: 'https://data.mzcr.cz/data/distribuce/381/Otevrena-data-NR-16-01-urazy.csv.gz',
     source: 'Národní registr úrazů (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1786-urazy-otevrena-data',
     human_name: 'Úrazy — hospitalizační případy',
