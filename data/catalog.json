@@ -8109,6 +8109,30 @@
       "last_seen": "2026-05-26"
     },
     {
+      "id": "umrti_sociodemo",
+      "kind": "cube",
+      "category": "mortalita",
+      "human_name": "Úmrtí — příčina, věk, rodinný stav a kraj",
+      "description": "Interaktivní rozpad jednotlivých úmrtí v Česku podle základní příčiny smrti (skupina diagnóz dle kapitol mezinárodní klasifikace nemocí), věku, pohlaví, rodinného stavu a kraje bydliště zemřelého. Umožňuje sledovat například rozdíly ve struktuře příčin smrti mezi svobodnými, ženatými a ovdovělými nebo mezi kraji. Popisná data, ne hledání anomálií.",
+      "relevant_for": [
+        "úmrtí",
+        "mortalita",
+        "příčiny smrti",
+        "úmrtnost podle rodinného stavu",
+        "ovdovělí",
+        "regionální rozdíly úmrtnosti",
+        "úmrtí podle věku",
+        "kapitoly mezinárodní klasifikace nemocí"
+      ],
+      "trend_context": "List o prohlídce zemřelého, jedno úmrtí na řádek, dlouhá řada 1994–2024. Příčina je seskupena do kapitol mezinárodní klasifikace nemocí. Počty jsou absolutní a rostou se stárnutím populace, mezikrajové a meziskupinové srovnání je proto nutné brát jako popis struktury, ne jako míru rizika. Nejvyšší vzdělání registr eviduje až od roku 2024, proto není zařazeno.",
+      "source_type": "national",
+      "source": "List o prohlídce zemřelého (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/2517-jednotliva-umrti-sociodemo-charakteristiky-priciny-otevrena-data",
+      "cube_url": "data/cubes/umrti_sociodemo.json",
+      "last_seen": "2026-05-26"
+    },
+    {
       "id": "ockovani_kostka",
       "kind": "cube",
       "category": "prevence",

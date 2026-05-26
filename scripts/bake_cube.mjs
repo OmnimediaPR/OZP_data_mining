@@ -100,6 +100,7 @@ function extractor(dim) {
   }
   if (dim.map === 'DG_ONKO') return (r) => { const m = DG_ONKO[(r[col] || '').toString().slice(0, 3)]; return m ? m.key : null; };
   if (dim.map === 'MKN_CHAPTER') return (r) => mknChapter(r[col]);
+  if (dim.map === 'KRAJ_OKRES') return (r) => KRAJ[(r[col] || '').toString().slice(0, 5)] || null; // okres CZ0525 → kraj CZ052
   if (dim.map === 'SEX') return (r) => SEX((r[col] || '').toString());
   if (dim.map === 'SEX_MZ') return (r) => SEX_MZ((r[col] || '').toString());
   if (dim.map === 'STAGE') return (r) => STAGE(r[col]);
@@ -797,6 +798,25 @@ const CONFIGS = [
     dims: [
       { key: 'vykon', label: 'Druh výkonu', kind: 'category', primary: true, col: 'vykon', relabel: { 'elektrofyzikalní výkony': 'elektrofyzikální výkony', 'ostatní výkony s použitím PLZ': 'ostatní výkony s použitím přírodního léčivého zdroje' } },
       { key: 'kraj', label: 'Kraj poskytovatele', kind: 'category', col: 'kraj_kod', valueMap: KRAJ },
+    ],
+  },
+  {
+    id: 'umrti_sociodemo', src: 'https://datanzis.uzis.gov.cz/data/NR-06-LPZ/NR-06-34/Otevrena-data-NR-06-34-jednotliva-umrti-sociodemo-charakteristiky-priciny.csv.gz',
+    source: 'List o prohlídce zemřelého (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/2517-jednotliva-umrti-sociodemo-charakteristiky-priciny-otevrena-data',
+    human_name: 'Úmrtí — příčina, věk, rodinný stav a kraj',
+    description: 'Interaktivní rozpad jednotlivých úmrtí v Česku podle základní příčiny smrti (skupina diagnóz dle kapitol mezinárodní klasifikace nemocí), věku, pohlaví, rodinného stavu a kraje bydliště zemřelého. Umožňuje sledovat například rozdíly ve struktuře příčin smrti mezi svobodnými, ženatými a ovdovělými nebo mezi kraji. Popisná data, ne hledání anomálií.',
+    metric_label: 'Úmrtí', metric: { type: 'count' }, yearCol: 'datum_umrti', year_from: 1994, noAnomalies: true,
+    note: 'Jedna řádka = jedno úmrtí, dlouhá řada 1994–2024. Příčina je seskupena do kapitol mezinárodní klasifikace nemocí (základní příčina smrti); úmrtí z vnějších příčin (úrazy, otravy) se objevují jako „poranění, otravy a vnější následky". Nejvyšší dosažené vzdělání registr eviduje až od roku 2024, proto není zařazeno. Číselník rodinného stavu podle metodiky ÚZIS, kraj je odvozen z okresu bydliště.',
+    dims: [
+      { key: 'pricina', label: 'Příčina smrti', kind: 'category', primary: true, col: 'prvotni_pricina_smrti_MKN10', map: 'MKN_CHAPTER' },
+      { key: 'vek', label: 'Věk', kind: 'category', col: 'vek_kat', order: 'fixed',
+        fixed: ['0–4', '5–9', '10–14', '15–19', '20–24', '25–29', '30–34', '35–39', '40–44', '45–49', '50–54', '55–59', '60–64', '65–69', '70–74', '75–79', '80–84', '85–89', '90–94', '95 a více'],
+        valueMap: { '66000004': '0–4', '66005009': '5–9', '66010014': '10–14', '66015019': '15–19', '66020024': '20–24', '66025029': '25–29', '66030034': '30–34', '66035039': '35–39', '66040044': '40–44', '66045049': '45–49', '66050054': '50–54', '66055059': '55–59', '66060064': '60–64', '66065069': '65–69', '66070074': '70–74', '66075079': '75–79', '66080084': '80–84', '66085089': '85–89', '66090094': '90–94', '66095999': '95 a více' } },
+      { key: 'pohlavi', label: 'Pohlaví', kind: 'category', col: 'pohlavi', map: 'SEX' },
+      { key: 'rodinny_stav', label: 'Rodinný stav', kind: 'category', col: 'rodinny_stav', order: 'fixed',
+        fixed: ['svobodní', 'ženatí / vdané', 'rozvedení', 'ovdovělí', 'registrované partnerství', 'zaniklé partnerství', 'nezjištěno'],
+        valueMap: { '1': 'svobodní', '2': 'ženatí / vdané', '3': 'rozvedení', '4': 'ovdovělí', '5': 'registrované partnerství', '6': 'zaniklé partnerství', '7': 'zaniklé partnerství', '8': 'nezjištěno', '': 'nezjištěno' } },
+      { key: 'kraj', label: 'Kraj bydliště', kind: 'category', col: 'okres_bydliste', map: 'KRAJ_OKRES' },
     ],
   },
 ];
