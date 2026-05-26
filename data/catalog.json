@@ -8480,6 +8480,32 @@
       "last_seen": "2026-05-26"
     },
     {
+      "id": "rodicky_sociodemografie",
+      "kind": "cube",
+      "category": "reprodukce",
+      "human_name": "Rodičky — vzdělání, rodinný stav, věk a kraj",
+      "description": "Interaktivní rozpad rodiček podle nejvyššího dosaženého vzdělání, rodinného stavu, věku a kraje bydliště. Ukazuje, jak se v čase mění složení rodiček — například podíl vysokoškolaček nebo neprovdaných matek. Popisná data o stavu, ne hledání anomálií.",
+      "relevant_for": [
+        "rodičky",
+        "vzdělání matek",
+        "vysokoškolačky",
+        "rodinný stav",
+        "neprovdané matky",
+        "svobodné matky",
+        "věk matky",
+        "kraje",
+        "sociodemografie",
+        "popisná data"
+      ],
+      "trend_context": "Národní registr reprodukčního zdraví, sociodemografické charakteristiky rodiček, 1994 dál. Popisná data bez automatického skenu trendů. Vzdělání má část záznamů neuvedenou (od roku 2016 zhruba pětinu), počty podle vzdělání v posledních letech proto podhodnocují skutečnost. Číselníky podle metodiky Národního registru rodiček.",
+      "source_type": "national",
+      "source": "Národní registr reprodukčního zdraví (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1621-rodicky-sociodemograficke-charakteristiky-otevrena-data",
+      "cube_url": "data/cubes/rodicky_sociodemografie.json",
+      "last_seen": "2026-05-26"
+    },
+    {
       "id": "ockovani_kostka",
       "kind": "cube",
       "category": "prevence",
