@@ -8061,6 +8061,30 @@
       "last_seen": "2026-05-26"
     },
     {
+      "id": "novorozenci_pece_sal",
+      "kind": "cube",
+      "category": "reprodukce",
+      "human_name": "Novorozenci — péče na porodním sále",
+      "description": "Počty novorozenců, u nichž byla na porodním sále poskytnuta daná podpůrná péče (časné přiložení k prsu, kontakt kůže na kůži neboli bonding, odložený podvaz pupečníku), rozpadnutelné podle gestačního stáří, věku matky a typu poskytovatele. U jednoho novorozence může být poskytnuto víc typů péče, počty napříč nimi proto nelze sčítat.",
+      "relevant_for": [
+        "novorozenci",
+        "bonding",
+        "kontakt kůže na kůži",
+        "časné přiložení k prsu",
+        "podpora kojení",
+        "odložený podvaz pupečníku",
+        "péče na porodním sále",
+        "reprodukce"
+      ],
+      "trend_context": "Národní registr reprodukčního zdraví, modul Novorozenci, jedno narozené dítě na řádek. Údaje o podpůrné péči na porodním sále registr sbírá teprve od roku 2022, jde tedy zatím o snímek jednoho roku, ne časovou řadu. U jednoho novorozence může být poskytnuto víc typů péče, počty napříč nimi nelze sčítat. Popisná data.",
+      "source_type": "national",
+      "source": "Národní registr reprodukčního zdraví (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1705-novorozenci-pece-porodni-sal-otevrena-data",
+      "cube_url": "data/cubes/novorozenci_pece_sal.json",
+      "last_seen": "2026-05-26"
+    },
+    {
       "id": "ockovani_kostka",
       "kind": "cube",
       "category": "prevence",
