@@ -8532,6 +8532,32 @@
       "last_seen": "2026-05-26"
     },
     {
+      "id": "porody_cisar",
+      "kind": "cube",
+      "category": "reprodukce",
+      "human_name": "Porody — císařské řezy (typ a anestezie)",
+      "description": "Interaktivní rozpad porodů ukončených císařským řezem podle typu (plánovaný nebo akutní, v těhotenství nebo za porodu), typu anestezie (celková, epidurální, spinální), parity, předchozího císařského řezu, věku matky a typu poskytovatele. Ukazuje mimo jiné posun od celkové anestezie ke svodné a růst plánovaných císařských řezů.",
+      "relevant_for": [
+        "porody",
+        "císařský řez",
+        "císařské řezy",
+        "plánovaný císařský řez",
+        "akutní císařský řez",
+        "anestezie u porodu",
+        "spinální anestezie",
+        "epidurál",
+        "reprodukce",
+        "věk matky"
+      ],
+      "trend_context": "Národní registr reprodukčního zdraví, porody ukončené císařským řezem, 2000 dál. Obsahuje jen císařské řezy, ne všechny porody. Číselníky typu císaře a anestezie podle metodiky Národního registru rodiček.",
+      "source_type": "national",
+      "source": "Národní registr reprodukčního zdraví (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1616-rodicky-cisarske-rezy-otevrena-data",
+      "cube_url": "data/cubes/porody_cisar.json",
+      "last_seen": "2026-05-26"
+    },
+    {
       "id": "ockovani_kostka",
       "kind": "cube",
       "category": "prevence",
