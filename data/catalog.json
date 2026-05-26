@@ -7963,6 +7963,31 @@
       "last_seen": "2026-05-26"
     },
     {
+      "id": "novorozenci_vrozene_vady",
+      "kind": "cube",
+      "category": "reprodukce",
+      "human_name": "Novorozenci — vrozené vady a vitalita",
+      "description": "Interaktivní rozpad narozených dětí podle toho, zda měly při narození zjištěnou vrozenou vadu, a podle vitality (živě, nebo mrtvě narozené), v členění podle gestačního stáří, porodní hmotnosti, věku matky a typu poskytovatele. Ukazuje mimo jiné, jak často se vrozené vady pojí s nízkou porodní hmotností a předčasným porodem.",
+      "relevant_for": [
+        "novorozenci",
+        "vrozené vady",
+        "vrozené vývojové vady",
+        "mrtvě narození",
+        "mrtvorozenost",
+        "vitalita novorozence",
+        "předčasný porod",
+        "nízká porodní hmotnost",
+        "reprodukce"
+      ],
+      "trend_context": "Národní registr reprodukčního zdraví, modul Novorozenci, jedno narozené dítě na řádek, eviduje od roku 2000. Vrozená vada je vedena jako příznak ano/ne, ne jako typ konkrétní vady. Podíl evidovaných vad ovlivňuje i důslednost záchytu, ne jen skutečný výskyt. Popisná data, ne hledání trendů.",
+      "source_type": "national",
+      "source": "Národní registr reprodukčního zdraví (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1612-novorozenci-vrozene-vady-otevrena-data",
+      "cube_url": "data/cubes/novorozenci_vrozene_vady.json",
+      "last_seen": "2026-05-26"
+    },
+    {
       "id": "ockovani_kostka",
       "kind": "cube",
       "category": "prevence",
