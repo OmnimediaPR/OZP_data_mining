@@ -990,11 +990,13 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
 {
   "key_findings": [{"number": "+70 %", "label": "...", "explanation": "...", "dataset": "id datasetu (např. 'aim', 'cmp', 'eu_cvd_share') — ne lidský název"}],
   "meta_pattern": "1–2 věty",
-  "angles": [{"label": "...", "observation": "1–2 věty pozorování, ne kopie", "key_data": ["..."], "risk": "..."}],
+  "angles": [{"label": "...", "observation": "1–2 věty pozorování, ne kopie", "key_data": ["..."], "datasets": ["id datasetu/ů, ze kterých úhel vychází"], "risk": "..."}],
   "cannot_claim": [{"claim": "...", "why": "..."}]
 }
 
-3–5 key_findings, 3 angles, 2–3 cannot_claim. Vše česky. Žádné hotové copywriting věty.`;
+3–5 key_findings, 3 angles, 2–3 cannot_claim. Vše česky. Žádné hotové copywriting věty.
+
+OVĚŘITELNOST ZDROJŮ (povinné): u každého key_finding (pole "dataset") i u každého úhlu (pole "datasets") MUSÍŠ uvést id datasetu/ů z výše uvedených dat, ze kterých tvrzení vychází — používej přesně id z hranatých závorek [id: ...], ne lidské názvy. Úhel může stát na víc datasetech (vyjmenuj všechna). Tvrzení bez doložitelného zdroje v datech neuváděj.`;
 
       const response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
@@ -1055,6 +1057,19 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
       width: opts.width,
       shading: opts.shading,
     });
+    // Zdrojový odkaz pod tezí: název datasetu + ověřitelná URL (z polí dataset/datasets od AI).
+    const srcParas = (ids) => {
+      const seen = new Set();
+      const dss = (ids || []).map(id => findDatasetById(id, selectedDatasets)).filter(d => d && !seen.has(d.id) && seen.add(d.id));
+      if (!dss.length) return [];
+      const runs = [t('Zdroj: ', { color: '888888', size: 16 })];
+      dss.forEach((ds, j) => {
+        if (j > 0) runs.push(t('; ', { color: '888888', size: 16 }));
+        runs.push(t(ds.human_name || ds.label, { color: '888888', size: 16 }));
+        if (ds.source_url) { runs.push(t(' — ', { color: '888888', size: 16 })); runs.push(t(ds.source_url, { color: '702082', size: 16 })); }
+      });
+      return [p(runs, { spacing: { before: 40 } })];
+    };
 
     const lightPurple = { type: ShadingType.SOLID, color: 'auto', fill: 'F2ECF7' };
     const purpleBox = { type: ShadingType.SOLID, color: 'auto', fill: '702082' };
@@ -1164,6 +1179,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
             }
           }
         }
+        coParas.push(...srcParas([f.dataset]));
         return new TableRow({
           children: [
             cell(p(t(f.number || '', { bold: true, color: 'ED8B00', size: 32 }), { alignment: AlignmentType.CENTER })),
@@ -1195,7 +1211,7 @@ Vrať POUZE platný JSON, žádné markdown, žádný úvod:
         children: [
           cell(p(t(String.fromCharCode(65 + i), { bold: true, size: 22 }), { alignment: AlignmentType.CENTER })),
           cell(p(t(a.label || '', { bold: true }))),
-          cell(p(t(a.observation || ''))),
+          cell([p(t(a.observation || '')), ...srcParas([...(a.datasets || []), ...(a.dataset ? [a.dataset] : [])])]),
           cell(p(t(a.risk || ''))),
         ],
       }));
@@ -2072,20 +2088,34 @@ function AnalysisView({ analysis, datasets, onRerun }) {
 
       <h3 className="serif" style={{ fontSize: 20, marginBottom: 12 }}>Doporučené úhly</h3>
       <div style={{ display: 'grid', gap: 12, marginBottom: 24 }}>
-        {analysis.angles?.map((a, i) => (
+        {analysis.angles?.map((a, i) => {
+          const srcIds = [...(a.datasets || []), ...(a.dataset ? [a.dataset] : [])];
+          const seen = new Set();
+          const uniq = srcIds.map(id => findDatasetById(id, datasets)).filter(d => d && !seen.has(d.id) && seen.add(d.id));
+          return (
           <div key={i} style={{ padding: 16, background: '#FFFFFF', border: '1px solid #E0D6EA', borderRadius: 12 }}>
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#666', marginBottom: 4 }}>
               Úhel {String.fromCharCode(65 + i)}
             </div>
             <div className="serif" style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>{a.label}</div>
             <div style={{ fontSize: 14, color: '#333', lineHeight: 1.5, marginBottom: 8 }}>{a.observation}</div>
+            {uniq.length > 0 && (
+              <div style={{ fontSize: 11, color: '#888', marginBottom: 8 }}>
+                Zdroj: {uniq.map((ds, j) => (
+                  <span key={ds.id}>{j > 0 ? ', ' : ''}{ds.source_url
+                    ? <a href={ds.source_url} target="_blank" rel="noopener noreferrer" style={{ color: '#702082' }}>{ds.human_name || ds.label}</a>
+                    : (ds.human_name || ds.label)}</span>
+                ))}
+              </div>
+            )}
             {a.risk && (
               <div style={{ fontSize: 12, color: '#5A1812', background: '#FBE9E6', padding: 8, marginTop: 8, borderRadius: 8 }}>
                 <strong>Riziko v tezi:</strong> {a.risk}
               </div>
             )}
           </div>
-        ))}
+          );
+        })}
       </div>
 
       {analysis.cannot_claim?.length > 0 && (
