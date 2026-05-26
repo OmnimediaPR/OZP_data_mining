@@ -96,6 +96,7 @@ function extractor(dim) {
   if (dim.kind === 'age') {
     if (dim.decode === 'nor5') return (r) => nor5(r[col]);
     if (dim.decode === 'range') return (r) => { const m = (r[col] || '').toString().match(/(\d+)/); return m ? parseInt(m[1], 10) : null; }; // "65-69"→65, "00-04"→0
+    if (dim.decode === 'age5') return (r) => { const a = parseInt((r[col] || '').toString(), 10); return Number.isFinite(a) ? Math.min(Math.floor(a / 5) * 5, 85) : null; }; // přesný věk → 5leté pásmo, strop 85+
     throw new Error(`neznámý decode věku: ${dim.decode}`);
   }
   if (dim.map === 'DG_ONKO') return (r) => { const m = DG_ONKO[(r[col] || '').toString().slice(0, 3)]; return m ? m.key : null; };
@@ -817,6 +818,24 @@ const CONFIGS = [
         fixed: ['svobodní', 'ženatí / vdané', 'rozvedení', 'ovdovělí', 'registrované partnerství', 'zaniklé partnerství', 'nezjištěno'],
         valueMap: { '1': 'svobodní', '2': 'ženatí / vdané', '3': 'rozvedení', '4': 'ovdovělí', '5': 'registrované partnerství', '6': 'zaniklé partnerství', '7': 'zaniklé partnerství', '8': 'nezjištěno', '': 'nezjištěno' } },
       { key: 'kraj', label: 'Kraj bydliště', kind: 'category', col: 'okres_bydliste', map: 'KRAJ_OKRES' },
+    ],
+  },
+  {
+    id: 'preventivni_prohlidky', src: 'https://data.mzcr.cz/data/distribuce/380/Otevrena-data-PPS-08-01-Preventivni-prohlidky-2024-01-1.csv',
+    source: 'Přehled preventivních prohlídek (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1781-preventivni-prohlidky-prakticti-lekari-stomatologove-otevrena-data',
+    human_name: 'Preventivní prohlídky u praktického a zubního lékaře',
+    description: 'Počty lidí, kteří v daném roce absolvovali preventivní prohlídku u praktického lékaře nebo u zubního lékaře, rozpadnutelné podle věku, pohlaví a kraje bydliště. Ukazuje, kolik lidí prevenci každoročně využívá, napříč věkem a regiony. Obsahuje jen ty, kdo na prohlídce byli (lidé bez prohlídky v datech nejsou, podíl pokrytí z nich nelze odečíst).',
+    metric_label: 'Lidé s preventivní prohlídkou', metric: { type: 'wide' }, yearCol: 'rok', year_from: 2010, noAnomalies: true,
+    note: 'Jedna řádka = jeden pojištěnec za rok (příznak 1 = prohlídku v daném roce absolvoval). Roky 2010–2023. Praktická a zubní prohlídka jsou samostatné příznaky — člověk může mít v jednom roce obě, počty napříč nimi proto nelze sčítat. Zdrojem jsou data zdravotních pojišťoven. Věk je seskupen do pětiletých pásem (85 a více sloučeno).',
+    wideCauses: [
+      { col: 'preventivni_prohlidka_PL', name: 'u praktického lékaře' },
+      { col: 'preventivni_prohlidka_stomatolog', name: 'u zubního lékaře' },
+    ],
+    dims: [
+      { key: 'prohlidka', label: 'Typ prohlídky', kind: 'category', primary: true, wide: true },
+      { key: 'vek', label: 'Věk', kind: 'age', col: 'vek', decode: 'age5' },
+      { key: 'pohlavi', label: 'Pohlaví', kind: 'category', col: 'pohlavi', map: 'SEX' },
+      { key: 'kraj', label: 'Kraj bydliště', kind: 'category', col: 'kraj_bydliste', valueMap: { ...KRAJ, CZ099: 'nezjištěno', '': 'nezjištěno' } },
     ],
   },
 ];

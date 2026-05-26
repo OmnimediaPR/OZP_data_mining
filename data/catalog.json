@@ -8133,6 +8133,30 @@
       "last_seen": "2026-05-26"
     },
     {
+      "id": "preventivni_prohlidky",
+      "kind": "cube",
+      "category": "prevence",
+      "human_name": "Preventivní prohlídky u praktického a zubního lékaře",
+      "description": "Počty lidí, kteří v daném roce absolvovali preventivní prohlídku u praktického lékaře nebo u zubního lékaře, rozpadnutelné podle věku, pohlaví a kraje bydliště. Ukazuje, kolik lidí prevenci každoročně využívá, napříč věkem a regiony. Obsahuje jen ty, kdo na prohlídce byli (lidé bez prohlídky v datech nejsou, podíl pokrytí z nich nelze odečíst).",
+      "relevant_for": [
+        "preventivní prohlídky",
+        "prevence",
+        "praktický lékař",
+        "zubní lékař",
+        "stomatolog",
+        "preventivní péče",
+        "prevence podle věku",
+        "regionální rozdíly v prevenci"
+      ],
+      "trend_context": "Přehled preventivních prohlídek z dat zdravotních pojišťoven, jeden pojištěnec na rok, roky 2010–2023. Prohlídka u praktika a u zubaře jsou samostatné příznaky, počty napříč nimi nelze sčítat. Jde o počty využití, ne o podíl pokrytí (lidé bez prohlídky v datech nejsou). Popisná data.",
+      "source_type": "national",
+      "source": "Přehled preventivních prohlídek (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1781-preventivni-prohlidky-prakticti-lekari-stomatologove-otevrena-data",
+      "cube_url": "data/cubes/preventivni_prohlidky.json",
+      "last_seen": "2026-05-26"
+    },
+    {
       "id": "ockovani_kostka",
       "kind": "cube",
       "category": "prevence",
