@@ -477,6 +477,21 @@ const CONFIGS = [
     ],
   },
   {
+    id: 'rodicky_diabetes', src: 'https://data.mzcr.cz/data/distribuce/320/rodicky-diabetes.csv',
+    source: 'Národní registr reprodukčního zdraví (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1617-rodicky-diabetes-otevrena-data',
+    human_name: 'Rodičky — diabetes v těhotenství',
+    description: 'Interaktivní rozpad porodů podle toho, zda u matky byl zjištěn diabetes (cukrovka — zahrnuje těhotenskou cukrovku i cukrovku zjištěnou už před těhotenstvím), dále podle věku matky a typu poskytovatele. Umožňuje sledovat rostoucí podíl těhotenství provázených diabetem.',
+    metric_label: 'Porody', metric: { type: 'count' }, yearCol: 'rok_porodu', year_from: 2000,
+    note: 'Jedna řádka = jeden porod (rodička). Příznak diabetu otevřená data uvádějí zjednodušeně jako ano/ne (zahrnuje cukrovku zjištěnou před těhotenstvím i v jeho průběhu, včetně těhotenské cukrovky). Podíl porodů s diabetem výrazně roste, což odráží jak skutečný nárůst, tak rozšíření vyšetřování těhotenských cukrovek.',
+    dims: [
+      { key: 'diabetes', label: 'Diabetes', kind: 'category', primary: true, col: 'diabetes', order: 'fixed',
+        fixed: ['bez diabetu', 's diabetem'],
+        valueMap: { '0': 'bez diabetu', '1': 's diabetem' } },
+      { key: 'vek_matky', label: 'Věk matky', kind: 'category', col: 'vek_matky', valueMap: { '1': 'do 19 let', '2': '20–24 let', '3': '25–29 let', '4': '30–34 let', '5': '35–39 let', '6': '40 a více let' } },
+      { key: 'typ_pzs', label: 'Typ poskytovatele', kind: 'category', col: 'typ_pzs', valueMap: { '1': 'poskytovatel základní úrovně', '2': 'perinatologické centrum intermediární péče', '3': 'perinatologické centrum intenzivní péče' } },
+    ],
+  },
+  {
     id: 'urazy', src: 'https://data.mzcr.cz/data/distribuce/381/Otevrena-data-NR-16-01-urazy.csv.gz',
     source: 'Národní registr úrazů (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1786-urazy-otevrena-data',
     human_name: 'Úrazy — hospitalizační případy',
