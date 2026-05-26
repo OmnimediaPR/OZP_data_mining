@@ -8037,6 +8037,30 @@
       "last_seen": "2026-05-26"
     },
     {
+      "id": "novorozenci_lecba_oddeleni",
+      "kind": "cube",
+      "category": "reprodukce",
+      "human_name": "Novorozenci — léčba na oddělení",
+      "description": "Počty novorozenců, u nichž byl na novorozeneckém oddělení proveden daný léčebný výkon nebo léčba (podání kyslíku, neinvazivní a umělá plicní ventilace, podání steroidů, surfaktantu nebo antibiotik, operace, řízená hypotermie a další), rozpadnutelné podle gestačního stáří, věku matky a typu poskytovatele. U jednoho novorozence může být provedeno víc výkonů, počty napříč výkony proto nelze sčítat.",
+      "relevant_for": [
+        "novorozenci",
+        "intenzivní péče o novorozence",
+        "umělá plicní ventilace",
+        "surfaktant",
+        "nedonošené děti",
+        "předčasný porod",
+        "novorozenecké oddělení",
+        "reprodukce"
+      ],
+      "trend_context": "Národní registr reprodukčního zdraví, modul Novorozenci, jedno narozené dítě na řádek, eviduje od roku 2000. Léčebné výkony na oddělení jako příznaky ano/ne. U jednoho novorozence může být provedeno víc výkonů, počty napříč výkony nelze sčítat. Popisná data, ne hledání trendů.",
+      "source_type": "national",
+      "source": "Národní registr reprodukčního zdraví (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1613-novorozenci-lecba-oddeleni-otevrena-data",
+      "cube_url": "data/cubes/novorozenci_lecba_oddeleni.json",
+      "last_seen": "2026-05-26"
+    },
+    {
       "id": "ockovani_kostka",
       "kind": "cube",
       "category": "prevence",
