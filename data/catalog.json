@@ -8157,6 +8157,29 @@
       "last_seen": "2026-05-26"
     },
     {
+      "id": "hospitalizace_dlouhodoba",
+      "kind": "cube",
+      "category": "hospitalizace",
+      "human_name": "Hospitalizace — dlouhodobá řada podle diagnózy, přijetí, operace a úmrtí",
+      "description": "Interaktivní rozpad počtu hospitalizačních případů v Česku od roku 1994 podle skupiny diagnóz (kapitoly mezinárodní klasifikace nemocí), druhu přijetí (neodkladné nebo plánované), toho zda proběhla operace, úmrtí během hospitalizace, věku a pohlaví. Nejdelší řada hospitalizací v této sadě, umožňuje sledovat například podíl plánovaných výkonů nebo nemocniční úmrtnost podle skupiny diagnóz.",
+      "relevant_for": [
+        "hospitalizace",
+        "hospitalizační případy",
+        "nemocniční úmrtnost",
+        "plánované a neodkladné přijetí",
+        "operace za hospitalizace",
+        "skupiny diagnóz",
+        "dlouhodobý vývoj hospitalizací"
+      ],
+      "trend_context": "Národní registr hospitalizovaných, počet hospitalizačních případů (ne pacientů), nejdelší řada 1994–2024. Kvůli ochraně osobních údajů jsou vyřazeny pohlavní a vybrané infekční choroby (A50–A64, B15–B19, B20–B24) a psychiatrické diagnózy (F10–F99), kapitola duševních poruch je proto téměř prázdná. Počty jsou absolutní a ovlivňuje je stárnutí populace, změny v kódování i přesun k jednodenní péči. Popisná data.",
+      "source_type": "national",
+      "source": "Národní registr hospitalizovaných (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/2521-hospitalizacni-pripady-dlouhodoba-casova-rada-otevrena-data",
+      "cube_url": "data/cubes/hospitalizace_dlouhodoba.json",
+      "last_seen": "2026-05-26"
+    },
+    {
       "id": "ockovani_kostka",
       "kind": "cube",
       "category": "prevence",

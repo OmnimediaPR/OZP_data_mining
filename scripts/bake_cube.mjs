@@ -838,6 +838,32 @@ const CONFIGS = [
       { key: 'kraj', label: 'Kraj bydliště', kind: 'category', col: 'kraj_bydliste', valueMap: { ...KRAJ, CZ099: 'nezjištěno', '': 'nezjištěno' } },
     ],
   },
+  {
+    id: 'hospitalizace_dlouhodoba', src: 'https://data.mzcr.cz/data/distribuce/469/Otevrena-data-NR-05-01-hospitalizacni-pripady-dlouhodoba-casova-rada.csv.gz',
+    source: 'Národní registr hospitalizovaných (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/2521-hospitalizacni-pripady-dlouhodoba-casova-rada-otevrena-data',
+    human_name: 'Hospitalizace — dlouhodobá řada podle diagnózy, přijetí, operace a úmrtí',
+    description: 'Interaktivní rozpad počtu hospitalizačních případů v Česku od roku 1994 podle skupiny diagnóz (kapitoly mezinárodní klasifikace nemocí), druhu přijetí (neodkladné nebo plánované), toho zda proběhla operace, úmrtí během hospitalizace, věku a pohlaví. Nejdelší řada hospitalizací v této sadě, umožňuje sledovat například podíl plánovaných výkonů nebo nemocniční úmrtnost podle skupiny diagnóz.',
+    metric_label: 'Hospitalizační případy', metric: { type: 'sum', col: 'pocet_hosp' }, yearCol: 'rok', year_from: 1994, noAnomalies: true,
+    note: 'Počet hospitalizačních případů (ne pacientů — jeden člověk může být hospitalizován víckrát), dlouhá řada 1994–2024. Kvůli ochraně osobních údajů jsou ze souboru vyřazeny pohlavní a vybrané infekční choroby (A50–A64, B15–B19, B20–B24) a všechny psychiatrické diagnózy (F10–F99) — kapitola „duševní poruchy" je proto téměř prázdná. Počty jsou absolutní a ovlivňuje je stárnutí populace i změny v kódování a přesun k jednodenní péči. Popisná data, ne hledání anomálií.',
+    dims: [
+      { key: 'diagnoza', label: 'Skupina diagnóz', kind: 'category', primary: true, col: 'zdg', map: 'MKN_CHAPTER' },
+      { key: 'prijeti', label: 'Druh přijetí', kind: 'category', col: 'druh_prijeti', order: 'fixed',
+        fixed: ['neodkladné', 'plánované', 'jiné'],
+        valueMap: { '1': 'neodkladné', '2': 'plánované', '3': 'jiné' } },
+      { key: 'operace', label: 'Operace', kind: 'category', col: 'operace', order: 'fixed',
+        fixed: ['bez operace', 'neodkladná operace', 'plánovaná operace'],
+        valueMap: { '0': 'bez operace', '1': 'neodkladná operace', '2': 'plánovaná operace' } },
+      { key: 'umrti', label: 'Úmrtí v nemocnici', kind: 'category', col: 'umrti', order: 'fixed',
+        fixed: ['přežil', 'zemřel'],
+        valueMap: { '0': 'přežil', '1': 'zemřel' } },
+      { key: 'vek', label: 'Věk', kind: 'category', col: 'vek_kat', order: 'fixed',
+        fixed: ['0–4', '5–9', '10–14', '15–19', '20–24', '25–29', '30–34', '35–39', '40–44', '45–49', '50–54', '55–59', '60–64', '65–69', '70–74', '75–79', '80–84', '85–89', '90–94', '95 a více'],
+        valueMap: { '66000004': '0–4', '66005009': '5–9', '66010014': '10–14', '66015019': '15–19', '66020024': '20–24', '66025029': '25–29', '66030034': '30–34', '66035039': '35–39', '66040044': '40–44', '66045049': '45–49', '66050054': '50–54', '66055059': '55–59', '66060064': '60–64', '66065069': '65–69', '66070074': '70–74', '66075079': '75–79', '66080084': '80–84', '66085089': '85–89', '66090094': '90–94', '66095999': '95 a více' } },
+      { key: 'pohlavi', label: 'Pohlaví', kind: 'category', col: 'pohlavi', order: 'fixed',
+        fixed: ['muž', 'žena', 'nezjištěno'],
+        valueMap: { '1': 'muž', '2': 'žena', '0': 'nezjištěno' } },
+    ],
+  },
 ];
 
 const only = process.argv.slice(2);
