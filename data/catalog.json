@@ -8180,6 +8180,29 @@
       "last_seen": "2026-05-26"
     },
     {
+      "id": "luzkova_pece_migrace",
+      "kind": "cube",
+      "category": "hospitalizace",
+      "human_name": "Lůžková péče — migrace pacientů mezi kraji",
+      "description": "Interaktivní rozpad hospitalizací podle kraje bydliště pacienta a kraje poskytovatele, který péči poskytl, v členění podle skupiny diagnóz (kapitoly mezinárodní klasifikace nemocí) a toho, zda proběhla operace. Ukazuje, za jakou péčí pacienti vyjíždějí mimo svůj kraj — například koncentraci složitějších operací a onkologie do velkých center.",
+      "relevant_for": [
+        "migrace pacientů",
+        "lůžková péče",
+        "hospitalizace mimo kraj",
+        "koncentrace péče",
+        "regionální dostupnost péče",
+        "kraj bydliště versus poskytovatel",
+        "centralizace operací"
+      ],
+      "trend_context": "Národní registr hrazených zdravotních služeb, počet hospitalizačních případů, roky 2010–2024. Kraj bydliště je bydliště pacienta, kraj poskytovatele je sídlo nemocnice — rozdíl mezi nimi ukazuje migraci za péčí (zhruba 17 % případů je léčeno mimo domovský kraj, Praha přitahuje pacienty z celé republiky). Diagnózy bez zařaditelné kapitoly do dat nevstupují. Popisná data.",
+      "source_type": "national",
+      "source": "Národní registr hrazených zdravotních služeb (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1922-migrace-luzkova-pece-otevrena-data",
+      "cube_url": "data/cubes/luzkova_pece_migrace.json",
+      "last_seen": "2026-05-26"
+    },
+    {
       "id": "ockovani_kostka",
       "kind": "cube",
       "category": "prevence",

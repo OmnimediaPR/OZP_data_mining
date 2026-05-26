@@ -864,6 +864,22 @@ const CONFIGS = [
         valueMap: { '1': 'muž', '2': 'žena', '0': 'nezjištěno' } },
     ],
   },
+  {
+    id: 'luzkova_pece_migrace', src: 'https://datanzis.uzis.gov.cz/data/NR-04-NRHZS/NR-04-38/Otevrena-data-NR-04-38-migrace-luzkova-pece.csv.gz',
+    source: 'Národní registr hrazených zdravotních služeb (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1922-migrace-luzkova-pece-otevrena-data',
+    human_name: 'Lůžková péče — migrace pacientů mezi kraji',
+    description: 'Interaktivní rozpad hospitalizací podle kraje bydliště pacienta a kraje poskytovatele, který péči poskytl, v členění podle skupiny diagnóz (kapitoly mezinárodní klasifikace nemocí) a toho, zda proběhla operace. Ukazuje, za jakou péčí pacienti vyjíždějí mimo svůj kraj — například koncentraci složitějších operací a onkologie do velkých center.',
+    metric_label: 'Hospitalizační případy', metric: { type: 'sum', col: 'pocet_hosp' }, yearCol: 'rok', year_from: 2010, noAnomalies: true,
+    note: 'Počet hospitalizačních případů, roky 2010–2024. „Kraj bydliště" je bydliště pacienta, „kraj poskytovatele" je sídlo nemocnice — rozdíl mezi nimi je migrace za péčí. Diagnózy bez zařaditelné kapitoly („ostatní", zhruba 1,4 % případů) do kostky nevstupují. Kraj „nezjištěno" zahrnuje cizince a neurčené bydliště. Popisná data.',
+    dims: [
+      { key: 'kraj_pacient', label: 'Kraj bydliště pacienta', kind: 'category', primary: true, col: 'kraj_pacient', valueMap: { ...KRAJ, CZ099: 'nezjištěno', '': 'nezjištěno' } },
+      { key: 'kraj_poskytovatel', label: 'Kraj poskytovatele', kind: 'category', col: 'kraj_ICZ', valueMap: { ...KRAJ, CZ099: 'nezjištěno', '': 'nezjištěno' } },
+      { key: 'diagnoza', label: 'Skupina diagnóz', kind: 'category', col: 'diagnoza', map: 'MKN_CHAPTER' },
+      { key: 'operace', label: 'Operace', kind: 'category', col: 'operace', order: 'fixed',
+        fixed: ['bez operace', 's operací'],
+        valueMap: { '0': 'bez operace', '1': 's operací' } },
+    ],
+  },
 ];
 
 const only = process.argv.slice(2);
