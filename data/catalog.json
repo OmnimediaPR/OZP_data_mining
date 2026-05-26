@@ -8428,6 +8428,32 @@
       "last_seen": "2026-05-25"
     },
     {
+      "id": "porody_komplikace",
+      "kind": "cube",
+      "category": "reprodukce",
+      "human_name": "Porody — komplikace porodu",
+      "description": "Interaktivní rozpad porodů provázených konkrétní komplikací (nástřih hráze, poranění hráze, ztráta krve nad půl litru, ruptura dělohy, výhřez pupečníku, dystokie ramének a další), rozpadnutelný podle věku matky, parity (prvorodička / vícerodička) a typu poskytovatele. Jeden porod může mít víc komplikací, počty napříč komplikacemi proto nelze sčítat.",
+      "relevant_for": [
+        "porody",
+        "komplikace porodu",
+        "nástřih hráze",
+        "epiziotomie",
+        "poranění hráze",
+        "krevní ztráta po porodu",
+        "ruptura dělohy",
+        "reprodukce",
+        "věk matky",
+        "trendy"
+      ],
+      "trend_context": "Národní registr reprodukčního zdraví, komplikace provázející porod, 2000 dál. Jeden porod může mít víc komplikací, počty napříč nimi nelze sčítat. Poranění hráze podle stupně a poranění čípku, hrdla nebo pochvy registr eviduje až od roku 2016.",
+      "source_type": "national",
+      "source": "Národní registr reprodukčního zdraví (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1625-rodicky-komplikace-porod-otevrena-data",
+      "cube_url": "data/cubes/porody_komplikace.json",
+      "last_seen": "2026-05-26"
+    },
+    {
       "id": "ockovani_kostka",
       "kind": "cube",
       "category": "prevence",
