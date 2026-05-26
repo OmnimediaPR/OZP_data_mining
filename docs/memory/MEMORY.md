@@ -1,0 +1,18 @@
+- [Dan z Omnimedia](user_dan.md) — netechnický PR profesionál, pracuje na nástroji Datový brief, mluvíme česky
+- [Jak Dan chce pracovat](feedback_workflow.md) — po jednom kroku, s odsouhlasením, vysvětlovat česky bez žargonu, ukazovat chybové logy
+- [Projekt Datový brief](project_datovy_brief.md) — architektura nástroje (React/Vite na GH Pages, JSON data z NKIS, Anthropic z prohlížeče)
+- [Nová architektura on-demand fetch](project_nova_architektura.md) — pivot 2026-05-21; všechny 4 kroky HOTOVO. Možné navazující: rozšíření katalogu, refresh_catalog.py
+- [NZIP discovery / 4fázový plán](project_nzip_discovery.md) — HISTORICKÝ kontext, sync skripty + JSON soubory zlikvidovány v commitu 7f66d8c; discovery části zachovány v docs/discovery/
+- [Bez zkratek v polích datasetů](feedback_no_abbreviations.md) — human_name, description, relevant_for, trend_context, metric_label nesmí obsahovat zkratky (AIM, KVO, FH...); platí pro budoucí datasety
+- [Psaní trend_context bez tvrdých kvantifikátorů](feedback_trend_context_writing.md) — nepoužívat "mírný"/"stabilní"/"strmý" před viděním reálné delty, jinak texty nesedí
+- [Styl commit messages](feedback_commit_style.md) — 1 česká věta v hlavičce, max 1–2 řádky v těle; žádné vymyšlené sekce "Co dál / Co bych příště"
+- [Limity frontend parse](project_frontend_parse_limity.md) — parseDataset umí gzip/windows-1250/date agregace; velké CSV se ale v prohlížeči nenačtou → OBEJITO předpočítáním (viz níže)
+- [Předpočítané řady (bake)](project_nova_architektura.md) — scripts/bake_series.mjs počítá series do catalog.json (streaming pro obří soubory), frontend nestahuje CSV; katalog 104→103, commit e81ec71
+- [Rozpadová kostka + anomálie](project_rozpadova_kostka.md) — interaktivní kostky (onko, infekce, hospitalizace, úmrtí, porody, rodičky, 7× novorozenci, očkování, úrazy, diabetes, léky-ATC, lázně…) + sken anomálií; obecný engine config-driven (count/sum/wide, gzip, lokální soubor přes CUBESRC_, mapy MKN_CHAPTER/KRAJ_OKRES, dekodér věku age5); katalog 124
+- [Popisná data, ne jen trendy](feedback_popisna_data.md) — Dan často chce prostý popis stavu, ne trendy; dataset s nesmyslným trendem nevyřazovat, jen vypnout sken anomálií (noAnomalies)
+- [Ověřit render datasetu](feedback_overit_render_datasetu.md) — před přidáním datasetu pustit scripts/verify_parse.mjs, ne jen kontrolovat URL
+- [Per-event mikrodata](project_per_event_mikrodata.md) — count_rows na mikrodatech duplikuje (počet porodů); podskupiny řešit přes row_match na 0/1 příznak
+- [OZP branding frontendu](reference_ozp_branding.md) — paleta OZP (fialová #702082 + oranžová #ed8b00), rebrand frontendu i docx exportu hotový (commity b0d7e51, b51b293)
+- [Číselníky novorozenců NRRZ](reference_nrrz_novorozenci_ciselniky.md) — oficiální kódy z metodik ÚZIS (hmotnost, gestace, výživa, propuštění); pozor vek_matky krátký kód 1–6
+- [Source-link feature HOTOVO](project_source_link_feature.md) — odkaz na datový zdroj u každé teze (zjištění i úhly) v analýze i docx; AI vrací dataset/datasets id, render přes findDatasetById/srcParas (commit 37ba146)
+- [Vyřazené datasety — co zbývá](project_discovery_vyrazene.md) — z vyřazených zachráněny úmrtí, preventivní prohlídky, dlouhodobé hospitalizace, migrace lůžkové péče, kolorektum čekací doba (regional_timeseries heatmapa — vzor pro průměrová/krajská data); zbývá ~8 problematických (NRHZS léky/výkony dvojí počítání, polymorbidita/ambulance)
