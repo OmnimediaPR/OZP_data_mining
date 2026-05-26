@@ -1,6 +1,6 @@
 {
   "schema_version": "2.2",
-  "updated": "2026-05-25",
+  "updated": "2026-05-26",
   "schema_notes": {
     "description": "Per-dataset metadata pro on-demand fetch z prohlížeče. Žádná data v repu, jen ukazatele na zdrojová CSV.",
     "fields": {
@@ -8586,6 +8586,57 @@
         }
       ],
       "last_seen": "2026-05-25"
+    },
+    {
+      "id": "lazne_pacienti",
+      "kind": "cube",
+      "category": "lázně",
+      "human_name": "Lázeňská péče — pacienti",
+      "description": "Interaktivní rozpad počtu pacientů v lázeňské léčebně rehabilitační péči. Lze zvolit indikaci (na co se léčí — pohybové, oběhové, nervové a další skupiny nemocí), věk (děti, dorost, dospělí), typ úhrady (plně hrazená komplexní, příspěvková, samoplátci, cizinci) a kraj poskytovatele.",
+      "relevant_for": [
+        "lázeňská péče",
+        "lázně",
+        "rehabilitace",
+        "indikace lázní",
+        "úhrada lázeňské péče",
+        "komplexní lázeňská péče",
+        "příspěvková lázeňská péče",
+        "samoplátci",
+        "kraje",
+        "pohybové ústrojí"
+      ],
+      "trend_context": "Lázeňskou léčebně rehabilitační péči z velké části hradí veřejné zdravotní pojištění (komplexní a příspěvková péče), část pacientů jsou samoplátci nebo cizinci. Kostka ukazuje, kolik pacientů jezdí na kterou skupinu nemocí, v jakém věku, jak je péče hrazená a ve kterém kraji se poskytuje. Slouží k popisu stavu — počty silně ovlivňuje úhradová politika, nejen poptávka.",
+      "source_type": "national",
+      "source": "Národní registr hrazených zdravotních služeb (ÚZIS)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/2740-lazenska-pece-pacienti-otevrena-data",
+      "cube_url": "data/cubes/lazne_pacienti.json",
+      "last_seen": "2026-05-26"
+    },
+    {
+      "id": "lazne_vykony",
+      "kind": "cube",
+      "category": "lázně",
+      "human_name": "Lázeňská péče — léčebné výkony",
+      "description": "Interaktivní rozpad počtu provedených léčebných výkonů v lázeňské péči — rehabilitace, vodoléčby a masáže, minerální a termální koupele, inhalace, peloidní a elektrofyzikální výkony a další. Lze zvolit druh výkonu a kraj poskytovatele.",
+      "relevant_for": [
+        "lázeňská péče",
+        "lázně",
+        "léčebné výkony",
+        "rehabilitace",
+        "vodoléčba",
+        "koupele",
+        "inhalace",
+        "peloidní výkony",
+        "kraje"
+      ],
+      "trend_context": "Přehled toho, co se v lázních fyzicky provádí — od rehabilitace a vodoléčby po minerální koupele a inhalace. Ukazuje skladbu léčebných procedur podle druhu a kraje poskytovatele. Popisná data o objemu výkonů.",
+      "source_type": "national",
+      "source": "Výkazy zdravotní péče (ÚZIS)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/2744-lazenska-pece-lecebne-vykony-otevrena-data",
+      "cube_url": "data/cubes/lazne_vykony.json",
+      "last_seen": "2026-05-26"
     }
   ]
 }

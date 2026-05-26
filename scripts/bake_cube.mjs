@@ -35,6 +35,26 @@ const DG_ONKO = {
 const SEX = (v) => (v === '1' ? 'muž' : v === '2' ? 'žena' : null);
 const SEX_MZ = (v) => (v === 'M' ? 'muž' : v === 'Z' ? 'žena' : null);
 
+// Kraje (NUTS3) — kód → název. Sdílené napříč kostkami s krajským členěním.
+const KRAJ = {
+  CZ010: 'Praha', CZ020: 'Středočeský kraj', CZ031: 'Jihočeský kraj', CZ032: 'Plzeňský kraj',
+  CZ041: 'Karlovarský kraj', CZ042: 'Ústecký kraj', CZ051: 'Liberecký kraj', CZ052: 'Královéhradecký kraj',
+  CZ053: 'Pardubický kraj', CZ063: 'Kraj Vysočina', CZ064: 'Jihomoravský kraj', CZ071: 'Olomoucký kraj',
+  CZ072: 'Zlínský kraj', CZ080: 'Moravskoslezský kraj',
+};
+// Indikační skupiny lázeňské péče (vyhláška 2/2015 Sb., příloha 5 zák. 48/1997). Dospělí I–XI,
+// děti a dorost XXI–XXXI = stejných 11 nemocí (dětské číslo = dospělé + 20). Sjednoceno na názvy
+// nemocí; věk drží samostatná dimenze.
+const LAZNE_NEMOC = ['nemoci onkologické', 'nemoci oběhového ústrojí', 'nemoci trávicího ústrojí',
+  'nemoci z poruch výměny látkové a žláz s vnitřní sekrecí', 'netuberkulózní nemoci dýchacího ústrojí',
+  'nemoci nervové', 'nemoci pohybového ústrojí', 'nemoci ledvin a močových cest', 'duševní poruchy',
+  'nemoci kožní', 'nemoci gynekologické'];
+const ADULT_RNUM = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI'];
+const CHILD_RNUM = ['XXI', 'XXII', 'XXIII', 'XXIV', 'XXV', 'XXVI', 'XXVII', 'XXVIII', 'XXIX', 'XXX', 'XXXI'];
+const LAZNE_INDIKACE = {};
+LAZNE_NEMOC.forEach((nemoc, i) => { LAZNE_INDIKACE[ADULT_RNUM[i]] = nemoc; LAZNE_INDIKACE[CHILD_RNUM[i]] = nemoc; });
+const LAZNE_TYP = { KLP: 'komplexní lázeňská péče (plně hrazená)', PLP: 'příspěvková lázeňská péče', Samoplátce: 'samoplátce', Cizinec: 'cizinec (samoplátce)' };
+
 // MKN-10 kód (např. "I21") → název kapitoly. Pro seskupení diagnóz do velkých skupin.
 function mknChapter(code) {
   const m = (code || '').toString().toUpperCase().match(/^([A-Z])(\d{2})/);
@@ -427,6 +447,34 @@ const CONFIGS = [
       },
       { key: 'age', label: 'Věk', kind: 'age', col: 'vekova_kategorie', decode: 'range' },
       { key: 'sex', label: 'Pohlaví', kind: 'category', col: 'pohlavi', map: 'SEX_MZ' },
+    ],
+  },
+  {
+    id: 'lazne_pacienti', src: 'https://datanzis.uzis.gov.cz/data/NR-04-NRHZS/NR-04-90/Otevrena-data-NR-04-90-lazenska-pece-pacienti.csv',
+    source: 'Národní registr hrazených zdravotních služeb (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/2740-lazenska-pece-pacienti-otevrena-data',
+    human_name: 'Lázeňská péče — pacienti',
+    description: 'Počty pacientů v lázeňské léčebně rehabilitační péči, rozpadnutelné podle indikace (na co se léčí), věku, typu úhrady a kraje poskytovatele. Ukazuje mimo jiné, kolik péče plně hradí pojišťovna, kolik je příspěvkové a kolik si lidé platí sami.',
+    metric_label: 'Pacienti v lázeňské péči', metric: { type: 'sum', col: 'pocet' }, yearCol: 'rok', year_from: 2015,
+    noAnomalies: true,
+    note: 'Popisná data — bez skenu trendů (počty silně ovlivňuje úhradová politika). Indikační skupiny sjednoceny pro dospělé i děti/dorost; kraj je sídlo poskytovatele lázní, ne bydliště pacienta.',
+    dims: [
+      { key: 'indikace', label: 'Indikace', kind: 'category', primary: true, col: 'indikace', valueMap: LAZNE_INDIKACE },
+      { key: 'vek', label: 'Věk', kind: 'category', col: 'vek', order: 'fixed', fixed: ['Děti', 'Dorost', 'Dospělí'] },
+      { key: 'uhrada', label: 'Typ úhrady', kind: 'category', col: 'typ', valueMap: LAZNE_TYP },
+      { key: 'kraj', label: 'Kraj poskytovatele', kind: 'category', col: 'kraj_kod', valueMap: KRAJ },
+    ],
+  },
+  {
+    id: 'lazne_vykony', src: 'https://datanzis.uzis.gov.cz/data/SSS-07-A-VYKAZY/SSS-07-29/Otevrena-data-SSS-07-29-lazenska-pece-lecebne-vykony.csv',
+    source: 'Výkazy zdravotní péče (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/2744-lazenska-pece-lecebne-vykony-otevrena-data',
+    human_name: 'Lázeňská péče — léčebné výkony',
+    description: 'Počty provedených léčebných výkonů v lázeňské péči (rehabilitace, vodoléčby a masáže, koupele, inhalace, peloidní a elektrofyzikální výkony…), rozpadnutelné podle druhu výkonu a kraje poskytovatele.',
+    metric_label: 'Provedené léčebné výkony', metric: { type: 'sum', col: 'mnozstvi' }, yearCol: 'rok', year_from: 2015,
+    noAnomalies: true,
+    note: 'Popisná data — bez skenu trendů. Kraj je sídlo poskytovatele lázní.',
+    dims: [
+      { key: 'vykon', label: 'Druh výkonu', kind: 'category', primary: true, col: 'vykon', relabel: { 'elektrofyzikalní výkony': 'elektrofyzikální výkony', 'ostatní výkony s použitím PLZ': 'ostatní výkony s použitím přírodního léčivého zdroje' } },
+      { key: 'kraj', label: 'Kraj poskytovatele', kind: 'category', col: 'kraj_kod', valueMap: KRAJ },
     ],
   },
 ];
