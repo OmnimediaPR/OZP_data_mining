@@ -8454,6 +8454,32 @@
       "last_seen": "2026-05-26"
     },
     {
+      "id": "tehotenstvi_komplikace",
+      "kind": "cube",
+      "category": "reprodukce",
+      "human_name": "Těhotenství — komplikace v těhotenství",
+      "description": "Interaktivní rozpad těhotenství provázených konkrétní komplikací (hrozící předčasný porod, krvácení, poruchy placenty, vysoký krevní tlak a kardiovaskulární onemocnění, preeklampsie, eklampsie, růstová retardace plodu), rozpadnutelný podle věku matky a typu poskytovatele. Jedno těhotenství může mít víc komplikací, počty napříč komplikacemi proto nelze sčítat.",
+      "relevant_for": [
+        "těhotenství",
+        "komplikace v těhotenství",
+        "rizikové těhotenství",
+        "preeklampsie",
+        "vysoký krevní tlak v těhotenství",
+        "předčasný porod",
+        "poruchy placenty",
+        "růstová retardace plodu",
+        "reprodukce",
+        "věk matky"
+      ],
+      "trend_context": "Národní registr reprodukčního zdraví, komplikace v průběhu těhotenství, 2000 dál. Jedno těhotenství může mít víc komplikací, počty napříč nimi nelze sčítat. U některých komplikací se v čase měnil způsob vykazování, meziroční skoky tak mohou být dílem překlasifikace. Krvácení v této podobě registr eviduje až od roku 2016.",
+      "source_type": "national",
+      "source": "Národní registr reprodukčního zdraví (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1624-rodicky-komplikace-tehotenstvi-otevrena-data",
+      "cube_url": "data/cubes/tehotenstvi_komplikace.json",
+      "last_seen": "2026-05-26"
+    },
+    {
       "id": "ockovani_kostka",
       "kind": "cube",
       "category": "prevence",

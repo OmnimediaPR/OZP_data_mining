@@ -393,6 +393,28 @@ const CONFIGS = [
     ],
   },
   {
+    id: 'tehotenstvi_komplikace', src: 'https://data.mzcr.cz/data/distribuce/321/rodicky-komplikace-tehotenstvi.csv',
+    source: 'Národní registr reprodukčního zdraví (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1624-rodicky-komplikace-tehotenstvi-otevrena-data',
+    human_name: 'Těhotenství — komplikace v těhotenství',
+    description: 'Počty těhotenství provázených konkrétní komplikací (hrozící předčasný porod, krvácení, poruchy placenty, vysoký krevní tlak a kardiovaskulární onemocnění, preeklampsie, eklampsie, růstová retardace plodu), rozpadnutelné podle věku matky a typu poskytovatele zdravotních služeb. Jedno těhotenství může mít více komplikací.',
+    metric_label: 'Těhotenství s danou komplikací', metric: { type: 'wide' }, yearCol: 'rok_porodu', year_from: 2000,
+    note: 'Příznakové sloupce komplikací (hodnota 1 = ano), jedno těhotenství může mít více komplikací → počty napříč komplikacemi nelze sčítat. Krvácení v této podobě registr eviduje až od roku 2016. Názvy komplikací jsou odvozené z názvů sloupců registru.',
+    wideCauses: [
+      { col: 'komplikace_teh_hrozicipredcasporod', name: 'hrozící předčasný porod' },
+      { col: 'komplikace_teh_krvaceni', name: 'krvácení v těhotenství' },
+      { col: 'komplikace_teh_placenta', name: 'poruchy placenty' },
+      { col: 'komplikace_teh_kardio_hypertenze', name: 'vysoký krevní tlak a kardiovaskulární onemocnění' },
+      { col: 'komplikace_teh_preeklampsie', name: 'preeklampsie' },
+      { col: 'komplikace_teh_eklampsie', name: 'eklampsie' },
+      { col: 'komplikace_teh_iugr', name: 'růstová retardace plodu' },
+    ],
+    dims: [
+      { key: 'komplikace', label: 'Komplikace', kind: 'category', primary: true, wide: true },
+      { key: 'vek_matky', label: 'Věk matky', kind: 'category', col: 'vek_matky', valueMap: { '1': 'do 19 let', '2': '20–24 let', '3': '25–29 let', '4': '30–34 let', '5': '35–39 let', '6': '40 a více let' } },
+      { key: 'typ_pzs', label: 'Typ poskytovatele', kind: 'category', col: 'typ_pzs', valueMap: { '1': 'poskytovatel základní úrovně', '2': 'perinatologické centrum intermediární péče', '3': 'perinatologické centrum intenzivní péče' } },
+    ],
+  },
+  {
     id: 'urazy', src: 'https://data.mzcr.cz/data/distribuce/381/Otevrena-data-NR-16-01-urazy.csv.gz',
     source: 'Národní registr úrazů (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1786-urazy-otevrena-data',
     human_name: 'Úrazy — hospitalizační případy',
