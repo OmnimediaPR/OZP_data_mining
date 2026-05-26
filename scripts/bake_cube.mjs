@@ -492,6 +492,23 @@ const CONFIGS = [
     ],
   },
   {
+    id: 'rodicky_screening', src: 'https://data.mzcr.cz/data/distribuce/319/rodicky-screening.csv',
+    source: 'Národní registr reprodukčního zdraví (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1619-rodicky-screening-otevrena-data',
+    human_name: 'Rodičky — ultrazvukové screeningy v těhotenství',
+    description: 'Interaktivní rozpad těhotenství podle toho, které ze tří doporučených ultrazvukových screeningů žena podstoupila (v 10.–13., 18.–22. a 27.–32. týdnu těhotenství), v členění podle věku matky. Jedna žena může mít víc vyšetření.',
+    metric_label: 'Rodičky s daným ultrazvukem', metric: { type: 'wide' }, yearCol: 'rok_porodu', year_from: 2016, noAnomalies: true,
+    note: 'Příznakové sloupce vyšetření (hodnota 1 = ano), jedna žena obvykle podstoupí víc vyšetření → počty napříč vyšetřeními nelze sčítat. Tato vyšetření registr eviduje až od roku 2016. Tři termíny odpovídají doporučenému screeningu: prvotrimestrální (10.–13. týden), morfologický (18.–22. týden) a růstový (27.–32. týden).',
+    wideCauses: [
+      { col: 'screening_uzv_10_13', name: 'ultrazvuk v 10.–13. týdnu' },
+      { col: 'screening_uzv_18_22', name: 'ultrazvuk v 18.–22. týdnu' },
+      { col: 'screening_uzv_27_32', name: 'ultrazvuk v 27.–32. týdnu' },
+    ],
+    dims: [
+      { key: 'screening', label: 'Ultrazvukové vyšetření', kind: 'category', primary: true, wide: true },
+      { key: 'vek_matky', label: 'Věk matky', kind: 'category', col: 'vek_matky', valueMap: { '1': 'do 19 let', '2': '20–24 let', '3': '25–29 let', '4': '30–34 let', '5': '35–39 let', '6': '40 a více let' } },
+    ],
+  },
+  {
     id: 'urazy', src: 'https://data.mzcr.cz/data/distribuce/381/Otevrena-data-NR-16-01-urazy.csv.gz',
     source: 'Národní registr úrazů (ÚZIS ČR)', source_url: 'https://www.nzip.cz/data/1786-urazy-otevrena-data',
     human_name: 'Úrazy — hospitalizační případy',
