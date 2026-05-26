@@ -7938,6 +7938,31 @@
       "last_seen": "2026-05-26"
     },
     {
+      "id": "novorozenci_charakteristiky",
+      "kind": "cube",
+      "category": "reprodukce",
+      "human_name": "Novorozenci — porodní hmotnost, gestační stáří a pohlaví",
+      "description": "Interaktivní rozpad narozených dětí podle porodní hmotnosti, gestačního stáří (zralosti při narození), pohlaví, četnosti těhotenství a kraje bydliště matky. Ukazuje mimo jiné podíl dětí s nízkou porodní hmotností a předčasně narozených. Popisná data, ne hledání anomálií.",
+      "relevant_for": [
+        "novorozenci",
+        "narození",
+        "porodní hmotnost",
+        "nízká porodní hmotnost",
+        "gestační stáří",
+        "předčasný porod",
+        "nedonošené děti",
+        "dvojčata a vícerčata",
+        "reprodukce"
+      ],
+      "trend_context": "Národní registr reprodukčního zdraví, modul Novorozenci, jedno narozené dítě na řádek, dlouhá řada od roku 1994. Porodní hmotnost a gestační stáří jsou kvůli ochraně osobních údajů členěny do širokých pásem. Pásma do 2499 g odpovídají nízké porodní hmotnosti, gestační stáří do 36. týdne předčasnému porodu. Popisná data o složení narozených, ne hledání trendů.",
+      "source_type": "national",
+      "source": "Národní registr reprodukčního zdraví (ÚZIS ČR)",
+      "code": null,
+      "source_url": "https://www.nzip.cz/data/1615-novorozenci-sociodemograficke-charakteristiky-otevrena-data",
+      "cube_url": "data/cubes/novorozenci_charakteristiky.json",
+      "last_seen": "2026-05-26"
+    },
+    {
       "id": "ockovani_kostka",
       "kind": "cube",
       "category": "prevence",
