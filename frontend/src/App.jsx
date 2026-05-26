@@ -1233,6 +1233,36 @@ OVĚŘITELNOST ZDROJŮ (povinné): u každého key_finding (pole "dataset") i u 
       });
     }
 
+    // 8b. Datová příloha — holá čísla pro každý vybraný dataset, žádný výklad
+    const appendixTables = selectedDatasets.map(d => ({ d, table: datasetTable(d) })).filter(x => x.table);
+    if (appendixTables.length) {
+      children.push(p(t('Datová příloha', { bold: true, size: 22 }), { spacing: { before: 300, after: 60 } }));
+      children.push(p(
+        t('Holá čísla bez výkladu, tak jak je dodal zdroj.', { italic: true, color: '666666' }),
+        { spacing: { after: 120 } }
+      ));
+      appendixTables.forEach(({ d, table }) => {
+        children.push(p(t(d.human_name || d.label, { bold: true, size: 18 }), { spacing: { before: 180, after: table.note ? 20 : 60 } }));
+        if (table.note) children.push(p(t(table.note, { italic: true, color: '888888', size: 16 }), { spacing: { after: 60 } }));
+        const headerRow = new TableRow({
+          children: table.headers.map((h, i) => cell(
+            p(t(h, { bold: true, size: 16 }), { alignment: i === 0 ? AlignmentType.LEFT : AlignmentType.RIGHT }),
+            { shading: lightPurple }
+          )),
+        });
+        const bodyRows = table.rows.map(row => new TableRow({
+          children: row.map((c, i) => cell(
+            p(t(c, { size: 16 }), { alignment: i === 0 ? AlignmentType.LEFT : AlignmentType.RIGHT })
+          )),
+        }));
+        children.push(new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          borders: tableBorders,
+          rows: [headerRow, ...bodyRows],
+        }));
+      });
+    }
+
     // 9. Zdroje + citační formule
     children.push(p(t('Zdroje', { bold: true, size: 22 }), { spacing: { before: 300, after: 100 } }));
     selectedDatasets.forEach(d => {
@@ -2039,6 +2069,123 @@ function ComparisonBars({ rows }) {
   );
 }
 
+// Prostá, neinterpretovaná tabulka pro libovolný typ datasetu — jediný zdroj pravdy
+// pro datový podklad v appce i v docx, aby se nikdy nerozešly. Vrací { headers, rows, note }
+// s už naformátovanými řetězci (cs-CZ), nebo null, když dataset ještě nemá data.
+function datasetTable(d) {
+  const fmt = (n) => (typeof n === 'number' ? n.toLocaleString('cs-CZ') : String(n ?? ''));
+
+  // 1. Souhrn (snapshot) — ukazatel → hodnota
+  if (d.kind === 'snapshot' && Array.isArray(d.snapshot) && d.snapshot.length) {
+    return {
+      headers: ['Ukazatel', 'Hodnota'],
+      rows: d.snapshot.map(s => [s.label, fmt(s.value)]),
+      note: d.snapshot_date ? `Stav k ${d.snapshot_date}` : null,
+    };
+  }
+
+  // 2. Mezinárodní srovnání — země → hodnota (heuristika na %, stejná jako v kartě/docx)
+  if (d.source_type === 'international' && Array.isArray(d.comparison) && d.comparison.length) {
+    const fmtIntl = (v) => (typeof v === 'number'
+      ? `${v.toLocaleString('cs-CZ')}${Math.abs(v) < 200 ? ' %' : ''}`
+      : String(v ?? ''));
+    return {
+      headers: ['Země', 'Hodnota'],
+      rows: d.comparison.map(c => [c.country, fmtIntl(c.value)]),
+      note: d.coverage ? `Rok / období: ${d.coverage}` : null,
+    };
+  }
+
+  // 3. Krajský snímek — kraj → hodnota (seřazeno sestupně, jako v kartě)
+  if (d.source_type === 'regional_snapshot' && Array.isArray(d.data) && d.data.length) {
+    const sorted = [...d.data].sort((a, b) => b.value - a.value);
+    return {
+      headers: ['Kraj', d.metric_label || 'Hodnota'],
+      rows: sorted.map(r => [r.kraj_nazev, fmt(r.value)]),
+      note: d.snapshot_year ? `Rok: ${d.snapshot_year}` : null,
+    };
+  }
+
+  // 4. Krajská časová řada — matice kraj × rok
+  if (d.source_type === 'regional_timeseries' && Array.isArray(d.data) && d.data.length) {
+    const years = [...new Set(d.data.map(r => r.year))].sort((a, b) => a - b);
+    const krajMap = new Map();
+    for (const r of d.data) {
+      if (!krajMap.has(r.kraj_kod)) krajMap.set(r.kraj_kod, { nazev: r.kraj_nazev, vals: {} });
+      krajMap.get(r.kraj_kod).vals[r.year] = r.value;
+    }
+    return {
+      headers: ['Kraj', ...years.map(String)],
+      rows: [...krajMap.values()].map(k => [k.nazev, ...years.map(y => (k.vals[y] != null ? fmt(k.vals[y]) : '–'))]),
+      note: d.metric_label || null,
+    };
+  }
+
+  // 5. Národní časová řada nebo řez rozpadovou kostkou — rok → hodnota
+  if (Array.isArray(d.data) && d.data.length) {
+    return {
+      headers: ['Rok', d.metric_label || 'Hodnota'],
+      rows: d.data.map(r => [String(r.year), fmt(r.value)]),
+      note: d.kind === 'cube' ? 'Aktuální výřez kostky (viz název výše)' : null,
+    };
+  }
+
+  return null;
+}
+
+// Datový podklad pro analýzu — pro každý vybraný dataset prostá tabulka všech čísel,
+// bez výkladu. Zrcadlí „Datovou přílohu" v docx.
+function DataAppendix({ datasets }) {
+  const tables = datasets.map(d => ({ d, table: datasetTable(d) })).filter(x => x.table);
+  if (!tables.length) return null;
+  return (
+    <>
+      <h3 className="serif" style={{ fontSize: 20, marginBottom: 4 }}>Datový podklad</h3>
+      <div style={{ fontSize: 13, color: '#666', marginBottom: 16 }}>
+        Holá čísla bez výkladu — tak, jak je dodal zdroj. Podklad, ze kterého si uděláš vlastní obrázek.
+      </div>
+      <div style={{ display: 'grid', gap: 20, marginBottom: 24 }}>
+        {tables.map(({ d, table }) => (
+          <div key={d.id} style={{ padding: 16, background: '#FFFFFF', border: '1px solid #E0D6EA', borderRadius: 12 }}>
+            <div className="serif" style={{ fontSize: 16, fontWeight: 600, marginBottom: 2 }}>{d.human_name || d.label}</div>
+            {table.note && <div style={{ fontSize: 12, color: '#888', marginBottom: 8 }}>{table.note}</div>}
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ borderCollapse: 'collapse', fontSize: 13, minWidth: '100%' }}>
+                <thead>
+                  <tr>
+                    {table.headers.map((h, i) => (
+                      <th key={i} style={{
+                        textAlign: i === 0 ? 'left' : 'right', padding: '5px 10px',
+                        borderBottom: '2px solid #702082', color: '#702082', fontWeight: 700, whiteSpace: 'nowrap',
+                      }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {table.rows.map((row, ri) => (
+                    <tr key={ri} style={{ background: ri % 2 ? '#F8F5FB' : '#FFFFFF' }}>
+                      {row.map((c, ci) => (
+                        <td key={ci} className={ci === 0 ? '' : 'num'} style={{
+                          textAlign: ci === 0 ? 'left' : 'right', padding: '3px 10px', whiteSpace: 'nowrap', color: '#333',
+                        }}>{c}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div style={{ fontSize: 11, color: '#888', marginTop: 8 }}>
+              Zdroj: {d.source_url
+                ? <a href={d.source_url} target="_blank" rel="noopener noreferrer" style={{ color: '#702082' }}>{d.source || d.source_url}</a>
+                : (d.source || 'ÚZIS ČR')}
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
 // Najde dataset podle id v seznamu — prompt instruuje AI vracet id v poli `dataset`,
 // fallback na human_name/label pro robustnost, kdyby AI instrukci nedodržela.
 function findDatasetById(idOrName, datasets) {
@@ -2131,6 +2278,8 @@ function AnalysisView({ analysis, datasets, onRerun }) {
           </div>
         </>
       )}
+
+      <DataAppendix datasets={datasets} />
 
       <button
         onClick={onRerun}
